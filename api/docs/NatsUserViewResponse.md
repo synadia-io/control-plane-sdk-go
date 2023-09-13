@@ -1,0 +1,308 @@
+# NatsUserViewResponse
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Account** | [**AccountInfo**](AccountInfo.md) |  | 
+**Claims** | [**UserClaims**](UserClaims.md) |  | 
+**Created** | **time.Time** |  | 
+**Id** | **string** |  | 
+**Jwt** | **string** |  | 
+**JwtExpiresAtMax** | **int64** |  | 
+**JwtExpiresInSecs** | **int64** |  | 
+**Name** | **string** |  | 
+**Revoked** | **bool** |  | 
+**SkGroupId** | Pointer to **string** |  | [optional] 
+**System** | [**SystemInfo**](SystemInfo.md) |  | 
+**Team** | [**TeamInfo**](TeamInfo.md) |  | 
+**UserPublicKey** | **string** |  | 
+
+## Methods
+
+### NewNatsUserViewResponse
+
+`func NewNatsUserViewResponse(account AccountInfo, claims UserClaims, created time.Time, id string, jwt string, jwtExpiresAtMax int64, jwtExpiresInSecs int64, name string, revoked bool, system SystemInfo, team TeamInfo, userPublicKey string, ) *NatsUserViewResponse`
+
+NewNatsUserViewResponse instantiates a new NatsUserViewResponse object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewNatsUserViewResponseWithDefaults
+
+`func NewNatsUserViewResponseWithDefaults() *NatsUserViewResponse`
+
+NewNatsUserViewResponseWithDefaults instantiates a new NatsUserViewResponse object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetAccount
+
+`func (o *NatsUserViewResponse) GetAccount() AccountInfo`
+
+GetAccount returns the Account field if non-nil, zero value otherwise.
+
+### GetAccountOk
+
+`func (o *NatsUserViewResponse) GetAccountOk() (*AccountInfo, bool)`
+
+GetAccountOk returns a tuple with the Account field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccount
+
+`func (o *NatsUserViewResponse) SetAccount(v AccountInfo)`
+
+SetAccount sets Account field to given value.
+
+
+### GetClaims
+
+`func (o *NatsUserViewResponse) GetClaims() UserClaims`
+
+GetClaims returns the Claims field if non-nil, zero value otherwise.
+
+### GetClaimsOk
+
+`func (o *NatsUserViewResponse) GetClaimsOk() (*UserClaims, bool)`
+
+GetClaimsOk returns a tuple with the Claims field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClaims
+
+`func (o *NatsUserViewResponse) SetClaims(v UserClaims)`
+
+SetClaims sets Claims field to given value.
+
+
+### GetCreated
+
+`func (o *NatsUserViewResponse) GetCreated() time.Time`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *NatsUserViewResponse) GetCreatedOk() (*time.Time, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *NatsUserViewResponse) SetCreated(v time.Time)`
+
+SetCreated sets Created field to given value.
+
+
+### GetId
+
+`func (o *NatsUserViewResponse) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *NatsUserViewResponse) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *NatsUserViewResponse) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetJwt
+
+`func (o *NatsUserViewResponse) GetJwt() string`
+
+GetJwt returns the Jwt field if non-nil, zero value otherwise.
+
+### GetJwtOk
+
+`func (o *NatsUserViewResponse) GetJwtOk() (*string, bool)`
+
+GetJwtOk returns a tuple with the Jwt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJwt
+
+`func (o *NatsUserViewResponse) SetJwt(v string)`
+
+SetJwt sets Jwt field to given value.
+
+
+### GetJwtExpiresAtMax
+
+`func (o *NatsUserViewResponse) GetJwtExpiresAtMax() int64`
+
+GetJwtExpiresAtMax returns the JwtExpiresAtMax field if non-nil, zero value otherwise.
+
+### GetJwtExpiresAtMaxOk
+
+`func (o *NatsUserViewResponse) GetJwtExpiresAtMaxOk() (*int64, bool)`
+
+GetJwtExpiresAtMaxOk returns a tuple with the JwtExpiresAtMax field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJwtExpiresAtMax
+
+`func (o *NatsUserViewResponse) SetJwtExpiresAtMax(v int64)`
+
+SetJwtExpiresAtMax sets JwtExpiresAtMax field to given value.
+
+
+### GetJwtExpiresInSecs
+
+`func (o *NatsUserViewResponse) GetJwtExpiresInSecs() int64`
+
+GetJwtExpiresInSecs returns the JwtExpiresInSecs field if non-nil, zero value otherwise.
+
+### GetJwtExpiresInSecsOk
+
+`func (o *NatsUserViewResponse) GetJwtExpiresInSecsOk() (*int64, bool)`
+
+GetJwtExpiresInSecsOk returns a tuple with the JwtExpiresInSecs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJwtExpiresInSecs
+
+`func (o *NatsUserViewResponse) SetJwtExpiresInSecs(v int64)`
+
+SetJwtExpiresInSecs sets JwtExpiresInSecs field to given value.
+
+
+### GetName
+
+`func (o *NatsUserViewResponse) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *NatsUserViewResponse) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *NatsUserViewResponse) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
+### GetRevoked
+
+`func (o *NatsUserViewResponse) GetRevoked() bool`
+
+GetRevoked returns the Revoked field if non-nil, zero value otherwise.
+
+### GetRevokedOk
+
+`func (o *NatsUserViewResponse) GetRevokedOk() (*bool, bool)`
+
+GetRevokedOk returns a tuple with the Revoked field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRevoked
+
+`func (o *NatsUserViewResponse) SetRevoked(v bool)`
+
+SetRevoked sets Revoked field to given value.
+
+
+### GetSkGroupId
+
+`func (o *NatsUserViewResponse) GetSkGroupId() string`
+
+GetSkGroupId returns the SkGroupId field if non-nil, zero value otherwise.
+
+### GetSkGroupIdOk
+
+`func (o *NatsUserViewResponse) GetSkGroupIdOk() (*string, bool)`
+
+GetSkGroupIdOk returns a tuple with the SkGroupId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSkGroupId
+
+`func (o *NatsUserViewResponse) SetSkGroupId(v string)`
+
+SetSkGroupId sets SkGroupId field to given value.
+
+### HasSkGroupId
+
+`func (o *NatsUserViewResponse) HasSkGroupId() bool`
+
+HasSkGroupId returns a boolean if a field has been set.
+
+### GetSystem
+
+`func (o *NatsUserViewResponse) GetSystem() SystemInfo`
+
+GetSystem returns the System field if non-nil, zero value otherwise.
+
+### GetSystemOk
+
+`func (o *NatsUserViewResponse) GetSystemOk() (*SystemInfo, bool)`
+
+GetSystemOk returns a tuple with the System field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSystem
+
+`func (o *NatsUserViewResponse) SetSystem(v SystemInfo)`
+
+SetSystem sets System field to given value.
+
+
+### GetTeam
+
+`func (o *NatsUserViewResponse) GetTeam() TeamInfo`
+
+GetTeam returns the Team field if non-nil, zero value otherwise.
+
+### GetTeamOk
+
+`func (o *NatsUserViewResponse) GetTeamOk() (*TeamInfo, bool)`
+
+GetTeamOk returns a tuple with the Team field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeam
+
+`func (o *NatsUserViewResponse) SetTeam(v TeamInfo)`
+
+SetTeam sets Team field to given value.
+
+
+### GetUserPublicKey
+
+`func (o *NatsUserViewResponse) GetUserPublicKey() string`
+
+GetUserPublicKey returns the UserPublicKey field if non-nil, zero value otherwise.
+
+### GetUserPublicKeyOk
+
+`func (o *NatsUserViewResponse) GetUserPublicKeyOk() (*string, bool)`
+
+GetUserPublicKeyOk returns a tuple with the UserPublicKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserPublicKey
+
+`func (o *NatsUserViewResponse) SetUserPublicKey(v string)`
+
+SetUserPublicKey sets UserPublicKey field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
