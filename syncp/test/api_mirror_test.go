@@ -17,7 +17,7 @@ import (
 	"testing"
 )
 
-func Test_api_MirrorAPIService(t *testing.T) {
+func Test_syncp_MirrorAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -17,7 +17,7 @@ import (
 	"testing"
 )
 
-func Test_api_KvBucketAPIService(t *testing.T) {
+func Test_syncp_KvBucketAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

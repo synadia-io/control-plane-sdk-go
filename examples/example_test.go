@@ -7,34 +7,34 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	scp "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"github.com/synadia-io/control-plane-sdk-go/syncp"
 )
 
 type mockSystemApi struct {
-	*scp.SystemAPIService
-	accountList *scp.AccountListResponse
+	*syncp.SystemAPIService
+	accountList *syncp.AccountListResponse
 	resp        *http.Response
 	err         error
 }
 
-func (a *mockSystemApi) ListAccountsExecute(r scp.ApiListAccountsRequest) (*scp.AccountListResponse, *http.Response, error) {
+func (a *mockSystemApi) ListAccountsExecute(r syncp.ApiListAccountsRequest) (*syncp.AccountListResponse, *http.Response, error) {
 	return a.accountList, a.resp, a.err
 }
 
-func (a *mockSystemApi) ListAccounts(ctx context.Context, systemId string) scp.ApiListAccountsRequest {
-	return scp.ApiListAccountsRequest{
+func (a *mockSystemApi) ListAccounts(ctx context.Context, systemId string) syncp.ApiListAccountsRequest {
+	return syncp.ApiListAccountsRequest{
 		ApiService: a,
 	}
 }
 
 func TestExample(t *testing.T) {
-	client := scp.NewAPIClient(scp.NewConfiguration())
-	ctx := context.WithValue(context.Background(), scp.ContextServerVariables, map[string]string{
+	client := syncp.NewAPIClient(syncp.NewConfiguration())
+	ctx := context.WithValue(context.Background(), syncp.ContextServerVariables, map[string]string{
 		"baseUrl": "http://test.url",
 	})
-	ctx = context.WithValue(ctx, scp.ContextAccessToken, "test_bearer_token")
+	ctx = context.WithValue(ctx, syncp.ContextAccessToken, "test_bearer_token")
 	client.SystemAPI = &mockSystemApi{
-		accountList: scp.NewAccountListResponse([]scp.AccountViewResponse{
+		accountList: syncp.NewAccountListResponse([]syncp.AccountViewResponse{
 			{
 				Id:   "testid1",
 				Name: "test account",

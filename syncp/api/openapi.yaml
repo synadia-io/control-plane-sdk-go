@@ -1,5 +1,6 @@
 openapi: 3.0.0
 info:
+  description: API for Synadia Control Plane Server
   title: Synadia Control Plane
   version: beta
 servers:
