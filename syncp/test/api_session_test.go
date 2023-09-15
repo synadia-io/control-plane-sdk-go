@@ -17,7 +17,7 @@ import (
 	"testing"
 )
 
-func Test_api_SessionAPIService(t *testing.T) {
+func Test_syncp_SessionAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
