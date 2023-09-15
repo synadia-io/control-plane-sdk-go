@@ -1,16 +1,8 @@
-Synadia Control Plane Api Client
---------------------------------
+# Synadia Control Plane Go SDK
 
-Api client for Synadia Control Plane generated from open api spec using https://github.com/OpenAPITools/openapi-generator.
+API Client for Synadia Control Plane generated from OpenAPI Spec using [https://github.com/OpenAPITools/openapi-generator](openapi-generator).
 
-# Usage
-
-See [examples/](examples).
-
-# Client Api Documentation
-
-See [syncp/README.md](syncp/README.md)
-
-# Api Spec
-
-See [syncp/api/openapi.yaml](syncp/api/openapi.yaml)
+- [GoDoc](https://pkg.go.dev/github.com/synadia-io/control-plane-sdk-go/syncp)
+- [Usage Examples](examples/)
+- [Client API Documentation](syncp/README.md)
+- [OpenAPI Spec](syncp/api/openapi.yaml)
