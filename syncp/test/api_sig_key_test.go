@@ -11,19 +11,19 @@ package syncp
 
 import (
 	"context"
-	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
+
+	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
 )
 
 func Test_syncp_SigKeyAPIService(t *testing.T) {
-
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test SigKeyAPIService DeleteAccountSk", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var keyId string
@@ -32,11 +32,9 @@ func Test_syncp_SigKeyAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SigKeyAPIService GetAccountSk", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var keyId string
@@ -46,11 +44,9 @@ func Test_syncp_SigKeyAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SigKeyAPIService UpdateAccountSk", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var keyId string
@@ -60,7 +56,5 @@ func Test_syncp_SigKeyAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
-
 }

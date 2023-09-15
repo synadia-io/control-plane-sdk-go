@@ -11,19 +11,19 @@ package syncp
 
 import (
 	"context"
-	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
+
+	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
 )
 
 func Test_syncp_AuthzAPIService(t *testing.T) {
-
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test AuthzAPIService Check", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthzAPI.Check(context.Background()).Execute()
@@ -31,11 +31,9 @@ func Test_syncp_AuthzAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test AuthzAPIService ListPolicies", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthzAPI.ListPolicies(context.Background()).Execute()
@@ -43,11 +41,9 @@ func Test_syncp_AuthzAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test AuthzAPIService ListRoles", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.AuthzAPI.ListRoles(context.Background()).Execute()
@@ -55,7 +51,5 @@ func Test_syncp_AuthzAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
-
 }

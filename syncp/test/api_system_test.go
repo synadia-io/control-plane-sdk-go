@@ -11,19 +11,19 @@ package syncp
 
 import (
 	"context"
-	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
+
+	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
 )
 
 func Test_syncp_SystemAPIService(t *testing.T) {
-
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test SystemAPIService AssignSystemAppUser", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -34,11 +34,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService CreateAccount", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -48,11 +46,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService CreateSystemAlertRule", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -62,11 +58,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService DeleteSystem", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -75,11 +69,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService DeleteSystemAlertRule", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -89,11 +81,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService GetCurrentAgentToken", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -103,11 +93,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService GetSystem", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -117,11 +105,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService GetSystemAlertRule", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -132,11 +118,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService ImportAccount", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -145,11 +129,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService ImportUser", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -159,11 +141,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService ListAccounts", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -173,11 +153,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService ListAgentTokens", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -187,11 +165,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService ListClusters", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -201,11 +177,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService ListConnections", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -215,11 +189,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService ListServers", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -229,11 +201,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService ListSystemAlertRules", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -243,11 +213,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService ListSystemAppUsers", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -257,11 +225,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService RotateAgentToken", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -271,11 +237,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService RunSystemAlertRule", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -286,11 +250,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService UnAssignSystemAppUser", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -300,11 +262,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService UpdateSystem", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -314,11 +274,9 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
 
 	t.Run("Test SystemAPIService UpdateSystemAlertRule", func(t *testing.T) {
-
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -329,7 +287,5 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
-
 	})
-
 }
