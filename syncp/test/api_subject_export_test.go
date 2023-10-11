@@ -11,19 +11,19 @@ package syncp
 
 import (
 	"context"
-	"testing"
-
+	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"testing"
 )
 
-func Test_syncp_SubjectExportAPIService(t *testing.T) {
+func Test_api_SubjectExportAPIService(t *testing.T) {
+
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test SubjectExportAPIService CreateSubjectShares", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var subjectExportId string
@@ -33,9 +33,11 @@ func Test_syncp_SubjectExportAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SubjectExportAPIService DeleteSubjectExport", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var subjectExportId string
@@ -44,9 +46,11 @@ func Test_syncp_SubjectExportAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SubjectExportAPIService DeleteSubjectShare", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var subjectExportId string
@@ -56,9 +60,11 @@ func Test_syncp_SubjectExportAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SubjectExportAPIService GetSubjectExport", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var subjectExportId string
@@ -68,9 +74,11 @@ func Test_syncp_SubjectExportAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SubjectExportAPIService ListSubjectShares", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var subjectExportId string
@@ -80,9 +88,11 @@ func Test_syncp_SubjectExportAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SubjectExportAPIService UpdateSubjectExport", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var subjectExportId string
@@ -92,5 +102,7 @@ func Test_syncp_SubjectExportAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
+
 }

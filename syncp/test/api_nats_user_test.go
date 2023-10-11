@@ -11,19 +11,19 @@ package syncp
 
 import (
 	"context"
-	"testing"
-
+	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"testing"
 )
 
-func Test_syncp_NatsUserAPIService(t *testing.T) {
+func Test_api_NatsUserAPIService(t *testing.T) {
+
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test NatsUserAPIService AssignNatsUserAppUser", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var userId string
@@ -34,9 +34,11 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test NatsUserAPIService DeleteNatsUser", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var userId string
@@ -45,9 +47,11 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test NatsUserAPIService DownloadNatsUserCreds", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var userId string
@@ -57,9 +61,11 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test NatsUserAPIService GetNatsUser", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var userId string
@@ -69,9 +75,11 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test NatsUserAPIService ListNatsUserAppUsers", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var userId string
@@ -81,9 +89,11 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test NatsUserAPIService ListNatsUserConnections", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var userId string
@@ -93,9 +103,11 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test NatsUserAPIService UnAssignNatsUserAppUser", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var userId string
@@ -105,9 +117,11 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test NatsUserAPIService UpdateNatsUser", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var userId string
@@ -117,5 +131,7 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
+
 }

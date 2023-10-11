@@ -11,19 +11,19 @@ package syncp
 
 import (
 	"context"
-	"testing"
-
+	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"testing"
 )
 
-func Test_syncp_AgentTokenAPIService(t *testing.T) {
+func Test_api_AgentTokenAPIService(t *testing.T) {
+
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test AgentTokenAPIService DeleteAgentToken", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var tokenId string
@@ -32,5 +32,7 @@ func Test_syncp_AgentTokenAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
+
 }

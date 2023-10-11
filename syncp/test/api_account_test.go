@@ -11,19 +11,19 @@ package syncp
 
 import (
 	"context"
-	"testing"
-
+	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"testing"
 )
 
-func Test_syncp_AccountAPIService(t *testing.T) {
+func Test_api_AccountAPIService(t *testing.T) {
+
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test AccountAPIService AssignAccountAppUser", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -34,9 +34,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateAccountSkGroup", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -46,9 +48,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateAlertRule", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -58,9 +62,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateKvBucket", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -70,9 +76,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateMirror", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -82,9 +90,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateStream", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -94,9 +104,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateStreamExport", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -106,9 +118,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateStreamImport", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -118,9 +132,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateSubjectExport", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -130,9 +146,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateSubjectImport", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -142,9 +160,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService CreateUser", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -154,9 +174,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService DeleteAccount", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -165,9 +187,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService DeleteAlertRule", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -177,9 +201,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService GetAccount", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -189,9 +215,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService GetAccountInfo", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -201,9 +229,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService GetAccountMetrics", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -213,9 +243,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService GetAlertRule", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -226,9 +258,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListAccountAppUsers", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -238,9 +272,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListAccountConnections", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -250,9 +286,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListAccountSkGroup", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -262,9 +300,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListAlertRules", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -274,9 +314,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListJetStreamAssets", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -286,9 +328,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListKvBuckets", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -298,9 +342,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListMirrors", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -310,9 +356,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListStreamExports", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -322,9 +370,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListStreamExportsShared", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -334,9 +384,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListStreamImports", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -346,9 +398,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListStreams", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -358,9 +412,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListSubjectExports", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -370,9 +426,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListSubjectExportsShared", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -382,9 +440,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListSubjectImports", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -394,9 +454,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService ListUsers", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -406,9 +468,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService RunAlertRule", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -419,9 +483,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService UnAssignAccountAppUser", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -431,9 +497,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService UpdateAccount", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -443,9 +511,11 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test AccountAPIService UpdateAlertRule", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
@@ -456,5 +526,7 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
+
 }

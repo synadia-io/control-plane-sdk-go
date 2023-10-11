@@ -11,19 +11,19 @@ package syncp
 
 import (
 	"context"
-	"testing"
-
+	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"testing"
 )
 
-func Test_syncp_MirrorAPIService(t *testing.T) {
+func Test_api_MirrorAPIService(t *testing.T) {
+
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test MirrorAPIService CreateMirrorPullConsumer", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var streamId string
@@ -33,9 +33,11 @@ func Test_syncp_MirrorAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test MirrorAPIService CreateMirrorPushConsumer", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var streamId string
@@ -45,9 +47,11 @@ func Test_syncp_MirrorAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test MirrorAPIService DeleteMirror", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var streamId string
@@ -56,9 +60,11 @@ func Test_syncp_MirrorAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test MirrorAPIService GetMirror", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var streamId string
@@ -68,9 +74,11 @@ func Test_syncp_MirrorAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test MirrorAPIService ListMirrorConsumers", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var streamId string
@@ -80,9 +88,11 @@ func Test_syncp_MirrorAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test MirrorAPIService UpdateMirror", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var streamId string
@@ -92,5 +102,7 @@ func Test_syncp_MirrorAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
+
 }

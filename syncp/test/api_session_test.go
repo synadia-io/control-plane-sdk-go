@@ -11,19 +11,19 @@ package syncp
 
 import (
 	"context"
-	"testing"
-
+	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+	"testing"
 )
 
-func Test_syncp_SessionAPIService(t *testing.T) {
+func Test_api_SessionAPIService(t *testing.T) {
+
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
 	t.Run("Test SessionAPIService CreateAppUser", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.CreateAppUser(context.Background()).Execute()
@@ -31,9 +31,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService CreatePersonalAccessToken", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.CreatePersonalAccessToken(context.Background()).Execute()
@@ -41,9 +43,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService CreateSystem", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.CreateSystem(context.Background()).Execute()
@@ -51,9 +55,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService GetVersion", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.GetVersion(context.Background()).Execute()
@@ -61,9 +67,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService ImportSystem", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ImportSystem(context.Background()).Execute()
@@ -71,9 +79,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService ListAlerts", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ListAlerts(context.Background()).Execute()
@@ -81,9 +91,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService ListAppUsers", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ListAppUsers(context.Background()).Execute()
@@ -91,9 +103,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService ListPersonalAccessTokens", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ListPersonalAccessTokens(context.Background()).Execute()
@@ -101,9 +115,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService ListSessionAccounts", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ListSessionAccounts(context.Background()).Execute()
@@ -111,9 +127,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService ListSessionNatsUsers", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ListSessionNatsUsers(context.Background()).Execute()
@@ -121,9 +139,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService ListSystems", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ListSystems(context.Background()).Execute()
@@ -131,9 +151,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService SearchAppUsers", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.SearchAppUsers(context.Background()).Execute()
@@ -141,9 +163,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService SearchSystemAccounts", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -153,9 +177,11 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
 
 	t.Run("Test SessionAPIService SearchSystemServers", func(t *testing.T) {
+
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
@@ -165,5 +191,7 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
+
 	})
+
 }
