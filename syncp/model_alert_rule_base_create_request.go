@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AlertRuleBaseCreateRequest type satisfies the MappedNullable interface at compile time
@@ -27,6 +28,8 @@ type AlertRuleBaseCreateRequest struct {
 	ThresholdFixedValue NullableFloat32   `json:"threshold_fixed_value,omitempty"`
 	ThresholdOperator   AlertRuleOperator `json:"threshold_operator"`
 }
+
+type _AlertRuleBaseCreateRequest AlertRuleBaseCreateRequest
 
 // NewAlertRuleBaseCreateRequest instantiates a new AlertRuleBaseCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -278,6 +281,45 @@ func (o AlertRuleBaseCreateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["threshold_operator"] = o.ThresholdOperator
 	return toSerialize, nil
+}
+
+func (o *AlertRuleBaseCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"duration_in_secs",
+		"message",
+		"metric",
+		"severity",
+		"threshold_operator",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAlertRuleBaseCreateRequest := _AlertRuleBaseCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varAlertRuleBaseCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AlertRuleBaseCreateRequest(varAlertRuleBaseCreateRequest)
+
+	return err
 }
 
 type NullableAlertRuleBaseCreateRequest struct {

@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Config** | Pointer to [**JSStreamConfigRequest**](JSStreamConfigRequest.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
 **Alternates** | Pointer to [**[]StreamAlternate**](StreamAlternate.md) |  | [optional] 
 **Cluster** | Pointer to [**ClusterInfo**](ClusterInfo.md) |  | [optional] 
 **Created** | **time.Time** |  | 
 **Sources** | Pointer to [**[]StreamSourceInfo**](StreamSourceInfo.md) |  | [optional] 
 **State** | [**StreamState**](StreamState.md) |  | 
+**Config** | [**JSStreamConfigRequest**](JSStreamConfigRequest.md) |  | 
+**Id** | **string** |  | 
 
 ## Methods
 
 ### NewJSStreamInfoResponse
 
-`func NewJSStreamInfoResponse(created time.Time, state StreamState, ) *JSStreamInfoResponse`
+`func NewJSStreamInfoResponse(created time.Time, state StreamState, config JSStreamConfigRequest, id string, ) *JSStreamInfoResponse`
 
 NewJSStreamInfoResponse instantiates a new JSStreamInfoResponse object
 This constructor will assign default values to properties that have it defined,
@@ -30,56 +30,6 @@ will change when the set of required properties is changed
 NewJSStreamInfoResponseWithDefaults instantiates a new JSStreamInfoResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetConfig
-
-`func (o *JSStreamInfoResponse) GetConfig() JSStreamConfigRequest`
-
-GetConfig returns the Config field if non-nil, zero value otherwise.
-
-### GetConfigOk
-
-`func (o *JSStreamInfoResponse) GetConfigOk() (*JSStreamConfigRequest, bool)`
-
-GetConfigOk returns a tuple with the Config field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetConfig
-
-`func (o *JSStreamInfoResponse) SetConfig(v JSStreamConfigRequest)`
-
-SetConfig sets Config field to given value.
-
-### HasConfig
-
-`func (o *JSStreamInfoResponse) HasConfig() bool`
-
-HasConfig returns a boolean if a field has been set.
-
-### GetId
-
-`func (o *JSStreamInfoResponse) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *JSStreamInfoResponse) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *JSStreamInfoResponse) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *JSStreamInfoResponse) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetAlternates
 
@@ -194,6 +144,46 @@ and a boolean to check if the value has been set.
 `func (o *JSStreamInfoResponse) SetState(v StreamState)`
 
 SetState sets State field to given value.
+
+
+### GetConfig
+
+`func (o *JSStreamInfoResponse) GetConfig() JSStreamConfigRequest`
+
+GetConfig returns the Config field if non-nil, zero value otherwise.
+
+### GetConfigOk
+
+`func (o *JSStreamInfoResponse) GetConfigOk() (*JSStreamConfigRequest, bool)`
+
+GetConfigOk returns a tuple with the Config field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfig
+
+`func (o *JSStreamInfoResponse) SetConfig(v JSStreamConfigRequest)`
+
+SetConfig sets Config field to given value.
+
+
+### GetId
+
+`func (o *JSStreamInfoResponse) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *JSStreamInfoResponse) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *JSStreamInfoResponse) SetId(v string)`
+
+SetId sets Id field to given value.
 
 
 

@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the StreamStateLost type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type StreamStateLost struct {
 	// Message IDs of lost messages
 	Msgs []int32 `json:"msgs"`
 }
+
+type _StreamStateLost StreamStateLost
 
 // NewStreamStateLost instantiates a new StreamStateLost object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +108,42 @@ func (o StreamStateLost) ToMap() (map[string]interface{}, error) {
 	toSerialize["bytes"] = o.Bytes
 	toSerialize["msgs"] = o.Msgs
 	return toSerialize, nil
+}
+
+func (o *StreamStateLost) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"bytes",
+		"msgs",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStreamStateLost := _StreamStateLost{}
+
+	err = json.Unmarshal(bytes, &varStreamStateLost)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StreamStateLost(varStreamStateLost)
+
+	return err
 }
 
 type NullableStreamStateLost struct {

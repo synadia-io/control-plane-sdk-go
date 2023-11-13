@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AlertRuleAccountCreateRequest type satisfies the MappedNullable interface at compile time
@@ -19,9 +20,6 @@ var _ MappedNullable = &AlertRuleAccountCreateRequest{}
 
 // AlertRuleAccountCreateRequest struct for AlertRuleAccountCreateRequest
 type AlertRuleAccountCreateRequest struct {
-	ConsumerName        NullableString    `json:"consumer_name,omitempty"`
-	RuleType            *string           `json:"rule_type,omitempty"`
-	StreamName          NullableString    `json:"stream_name,omitempty"`
 	DurationInSecs      int32             `json:"duration_in_secs"`
 	Message             string            `json:"message"`
 	Metric              string            `json:"metric"`
@@ -29,19 +27,25 @@ type AlertRuleAccountCreateRequest struct {
 	ThresholdExpression NullableString    `json:"threshold_expression,omitempty"`
 	ThresholdFixedValue NullableFloat32   `json:"threshold_fixed_value,omitempty"`
 	ThresholdOperator   AlertRuleOperator `json:"threshold_operator"`
+	ConsumerName        NullableString    `json:"consumer_name,omitempty"`
+	RuleType            string            `json:"rule_type"`
+	StreamName          NullableString    `json:"stream_name,omitempty"`
 }
+
+type _AlertRuleAccountCreateRequest AlertRuleAccountCreateRequest
 
 // NewAlertRuleAccountCreateRequest instantiates a new AlertRuleAccountCreateRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAlertRuleAccountCreateRequest(durationInSecs int32, message string, metric string, severity AlertRuleSeverity, thresholdOperator AlertRuleOperator) *AlertRuleAccountCreateRequest {
+func NewAlertRuleAccountCreateRequest(durationInSecs int32, message string, metric string, severity AlertRuleSeverity, thresholdOperator AlertRuleOperator, ruleType string) *AlertRuleAccountCreateRequest {
 	this := AlertRuleAccountCreateRequest{}
 	this.DurationInSecs = durationInSecs
 	this.Message = message
 	this.Metric = metric
 	this.Severity = severity
 	this.ThresholdOperator = thresholdOperator
+	this.RuleType = ruleType
 	return &this
 }
 
@@ -51,124 +55,6 @@ func NewAlertRuleAccountCreateRequest(durationInSecs int32, message string, metr
 func NewAlertRuleAccountCreateRequestWithDefaults() *AlertRuleAccountCreateRequest {
 	this := AlertRuleAccountCreateRequest{}
 	return &this
-}
-
-// GetConsumerName returns the ConsumerName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AlertRuleAccountCreateRequest) GetConsumerName() string {
-	if o == nil || IsNil(o.ConsumerName.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.ConsumerName.Get()
-}
-
-// GetConsumerNameOk returns a tuple with the ConsumerName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AlertRuleAccountCreateRequest) GetConsumerNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ConsumerName.Get(), o.ConsumerName.IsSet()
-}
-
-// HasConsumerName returns a boolean if a field has been set.
-func (o *AlertRuleAccountCreateRequest) HasConsumerName() bool {
-	if o != nil && o.ConsumerName.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetConsumerName gets a reference to the given NullableString and assigns it to the ConsumerName field.
-func (o *AlertRuleAccountCreateRequest) SetConsumerName(v string) {
-	o.ConsumerName.Set(&v)
-}
-
-// SetConsumerNameNil sets the value for ConsumerName to be an explicit nil
-func (o *AlertRuleAccountCreateRequest) SetConsumerNameNil() {
-	o.ConsumerName.Set(nil)
-}
-
-// UnsetConsumerName ensures that no value is present for ConsumerName, not even an explicit nil
-func (o *AlertRuleAccountCreateRequest) UnsetConsumerName() {
-	o.ConsumerName.Unset()
-}
-
-// GetRuleType returns the RuleType field value if set, zero value otherwise.
-func (o *AlertRuleAccountCreateRequest) GetRuleType() string {
-	if o == nil || IsNil(o.RuleType) {
-		var ret string
-		return ret
-	}
-	return *o.RuleType
-}
-
-// GetRuleTypeOk returns a tuple with the RuleType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AlertRuleAccountCreateRequest) GetRuleTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.RuleType) {
-		return nil, false
-	}
-	return o.RuleType, true
-}
-
-// HasRuleType returns a boolean if a field has been set.
-func (o *AlertRuleAccountCreateRequest) HasRuleType() bool {
-	if o != nil && !IsNil(o.RuleType) {
-		return true
-	}
-
-	return false
-}
-
-// SetRuleType gets a reference to the given string and assigns it to the RuleType field.
-func (o *AlertRuleAccountCreateRequest) SetRuleType(v string) {
-	o.RuleType = &v
-}
-
-// GetStreamName returns the StreamName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AlertRuleAccountCreateRequest) GetStreamName() string {
-	if o == nil || IsNil(o.StreamName.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.StreamName.Get()
-}
-
-// GetStreamNameOk returns a tuple with the StreamName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AlertRuleAccountCreateRequest) GetStreamNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.StreamName.Get(), o.StreamName.IsSet()
-}
-
-// HasStreamName returns a boolean if a field has been set.
-func (o *AlertRuleAccountCreateRequest) HasStreamName() bool {
-	if o != nil && o.StreamName.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetStreamName gets a reference to the given NullableString and assigns it to the StreamName field.
-func (o *AlertRuleAccountCreateRequest) SetStreamName(v string) {
-	o.StreamName.Set(&v)
-}
-
-// SetStreamNameNil sets the value for StreamName to be an explicit nil
-func (o *AlertRuleAccountCreateRequest) SetStreamNameNil() {
-	o.StreamName.Set(nil)
-}
-
-// UnsetStreamName ensures that no value is present for StreamName, not even an explicit nil
-func (o *AlertRuleAccountCreateRequest) UnsetStreamName() {
-	o.StreamName.Unset()
 }
 
 // GetDurationInSecs returns the DurationInSecs field value
@@ -377,6 +263,116 @@ func (o *AlertRuleAccountCreateRequest) SetThresholdOperator(v AlertRuleOperator
 	o.ThresholdOperator = v
 }
 
+// GetConsumerName returns the ConsumerName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AlertRuleAccountCreateRequest) GetConsumerName() string {
+	if o == nil || IsNil(o.ConsumerName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ConsumerName.Get()
+}
+
+// GetConsumerNameOk returns a tuple with the ConsumerName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AlertRuleAccountCreateRequest) GetConsumerNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ConsumerName.Get(), o.ConsumerName.IsSet()
+}
+
+// HasConsumerName returns a boolean if a field has been set.
+func (o *AlertRuleAccountCreateRequest) HasConsumerName() bool {
+	if o != nil && o.ConsumerName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetConsumerName gets a reference to the given NullableString and assigns it to the ConsumerName field.
+func (o *AlertRuleAccountCreateRequest) SetConsumerName(v string) {
+	o.ConsumerName.Set(&v)
+}
+
+// SetConsumerNameNil sets the value for ConsumerName to be an explicit nil
+func (o *AlertRuleAccountCreateRequest) SetConsumerNameNil() {
+	o.ConsumerName.Set(nil)
+}
+
+// UnsetConsumerName ensures that no value is present for ConsumerName, not even an explicit nil
+func (o *AlertRuleAccountCreateRequest) UnsetConsumerName() {
+	o.ConsumerName.Unset()
+}
+
+// GetRuleType returns the RuleType field value
+func (o *AlertRuleAccountCreateRequest) GetRuleType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RuleType
+}
+
+// GetRuleTypeOk returns a tuple with the RuleType field value
+// and a boolean to check if the value has been set.
+func (o *AlertRuleAccountCreateRequest) GetRuleTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RuleType, true
+}
+
+// SetRuleType sets field value
+func (o *AlertRuleAccountCreateRequest) SetRuleType(v string) {
+	o.RuleType = v
+}
+
+// GetStreamName returns the StreamName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AlertRuleAccountCreateRequest) GetStreamName() string {
+	if o == nil || IsNil(o.StreamName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.StreamName.Get()
+}
+
+// GetStreamNameOk returns a tuple with the StreamName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AlertRuleAccountCreateRequest) GetStreamNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.StreamName.Get(), o.StreamName.IsSet()
+}
+
+// HasStreamName returns a boolean if a field has been set.
+func (o *AlertRuleAccountCreateRequest) HasStreamName() bool {
+	if o != nil && o.StreamName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetStreamName gets a reference to the given NullableString and assigns it to the StreamName field.
+func (o *AlertRuleAccountCreateRequest) SetStreamName(v string) {
+	o.StreamName.Set(&v)
+}
+
+// SetStreamNameNil sets the value for StreamName to be an explicit nil
+func (o *AlertRuleAccountCreateRequest) SetStreamNameNil() {
+	o.StreamName.Set(nil)
+}
+
+// UnsetStreamName ensures that no value is present for StreamName, not even an explicit nil
+func (o *AlertRuleAccountCreateRequest) UnsetStreamName() {
+	o.StreamName.Unset()
+}
+
 func (o AlertRuleAccountCreateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -387,15 +383,6 @@ func (o AlertRuleAccountCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o AlertRuleAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ConsumerName.IsSet() {
-		toSerialize["consumer_name"] = o.ConsumerName.Get()
-	}
-	if !IsNil(o.RuleType) {
-		toSerialize["rule_type"] = o.RuleType
-	}
-	if o.StreamName.IsSet() {
-		toSerialize["stream_name"] = o.StreamName.Get()
-	}
 	toSerialize["duration_in_secs"] = o.DurationInSecs
 	toSerialize["message"] = o.Message
 	toSerialize["metric"] = o.Metric
@@ -407,7 +394,54 @@ func (o AlertRuleAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["threshold_fixed_value"] = o.ThresholdFixedValue.Get()
 	}
 	toSerialize["threshold_operator"] = o.ThresholdOperator
+	if o.ConsumerName.IsSet() {
+		toSerialize["consumer_name"] = o.ConsumerName.Get()
+	}
+	toSerialize["rule_type"] = o.RuleType
+	if o.StreamName.IsSet() {
+		toSerialize["stream_name"] = o.StreamName.Get()
+	}
 	return toSerialize, nil
+}
+
+func (o *AlertRuleAccountCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"duration_in_secs",
+		"message",
+		"metric",
+		"severity",
+		"threshold_operator",
+		"rule_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAlertRuleAccountCreateRequest := _AlertRuleAccountCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varAlertRuleAccountCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AlertRuleAccountCreateRequest(varAlertRuleAccountCreateRequest)
+
+	return err
 }
 
 type NullableAlertRuleAccountCreateRequest struct {

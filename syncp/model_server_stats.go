@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -36,6 +37,8 @@ type ServerStats struct {
 	Subscriptions    int32                        `json:"subscriptions"`
 	TotalConnections int32                        `json:"total_connections"`
 }
+
+type _ServerStats ServerStats
 
 // NewServerStats instantiates a new ServerStats object
 // This constructor will assign default values to properties that have it defined,
@@ -502,6 +505,51 @@ func (o ServerStats) ToMap() (map[string]interface{}, error) {
 	toSerialize["subscriptions"] = o.Subscriptions
 	toSerialize["total_connections"] = o.TotalConnections
 	return toSerialize, nil
+}
+
+func (o *ServerStats) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"active_accounts",
+		"connections",
+		"cores",
+		"cpu",
+		"mem",
+		"received",
+		"sent",
+		"slow_consumers",
+		"start",
+		"subscriptions",
+		"total_connections",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerStats := _ServerStats{}
+
+	err = json.Unmarshal(bytes, &varServerStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerStats(varServerStats)
+
+	return err
 }
 
 type NullableServerStats struct {

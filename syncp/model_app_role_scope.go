@@ -21,6 +21,7 @@ type AppRoleScope string
 // List of AppRoleScope
 const (
 	APPROLESCOPE_APP       AppRoleScope = "App"
+	APPROLESCOPE_TEAM      AppRoleScope = "Team"
 	APPROLESCOPE_SYSTEM    AppRoleScope = "System"
 	APPROLESCOPE_ACCOUNT   AppRoleScope = "Account"
 	APPROLESCOPE_NATS_USER AppRoleScope = "NatsUser"
@@ -29,6 +30,7 @@ const (
 // All allowed values of AppRoleScope enum
 var AllowedAppRoleScopeEnumValues = []AppRoleScope{
 	"App",
+	"Team",
 	"System",
 	"Account",
 	"NatsUser",

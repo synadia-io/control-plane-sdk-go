@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ServerStatsRoutesInner type satisfies the MappedNullable interface at compile time
@@ -25,6 +26,8 @@ type ServerStatsRoutesInner struct {
 	Rid      int32     `json:"rid"`
 	Sent     DataStats `json:"sent"`
 }
+
+type _ServerStatsRoutesInner ServerStatsRoutesInner
 
 // NewServerStatsRoutesInner instantiates a new ServerStatsRoutesInner object
 // This constructor will assign default values to properties that have it defined,
@@ -193,6 +196,44 @@ func (o ServerStatsRoutesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize["rid"] = o.Rid
 	toSerialize["sent"] = o.Sent
 	return toSerialize, nil
+}
+
+func (o *ServerStatsRoutesInner) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"pending",
+		"received",
+		"rid",
+		"sent",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerStatsRoutesInner := _ServerStatsRoutesInner{}
+
+	err = json.Unmarshal(bytes, &varServerStatsRoutesInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerStatsRoutesInner(varServerStatsRoutesInner)
+
+	return err
 }
 
 type NullableServerStatsRoutesInner struct {

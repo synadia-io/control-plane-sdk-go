@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**JwtSettings** | [**NullableAccountCreateRequestJwtSettings**](AccountCreateRequestJwtSettings.md) |  | 
+**JwtSettings** | Pointer to [**AccountJWTSettings**](AccountJWTSettings.md) |  | [optional] 
 **Name** | **string** |  | 
 **UserJwtExpiresInSecs** | Pointer to **int64** |  | [optional] 
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewAccountCreateRequest
 
-`func NewAccountCreateRequest(jwtSettings NullableAccountCreateRequestJwtSettings, name string, ) *AccountCreateRequest`
+`func NewAccountCreateRequest(name string, ) *AccountCreateRequest`
 
 NewAccountCreateRequest instantiates a new AccountCreateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -29,34 +29,29 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetJwtSettings
 
-`func (o *AccountCreateRequest) GetJwtSettings() AccountCreateRequestJwtSettings`
+`func (o *AccountCreateRequest) GetJwtSettings() AccountJWTSettings`
 
 GetJwtSettings returns the JwtSettings field if non-nil, zero value otherwise.
 
 ### GetJwtSettingsOk
 
-`func (o *AccountCreateRequest) GetJwtSettingsOk() (*AccountCreateRequestJwtSettings, bool)`
+`func (o *AccountCreateRequest) GetJwtSettingsOk() (*AccountJWTSettings, bool)`
 
 GetJwtSettingsOk returns a tuple with the JwtSettings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetJwtSettings
 
-`func (o *AccountCreateRequest) SetJwtSettings(v AccountCreateRequestJwtSettings)`
+`func (o *AccountCreateRequest) SetJwtSettings(v AccountJWTSettings)`
 
 SetJwtSettings sets JwtSettings field to given value.
 
+### HasJwtSettings
 
-### SetJwtSettingsNil
+`func (o *AccountCreateRequest) HasJwtSettings() bool`
 
-`func (o *AccountCreateRequest) SetJwtSettingsNil(b bool)`
+HasJwtSettings returns a boolean if a field has been set.
 
- SetJwtSettingsNil sets the value for JwtSettings to be an explicit nil
-
-### UnsetJwtSettings
-`func (o *AccountCreateRequest) UnsetJwtSettings()`
-
-UnsetJwtSettings ensures that no value is present for JwtSettings, not even an explicit nil
 ### GetName
 
 `func (o *AccountCreateRequest) GetName() string`

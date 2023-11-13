@@ -4,36 +4,39 @@ All URIs are relative to *http://localhost/api/core/beta*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssignSystemAppUser**](SystemAPI.md#AssignSystemAppUser) | **Post** /systems/{systemId}/app-users/{appUserId} | Assign App User to System
+[**AssignSystemTeamAppUser**](SystemAPI.md#AssignSystemTeamAppUser) | **Post** /systems/{systemId}/app-users/{teamAppUserId} | Assign Team App User to System
 [**CreateAccount**](SystemAPI.md#CreateAccount) | **Post** /systems/{systemId}/accounts | Create Account
 [**CreateSystemAlertRule**](SystemAPI.md#CreateSystemAlertRule) | **Post** /systems/{systemId}/alert-rules | Create System Alert Rule
 [**DeleteSystem**](SystemAPI.md#DeleteSystem) | **Delete** /systems/{systemId} | Delete System
 [**DeleteSystemAlertRule**](SystemAPI.md#DeleteSystemAlertRule) | **Delete** /systems/{systemId}/alert-rules/{alertRuleId} | Delete System Alert Rule
+[**DownloadSystemLogs**](SystemAPI.md#DownloadSystemLogs) | **Post** /systems/{systemId}/logs | Download Logs
 [**GetCurrentAgentToken**](SystemAPI.md#GetCurrentAgentToken) | **Get** /systems/{systemId}/agent-tokens/current | Get Current Agent Token
 [**GetSystem**](SystemAPI.md#GetSystem) | **Get** /systems/{systemId} | Get System
 [**GetSystemAlertRule**](SystemAPI.md#GetSystemAlertRule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId} | Get System Alert Rule
+[**GetSystemLimits**](SystemAPI.md#GetSystemLimits) | **Get** /systems/{systemId}/limits | Get System Limits
 [**ImportAccount**](SystemAPI.md#ImportAccount) | **Post** /systems/{systemId}/import-account | Import Account
 [**ImportUser**](SystemAPI.md#ImportUser) | **Post** /systems/{systemId}/import-user | Import User
 [**ListAccounts**](SystemAPI.md#ListAccounts) | **Get** /systems/{systemId}/accounts | List Accounts
+[**ListAccountsOverviewMetrics**](SystemAPI.md#ListAccountsOverviewMetrics) | **Get** /systems/{systemId}/accounts-overview-metrics | List Accounts overview metrics
 [**ListAgentTokens**](SystemAPI.md#ListAgentTokens) | **Get** /systems/{systemId}/agent-tokens | List Agent Tokens
 [**ListClusters**](SystemAPI.md#ListClusters) | **Get** /systems/{systemId}/nats-clusters | List Clusters
 [**ListConnections**](SystemAPI.md#ListConnections) | **Get** /systems/{systemId}/connections | List Connections
 [**ListServers**](SystemAPI.md#ListServers) | **Get** /systems/{systemId}/servers | List Servers
 [**ListSystemAlertRules**](SystemAPI.md#ListSystemAlertRules) | **Get** /systems/{systemId}/alert-rules | List System Alert Rules
-[**ListSystemAppUsers**](SystemAPI.md#ListSystemAppUsers) | **Get** /systems/{systemId}/app-users | List App Users
+[**ListSystemTeamAppUsers**](SystemAPI.md#ListSystemTeamAppUsers) | **Get** /systems/{systemId}/app-users | List System Team App Users
 [**RotateAgentToken**](SystemAPI.md#RotateAgentToken) | **Post** /systems/{systemId}/agent-tokens | Rotate Agent Token
 [**RunSystemAlertRule**](SystemAPI.md#RunSystemAlertRule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
-[**UnAssignSystemAppUser**](SystemAPI.md#UnAssignSystemAppUser) | **Delete** /systems/{systemId}/app-users/{appUserId} | Unassign App User from System
+[**UnAssignSystemTeamAppUser**](SystemAPI.md#UnAssignSystemTeamAppUser) | **Delete** /systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
 [**UpdateSystem**](SystemAPI.md#UpdateSystem) | **Patch** /systems/{systemId} | Update System
 [**UpdateSystemAlertRule**](SystemAPI.md#UpdateSystemAlertRule) | **Patch** /systems/{systemId}/alert-rules/{alertRuleId} | Update System Alert Rules
 
 
 
-## AssignSystemAppUser
+## AssignSystemTeamAppUser
 
-> AppUserAssignResponse AssignSystemAppUser(ctx, systemId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
+> AppUserAssignResponse AssignSystemTeamAppUser(ctx, systemId, teamAppUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
 
-Assign App User to System
+Assign Team App User to System
 
 
 
@@ -51,18 +54,18 @@ import (
 
 func main() {
     systemId := "systemId_example" // string | 
-    appUserId := "appUserId_example" // string | 
+    teamAppUserId := "teamAppUserId_example" // string | 
     appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("Role_example") // AppUserAssignRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemAPI.AssignSystemAppUser(context.Background(), systemId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
+    resp, r, err := apiClient.SystemAPI.AssignSystemTeamAppUser(context.Background(), systemId, teamAppUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.AssignSystemAppUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.AssignSystemTeamAppUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AssignSystemAppUser`: AppUserAssignResponse
-    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.AssignSystemAppUser`: %v\n", resp)
+    // response from `AssignSystemTeamAppUser`: AppUserAssignResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.AssignSystemTeamAppUser`: %v\n", resp)
 }
 ```
 
@@ -73,11 +76,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **systemId** | **string** |  | 
-**appUserId** | **string** |  | 
+**teamAppUserId** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAssignSystemAppUserRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAssignSystemTeamAppUserRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -126,7 +129,7 @@ import (
 
 func main() {
     systemId := "systemId_example" // string | 
-    accountCreateRequest := *openapiclient.NewAccountCreateRequest("TODO", "Name_example") // AccountCreateRequest |  (optional)
+    accountCreateRequest := *openapiclient.NewAccountCreateRequest("Name_example") // AccountCreateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -387,6 +390,76 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## DownloadSystemLogs
+
+> *os.File DownloadSystemLogs(ctx, systemId).Execute()
+
+Download Logs
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.DownloadSystemLogs(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.DownloadSystemLogs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DownloadSystemLogs`: *os.File
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.DownloadSystemLogs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDownloadSystemLogsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[***os.File**](*os.File.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/gzip
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetCurrentAgentToken
 
 > AgentTokenCurrentResponse GetCurrentAgentToken(ctx, systemId).Execute()
@@ -600,6 +673,76 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetSystemLimits
+
+> SystemLimitsResponse GetSystemLimits(ctx, systemId).Execute()
+
+Get System Limits
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetSystemLimits(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemLimits``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemLimits`: SystemLimitsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemLimits`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemLimitsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SystemLimitsResponse**](SystemLimitsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ImportAccount
 
 > ImportAccount(ctx, systemId).SystemAccountImportRequest(systemAccountImportRequest).Execute()
@@ -797,6 +940,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AccountListResponse**](AccountListResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAccountsOverviewMetrics
+
+> AccountsOverviewListResponse ListAccountsOverviewMetrics(ctx, systemId).Execute()
+
+List Accounts overview metrics
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.ListAccountsOverviewMetrics(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListAccountsOverviewMetrics``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAccountsOverviewMetrics`: AccountsOverviewListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListAccountsOverviewMetrics`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAccountsOverviewMetricsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AccountsOverviewListResponse**](AccountsOverviewListResponse.md)
 
 ### Authorization
 
@@ -1176,11 +1389,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ListSystemAppUsers
+## ListSystemTeamAppUsers
 
-> AppUserAssignListResponse ListSystemAppUsers(ctx, systemId).Execute()
+> AppUserAssignListResponse ListSystemTeamAppUsers(ctx, systemId).Execute()
 
-List App Users
+List System Team App Users
 
 
 
@@ -1201,13 +1414,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemAPI.ListSystemAppUsers(context.Background(), systemId).Execute()
+    resp, r, err := apiClient.SystemAPI.ListSystemTeamAppUsers(context.Background(), systemId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListSystemAppUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListSystemTeamAppUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListSystemAppUsers`: AppUserAssignListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListSystemAppUsers`: %v\n", resp)
+    // response from `ListSystemTeamAppUsers`: AppUserAssignListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListSystemTeamAppUsers`: %v\n", resp)
 }
 ```
 
@@ -1221,7 +1434,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListSystemAppUsersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListSystemTeamAppUsersRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1391,11 +1604,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## UnAssignSystemAppUser
+## UnAssignSystemTeamAppUser
 
-> UnAssignSystemAppUser(ctx, systemId, appUserId).Execute()
+> UnAssignSystemTeamAppUser(ctx, systemId, teamAppUserId).Execute()
 
-Unassign App User from System
+Unassign Team App User from System
 
 
 
@@ -1413,13 +1626,13 @@ import (
 
 func main() {
     systemId := "systemId_example" // string | 
-    appUserId := "appUserId_example" // string | 
+    teamAppUserId := "teamAppUserId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SystemAPI.UnAssignSystemAppUser(context.Background(), systemId, appUserId).Execute()
+    r, err := apiClient.SystemAPI.UnAssignSystemTeamAppUser(context.Background(), systemId, teamAppUserId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.UnAssignSystemAppUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.UnAssignSystemTeamAppUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -1432,11 +1645,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **systemId** | **string** |  | 
-**appUserId** | **string** |  | 
+**teamAppUserId** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUnAssignSystemAppUserRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUnAssignSystemTeamAppUserRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1484,7 +1697,7 @@ import (
 
 func main() {
     systemId := "systemId_example" // string | 
-    systemUpdateRequest := *openapiclient.NewSystemUpdateRequest("Name_example") // SystemUpdateRequest |  (optional)
+    systemUpdateRequest := *openapiclient.NewSystemUpdateRequest() // SystemUpdateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

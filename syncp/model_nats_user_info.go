@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the NatsUserInfo type satisfies the MappedNullable interface at compile time
@@ -23,6 +24,8 @@ type NatsUserInfo struct {
 	Name          string `json:"name"`
 	UserPublicKey string `json:"user_public_key"`
 }
+
+type _NatsUserInfo NatsUserInfo
 
 // NewNatsUserInfo instantiates a new NatsUserInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -130,6 +133,43 @@ func (o NatsUserInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["user_public_key"] = o.UserPublicKey
 	return toSerialize, nil
+}
+
+func (o *NatsUserInfo) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"user_public_key",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNatsUserInfo := _NatsUserInfo{}
+
+	err = json.Unmarshal(bytes, &varNatsUserInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NatsUserInfo(varNatsUserInfo)
+
+	return err
 }
 
 type NullableNatsUserInfo struct {

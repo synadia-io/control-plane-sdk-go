@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -33,6 +34,8 @@ type StreamState struct {
 	NumSubjects   *int32                  `json:"num_subjects,omitempty"`
 	Subjects      *map[string]int32       `json:"subjects,omitempty"`
 }
+
+type _StreamState StreamState
 
 // NewStreamState instantiates a new StreamState object
 // This constructor will assign default values to properties that have it defined,
@@ -430,6 +433,47 @@ func (o StreamState) ToMap() (map[string]interface{}, error) {
 		toSerialize["subjects"] = o.Subjects
 	}
 	return toSerialize, nil
+}
+
+func (o *StreamState) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"bytes",
+		"consumer_count",
+		"first_seq",
+		"first_ts",
+		"last_seq",
+		"last_ts",
+		"messages",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStreamState := _StreamState{}
+
+	err = json.Unmarshal(bytes, &varStreamState)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StreamState(varStreamState)
+
+	return err
 }
 
 type NullableStreamState struct {

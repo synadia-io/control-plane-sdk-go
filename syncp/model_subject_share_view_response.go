@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -27,6 +28,8 @@ type SubjectShareViewResponse struct {
 	SubjectExportId         string           `json:"subject_export_id"`
 	TargetAccountNkeyPublic string           `json:"target_account_nkey_public"`
 }
+
+type _SubjectShareViewResponse SubjectShareViewResponse
 
 // NewSubjectShareViewResponse instantiates a new SubjectShareViewResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -212,6 +215,46 @@ func (o SubjectShareViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["subject_export_id"] = o.SubjectExportId
 	toSerialize["target_account_nkey_public"] = o.TargetAccountNkeyPublic
 	return toSerialize, nil
+}
+
+func (o *SubjectShareViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"id",
+		"jwt",
+		"jwt_claims",
+		"subject_export_id",
+		"target_account_nkey_public",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubjectShareViewResponse := _SubjectShareViewResponse{}
+
+	err = json.Unmarshal(bytes, &varSubjectShareViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubjectShareViewResponse(varSubjectShareViewResponse)
+
+	return err
 }
 
 type NullableSubjectShareViewResponse struct {

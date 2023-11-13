@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountPublicKey** | **string** |  | 
 **Id** | **string** |  | 
+**IsScpAccount** | **bool** |  | 
 **IsSystemAccount** | **bool** |  | 
 **Name** | **string** |  | 
 
@@ -13,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewAccountSearch
 
-`func NewAccountSearch(accountPublicKey string, id string, isSystemAccount bool, name string, ) *AccountSearch`
+`func NewAccountSearch(accountPublicKey string, id string, isScpAccount bool, isSystemAccount bool, name string, ) *AccountSearch`
 
 NewAccountSearch instantiates a new AccountSearch object
 This constructor will assign default values to properties that have it defined,
@@ -66,6 +67,26 @@ and a boolean to check if the value has been set.
 `func (o *AccountSearch) SetId(v string)`
 
 SetId sets Id field to given value.
+
+
+### GetIsScpAccount
+
+`func (o *AccountSearch) GetIsScpAccount() bool`
+
+GetIsScpAccount returns the IsScpAccount field if non-nil, zero value otherwise.
+
+### GetIsScpAccountOk
+
+`func (o *AccountSearch) GetIsScpAccountOk() (*bool, bool)`
+
+GetIsScpAccountOk returns a tuple with the IsScpAccount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsScpAccount
+
+`func (o *AccountSearch) SetIsScpAccount(v bool)`
+
+SetIsScpAccount sets IsScpAccount field to given value.
 
 
 ### GetIsSystemAccount

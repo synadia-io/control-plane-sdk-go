@@ -4,9 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConsumerName** | Pointer to **NullableString** |  | [optional] 
-**RuleType** | Pointer to **string** |  | [optional] 
-**StreamName** | Pointer to **NullableString** |  | [optional] 
 **DurationInSecs** | **int32** |  | 
 **Message** | **string** |  | 
 **Metric** | **string** |  | 
@@ -14,12 +11,15 @@ Name | Type | Description | Notes
 **ThresholdExpression** | Pointer to **NullableString** |  | [optional] 
 **ThresholdFixedValue** | Pointer to **NullableFloat32** |  | [optional] 
 **ThresholdOperator** | [**AlertRuleOperator**](AlertRuleOperator.md) |  | 
+**ConsumerName** | Pointer to **NullableString** |  | [optional] 
+**RuleType** | **string** |  | 
+**StreamName** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
 ### NewAlertRuleAccountCreateRequest
 
-`func NewAlertRuleAccountCreateRequest(durationInSecs int32, message string, metric string, severity AlertRuleSeverity, thresholdOperator AlertRuleOperator, ) *AlertRuleAccountCreateRequest`
+`func NewAlertRuleAccountCreateRequest(durationInSecs int32, message string, metric string, severity AlertRuleSeverity, thresholdOperator AlertRuleOperator, ruleType string, ) *AlertRuleAccountCreateRequest`
 
 NewAlertRuleAccountCreateRequest instantiates a new AlertRuleAccountCreateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -34,101 +34,6 @@ NewAlertRuleAccountCreateRequestWithDefaults instantiates a new AlertRuleAccount
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetConsumerName
-
-`func (o *AlertRuleAccountCreateRequest) GetConsumerName() string`
-
-GetConsumerName returns the ConsumerName field if non-nil, zero value otherwise.
-
-### GetConsumerNameOk
-
-`func (o *AlertRuleAccountCreateRequest) GetConsumerNameOk() (*string, bool)`
-
-GetConsumerNameOk returns a tuple with the ConsumerName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetConsumerName
-
-`func (o *AlertRuleAccountCreateRequest) SetConsumerName(v string)`
-
-SetConsumerName sets ConsumerName field to given value.
-
-### HasConsumerName
-
-`func (o *AlertRuleAccountCreateRequest) HasConsumerName() bool`
-
-HasConsumerName returns a boolean if a field has been set.
-
-### SetConsumerNameNil
-
-`func (o *AlertRuleAccountCreateRequest) SetConsumerNameNil(b bool)`
-
- SetConsumerNameNil sets the value for ConsumerName to be an explicit nil
-
-### UnsetConsumerName
-`func (o *AlertRuleAccountCreateRequest) UnsetConsumerName()`
-
-UnsetConsumerName ensures that no value is present for ConsumerName, not even an explicit nil
-### GetRuleType
-
-`func (o *AlertRuleAccountCreateRequest) GetRuleType() string`
-
-GetRuleType returns the RuleType field if non-nil, zero value otherwise.
-
-### GetRuleTypeOk
-
-`func (o *AlertRuleAccountCreateRequest) GetRuleTypeOk() (*string, bool)`
-
-GetRuleTypeOk returns a tuple with the RuleType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRuleType
-
-`func (o *AlertRuleAccountCreateRequest) SetRuleType(v string)`
-
-SetRuleType sets RuleType field to given value.
-
-### HasRuleType
-
-`func (o *AlertRuleAccountCreateRequest) HasRuleType() bool`
-
-HasRuleType returns a boolean if a field has been set.
-
-### GetStreamName
-
-`func (o *AlertRuleAccountCreateRequest) GetStreamName() string`
-
-GetStreamName returns the StreamName field if non-nil, zero value otherwise.
-
-### GetStreamNameOk
-
-`func (o *AlertRuleAccountCreateRequest) GetStreamNameOk() (*string, bool)`
-
-GetStreamNameOk returns a tuple with the StreamName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStreamName
-
-`func (o *AlertRuleAccountCreateRequest) SetStreamName(v string)`
-
-SetStreamName sets StreamName field to given value.
-
-### HasStreamName
-
-`func (o *AlertRuleAccountCreateRequest) HasStreamName() bool`
-
-HasStreamName returns a boolean if a field has been set.
-
-### SetStreamNameNil
-
-`func (o *AlertRuleAccountCreateRequest) SetStreamNameNil(b bool)`
-
- SetStreamNameNil sets the value for StreamName to be an explicit nil
-
-### UnsetStreamName
-`func (o *AlertRuleAccountCreateRequest) UnsetStreamName()`
-
-UnsetStreamName ensures that no value is present for StreamName, not even an explicit nil
 ### GetDurationInSecs
 
 `func (o *AlertRuleAccountCreateRequest) GetDurationInSecs() int32`
@@ -299,6 +204,96 @@ and a boolean to check if the value has been set.
 SetThresholdOperator sets ThresholdOperator field to given value.
 
 
+### GetConsumerName
+
+`func (o *AlertRuleAccountCreateRequest) GetConsumerName() string`
+
+GetConsumerName returns the ConsumerName field if non-nil, zero value otherwise.
+
+### GetConsumerNameOk
+
+`func (o *AlertRuleAccountCreateRequest) GetConsumerNameOk() (*string, bool)`
+
+GetConsumerNameOk returns a tuple with the ConsumerName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConsumerName
+
+`func (o *AlertRuleAccountCreateRequest) SetConsumerName(v string)`
+
+SetConsumerName sets ConsumerName field to given value.
+
+### HasConsumerName
+
+`func (o *AlertRuleAccountCreateRequest) HasConsumerName() bool`
+
+HasConsumerName returns a boolean if a field has been set.
+
+### SetConsumerNameNil
+
+`func (o *AlertRuleAccountCreateRequest) SetConsumerNameNil(b bool)`
+
+ SetConsumerNameNil sets the value for ConsumerName to be an explicit nil
+
+### UnsetConsumerName
+`func (o *AlertRuleAccountCreateRequest) UnsetConsumerName()`
+
+UnsetConsumerName ensures that no value is present for ConsumerName, not even an explicit nil
+### GetRuleType
+
+`func (o *AlertRuleAccountCreateRequest) GetRuleType() string`
+
+GetRuleType returns the RuleType field if non-nil, zero value otherwise.
+
+### GetRuleTypeOk
+
+`func (o *AlertRuleAccountCreateRequest) GetRuleTypeOk() (*string, bool)`
+
+GetRuleTypeOk returns a tuple with the RuleType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRuleType
+
+`func (o *AlertRuleAccountCreateRequest) SetRuleType(v string)`
+
+SetRuleType sets RuleType field to given value.
+
+
+### GetStreamName
+
+`func (o *AlertRuleAccountCreateRequest) GetStreamName() string`
+
+GetStreamName returns the StreamName field if non-nil, zero value otherwise.
+
+### GetStreamNameOk
+
+`func (o *AlertRuleAccountCreateRequest) GetStreamNameOk() (*string, bool)`
+
+GetStreamNameOk returns a tuple with the StreamName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStreamName
+
+`func (o *AlertRuleAccountCreateRequest) SetStreamName(v string)`
+
+SetStreamName sets StreamName field to given value.
+
+### HasStreamName
+
+`func (o *AlertRuleAccountCreateRequest) HasStreamName() bool`
+
+HasStreamName returns a boolean if a field has been set.
+
+### SetStreamNameNil
+
+`func (o *AlertRuleAccountCreateRequest) SetStreamNameNil(b bool)`
+
+ SetStreamNameNil sets the value for StreamName to be an explicit nil
+
+### UnsetStreamName
+`func (o *AlertRuleAccountCreateRequest) UnsetStreamName()`
+
+UnsetStreamName ensures that no value is present for StreamName, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

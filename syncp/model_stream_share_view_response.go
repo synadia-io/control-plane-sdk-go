@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the StreamShareViewResponse type satisfies the MappedNullable interface at compile time
@@ -21,6 +22,8 @@ var _ MappedNullable = &StreamShareViewResponse{}
 type StreamShareViewResponse struct {
 	TargetAccountNkeyPublic string `json:"target_account_nkey_public"`
 }
+
+type _StreamShareViewResponse StreamShareViewResponse
 
 // NewStreamShareViewResponse instantiates a new StreamShareViewResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -76,6 +79,41 @@ func (o StreamShareViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["target_account_nkey_public"] = o.TargetAccountNkeyPublic
 	return toSerialize, nil
+}
+
+func (o *StreamShareViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"target_account_nkey_public",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStreamShareViewResponse := _StreamShareViewResponse{}
+
+	err = json.Unmarshal(bytes, &varStreamShareViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StreamShareViewResponse(varStreamShareViewResponse)
+
+	return err
 }
 
 type NullableStreamShareViewResponse struct {

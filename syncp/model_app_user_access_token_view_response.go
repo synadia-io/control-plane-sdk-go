@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -25,6 +26,8 @@ type AppUserAccessTokenViewResponse struct {
 	Id      string         `json:"id"`
 	Name    string         `json:"name"`
 }
+
+type _AppUserAccessTokenViewResponse AppUserAccessTokenViewResponse
 
 // NewAppUserAccessTokenViewResponse instantiates a new AppUserAccessTokenViewResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -160,6 +163,44 @@ func (o AppUserAccessTokenViewResponse) ToMap() (map[string]interface{}, error) 
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	return toSerialize, nil
+}
+
+func (o *AppUserAccessTokenViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"expires",
+		"id",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppUserAccessTokenViewResponse := _AppUserAccessTokenViewResponse{}
+
+	err = json.Unmarshal(bytes, &varAppUserAccessTokenViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppUserAccessTokenViewResponse(varAppUserAccessTokenViewResponse)
+
+	return err
 }
 
 type NullableAppUserAccessTokenViewResponse struct {

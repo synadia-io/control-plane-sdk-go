@@ -23,13 +23,13 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test NatsUserAPIService AssignNatsUserAppUser", func(t *testing.T) {
+	t.Run("Test NatsUserAPIService AssignNatsUserTeamAppUser", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var userId string
-		var appUserId string
+		var teamAppUserId string
 
-		resp, httpRes, err := apiClient.NatsUserAPI.AssignNatsUserAppUser(context.Background(), userId, appUserId).Execute()
+		resp, httpRes, err := apiClient.NatsUserAPI.AssignNatsUserTeamAppUser(context.Background(), userId, teamAppUserId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -71,18 +71,6 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test NatsUserAPIService ListNatsUserAppUsers", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		var userId string
-
-		resp, httpRes, err := apiClient.NatsUserAPI.ListNatsUserAppUsers(context.Background(), userId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
 	t.Run("Test NatsUserAPIService ListNatsUserConnections", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -95,13 +83,25 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test NatsUserAPIService UnAssignNatsUserAppUser", func(t *testing.T) {
+	t.Run("Test NatsUserAPIService ListNatsUserTeamAppUsers", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var userId string
-		var appUserId string
 
-		httpRes, err := apiClient.NatsUserAPI.UnAssignNatsUserAppUser(context.Background(), userId, appUserId).Execute()
+		resp, httpRes, err := apiClient.NatsUserAPI.ListNatsUserTeamAppUsers(context.Background(), userId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test NatsUserAPIService UnAssignNatsUserTeamAppUser", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var userId string
+		var teamAppUserId string
+
+		httpRes, err := apiClient.NatsUserAPI.UnAssignNatsUserTeamAppUser(context.Background(), userId, teamAppUserId).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

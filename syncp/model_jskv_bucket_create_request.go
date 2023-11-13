@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JSKVBucketCreateRequest type satisfies the MappedNullable interface at compile time
@@ -19,19 +20,21 @@ var _ MappedNullable = &JSKVBucketCreateRequest{}
 
 // JSKVBucketCreateRequest struct for JSKVBucketCreateRequest
 type JSKVBucketCreateRequest struct {
-	BucketName  string                                `json:"bucket_name"`
-	Description string                                `json:"description"`
-	History     int32                                 `json:"history"`
-	MaxBytes    int64                                 `json:"max_bytes"`
-	MaxValSize  int32                                 `json:"max_val_size"`
-	Mirror      NullableJSKVBucketCreateRequestMirror `json:"mirror,omitempty"`
-	Placement   NullableJSCommonStreamConfigPlacement `json:"placement,omitempty"`
-	Replicas    int32                                 `json:"replicas"`
-	Republish   NullableJSCommonStreamConfigRepublish `json:"republish,omitempty"`
-	Sources     []StreamSource                        `json:"sources,omitempty"`
-	Storage     StorageType                           `json:"storage"`
-	Ttl         int64                                 `json:"ttl"`
+	BucketName  string         `json:"bucket_name"`
+	Description string         `json:"description"`
+	History     int32          `json:"history"`
+	MaxBytes    int64          `json:"max_bytes"`
+	MaxValSize  int32          `json:"max_val_size"`
+	Mirror      *StreamSource  `json:"mirror,omitempty"`
+	Placement   *Placement     `json:"placement,omitempty"`
+	Replicas    int32          `json:"replicas"`
+	Republish   *RePublish     `json:"republish,omitempty"`
+	Sources     []StreamSource `json:"sources,omitempty"`
+	Storage     StorageType    `json:"storage"`
+	Ttl         int64          `json:"ttl"`
 }
+
+type _JSKVBucketCreateRequest JSKVBucketCreateRequest
 
 // NewJSKVBucketCreateRequest instantiates a new JSKVBucketCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -178,90 +181,68 @@ func (o *JSKVBucketCreateRequest) SetMaxValSize(v int32) {
 	o.MaxValSize = v
 }
 
-// GetMirror returns the Mirror field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *JSKVBucketCreateRequest) GetMirror() JSKVBucketCreateRequestMirror {
-	if o == nil || IsNil(o.Mirror.Get()) {
-		var ret JSKVBucketCreateRequestMirror
+// GetMirror returns the Mirror field value if set, zero value otherwise.
+func (o *JSKVBucketCreateRequest) GetMirror() StreamSource {
+	if o == nil || IsNil(o.Mirror) {
+		var ret StreamSource
 		return ret
 	}
-	return *o.Mirror.Get()
+	return *o.Mirror
 }
 
 // GetMirrorOk returns a tuple with the Mirror field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *JSKVBucketCreateRequest) GetMirrorOk() (*JSKVBucketCreateRequestMirror, bool) {
-	if o == nil {
+func (o *JSKVBucketCreateRequest) GetMirrorOk() (*StreamSource, bool) {
+	if o == nil || IsNil(o.Mirror) {
 		return nil, false
 	}
-	return o.Mirror.Get(), o.Mirror.IsSet()
+	return o.Mirror, true
 }
 
 // HasMirror returns a boolean if a field has been set.
 func (o *JSKVBucketCreateRequest) HasMirror() bool {
-	if o != nil && o.Mirror.IsSet() {
+	if o != nil && !IsNil(o.Mirror) {
 		return true
 	}
 
 	return false
 }
 
-// SetMirror gets a reference to the given NullableJSKVBucketCreateRequestMirror and assigns it to the Mirror field.
-func (o *JSKVBucketCreateRequest) SetMirror(v JSKVBucketCreateRequestMirror) {
-	o.Mirror.Set(&v)
+// SetMirror gets a reference to the given StreamSource and assigns it to the Mirror field.
+func (o *JSKVBucketCreateRequest) SetMirror(v StreamSource) {
+	o.Mirror = &v
 }
 
-// SetMirrorNil sets the value for Mirror to be an explicit nil
-func (o *JSKVBucketCreateRequest) SetMirrorNil() {
-	o.Mirror.Set(nil)
-}
-
-// UnsetMirror ensures that no value is present for Mirror, not even an explicit nil
-func (o *JSKVBucketCreateRequest) UnsetMirror() {
-	o.Mirror.Unset()
-}
-
-// GetPlacement returns the Placement field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *JSKVBucketCreateRequest) GetPlacement() JSCommonStreamConfigPlacement {
-	if o == nil || IsNil(o.Placement.Get()) {
-		var ret JSCommonStreamConfigPlacement
+// GetPlacement returns the Placement field value if set, zero value otherwise.
+func (o *JSKVBucketCreateRequest) GetPlacement() Placement {
+	if o == nil || IsNil(o.Placement) {
+		var ret Placement
 		return ret
 	}
-	return *o.Placement.Get()
+	return *o.Placement
 }
 
 // GetPlacementOk returns a tuple with the Placement field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *JSKVBucketCreateRequest) GetPlacementOk() (*JSCommonStreamConfigPlacement, bool) {
-	if o == nil {
+func (o *JSKVBucketCreateRequest) GetPlacementOk() (*Placement, bool) {
+	if o == nil || IsNil(o.Placement) {
 		return nil, false
 	}
-	return o.Placement.Get(), o.Placement.IsSet()
+	return o.Placement, true
 }
 
 // HasPlacement returns a boolean if a field has been set.
 func (o *JSKVBucketCreateRequest) HasPlacement() bool {
-	if o != nil && o.Placement.IsSet() {
+	if o != nil && !IsNil(o.Placement) {
 		return true
 	}
 
 	return false
 }
 
-// SetPlacement gets a reference to the given NullableJSCommonStreamConfigPlacement and assigns it to the Placement field.
-func (o *JSKVBucketCreateRequest) SetPlacement(v JSCommonStreamConfigPlacement) {
-	o.Placement.Set(&v)
-}
-
-// SetPlacementNil sets the value for Placement to be an explicit nil
-func (o *JSKVBucketCreateRequest) SetPlacementNil() {
-	o.Placement.Set(nil)
-}
-
-// UnsetPlacement ensures that no value is present for Placement, not even an explicit nil
-func (o *JSKVBucketCreateRequest) UnsetPlacement() {
-	o.Placement.Unset()
+// SetPlacement gets a reference to the given Placement and assigns it to the Placement field.
+func (o *JSKVBucketCreateRequest) SetPlacement(v Placement) {
+	o.Placement = &v
 }
 
 // GetReplicas returns the Replicas field value
@@ -288,52 +269,41 @@ func (o *JSKVBucketCreateRequest) SetReplicas(v int32) {
 	o.Replicas = v
 }
 
-// GetRepublish returns the Republish field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *JSKVBucketCreateRequest) GetRepublish() JSCommonStreamConfigRepublish {
-	if o == nil || IsNil(o.Republish.Get()) {
-		var ret JSCommonStreamConfigRepublish
+// GetRepublish returns the Republish field value if set, zero value otherwise.
+func (o *JSKVBucketCreateRequest) GetRepublish() RePublish {
+	if o == nil || IsNil(o.Republish) {
+		var ret RePublish
 		return ret
 	}
-	return *o.Republish.Get()
+	return *o.Republish
 }
 
 // GetRepublishOk returns a tuple with the Republish field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *JSKVBucketCreateRequest) GetRepublishOk() (*JSCommonStreamConfigRepublish, bool) {
-	if o == nil {
+func (o *JSKVBucketCreateRequest) GetRepublishOk() (*RePublish, bool) {
+	if o == nil || IsNil(o.Republish) {
 		return nil, false
 	}
-	return o.Republish.Get(), o.Republish.IsSet()
+	return o.Republish, true
 }
 
 // HasRepublish returns a boolean if a field has been set.
 func (o *JSKVBucketCreateRequest) HasRepublish() bool {
-	if o != nil && o.Republish.IsSet() {
+	if o != nil && !IsNil(o.Republish) {
 		return true
 	}
 
 	return false
 }
 
-// SetRepublish gets a reference to the given NullableJSCommonStreamConfigRepublish and assigns it to the Republish field.
-func (o *JSKVBucketCreateRequest) SetRepublish(v JSCommonStreamConfigRepublish) {
-	o.Republish.Set(&v)
+// SetRepublish gets a reference to the given RePublish and assigns it to the Republish field.
+func (o *JSKVBucketCreateRequest) SetRepublish(v RePublish) {
+	o.Republish = &v
 }
 
-// SetRepublishNil sets the value for Republish to be an explicit nil
-func (o *JSKVBucketCreateRequest) SetRepublishNil() {
-	o.Republish.Set(nil)
-}
-
-// UnsetRepublish ensures that no value is present for Republish, not even an explicit nil
-func (o *JSKVBucketCreateRequest) UnsetRepublish() {
-	o.Republish.Unset()
-}
-
-// GetSources returns the Sources field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetSources returns the Sources field value if set, zero value otherwise.
 func (o *JSKVBucketCreateRequest) GetSources() []StreamSource {
-	if o == nil {
+	if o == nil || IsNil(o.Sources) {
 		var ret []StreamSource
 		return ret
 	}
@@ -342,7 +312,6 @@ func (o *JSKVBucketCreateRequest) GetSources() []StreamSource {
 
 // GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *JSKVBucketCreateRequest) GetSourcesOk() ([]StreamSource, bool) {
 	if o == nil || IsNil(o.Sources) {
 		return nil, false
@@ -352,7 +321,7 @@ func (o *JSKVBucketCreateRequest) GetSourcesOk() ([]StreamSource, bool) {
 
 // HasSources returns a boolean if a field has been set.
 func (o *JSKVBucketCreateRequest) HasSources() bool {
-	if o != nil && IsNil(o.Sources) {
+	if o != nil && !IsNil(o.Sources) {
 		return true
 	}
 
@@ -427,22 +396,64 @@ func (o JSKVBucketCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["history"] = o.History
 	toSerialize["max_bytes"] = o.MaxBytes
 	toSerialize["max_val_size"] = o.MaxValSize
-	if o.Mirror.IsSet() {
-		toSerialize["mirror"] = o.Mirror.Get()
+	if !IsNil(o.Mirror) {
+		toSerialize["mirror"] = o.Mirror
 	}
-	if o.Placement.IsSet() {
-		toSerialize["placement"] = o.Placement.Get()
+	if !IsNil(o.Placement) {
+		toSerialize["placement"] = o.Placement
 	}
 	toSerialize["replicas"] = o.Replicas
-	if o.Republish.IsSet() {
-		toSerialize["republish"] = o.Republish.Get()
+	if !IsNil(o.Republish) {
+		toSerialize["republish"] = o.Republish
 	}
-	if o.Sources != nil {
+	if !IsNil(o.Sources) {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["storage"] = o.Storage
 	toSerialize["ttl"] = o.Ttl
 	return toSerialize, nil
+}
+
+func (o *JSKVBucketCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"bucket_name",
+		"description",
+		"history",
+		"max_bytes",
+		"max_val_size",
+		"replicas",
+		"storage",
+		"ttl",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSKVBucketCreateRequest := _JSKVBucketCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varJSKVBucketCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSKVBucketCreateRequest(varJSKVBucketCreateRequest)
+
+	return err
 }
 
 type NullableJSKVBucketCreateRequest struct {

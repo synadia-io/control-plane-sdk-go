@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost/api/core/beta*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssignAccountAppUser**](AccountAPI.md#AssignAccountAppUser) | **Post** /accounts/{accountId}/app-users/{appUserId} | Assign App User to Account
+[**AssignAccountTeamAppUser**](AccountAPI.md#AssignAccountTeamAppUser) | **Post** /accounts/{accountId}/app-users/{teamAppUserId} | Assign Team App User to Account
 [**CreateAccountSkGroup**](AccountAPI.md#CreateAccountSkGroup) | **Post** /accounts/{accountId}/account-sk-groups | Create Account Signing Key Group
 [**CreateAlertRule**](AccountAPI.md#CreateAlertRule) | **Post** /accounts/{accountId}/alert-rules | Create Account Alert Rule
 [**CreateKvBucket**](AccountAPI.md#CreateKvBucket) | **Post** /accounts/{accountId}/jetstream/kv-buckets | Create KV Bucket
@@ -21,9 +21,9 @@ Method | HTTP request | Description
 [**GetAccountInfo**](AccountAPI.md#GetAccountInfo) | **Get** /accounts/{accountId}/info | Get Account Info
 [**GetAccountMetrics**](AccountAPI.md#GetAccountMetrics) | **Get** /accounts/{accountId}/metrics | Get Account Metrics
 [**GetAlertRule**](AccountAPI.md#GetAlertRule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId} | Get Account Alert Rule
-[**ListAccountAppUsers**](AccountAPI.md#ListAccountAppUsers) | **Get** /accounts/{accountId}/app-users | List App Users
 [**ListAccountConnections**](AccountAPI.md#ListAccountConnections) | **Get** /accounts/{accountId}/connections | List Account Connections
 [**ListAccountSkGroup**](AccountAPI.md#ListAccountSkGroup) | **Get** /accounts/{accountId}/account-sk-groups | List Account Signing Key Groups
+[**ListAccountTeamAppUsers**](AccountAPI.md#ListAccountTeamAppUsers) | **Get** /accounts/{accountId}/app-users | List Account Team App Users
 [**ListAlertRules**](AccountAPI.md#ListAlertRules) | **Get** /accounts/{accountId}/alert-rules | List Account Alert Rules
 [**ListJetStreamAssets**](AccountAPI.md#ListJetStreamAssets) | **Get** /accounts/{accountId}/jetstream | List JetStream Assets
 [**ListKvBuckets**](AccountAPI.md#ListKvBuckets) | **Get** /accounts/{accountId}/jetstream/kv-buckets | List KV buckets
@@ -37,17 +37,18 @@ Method | HTTP request | Description
 [**ListSubjectImports**](AccountAPI.md#ListSubjectImports) | **Get** /accounts/{accountId}/subject-imports | List Subject Imports
 [**ListUsers**](AccountAPI.md#ListUsers) | **Get** /accounts/{accountId}/nats-users | List NATS Users
 [**RunAlertRule**](AccountAPI.md#RunAlertRule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId}/run | Run Account Alert Rule
-[**UnAssignAccountAppUser**](AccountAPI.md#UnAssignAccountAppUser) | **Delete** /accounts/{accountId}/app-users/{appUserId} | Unassign App User from Account
+[**UnAssignAccountTeamAppUser**](AccountAPI.md#UnAssignAccountTeamAppUser) | **Delete** /accounts/{accountId}/app-users/{teamAppUserId} | Unassign Team App User from Account
+[**UnmanageAccount**](AccountAPI.md#UnmanageAccount) | **Delete** /accounts/{accountId}/unmanage | Unmanage Account
 [**UpdateAccount**](AccountAPI.md#UpdateAccount) | **Patch** /accounts/{accountId} | Update Account
 [**UpdateAlertRule**](AccountAPI.md#UpdateAlertRule) | **Patch** /accounts/{accountId}/alert-rules/{alertRuleId} | Update Account Alert Rule
 
 
 
-## AssignAccountAppUser
+## AssignAccountTeamAppUser
 
-> AppUserAssignResponse AssignAccountAppUser(ctx, accountId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
+> AppUserAssignResponse AssignAccountTeamAppUser(ctx, accountId, teamAppUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
 
-Assign App User to Account
+Assign Team App User to Account
 
 
 
@@ -65,18 +66,18 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    appUserId := "appUserId_example" // string | 
+    teamAppUserId := "teamAppUserId_example" // string | 
     appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("Role_example") // AppUserAssignRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountAPI.AssignAccountAppUser(context.Background(), accountId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
+    resp, r, err := apiClient.AccountAPI.AssignAccountTeamAppUser(context.Background(), accountId, teamAppUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.AssignAccountAppUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.AssignAccountTeamAppUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AssignAccountAppUser`: AppUserAssignResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.AssignAccountAppUser`: %v\n", resp)
+    // response from `AssignAccountTeamAppUser`: AppUserAssignResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.AssignAccountTeamAppUser`: %v\n", resp)
 }
 ```
 
@@ -87,11 +88,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **accountId** | **string** |  | 
-**appUserId** | **string** |  | 
+**teamAppUserId** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAssignAccountAppUserRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAssignAccountTeamAppUserRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -212,7 +213,7 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    alertRuleAccountCreateRequest := *openapiclient.NewAlertRuleAccountCreateRequest(int32(123), "Message_example", "Metric_example", openapiclient.AlertRuleSeverity("Info"), openapiclient.AlertRuleOperator("Greater Than")) // AlertRuleAccountCreateRequest |  (optional)
+    alertRuleAccountCreateRequest := *openapiclient.NewAlertRuleAccountCreateRequest(int32(123), "Message_example", "Metric_example", openapiclient.AlertRuleSeverity("Info"), openapiclient.AlertRuleOperator("Greater Than"), "RuleType_example") // AlertRuleAccountCreateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -356,7 +357,7 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    jSMirrorConfigRequest := *openapiclient.NewJSMirrorConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int32(123), int64(123), int64(123), "Name_example", int32(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file")) // JSMirrorConfigRequest |  (optional)
+    jSMirrorConfigRequest := *openapiclient.NewJSMirrorConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int32(123), int64(123), int64(123), "Name_example", int32(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file"), *openapiclient.NewStreamSource("Name_example"), false) // JSMirrorConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -840,7 +841,7 @@ No authorization required
 
 ## DeleteAccount
 
-> DeleteAccount(ctx, accountId).Unmanage(unmanage).Execute()
+> DeleteAccount(ctx, accountId).Execute()
 
 Delete Account
 
@@ -860,11 +861,10 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    unmanage := true // bool |  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AccountAPI.DeleteAccount(context.Background(), accountId).Unmanage(unmanage).Execute()
+    r, err := apiClient.AccountAPI.DeleteAccount(context.Background(), accountId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.DeleteAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -888,7 +888,6 @@ Other parameters are passed through a pointer to a apiDeleteAccountRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **unmanage** | **bool** |  | [default to false]
 
 ### Return type
 
@@ -1262,76 +1261,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ListAccountAppUsers
-
-> AppUserAssignListResponse ListAccountAppUsers(ctx, accountId).Execute()
-
-List App Users
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    accountId := "accountId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountAPI.ListAccountAppUsers(context.Background(), accountId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.ListAccountAppUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAccountAppUsers`: AppUserAssignListResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.ListAccountAppUsers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListAccountAppUsersRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**AppUserAssignListResponse**](AppUserAssignListResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListAccountConnections
 
 > AccountConnectionsListResponse ListAccountConnections(ctx, accountId).Sort(sort).Cid(cid).State(state).Subject(subject).Limit(limit).User(user).Execute()
@@ -1469,6 +1398,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SigningKeyGroupListResponse**](SigningKeyGroupListResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAccountTeamAppUsers
+
+> AppUserAssignListResponse ListAccountTeamAppUsers(ctx, accountId).Execute()
+
+List Account Team App Users
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountAPI.ListAccountTeamAppUsers(context.Background(), accountId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.ListAccountTeamAppUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAccountTeamAppUsers`: AppUserAssignListResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.ListAccountTeamAppUsers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAccountTeamAppUsersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AppUserAssignListResponse**](AppUserAssignListResponse.md)
 
 ### Authorization
 
@@ -2397,11 +2396,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## UnAssignAccountAppUser
+## UnAssignAccountTeamAppUser
 
-> UnAssignAccountAppUser(ctx, accountId, appUserId).Execute()
+> UnAssignAccountTeamAppUser(ctx, accountId, teamAppUserId).Execute()
 
-Unassign App User from Account
+Unassign Team App User from Account
 
 
 
@@ -2419,13 +2418,13 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    appUserId := "appUserId_example" // string | 
+    teamAppUserId := "teamAppUserId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AccountAPI.UnAssignAccountAppUser(context.Background(), accountId, appUserId).Execute()
+    r, err := apiClient.AccountAPI.UnAssignAccountTeamAppUser(context.Background(), accountId, teamAppUserId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.UnAssignAccountAppUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.UnAssignAccountTeamAppUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -2438,16 +2437,84 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **accountId** | **string** |  | 
-**appUserId** | **string** |  | 
+**teamAppUserId** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUnAssignAccountAppUserRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUnAssignAccountTeamAppUserRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UnmanageAccount
+
+> UnmanageAccount(ctx, accountId).Execute()
+
+Unmanage Account
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.AccountAPI.UnmanageAccount(context.Background(), accountId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.UnmanageAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnmanageAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type

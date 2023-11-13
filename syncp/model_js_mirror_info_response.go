@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,25 +21,30 @@ var _ MappedNullable = &JSMirrorInfoResponse{}
 
 // JSMirrorInfoResponse struct for JSMirrorInfoResponse
 type JSMirrorInfoResponse struct {
-	Config     *JSMirrorConfigRequest   `json:"config,omitempty"`
-	Id         *string                  `json:"id,omitempty"`
-	Mirror     NullableStreamSourceInfo `json:"mirror,omitempty"`
-	Shared     *bool                    `json:"shared,omitempty"`
-	Alternates []StreamAlternate        `json:"alternates,omitempty"`
-	Cluster    *ClusterInfo             `json:"cluster,omitempty"`
-	Created    time.Time                `json:"created"`
-	Sources    []StreamSourceInfo       `json:"sources,omitempty"`
-	State      StreamState              `json:"state"`
+	Alternates []StreamAlternate     `json:"alternates,omitempty"`
+	Cluster    *ClusterInfo          `json:"cluster,omitempty"`
+	Created    time.Time             `json:"created"`
+	Sources    []StreamSourceInfo    `json:"sources,omitempty"`
+	State      StreamState           `json:"state"`
+	Config     JSMirrorConfigRequest `json:"config"`
+	Id         string                `json:"id"`
+	Mirror     *StreamSourceInfo     `json:"mirror,omitempty"`
+	Shared     bool                  `json:"shared"`
 }
+
+type _JSMirrorInfoResponse JSMirrorInfoResponse
 
 // NewJSMirrorInfoResponse instantiates a new JSMirrorInfoResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJSMirrorInfoResponse(created time.Time, state StreamState) *JSMirrorInfoResponse {
+func NewJSMirrorInfoResponse(created time.Time, state StreamState, config JSMirrorConfigRequest, id string, shared bool) *JSMirrorInfoResponse {
 	this := JSMirrorInfoResponse{}
 	this.Created = created
 	this.State = state
+	this.Config = config
+	this.Id = id
+	this.Shared = shared
 	return &this
 }
 
@@ -48,145 +54,6 @@ func NewJSMirrorInfoResponse(created time.Time, state StreamState) *JSMirrorInfo
 func NewJSMirrorInfoResponseWithDefaults() *JSMirrorInfoResponse {
 	this := JSMirrorInfoResponse{}
 	return &this
-}
-
-// GetConfig returns the Config field value if set, zero value otherwise.
-func (o *JSMirrorInfoResponse) GetConfig() JSMirrorConfigRequest {
-	if o == nil || IsNil(o.Config) {
-		var ret JSMirrorConfigRequest
-		return ret
-	}
-	return *o.Config
-}
-
-// GetConfigOk returns a tuple with the Config field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSMirrorInfoResponse) GetConfigOk() (*JSMirrorConfigRequest, bool) {
-	if o == nil || IsNil(o.Config) {
-		return nil, false
-	}
-	return o.Config, true
-}
-
-// HasConfig returns a boolean if a field has been set.
-func (o *JSMirrorInfoResponse) HasConfig() bool {
-	if o != nil && !IsNil(o.Config) {
-		return true
-	}
-
-	return false
-}
-
-// SetConfig gets a reference to the given JSMirrorConfigRequest and assigns it to the Config field.
-func (o *JSMirrorInfoResponse) SetConfig(v JSMirrorConfigRequest) {
-	o.Config = &v
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *JSMirrorInfoResponse) GetId() string {
-	if o == nil || IsNil(o.Id) {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSMirrorInfoResponse) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *JSMirrorInfoResponse) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *JSMirrorInfoResponse) SetId(v string) {
-	o.Id = &v
-}
-
-// GetMirror returns the Mirror field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *JSMirrorInfoResponse) GetMirror() StreamSourceInfo {
-	if o == nil || IsNil(o.Mirror.Get()) {
-		var ret StreamSourceInfo
-		return ret
-	}
-	return *o.Mirror.Get()
-}
-
-// GetMirrorOk returns a tuple with the Mirror field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *JSMirrorInfoResponse) GetMirrorOk() (*StreamSourceInfo, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Mirror.Get(), o.Mirror.IsSet()
-}
-
-// HasMirror returns a boolean if a field has been set.
-func (o *JSMirrorInfoResponse) HasMirror() bool {
-	if o != nil && o.Mirror.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetMirror gets a reference to the given NullableStreamSourceInfo and assigns it to the Mirror field.
-func (o *JSMirrorInfoResponse) SetMirror(v StreamSourceInfo) {
-	o.Mirror.Set(&v)
-}
-
-// SetMirrorNil sets the value for Mirror to be an explicit nil
-func (o *JSMirrorInfoResponse) SetMirrorNil() {
-	o.Mirror.Set(nil)
-}
-
-// UnsetMirror ensures that no value is present for Mirror, not even an explicit nil
-func (o *JSMirrorInfoResponse) UnsetMirror() {
-	o.Mirror.Unset()
-}
-
-// GetShared returns the Shared field value if set, zero value otherwise.
-func (o *JSMirrorInfoResponse) GetShared() bool {
-	if o == nil || IsNil(o.Shared) {
-		var ret bool
-		return ret
-	}
-	return *o.Shared
-}
-
-// GetSharedOk returns a tuple with the Shared field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSMirrorInfoResponse) GetSharedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Shared) {
-		return nil, false
-	}
-	return o.Shared, true
-}
-
-// HasShared returns a boolean if a field has been set.
-func (o *JSMirrorInfoResponse) HasShared() bool {
-	if o != nil && !IsNil(o.Shared) {
-		return true
-	}
-
-	return false
-}
-
-// SetShared gets a reference to the given bool and assigns it to the Shared field.
-func (o *JSMirrorInfoResponse) SetShared(v bool) {
-	o.Shared = &v
 }
 
 // GetAlternates returns the Alternates field value if set, zero value otherwise.
@@ -333,6 +200,110 @@ func (o *JSMirrorInfoResponse) SetState(v StreamState) {
 	o.State = v
 }
 
+// GetConfig returns the Config field value
+func (o *JSMirrorInfoResponse) GetConfig() JSMirrorConfigRequest {
+	if o == nil {
+		var ret JSMirrorConfigRequest
+		return ret
+	}
+
+	return o.Config
+}
+
+// GetConfigOk returns a tuple with the Config field value
+// and a boolean to check if the value has been set.
+func (o *JSMirrorInfoResponse) GetConfigOk() (*JSMirrorConfigRequest, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Config, true
+}
+
+// SetConfig sets field value
+func (o *JSMirrorInfoResponse) SetConfig(v JSMirrorConfigRequest) {
+	o.Config = v
+}
+
+// GetId returns the Id field value
+func (o *JSMirrorInfoResponse) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *JSMirrorInfoResponse) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *JSMirrorInfoResponse) SetId(v string) {
+	o.Id = v
+}
+
+// GetMirror returns the Mirror field value if set, zero value otherwise.
+func (o *JSMirrorInfoResponse) GetMirror() StreamSourceInfo {
+	if o == nil || IsNil(o.Mirror) {
+		var ret StreamSourceInfo
+		return ret
+	}
+	return *o.Mirror
+}
+
+// GetMirrorOk returns a tuple with the Mirror field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSMirrorInfoResponse) GetMirrorOk() (*StreamSourceInfo, bool) {
+	if o == nil || IsNil(o.Mirror) {
+		return nil, false
+	}
+	return o.Mirror, true
+}
+
+// HasMirror returns a boolean if a field has been set.
+func (o *JSMirrorInfoResponse) HasMirror() bool {
+	if o != nil && !IsNil(o.Mirror) {
+		return true
+	}
+
+	return false
+}
+
+// SetMirror gets a reference to the given StreamSourceInfo and assigns it to the Mirror field.
+func (o *JSMirrorInfoResponse) SetMirror(v StreamSourceInfo) {
+	o.Mirror = &v
+}
+
+// GetShared returns the Shared field value
+func (o *JSMirrorInfoResponse) GetShared() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Shared
+}
+
+// GetSharedOk returns a tuple with the Shared field value
+// and a boolean to check if the value has been set.
+func (o *JSMirrorInfoResponse) GetSharedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Shared, true
+}
+
+// SetShared sets field value
+func (o *JSMirrorInfoResponse) SetShared(v bool) {
+	o.Shared = v
+}
+
 func (o JSMirrorInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -343,18 +314,6 @@ func (o JSMirrorInfoResponse) MarshalJSON() ([]byte, error) {
 
 func (o JSMirrorInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Config) {
-		toSerialize["config"] = o.Config
-	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if o.Mirror.IsSet() {
-		toSerialize["mirror"] = o.Mirror.Get()
-	}
-	if !IsNil(o.Shared) {
-		toSerialize["shared"] = o.Shared
-	}
 	if !IsNil(o.Alternates) {
 		toSerialize["alternates"] = o.Alternates
 	}
@@ -366,7 +325,52 @@ func (o JSMirrorInfoResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["state"] = o.State
+	toSerialize["config"] = o.Config
+	toSerialize["id"] = o.Id
+	if !IsNil(o.Mirror) {
+		toSerialize["mirror"] = o.Mirror
+	}
+	toSerialize["shared"] = o.Shared
 	return toSerialize, nil
+}
+
+func (o *JSMirrorInfoResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"state",
+		"config",
+		"id",
+		"shared",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSMirrorInfoResponse := _JSMirrorInfoResponse{}
+
+	err = json.Unmarshal(bytes, &varJSMirrorInfoResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSMirrorInfoResponse(varJSMirrorInfoResponse)
+
+	return err
 }
 
 type NullableJSMirrorInfoResponse struct {

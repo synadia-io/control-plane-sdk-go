@@ -9,18 +9,20 @@ Name | Type | Description | Notes
 **ClaimsInfo** | [**AccountClaimsInfo**](AccountClaimsInfo.md) |  | 
 **Created** | **time.Time** |  | 
 **Id** | **string** |  | 
+**IsScpAccount** | **bool** |  | 
 **IsSystemAccount** | **bool** |  | 
 **Jwt** | **string** |  | 
 **JwtSettings** | [**AccountJWTSettings**](AccountJWTSettings.md) |  | 
 **Name** | **string** |  | 
 **System** | [**SystemInfo**](SystemInfo.md) |  | 
+**Team** | [**TeamInfo**](TeamInfo.md) |  | 
 **UserJwtExpiresInSecs** | **int64** |  | 
 
 ## Methods
 
 ### NewAccountViewResponse
 
-`func NewAccountViewResponse(accountPublicKey string, claims AccountClaims, claimsInfo AccountClaimsInfo, created time.Time, id string, isSystemAccount bool, jwt string, jwtSettings AccountJWTSettings, name string, system SystemInfo, userJwtExpiresInSecs int64, ) *AccountViewResponse`
+`func NewAccountViewResponse(accountPublicKey string, claims AccountClaims, claimsInfo AccountClaimsInfo, created time.Time, id string, isScpAccount bool, isSystemAccount bool, jwt string, jwtSettings AccountJWTSettings, name string, system SystemInfo, team TeamInfo, userJwtExpiresInSecs int64, ) *AccountViewResponse`
 
 NewAccountViewResponse instantiates a new AccountViewResponse object
 This constructor will assign default values to properties that have it defined,
@@ -135,6 +137,26 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
+### GetIsScpAccount
+
+`func (o *AccountViewResponse) GetIsScpAccount() bool`
+
+GetIsScpAccount returns the IsScpAccount field if non-nil, zero value otherwise.
+
+### GetIsScpAccountOk
+
+`func (o *AccountViewResponse) GetIsScpAccountOk() (*bool, bool)`
+
+GetIsScpAccountOk returns a tuple with the IsScpAccount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsScpAccount
+
+`func (o *AccountViewResponse) SetIsScpAccount(v bool)`
+
+SetIsScpAccount sets IsScpAccount field to given value.
+
+
 ### GetIsSystemAccount
 
 `func (o *AccountViewResponse) GetIsSystemAccount() bool`
@@ -233,6 +255,26 @@ and a boolean to check if the value has been set.
 `func (o *AccountViewResponse) SetSystem(v SystemInfo)`
 
 SetSystem sets System field to given value.
+
+
+### GetTeam
+
+`func (o *AccountViewResponse) GetTeam() TeamInfo`
+
+GetTeam returns the Team field if non-nil, zero value otherwise.
+
+### GetTeamOk
+
+`func (o *AccountViewResponse) GetTeamOk() (*TeamInfo, bool)`
+
+GetTeamOk returns a tuple with the Team field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeam
+
+`func (o *AccountViewResponse) SetTeam(v TeamInfo)`
+
+SetTeam sets Team field to given value.
 
 
 ### GetUserJwtExpiresInSecs

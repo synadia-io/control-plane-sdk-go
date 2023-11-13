@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AuthzRequest type satisfies the MappedNullable interface at compile time
@@ -22,6 +23,8 @@ type AuthzRequest struct {
 	ResourceId string `json:"resource_id"`
 	Service    string `json:"service"`
 }
+
+type _AuthzRequest AuthzRequest
 
 // NewAuthzRequest instantiates a new AuthzRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +108,42 @@ func (o AuthzRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["resource_id"] = o.ResourceId
 	toSerialize["service"] = o.Service
 	return toSerialize, nil
+}
+
+func (o *AuthzRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resource_id",
+		"service",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuthzRequest := _AuthzRequest{}
+
+	err = json.Unmarshal(bytes, &varAuthzRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthzRequest(varAuthzRequest)
+
+	return err
 }
 
 type NullableAuthzRequest struct {

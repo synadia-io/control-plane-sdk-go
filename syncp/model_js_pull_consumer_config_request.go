@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JSPullConsumerConfigRequest type satisfies the MappedNullable interface at compile time
@@ -19,11 +20,6 @@ var _ MappedNullable = &JSPullConsumerConfigRequest{}
 
 // JSPullConsumerConfigRequest struct for JSPullConsumerConfigRequest
 type JSPullConsumerConfigRequest struct {
-	MaxBatch   *int32 `json:"max_batch,omitempty"`
-	MaxBytes   *int32 `json:"max_bytes,omitempty"`
-	MaxExpires *int64 `json:"max_expires,omitempty"`
-	// Pull based options.
-	MaxWaiting        *int32         `json:"max_waiting,omitempty"`
 	AckPolicy         AckPolicy      `json:"ack_policy"`
 	AckWait           *int64         `json:"ack_wait,omitempty"`
 	Backoff           []int64        `json:"backoff,omitempty"`
@@ -42,7 +38,14 @@ type JSPullConsumerConfigRequest struct {
 	OptStartTime      NullableString `json:"opt_start_time,omitempty"`
 	ReplayPolicy      ReplayPolicy   `json:"replay_policy"`
 	SampleFreq        *string        `json:"sample_freq,omitempty"`
+	MaxBatch          *int32         `json:"max_batch,omitempty"`
+	MaxBytes          *int32         `json:"max_bytes,omitempty"`
+	MaxExpires        *int64         `json:"max_expires,omitempty"`
+	// Pull based options.
+	MaxWaiting *int32 `json:"max_waiting,omitempty"`
 }
+
+type _JSPullConsumerConfigRequest JSPullConsumerConfigRequest
 
 // NewJSPullConsumerConfigRequest instantiates a new JSPullConsumerConfigRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -63,134 +66,6 @@ func NewJSPullConsumerConfigRequest(ackPolicy AckPolicy, deliverPolicy DeliverPo
 func NewJSPullConsumerConfigRequestWithDefaults() *JSPullConsumerConfigRequest {
 	this := JSPullConsumerConfigRequest{}
 	return &this
-}
-
-// GetMaxBatch returns the MaxBatch field value if set, zero value otherwise.
-func (o *JSPullConsumerConfigRequest) GetMaxBatch() int32 {
-	if o == nil || IsNil(o.MaxBatch) {
-		var ret int32
-		return ret
-	}
-	return *o.MaxBatch
-}
-
-// GetMaxBatchOk returns a tuple with the MaxBatch field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPullConsumerConfigRequest) GetMaxBatchOk() (*int32, bool) {
-	if o == nil || IsNil(o.MaxBatch) {
-		return nil, false
-	}
-	return o.MaxBatch, true
-}
-
-// HasMaxBatch returns a boolean if a field has been set.
-func (o *JSPullConsumerConfigRequest) HasMaxBatch() bool {
-	if o != nil && !IsNil(o.MaxBatch) {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxBatch gets a reference to the given int32 and assigns it to the MaxBatch field.
-func (o *JSPullConsumerConfigRequest) SetMaxBatch(v int32) {
-	o.MaxBatch = &v
-}
-
-// GetMaxBytes returns the MaxBytes field value if set, zero value otherwise.
-func (o *JSPullConsumerConfigRequest) GetMaxBytes() int32 {
-	if o == nil || IsNil(o.MaxBytes) {
-		var ret int32
-		return ret
-	}
-	return *o.MaxBytes
-}
-
-// GetMaxBytesOk returns a tuple with the MaxBytes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPullConsumerConfigRequest) GetMaxBytesOk() (*int32, bool) {
-	if o == nil || IsNil(o.MaxBytes) {
-		return nil, false
-	}
-	return o.MaxBytes, true
-}
-
-// HasMaxBytes returns a boolean if a field has been set.
-func (o *JSPullConsumerConfigRequest) HasMaxBytes() bool {
-	if o != nil && !IsNil(o.MaxBytes) {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxBytes gets a reference to the given int32 and assigns it to the MaxBytes field.
-func (o *JSPullConsumerConfigRequest) SetMaxBytes(v int32) {
-	o.MaxBytes = &v
-}
-
-// GetMaxExpires returns the MaxExpires field value if set, zero value otherwise.
-func (o *JSPullConsumerConfigRequest) GetMaxExpires() int64 {
-	if o == nil || IsNil(o.MaxExpires) {
-		var ret int64
-		return ret
-	}
-	return *o.MaxExpires
-}
-
-// GetMaxExpiresOk returns a tuple with the MaxExpires field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPullConsumerConfigRequest) GetMaxExpiresOk() (*int64, bool) {
-	if o == nil || IsNil(o.MaxExpires) {
-		return nil, false
-	}
-	return o.MaxExpires, true
-}
-
-// HasMaxExpires returns a boolean if a field has been set.
-func (o *JSPullConsumerConfigRequest) HasMaxExpires() bool {
-	if o != nil && !IsNil(o.MaxExpires) {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxExpires gets a reference to the given int64 and assigns it to the MaxExpires field.
-func (o *JSPullConsumerConfigRequest) SetMaxExpires(v int64) {
-	o.MaxExpires = &v
-}
-
-// GetMaxWaiting returns the MaxWaiting field value if set, zero value otherwise.
-func (o *JSPullConsumerConfigRequest) GetMaxWaiting() int32 {
-	if o == nil || IsNil(o.MaxWaiting) {
-		var ret int32
-		return ret
-	}
-	return *o.MaxWaiting
-}
-
-// GetMaxWaitingOk returns a tuple with the MaxWaiting field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPullConsumerConfigRequest) GetMaxWaitingOk() (*int32, bool) {
-	if o == nil || IsNil(o.MaxWaiting) {
-		return nil, false
-	}
-	return o.MaxWaiting, true
-}
-
-// HasMaxWaiting returns a boolean if a field has been set.
-func (o *JSPullConsumerConfigRequest) HasMaxWaiting() bool {
-	if o != nil && !IsNil(o.MaxWaiting) {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxWaiting gets a reference to the given int32 and assigns it to the MaxWaiting field.
-func (o *JSPullConsumerConfigRequest) SetMaxWaiting(v int32) {
-	o.MaxWaiting = &v
 }
 
 // GetAckPolicy returns the AckPolicy field value
@@ -748,6 +623,134 @@ func (o *JSPullConsumerConfigRequest) SetSampleFreq(v string) {
 	o.SampleFreq = &v
 }
 
+// GetMaxBatch returns the MaxBatch field value if set, zero value otherwise.
+func (o *JSPullConsumerConfigRequest) GetMaxBatch() int32 {
+	if o == nil || IsNil(o.MaxBatch) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxBatch
+}
+
+// GetMaxBatchOk returns a tuple with the MaxBatch field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPullConsumerConfigRequest) GetMaxBatchOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxBatch) {
+		return nil, false
+	}
+	return o.MaxBatch, true
+}
+
+// HasMaxBatch returns a boolean if a field has been set.
+func (o *JSPullConsumerConfigRequest) HasMaxBatch() bool {
+	if o != nil && !IsNil(o.MaxBatch) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxBatch gets a reference to the given int32 and assigns it to the MaxBatch field.
+func (o *JSPullConsumerConfigRequest) SetMaxBatch(v int32) {
+	o.MaxBatch = &v
+}
+
+// GetMaxBytes returns the MaxBytes field value if set, zero value otherwise.
+func (o *JSPullConsumerConfigRequest) GetMaxBytes() int32 {
+	if o == nil || IsNil(o.MaxBytes) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxBytes
+}
+
+// GetMaxBytesOk returns a tuple with the MaxBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPullConsumerConfigRequest) GetMaxBytesOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxBytes) {
+		return nil, false
+	}
+	return o.MaxBytes, true
+}
+
+// HasMaxBytes returns a boolean if a field has been set.
+func (o *JSPullConsumerConfigRequest) HasMaxBytes() bool {
+	if o != nil && !IsNil(o.MaxBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxBytes gets a reference to the given int32 and assigns it to the MaxBytes field.
+func (o *JSPullConsumerConfigRequest) SetMaxBytes(v int32) {
+	o.MaxBytes = &v
+}
+
+// GetMaxExpires returns the MaxExpires field value if set, zero value otherwise.
+func (o *JSPullConsumerConfigRequest) GetMaxExpires() int64 {
+	if o == nil || IsNil(o.MaxExpires) {
+		var ret int64
+		return ret
+	}
+	return *o.MaxExpires
+}
+
+// GetMaxExpiresOk returns a tuple with the MaxExpires field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPullConsumerConfigRequest) GetMaxExpiresOk() (*int64, bool) {
+	if o == nil || IsNil(o.MaxExpires) {
+		return nil, false
+	}
+	return o.MaxExpires, true
+}
+
+// HasMaxExpires returns a boolean if a field has been set.
+func (o *JSPullConsumerConfigRequest) HasMaxExpires() bool {
+	if o != nil && !IsNil(o.MaxExpires) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxExpires gets a reference to the given int64 and assigns it to the MaxExpires field.
+func (o *JSPullConsumerConfigRequest) SetMaxExpires(v int64) {
+	o.MaxExpires = &v
+}
+
+// GetMaxWaiting returns the MaxWaiting field value if set, zero value otherwise.
+func (o *JSPullConsumerConfigRequest) GetMaxWaiting() int32 {
+	if o == nil || IsNil(o.MaxWaiting) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxWaiting
+}
+
+// GetMaxWaitingOk returns a tuple with the MaxWaiting field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPullConsumerConfigRequest) GetMaxWaitingOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxWaiting) {
+		return nil, false
+	}
+	return o.MaxWaiting, true
+}
+
+// HasMaxWaiting returns a boolean if a field has been set.
+func (o *JSPullConsumerConfigRequest) HasMaxWaiting() bool {
+	if o != nil && !IsNil(o.MaxWaiting) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxWaiting gets a reference to the given int32 and assigns it to the MaxWaiting field.
+func (o *JSPullConsumerConfigRequest) SetMaxWaiting(v int32) {
+	o.MaxWaiting = &v
+}
+
 func (o JSPullConsumerConfigRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -758,18 +761,6 @@ func (o JSPullConsumerConfigRequest) MarshalJSON() ([]byte, error) {
 
 func (o JSPullConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.MaxBatch) {
-		toSerialize["max_batch"] = o.MaxBatch
-	}
-	if !IsNil(o.MaxBytes) {
-		toSerialize["max_bytes"] = o.MaxBytes
-	}
-	if !IsNil(o.MaxExpires) {
-		toSerialize["max_expires"] = o.MaxExpires
-	}
-	if !IsNil(o.MaxWaiting) {
-		toSerialize["max_waiting"] = o.MaxWaiting
-	}
 	toSerialize["ack_policy"] = o.AckPolicy
 	if !IsNil(o.AckWait) {
 		toSerialize["ack_wait"] = o.AckWait
@@ -816,7 +807,57 @@ func (o JSPullConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SampleFreq) {
 		toSerialize["sample_freq"] = o.SampleFreq
 	}
+	if !IsNil(o.MaxBatch) {
+		toSerialize["max_batch"] = o.MaxBatch
+	}
+	if !IsNil(o.MaxBytes) {
+		toSerialize["max_bytes"] = o.MaxBytes
+	}
+	if !IsNil(o.MaxExpires) {
+		toSerialize["max_expires"] = o.MaxExpires
+	}
+	if !IsNil(o.MaxWaiting) {
+		toSerialize["max_waiting"] = o.MaxWaiting
+	}
 	return toSerialize, nil
+}
+
+func (o *JSPullConsumerConfigRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ack_policy",
+		"deliver_policy",
+		"num_replicas",
+		"replay_policy",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSPullConsumerConfigRequest := _JSPullConsumerConfigRequest{}
+
+	err = json.Unmarshal(bytes, &varJSPullConsumerConfigRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSPullConsumerConfigRequest(varJSPullConsumerConfigRequest)
+
+	return err
 }
 
 type NullableJSPullConsumerConfigRequest struct {

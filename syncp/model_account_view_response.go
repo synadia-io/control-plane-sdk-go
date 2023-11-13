@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -25,30 +26,36 @@ type AccountViewResponse struct {
 	ClaimsInfo           AccountClaimsInfo  `json:"claims_info"`
 	Created              time.Time          `json:"created"`
 	Id                   string             `json:"id"`
+	IsScpAccount         bool               `json:"is_scp_account"`
 	IsSystemAccount      bool               `json:"is_system_account"`
 	Jwt                  string             `json:"jwt"`
 	JwtSettings          AccountJWTSettings `json:"jwt_settings"`
 	Name                 string             `json:"name"`
 	System               SystemInfo         `json:"system"`
+	Team                 TeamInfo           `json:"team"`
 	UserJwtExpiresInSecs int64              `json:"user_jwt_expires_in_secs"`
 }
+
+type _AccountViewResponse AccountViewResponse
 
 // NewAccountViewResponse instantiates a new AccountViewResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountViewResponse(accountPublicKey string, claims AccountClaims, claimsInfo AccountClaimsInfo, created time.Time, id string, isSystemAccount bool, jwt string, jwtSettings AccountJWTSettings, name string, system SystemInfo, userJwtExpiresInSecs int64) *AccountViewResponse {
+func NewAccountViewResponse(accountPublicKey string, claims AccountClaims, claimsInfo AccountClaimsInfo, created time.Time, id string, isScpAccount bool, isSystemAccount bool, jwt string, jwtSettings AccountJWTSettings, name string, system SystemInfo, team TeamInfo, userJwtExpiresInSecs int64) *AccountViewResponse {
 	this := AccountViewResponse{}
 	this.AccountPublicKey = accountPublicKey
 	this.Claims = claims
 	this.ClaimsInfo = claimsInfo
 	this.Created = created
 	this.Id = id
+	this.IsScpAccount = isScpAccount
 	this.IsSystemAccount = isSystemAccount
 	this.Jwt = jwt
 	this.JwtSettings = jwtSettings
 	this.Name = name
 	this.System = system
+	this.Team = team
 	this.UserJwtExpiresInSecs = userJwtExpiresInSecs
 	return &this
 }
@@ -181,6 +188,30 @@ func (o *AccountViewResponse) SetId(v string) {
 	o.Id = v
 }
 
+// GetIsScpAccount returns the IsScpAccount field value
+func (o *AccountViewResponse) GetIsScpAccount() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsScpAccount
+}
+
+// GetIsScpAccountOk returns a tuple with the IsScpAccount field value
+// and a boolean to check if the value has been set.
+func (o *AccountViewResponse) GetIsScpAccountOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsScpAccount, true
+}
+
+// SetIsScpAccount sets field value
+func (o *AccountViewResponse) SetIsScpAccount(v bool) {
+	o.IsScpAccount = v
+}
+
 // GetIsSystemAccount returns the IsSystemAccount field value
 func (o *AccountViewResponse) GetIsSystemAccount() bool {
 	if o == nil {
@@ -301,6 +332,30 @@ func (o *AccountViewResponse) SetSystem(v SystemInfo) {
 	o.System = v
 }
 
+// GetTeam returns the Team field value
+func (o *AccountViewResponse) GetTeam() TeamInfo {
+	if o == nil {
+		var ret TeamInfo
+		return ret
+	}
+
+	return o.Team
+}
+
+// GetTeamOk returns a tuple with the Team field value
+// and a boolean to check if the value has been set.
+func (o *AccountViewResponse) GetTeamOk() (*TeamInfo, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Team, true
+}
+
+// SetTeam sets field value
+func (o *AccountViewResponse) SetTeam(v TeamInfo) {
+	o.Team = v
+}
+
 // GetUserJwtExpiresInSecs returns the UserJwtExpiresInSecs field value
 func (o *AccountViewResponse) GetUserJwtExpiresInSecs() int64 {
 	if o == nil {
@@ -340,13 +395,62 @@ func (o AccountViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["claims_info"] = o.ClaimsInfo
 	toSerialize["created"] = o.Created
 	toSerialize["id"] = o.Id
+	toSerialize["is_scp_account"] = o.IsScpAccount
 	toSerialize["is_system_account"] = o.IsSystemAccount
 	toSerialize["jwt"] = o.Jwt
 	toSerialize["jwt_settings"] = o.JwtSettings
 	toSerialize["name"] = o.Name
 	toSerialize["system"] = o.System
+	toSerialize["team"] = o.Team
 	toSerialize["user_jwt_expires_in_secs"] = o.UserJwtExpiresInSecs
 	return toSerialize, nil
+}
+
+func (o *AccountViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_public_key",
+		"claims",
+		"claims_info",
+		"created",
+		"id",
+		"is_scp_account",
+		"is_system_account",
+		"jwt",
+		"jwt_settings",
+		"name",
+		"system",
+		"team",
+		"user_jwt_expires_in_secs",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccountViewResponse := _AccountViewResponse{}
+
+	err = json.Unmarshal(bytes, &varAccountViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountViewResponse(varAccountViewResponse)
+
+	return err
 }
 
 type NullableAccountViewResponse struct {

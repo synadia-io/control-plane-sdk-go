@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Nats** | Pointer to [**Account**](Account.md) |  | [optional] 
 **Aud** | Pointer to **string** |  | [optional] 
 **Exp** | Pointer to **int64** |  | [optional] 
 **Iat** | Pointer to **int64** |  | [optional] 
@@ -13,6 +12,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Nbf** | Pointer to **int64** |  | [optional] 
 **Sub** | Pointer to **string** |  | [optional] 
+**Nats** | Pointer to [**Account**](Account.md) |  | [optional] 
 
 ## Methods
 
@@ -32,31 +32,6 @@ will change when the set of required properties is changed
 NewAccountClaimsWithDefaults instantiates a new AccountClaims object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetNats
-
-`func (o *AccountClaims) GetNats() Account`
-
-GetNats returns the Nats field if non-nil, zero value otherwise.
-
-### GetNatsOk
-
-`func (o *AccountClaims) GetNatsOk() (*Account, bool)`
-
-GetNatsOk returns a tuple with the Nats field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNats
-
-`func (o *AccountClaims) SetNats(v Account)`
-
-SetNats sets Nats field to given value.
-
-### HasNats
-
-`func (o *AccountClaims) HasNats() bool`
-
-HasNats returns a boolean if a field has been set.
 
 ### GetAud
 
@@ -257,6 +232,31 @@ SetSub sets Sub field to given value.
 `func (o *AccountClaims) HasSub() bool`
 
 HasSub returns a boolean if a field has been set.
+
+### GetNats
+
+`func (o *AccountClaims) GetNats() Account`
+
+GetNats returns the Nats field if non-nil, zero value otherwise.
+
+### GetNatsOk
+
+`func (o *AccountClaims) GetNatsOk() (*Account, bool)`
+
+GetNatsOk returns a tuple with the Nats field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNats
+
+`func (o *AccountClaims) SetNats(v Account)`
+
+SetNats sets Nats field to given value.
+
+### HasNats
+
+`func (o *AccountClaims) HasNats() bool`
+
+HasNats returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

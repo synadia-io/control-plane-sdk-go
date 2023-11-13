@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SubjectImportCreateRequest type satisfies the MappedNullable interface at compile time
@@ -21,6 +22,8 @@ var _ MappedNullable = &SubjectImportCreateRequest{}
 type SubjectImportCreateRequest struct {
 	JwtSettings Import `json:"jwt_settings"`
 }
+
+type _SubjectImportCreateRequest SubjectImportCreateRequest
 
 // NewSubjectImportCreateRequest instantiates a new SubjectImportCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -76,6 +79,41 @@ func (o SubjectImportCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["jwt_settings"] = o.JwtSettings
 	return toSerialize, nil
+}
+
+func (o *SubjectImportCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"jwt_settings",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubjectImportCreateRequest := _SubjectImportCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varSubjectImportCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubjectImportCreateRequest(varSubjectImportCreateRequest)
+
+	return err
 }
 
 type NullableSubjectImportCreateRequest struct {

@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SystemImportRequest type satisfies the MappedNullable interface at compile time
@@ -25,13 +26,16 @@ type SystemImportRequest struct {
 	OperatorKey      string         `json:"operator_key"`
 	SystemJwt        string         `json:"system_jwt"`
 	SystemKey        string         `json:"system_key"`
+	TeamId           string         `json:"team_id"`
 }
+
+type _SystemImportRequest SystemImportRequest
 
 // NewSystemImportRequest instantiates a new SystemImportRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemImportRequest(operatorJwt string, operatorKey string, systemJwt string, systemKey string) *SystemImportRequest {
+func NewSystemImportRequest(operatorJwt string, operatorKey string, systemJwt string, systemKey string, teamId string) *SystemImportRequest {
 	this := SystemImportRequest{}
 	var jetstreamEnabled bool = true
 	this.JetstreamEnabled = &jetstreamEnabled
@@ -39,6 +43,7 @@ func NewSystemImportRequest(operatorJwt string, operatorKey string, systemJwt st
 	this.OperatorKey = operatorKey
 	this.SystemJwt = systemJwt
 	this.SystemKey = systemKey
+	this.TeamId = teamId
 	return &this
 }
 
@@ -223,6 +228,30 @@ func (o *SystemImportRequest) SetSystemKey(v string) {
 	o.SystemKey = v
 }
 
+// GetTeamId returns the TeamId field value
+func (o *SystemImportRequest) GetTeamId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TeamId
+}
+
+// GetTeamIdOk returns a tuple with the TeamId field value
+// and a boolean to check if the value has been set.
+func (o *SystemImportRequest) GetTeamIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TeamId, true
+}
+
+// SetTeamId sets field value
+func (o *SystemImportRequest) SetTeamId(v string) {
+	o.TeamId = v
+}
+
 func (o SystemImportRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -243,7 +272,47 @@ func (o SystemImportRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["operator_key"] = o.OperatorKey
 	toSerialize["system_jwt"] = o.SystemJwt
 	toSerialize["system_key"] = o.SystemKey
+	toSerialize["team_id"] = o.TeamId
 	return toSerialize, nil
+}
+
+func (o *SystemImportRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"operator_jwt",
+		"operator_key",
+		"system_jwt",
+		"system_key",
+		"team_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSystemImportRequest := _SystemImportRequest{}
+
+	err = json.Unmarshal(bytes, &varSystemImportRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SystemImportRequest(varSystemImportRequest)
+
+	return err
 }
 
 type NullableSystemImportRequest struct {

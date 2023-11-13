@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SubjectExportCreateRequest type satisfies the MappedNullable interface at compile time
@@ -23,6 +24,8 @@ type SubjectExportCreateRequest struct {
 	MetricsEnabled            bool   `json:"metrics_enabled"`
 	MetricsSamplingPercentage int64  `json:"metrics_sampling_percentage"`
 }
+
+type _SubjectExportCreateRequest SubjectExportCreateRequest
 
 // NewSubjectExportCreateRequest instantiates a new SubjectExportCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -130,6 +133,43 @@ func (o SubjectExportCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["metrics_enabled"] = o.MetricsEnabled
 	toSerialize["metrics_sampling_percentage"] = o.MetricsSamplingPercentage
 	return toSerialize, nil
+}
+
+func (o *SubjectExportCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"jwt_settings",
+		"metrics_enabled",
+		"metrics_sampling_percentage",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubjectExportCreateRequest := _SubjectExportCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varSubjectExportCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubjectExportCreateRequest(varSubjectExportCreateRequest)
+
+	return err
 }
 
 type NullableSubjectExportCreateRequest struct {

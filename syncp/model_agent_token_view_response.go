@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -27,6 +28,8 @@ type AgentTokenViewResponse struct {
 	NkeyPublic     string     `json:"nkey_public"`
 	RotatedAt      *time.Time `json:"rotated_at,omitempty"`
 }
+
+type _AgentTokenViewResponse AgentTokenViewResponse
 
 // NewAgentTokenViewResponse instantiates a new AgentTokenViewResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -230,6 +233,44 @@ func (o AgentTokenViewResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["rotated_at"] = o.RotatedAt
 	}
 	return toSerialize, nil
+}
+
+func (o *AgentTokenViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"id",
+		"is_current",
+		"nkey_public",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAgentTokenViewResponse := _AgentTokenViewResponse{}
+
+	err = json.Unmarshal(bytes, &varAgentTokenViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AgentTokenViewResponse(varAgentTokenViewResponse)
+
+	return err
 }
 
 type NullableAgentTokenViewResponse struct {

@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **History** | **int32** |  | 
 **MaxBytes** | **int64** |  | 
 **MaxValSize** | **int32** |  | 
-**Mirror** | Pointer to [**NullableJSKVBucketCreateRequestMirror**](JSKVBucketCreateRequestMirror.md) |  | [optional] 
-**Placement** | Pointer to [**NullableJSCommonStreamConfigPlacement**](JSCommonStreamConfigPlacement.md) |  | [optional] 
+**Mirror** | Pointer to [**StreamSource**](StreamSource.md) |  | [optional] 
+**Placement** | Pointer to [**Placement**](Placement.md) |  | [optional] 
 **Replicas** | **int32** |  | 
-**Republish** | Pointer to [**NullableJSCommonStreamConfigRepublish**](JSCommonStreamConfigRepublish.md) |  | [optional] 
+**Republish** | Pointer to [**RePublish**](RePublish.md) |  | [optional] 
 **Sources** | Pointer to [**[]StreamSource**](StreamSource.md) |  | [optional] 
 **Storage** | [**StorageType**](StorageType.md) |  | 
 **Ttl** | **int64** |  | 
@@ -138,20 +138,20 @@ SetMaxValSize sets MaxValSize field to given value.
 
 ### GetMirror
 
-`func (o *JSKVBucketCreateRequest) GetMirror() JSKVBucketCreateRequestMirror`
+`func (o *JSKVBucketCreateRequest) GetMirror() StreamSource`
 
 GetMirror returns the Mirror field if non-nil, zero value otherwise.
 
 ### GetMirrorOk
 
-`func (o *JSKVBucketCreateRequest) GetMirrorOk() (*JSKVBucketCreateRequestMirror, bool)`
+`func (o *JSKVBucketCreateRequest) GetMirrorOk() (*StreamSource, bool)`
 
 GetMirrorOk returns a tuple with the Mirror field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMirror
 
-`func (o *JSKVBucketCreateRequest) SetMirror(v JSKVBucketCreateRequestMirror)`
+`func (o *JSKVBucketCreateRequest) SetMirror(v StreamSource)`
 
 SetMirror sets Mirror field to given value.
 
@@ -161,32 +161,22 @@ SetMirror sets Mirror field to given value.
 
 HasMirror returns a boolean if a field has been set.
 
-### SetMirrorNil
-
-`func (o *JSKVBucketCreateRequest) SetMirrorNil(b bool)`
-
- SetMirrorNil sets the value for Mirror to be an explicit nil
-
-### UnsetMirror
-`func (o *JSKVBucketCreateRequest) UnsetMirror()`
-
-UnsetMirror ensures that no value is present for Mirror, not even an explicit nil
 ### GetPlacement
 
-`func (o *JSKVBucketCreateRequest) GetPlacement() JSCommonStreamConfigPlacement`
+`func (o *JSKVBucketCreateRequest) GetPlacement() Placement`
 
 GetPlacement returns the Placement field if non-nil, zero value otherwise.
 
 ### GetPlacementOk
 
-`func (o *JSKVBucketCreateRequest) GetPlacementOk() (*JSCommonStreamConfigPlacement, bool)`
+`func (o *JSKVBucketCreateRequest) GetPlacementOk() (*Placement, bool)`
 
 GetPlacementOk returns a tuple with the Placement field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlacement
 
-`func (o *JSKVBucketCreateRequest) SetPlacement(v JSCommonStreamConfigPlacement)`
+`func (o *JSKVBucketCreateRequest) SetPlacement(v Placement)`
 
 SetPlacement sets Placement field to given value.
 
@@ -196,16 +186,6 @@ SetPlacement sets Placement field to given value.
 
 HasPlacement returns a boolean if a field has been set.
 
-### SetPlacementNil
-
-`func (o *JSKVBucketCreateRequest) SetPlacementNil(b bool)`
-
- SetPlacementNil sets the value for Placement to be an explicit nil
-
-### UnsetPlacement
-`func (o *JSKVBucketCreateRequest) UnsetPlacement()`
-
-UnsetPlacement ensures that no value is present for Placement, not even an explicit nil
 ### GetReplicas
 
 `func (o *JSKVBucketCreateRequest) GetReplicas() int32`
@@ -228,20 +208,20 @@ SetReplicas sets Replicas field to given value.
 
 ### GetRepublish
 
-`func (o *JSKVBucketCreateRequest) GetRepublish() JSCommonStreamConfigRepublish`
+`func (o *JSKVBucketCreateRequest) GetRepublish() RePublish`
 
 GetRepublish returns the Republish field if non-nil, zero value otherwise.
 
 ### GetRepublishOk
 
-`func (o *JSKVBucketCreateRequest) GetRepublishOk() (*JSCommonStreamConfigRepublish, bool)`
+`func (o *JSKVBucketCreateRequest) GetRepublishOk() (*RePublish, bool)`
 
 GetRepublishOk returns a tuple with the Republish field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRepublish
 
-`func (o *JSKVBucketCreateRequest) SetRepublish(v JSCommonStreamConfigRepublish)`
+`func (o *JSKVBucketCreateRequest) SetRepublish(v RePublish)`
 
 SetRepublish sets Republish field to given value.
 
@@ -251,16 +231,6 @@ SetRepublish sets Republish field to given value.
 
 HasRepublish returns a boolean if a field has been set.
 
-### SetRepublishNil
-
-`func (o *JSKVBucketCreateRequest) SetRepublishNil(b bool)`
-
- SetRepublishNil sets the value for Republish to be an explicit nil
-
-### UnsetRepublish
-`func (o *JSKVBucketCreateRequest) UnsetRepublish()`
-
-UnsetRepublish ensures that no value is present for Republish, not even an explicit nil
 ### GetSources
 
 `func (o *JSKVBucketCreateRequest) GetSources() []StreamSource`
@@ -286,16 +256,6 @@ SetSources sets Sources field to given value.
 
 HasSources returns a boolean if a field has been set.
 
-### SetSourcesNil
-
-`func (o *JSKVBucketCreateRequest) SetSourcesNil(b bool)`
-
- SetSourcesNil sets the value for Sources to be an explicit nil
-
-### UnsetSources
-`func (o *JSKVBucketCreateRequest) UnsetSources()`
-
-UnsetSources ensures that no value is present for Sources, not even an explicit nil
 ### GetStorage
 
 `func (o *JSKVBucketCreateRequest) GetStorage() StorageType`

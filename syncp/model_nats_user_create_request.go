@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the NatsUserCreateRequest type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type NatsUserCreateRequest struct {
 	SkGroupId        string                 `json:"sk_group_id"`
 	UserClaims       *NatsUserClaimsRequest `json:"user_claims,omitempty"`
 }
+
+type _NatsUserCreateRequest NatsUserCreateRequest
 
 // NewNatsUserCreateRequest instantiates a new NatsUserCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -175,6 +178,42 @@ func (o NatsUserCreateRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["user_claims"] = o.UserClaims
 	}
 	return toSerialize, nil
+}
+
+func (o *NatsUserCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"sk_group_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNatsUserCreateRequest := _NatsUserCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varNatsUserCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NatsUserCreateRequest(varNatsUserCreateRequest)
+
+	return err
 }
 
 type NullableNatsUserCreateRequest struct {

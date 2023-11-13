@@ -30,7 +30,7 @@ Default configuration comes with `Servers` field that contains server objects as
 
 ### Select Server Configuration
 
-For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
+For using other server than the one defined on index 0 set context value `syncp.ContextServerIndex` of type `int`.
 
 ```golang
 ctx := context.WithValue(context.Background(), syncp.ContextServerIndex, 1)
@@ -38,7 +38,7 @@ ctx := context.WithValue(context.Background(), syncp.ContextServerIndex, 1)
 
 ### Templated Server URL
 
-Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
+Templated server URL is formatted using default variables from configuration or from context value `syncp.ContextServerVariables` of type `map[string]string`.
 
 ```golang
 ctx := context.WithValue(context.Background(), syncp.ContextServerVariables, map[string]string{
@@ -52,7 +52,7 @@ Note, enum values are always validated and all unused variables are silently ign
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
+Similar rules for overriding default operation server index and variables applies by using `syncp.ContextOperationServerIndices` and `syncp.ContextOperationServerVariables` context maps.
 
 ```golang
 ctx := context.WithValue(context.Background(), syncp.ContextOperationServerIndices, map[string]int{
@@ -71,7 +71,7 @@ All URIs are relative to *http://localhost/api/core/beta*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AccountAPI* | [**AssignAccountAppUser**](docs/AccountAPI.md#assignaccountappuser) | **Post** /accounts/{accountId}/app-users/{appUserId} | Assign App User to Account
+*AccountAPI* | [**AssignAccountTeamAppUser**](docs/AccountAPI.md#assignaccountteamappuser) | **Post** /accounts/{accountId}/app-users/{teamAppUserId} | Assign Team App User to Account
 *AccountAPI* | [**CreateAccountSkGroup**](docs/AccountAPI.md#createaccountskgroup) | **Post** /accounts/{accountId}/account-sk-groups | Create Account Signing Key Group
 *AccountAPI* | [**CreateAlertRule**](docs/AccountAPI.md#createalertrule) | **Post** /accounts/{accountId}/alert-rules | Create Account Alert Rule
 *AccountAPI* | [**CreateKvBucket**](docs/AccountAPI.md#createkvbucket) | **Post** /accounts/{accountId}/jetstream/kv-buckets | Create KV Bucket
@@ -88,9 +88,9 @@ Class | Method | HTTP request | Description
 *AccountAPI* | [**GetAccountInfo**](docs/AccountAPI.md#getaccountinfo) | **Get** /accounts/{accountId}/info | Get Account Info
 *AccountAPI* | [**GetAccountMetrics**](docs/AccountAPI.md#getaccountmetrics) | **Get** /accounts/{accountId}/metrics | Get Account Metrics
 *AccountAPI* | [**GetAlertRule**](docs/AccountAPI.md#getalertrule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId} | Get Account Alert Rule
-*AccountAPI* | [**ListAccountAppUsers**](docs/AccountAPI.md#listaccountappusers) | **Get** /accounts/{accountId}/app-users | List App Users
 *AccountAPI* | [**ListAccountConnections**](docs/AccountAPI.md#listaccountconnections) | **Get** /accounts/{accountId}/connections | List Account Connections
 *AccountAPI* | [**ListAccountSkGroup**](docs/AccountAPI.md#listaccountskgroup) | **Get** /accounts/{accountId}/account-sk-groups | List Account Signing Key Groups
+*AccountAPI* | [**ListAccountTeamAppUsers**](docs/AccountAPI.md#listaccountteamappusers) | **Get** /accounts/{accountId}/app-users | List Account Team App Users
 *AccountAPI* | [**ListAlertRules**](docs/AccountAPI.md#listalertrules) | **Get** /accounts/{accountId}/alert-rules | List Account Alert Rules
 *AccountAPI* | [**ListJetStreamAssets**](docs/AccountAPI.md#listjetstreamassets) | **Get** /accounts/{accountId}/jetstream | List JetStream Assets
 *AccountAPI* | [**ListKvBuckets**](docs/AccountAPI.md#listkvbuckets) | **Get** /accounts/{accountId}/jetstream/kv-buckets | List KV buckets
@@ -104,7 +104,8 @@ Class | Method | HTTP request | Description
 *AccountAPI* | [**ListSubjectImports**](docs/AccountAPI.md#listsubjectimports) | **Get** /accounts/{accountId}/subject-imports | List Subject Imports
 *AccountAPI* | [**ListUsers**](docs/AccountAPI.md#listusers) | **Get** /accounts/{accountId}/nats-users | List NATS Users
 *AccountAPI* | [**RunAlertRule**](docs/AccountAPI.md#runalertrule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId}/run | Run Account Alert Rule
-*AccountAPI* | [**UnAssignAccountAppUser**](docs/AccountAPI.md#unassignaccountappuser) | **Delete** /accounts/{accountId}/app-users/{appUserId} | Unassign App User from Account
+*AccountAPI* | [**UnAssignAccountTeamAppUser**](docs/AccountAPI.md#unassignaccountteamappuser) | **Delete** /accounts/{accountId}/app-users/{teamAppUserId} | Unassign Team App User from Account
+*AccountAPI* | [**UnmanageAccount**](docs/AccountAPI.md#unmanageaccount) | **Delete** /accounts/{accountId}/unmanage | Unmanage Account
 *AccountAPI* | [**UpdateAccount**](docs/AccountAPI.md#updateaccount) | **Patch** /accounts/{accountId} | Update Account
 *AccountAPI* | [**UpdateAlertRule**](docs/AccountAPI.md#updatealertrule) | **Patch** /accounts/{accountId}/alert-rules/{alertRuleId} | Update Account Alert Rule
 *AgentTokenAPI* | [**DeleteAgentToken**](docs/AgentTokenAPI.md#deleteagenttoken) | **Delete** /agent-tokens/{tokenId} | Delete Agent Token
@@ -129,13 +130,13 @@ Class | Method | HTTP request | Description
 *MirrorAPI* | [**GetMirror**](docs/MirrorAPI.md#getmirror) | **Get** /jetstream/mirror/{streamId} | Get Mirror
 *MirrorAPI* | [**ListMirrorConsumers**](docs/MirrorAPI.md#listmirrorconsumers) | **Get** /jetstream/mirror/{streamId}/consumers | List Consumers
 *MirrorAPI* | [**UpdateMirror**](docs/MirrorAPI.md#updatemirror) | **Patch** /jetstream/mirror/{streamId} | Update Mirror
-*NatsUserAPI* | [**AssignNatsUserAppUser**](docs/NatsUserAPI.md#assignnatsuserappuser) | **Post** /nats-users/{userId}/app-users/{appUserId} | Assign App User to NATS User
+*NatsUserAPI* | [**AssignNatsUserTeamAppUser**](docs/NatsUserAPI.md#assignnatsuserteamappuser) | **Post** /nats-users/{userId}/app-users/{teamAppUserId} | Assign Team App User to NATS User
 *NatsUserAPI* | [**DeleteNatsUser**](docs/NatsUserAPI.md#deletenatsuser) | **Delete** /nats-users/{userId} | Delete NATS User
 *NatsUserAPI* | [**DownloadNatsUserCreds**](docs/NatsUserAPI.md#downloadnatsusercreds) | **Post** /nats-users/{userId}/creds | Get Creds
 *NatsUserAPI* | [**GetNatsUser**](docs/NatsUserAPI.md#getnatsuser) | **Get** /nats-users/{userId} | Get NATS User
-*NatsUserAPI* | [**ListNatsUserAppUsers**](docs/NatsUserAPI.md#listnatsuserappusers) | **Get** /nats-users/{userId}/app-users | List App Users
 *NatsUserAPI* | [**ListNatsUserConnections**](docs/NatsUserAPI.md#listnatsuserconnections) | **Get** /nats-users/{userId}/connections | List NATs User Connections
-*NatsUserAPI* | [**UnAssignNatsUserAppUser**](docs/NatsUserAPI.md#unassignnatsuserappuser) | **Delete** /nats-users/{userId}/app-users/{appUserId} | Unassign App User from NATS User
+*NatsUserAPI* | [**ListNatsUserTeamAppUsers**](docs/NatsUserAPI.md#listnatsuserteamappusers) | **Get** /nats-users/{userId}/app-users | List Team App Users
+*NatsUserAPI* | [**UnAssignNatsUserTeamAppUser**](docs/NatsUserAPI.md#unassignnatsuserteamappuser) | **Delete** /nats-users/{userId}/app-users/{teamAppUserId} | Unassign Team App User from NATS User
 *NatsUserAPI* | [**UpdateNatsUser**](docs/NatsUserAPI.md#updatenatsuser) | **Patch** /nats-users/{userId} | Update NATS User
 *PersonalAccessTokenAPI* | [**DeletePersonalAccessToken**](docs/PersonalAccessTokenAPI.md#deletepersonalaccesstoken) | **Delete** /personal-access-tokens/{tokenId} | Delete Personal Access Token
 *PersonalAccessTokenAPI* | [**GetPersonalAccessToken**](docs/PersonalAccessTokenAPI.md#getpersonalaccesstoken) | **Get** /personal-access-tokens/{tokenId} | Get Personal Access Token
@@ -146,20 +147,18 @@ Class | Method | HTTP request | Description
 *PushConsumerAPI* | [**DeletePushConsumer**](docs/PushConsumerAPI.md#deletepushconsumer) | **Delete** /consumers/push/{consumerId} | Delete Push Consumer
 *PushConsumerAPI* | [**GetPushConsumerInfo**](docs/PushConsumerAPI.md#getpushconsumerinfo) | **Get** /consumers/push/{consumerId} | Get Push Consumer
 *PushConsumerAPI* | [**UpdatePushConsumer**](docs/PushConsumerAPI.md#updatepushconsumer) | **Patch** /consumers/push/{consumerId} | Update Push Consumer
+*SessionAPI* | [**AcceptTerms**](docs/SessionAPI.md#acceptterms) | **Post** /terms/accept | Accept terms
 *SessionAPI* | [**CreateAppUser**](docs/SessionAPI.md#createappuser) | **Post** /app-users | Create App User
 *SessionAPI* | [**CreatePersonalAccessToken**](docs/SessionAPI.md#createpersonalaccesstoken) | **Post** /personal-access-tokens | Create Personal Access Token
-*SessionAPI* | [**CreateSystem**](docs/SessionAPI.md#createsystem) | **Post** /systems | Create System
+*SessionAPI* | [**CreateTeam**](docs/SessionAPI.md#createteam) | **Post** /teams | Create Team
 *SessionAPI* | [**GetVersion**](docs/SessionAPI.md#getversion) | **Get** /version | Get Version
-*SessionAPI* | [**ImportSystem**](docs/SessionAPI.md#importsystem) | **Post** /import-system | Import a System
 *SessionAPI* | [**ListAlerts**](docs/SessionAPI.md#listalerts) | **Get** /alerts | List Alerts
 *SessionAPI* | [**ListAppUsers**](docs/SessionAPI.md#listappusers) | **Get** /app-users | List App Users
 *SessionAPI* | [**ListPersonalAccessTokens**](docs/SessionAPI.md#listpersonalaccesstokens) | **Get** /personal-access-tokens | List Personal Access Tokens
-*SessionAPI* | [**ListSessionAccounts**](docs/SessionAPI.md#listsessionaccounts) | **Get** /accounts | List Accounts
-*SessionAPI* | [**ListSessionNatsUsers**](docs/SessionAPI.md#listsessionnatsusers) | **Get** /nats-users | List NATS Users
-*SessionAPI* | [**ListSystems**](docs/SessionAPI.md#listsystems) | **Get** /systems | List Systems
-*SessionAPI* | [**SearchAppUsers**](docs/SessionAPI.md#searchappusers) | **Get** /search/app-users | Search App Users
+*SessionAPI* | [**ListTeams**](docs/SessionAPI.md#listteams) | **Get** /teams | List Teams
 *SessionAPI* | [**SearchSystemAccounts**](docs/SessionAPI.md#searchsystemaccounts) | **Get** /search/systems/{systemId}/accounts | Search System Accounts
 *SessionAPI* | [**SearchSystemServers**](docs/SessionAPI.md#searchsystemservers) | **Get** /search/systems/{systemId}/servers | Search System Servers
+*SessionAPI* | [**SearchTeamAppUsers**](docs/SessionAPI.md#searchteamappusers) | **Get** /search/teams/{teamId}/app-users | Search App Users in Team
 *SigKeyAPI* | [**DeleteAccountSk**](docs/SigKeyAPI.md#deleteaccountsk) | **Delete** /account-sks/{keyId} | Delete Account Signing
 *SigKeyAPI* | [**GetAccountSk**](docs/SigKeyAPI.md#getaccountsk) | **Get** /account-sks/{keyId} | Get Account Signing
 *SigKeyAPI* | [**UpdateAccountSk**](docs/SigKeyAPI.md#updateaccountsk) | **Patch** /account-sks/{keyId} | Update Account Signing
@@ -190,48 +189,69 @@ Class | Method | HTTP request | Description
 *SubjectImportAPI* | [**DeleteSubjectImport**](docs/SubjectImportAPI.md#deletesubjectimport) | **Delete** /subject-imports/{subjectImportId} | Delete Subject Import
 *SubjectImportAPI* | [**GetSubjectImport**](docs/SubjectImportAPI.md#getsubjectimport) | **Get** /subject-imports/{subjectImportId} | Get Subject Import
 *SubjectImportAPI* | [**UpdateSubjectImport**](docs/SubjectImportAPI.md#updatesubjectimport) | **Patch** /subject-imports/{subjectImportId} | Update Subject Import
-*SystemAPI* | [**AssignSystemAppUser**](docs/SystemAPI.md#assignsystemappuser) | **Post** /systems/{systemId}/app-users/{appUserId} | Assign App User to System
+*SystemAPI* | [**AssignSystemTeamAppUser**](docs/SystemAPI.md#assignsystemteamappuser) | **Post** /systems/{systemId}/app-users/{teamAppUserId} | Assign Team App User to System
 *SystemAPI* | [**CreateAccount**](docs/SystemAPI.md#createaccount) | **Post** /systems/{systemId}/accounts | Create Account
 *SystemAPI* | [**CreateSystemAlertRule**](docs/SystemAPI.md#createsystemalertrule) | **Post** /systems/{systemId}/alert-rules | Create System Alert Rule
 *SystemAPI* | [**DeleteSystem**](docs/SystemAPI.md#deletesystem) | **Delete** /systems/{systemId} | Delete System
 *SystemAPI* | [**DeleteSystemAlertRule**](docs/SystemAPI.md#deletesystemalertrule) | **Delete** /systems/{systemId}/alert-rules/{alertRuleId} | Delete System Alert Rule
+*SystemAPI* | [**DownloadSystemLogs**](docs/SystemAPI.md#downloadsystemlogs) | **Post** /systems/{systemId}/logs | Download Logs
 *SystemAPI* | [**GetCurrentAgentToken**](docs/SystemAPI.md#getcurrentagenttoken) | **Get** /systems/{systemId}/agent-tokens/current | Get Current Agent Token
 *SystemAPI* | [**GetSystem**](docs/SystemAPI.md#getsystem) | **Get** /systems/{systemId} | Get System
 *SystemAPI* | [**GetSystemAlertRule**](docs/SystemAPI.md#getsystemalertrule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId} | Get System Alert Rule
+*SystemAPI* | [**GetSystemLimits**](docs/SystemAPI.md#getsystemlimits) | **Get** /systems/{systemId}/limits | Get System Limits
 *SystemAPI* | [**ImportAccount**](docs/SystemAPI.md#importaccount) | **Post** /systems/{systemId}/import-account | Import Account
 *SystemAPI* | [**ImportUser**](docs/SystemAPI.md#importuser) | **Post** /systems/{systemId}/import-user | Import User
 *SystemAPI* | [**ListAccounts**](docs/SystemAPI.md#listaccounts) | **Get** /systems/{systemId}/accounts | List Accounts
+*SystemAPI* | [**ListAccountsOverviewMetrics**](docs/SystemAPI.md#listaccountsoverviewmetrics) | **Get** /systems/{systemId}/accounts-overview-metrics | List Accounts overview metrics
 *SystemAPI* | [**ListAgentTokens**](docs/SystemAPI.md#listagenttokens) | **Get** /systems/{systemId}/agent-tokens | List Agent Tokens
 *SystemAPI* | [**ListClusters**](docs/SystemAPI.md#listclusters) | **Get** /systems/{systemId}/nats-clusters | List Clusters
 *SystemAPI* | [**ListConnections**](docs/SystemAPI.md#listconnections) | **Get** /systems/{systemId}/connections | List Connections
 *SystemAPI* | [**ListServers**](docs/SystemAPI.md#listservers) | **Get** /systems/{systemId}/servers | List Servers
 *SystemAPI* | [**ListSystemAlertRules**](docs/SystemAPI.md#listsystemalertrules) | **Get** /systems/{systemId}/alert-rules | List System Alert Rules
-*SystemAPI* | [**ListSystemAppUsers**](docs/SystemAPI.md#listsystemappusers) | **Get** /systems/{systemId}/app-users | List App Users
+*SystemAPI* | [**ListSystemTeamAppUsers**](docs/SystemAPI.md#listsystemteamappusers) | **Get** /systems/{systemId}/app-users | List System Team App Users
 *SystemAPI* | [**RotateAgentToken**](docs/SystemAPI.md#rotateagenttoken) | **Post** /systems/{systemId}/agent-tokens | Rotate Agent Token
 *SystemAPI* | [**RunSystemAlertRule**](docs/SystemAPI.md#runsystemalertrule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
-*SystemAPI* | [**UnAssignSystemAppUser**](docs/SystemAPI.md#unassignsystemappuser) | **Delete** /systems/{systemId}/app-users/{appUserId} | Unassign App User from System
+*SystemAPI* | [**UnAssignSystemTeamAppUser**](docs/SystemAPI.md#unassignsystemteamappuser) | **Delete** /systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
 *SystemAPI* | [**UpdateSystem**](docs/SystemAPI.md#updatesystem) | **Patch** /systems/{systemId} | Update System
 *SystemAPI* | [**UpdateSystemAlertRule**](docs/SystemAPI.md#updatesystemalertrule) | **Patch** /systems/{systemId}/alert-rules/{alertRuleId} | Update System Alert Rules
+*TeamAPI* | [**AssignTeamAppUser**](docs/TeamAPI.md#assignteamappuser) | **Post** /teams/{teamId}/app-users/{appUserId} | Assign App User to Team
+*TeamAPI* | [**CreateSystem**](docs/TeamAPI.md#createsystem) | **Post** /teams/{teamId}/systems | Create System
+*TeamAPI* | [**DecideInvitation**](docs/TeamAPI.md#decideinvitation) | **Post** /invites/{teamId} | Accept or reject team invitation
+*TeamAPI* | [**DeleteTeam**](docs/TeamAPI.md#deleteteam) | **Delete** /teams/{teamId} | Delete Team
+*TeamAPI* | [**GetTeam**](docs/TeamAPI.md#getteam) | **Get** /teams/{teamId} | Get Team
+*TeamAPI* | [**GetTeamLimits**](docs/TeamAPI.md#getteamlimits) | **Get** /teams/{teamId}/team-limits | Get Team Limits
+*TeamAPI* | [**ImportSystem**](docs/TeamAPI.md#importsystem) | **Post** /teams/{teamId}/import-system | Import a System
+*TeamAPI* | [**InviteAppUser**](docs/TeamAPI.md#inviteappuser) | **Post** /teams/{teamId}/app-users/invite | Invite App Users
+*TeamAPI* | [**ListInvites**](docs/TeamAPI.md#listinvites) | **Get** /invites | List of pending invites
+*TeamAPI* | [**ListTeamAccounts**](docs/TeamAPI.md#listteamaccounts) | **Get** /teams/{teamId}/accounts | List Accounts
+*TeamAPI* | [**ListTeamAppUsers**](docs/TeamAPI.md#listteamappusers) | **Get** /teams/{teamId}/app-users | List App Users
+*TeamAPI* | [**ListTeamNatsUsers**](docs/TeamAPI.md#listteamnatsusers) | **Get** /teams/{teamId}/nats-users | List NATS Users
+*TeamAPI* | [**ListTeamSystems**](docs/TeamAPI.md#listteamsystems) | **Get** /teams/{teamId}/systems | List Systems
+*TeamAPI* | [**UnAssignTeamAppUser**](docs/TeamAPI.md#unassignteamappuser) | **Delete** /teams/{teamId}/app-users/{appUserId} | Unassign App User from Team
+*TeamAPI* | [**UpdateTeam**](docs/TeamAPI.md#updateteam) | **Patch** /teams/{teamId} | Update Team
 
 
 ## Documentation For Models
 
+ - [AcceptTermsResponse](docs/AcceptTermsResponse.md)
  - [Account](docs/Account.md)
  - [AccountChartType](docs/AccountChartType.md)
  - [AccountClaims](docs/AccountClaims.md)
  - [AccountClaimsInfo](docs/AccountClaimsInfo.md)
  - [AccountConnectionsListResponse](docs/AccountConnectionsListResponse.md)
  - [AccountCreateRequest](docs/AccountCreateRequest.md)
- - [AccountCreateRequestJwtSettings](docs/AccountCreateRequestJwtSettings.md)
  - [AccountInfo](docs/AccountInfo.md)
  - [AccountJWTSettings](docs/AccountJWTSettings.md)
  - [AccountLimits](docs/AccountLimits.md)
  - [AccountListResponse](docs/AccountListResponse.md)
  - [AccountMetrics](docs/AccountMetrics.md)
+ - [AccountOverviewResponse](docs/AccountOverviewResponse.md)
+ - [AccountOverviewResponseMetrics](docs/AccountOverviewResponseMetrics.md)
  - [AccountSearch](docs/AccountSearch.md)
  - [AccountSearchListResponse](docs/AccountSearchListResponse.md)
  - [AccountUpdateRequest](docs/AccountUpdateRequest.md)
  - [AccountViewResponse](docs/AccountViewResponse.md)
+ - [AccountsOverviewListResponse](docs/AccountsOverviewListResponse.md)
  - [AckPolicy](docs/AckPolicy.md)
  - [Activation](docs/Activation.md)
  - [ActivationClaims](docs/ActivationClaims.md)
@@ -257,7 +277,6 @@ Class | Method | HTTP request | Description
  - [AppPolicy](docs/AppPolicy.md)
  - [AppPolicyStatement](docs/AppPolicyStatement.md)
  - [AppRole](docs/AppRole.md)
- - [AppRoleAction](docs/AppRoleAction.md)
  - [AppRoleEffect](docs/AppRoleEffect.md)
  - [AppRoleScope](docs/AppRoleScope.md)
  - [AppUserAccessTokenCreateRequest](docs/AppUserAccessTokenCreateRequest.md)
@@ -272,6 +291,8 @@ Class | Method | HTTP request | Description
  - [AppUserCreateResponse](docs/AppUserCreateResponse.md)
  - [AppUserInfo](docs/AppUserInfo.md)
  - [AppUserInfoListResponse](docs/AppUserInfoListResponse.md)
+ - [AppUserInviteRequest](docs/AppUserInviteRequest.md)
+ - [AppUserInviteResponse](docs/AppUserInviteResponse.md)
  - [AppUserListResponse](docs/AppUserListResponse.md)
  - [AppUserType](docs/AppUserType.md)
  - [AppUserUpdateRequest](docs/AppUserUpdateRequest.md)
@@ -295,6 +316,7 @@ Class | Method | HTTP request | Description
  - [DeliverPolicy](docs/DeliverPolicy.md)
  - [DiscardPolicy](docs/DiscardPolicy.md)
  - [Export](docs/Export.md)
+ - [ExportAllOfServiceLatency](docs/ExportAllOfServiceLatency.md)
  - [ExportType](docs/ExportType.md)
  - [ExportsInner](docs/ExportsInner.md)
  - [ExternalStream](docs/ExternalStream.md)
@@ -303,6 +325,8 @@ Class | Method | HTTP request | Description
  - [Import](docs/Import.md)
  - [ImportsInner](docs/ImportsInner.md)
  - [Info](docs/Info.md)
+ - [InviteDecisionRequest](docs/InviteDecisionRequest.md)
+ - [InviteListResponse](docs/InviteListResponse.md)
  - [JSApiError](docs/JSApiError.md)
  - [JSAssetInfoListResponse](docs/JSAssetInfoListResponse.md)
  - [JSAssetInfoResponse](docs/JSAssetInfoResponse.md)
@@ -315,7 +339,6 @@ Class | Method | HTTP request | Description
  - [JSConsumerInfoResponse](docs/JSConsumerInfoResponse.md)
  - [JSConsumerType](docs/JSConsumerType.md)
  - [JSKVBucketCreateRequest](docs/JSKVBucketCreateRequest.md)
- - [JSKVBucketCreateRequestMirror](docs/JSKVBucketCreateRequestMirror.md)
  - [JSKVBucketListResponse](docs/JSKVBucketListResponse.md)
  - [JSKVBucketViewResponse](docs/JSKVBucketViewResponse.md)
  - [JSMirrorConfigRequest](docs/JSMirrorConfigRequest.md)
@@ -383,12 +406,6 @@ Class | Method | HTTP request | Description
  - [ServerStatsMsg](docs/ServerStatsMsg.md)
  - [ServerStatsRoutesInner](docs/ServerStatsRoutesInner.md)
  - [ServiceLatency](docs/ServiceLatency.md)
- - [SessionAccountListResponse](docs/SessionAccountListResponse.md)
- - [SessionAccountListResponseItemsInner](docs/SessionAccountListResponseItemsInner.md)
- - [SessionNatsUserListResponse](docs/SessionNatsUserListResponse.md)
- - [SessionNatsUserListResponseItemsInner](docs/SessionNatsUserListResponseItemsInner.md)
- - [SessionSystemListResponse](docs/SessionSystemListResponse.md)
- - [SessionSystemListResponseItemsInner](docs/SessionSystemListResponseItemsInner.md)
  - [SigningKeyGroupCreateRequest](docs/SigningKeyGroupCreateRequest.md)
  - [SigningKeyGroupListResponse](docs/SigningKeyGroupListResponse.md)
  - [SigningKeyGroupUpdateRequest](docs/SigningKeyGroupUpdateRequest.md)
@@ -435,12 +452,24 @@ Class | Method | HTTP request | Description
  - [SystemCreateRequest](docs/SystemCreateRequest.md)
  - [SystemImportRequest](docs/SystemImportRequest.md)
  - [SystemInfo](docs/SystemInfo.md)
+ - [SystemLimitsResponse](docs/SystemLimitsResponse.md)
  - [SystemListResponse](docs/SystemListResponse.md)
  - [SystemState](docs/SystemState.md)
  - [SystemUpdateRequest](docs/SystemUpdateRequest.md)
  - [SystemUserImportRequest](docs/SystemUserImportRequest.md)
  - [SystemViewResponse](docs/SystemViewResponse.md)
  - [TLSPeerCert](docs/TLSPeerCert.md)
+ - [TeamAppUserInfo](docs/TeamAppUserInfo.md)
+ - [TeamAppUserListResponse](docs/TeamAppUserListResponse.md)
+ - [TeamAppUserViewResponse](docs/TeamAppUserViewResponse.md)
+ - [TeamCreateRequest](docs/TeamCreateRequest.md)
+ - [TeamInfo](docs/TeamInfo.md)
+ - [TeamLimits](docs/TeamLimits.md)
+ - [TeamLimitsResponse](docs/TeamLimitsResponse.md)
+ - [TeamListResponse](docs/TeamListResponse.md)
+ - [TeamUpdateRequest](docs/TeamUpdateRequest.md)
+ - [TeamViewResponse](docs/TeamViewResponse.md)
+ - [TenantLimits](docs/TenantLimits.md)
  - [TimeRange](docs/TimeRange.md)
  - [User](docs/User.md)
  - [UserClaims](docs/UserClaims.md)
@@ -461,7 +490,7 @@ Authentication schemes defined for the API:
 Example
 
 ```golang
-auth := context.WithValue(context.Background(), sw.ContextAccessToken, "BEARER_TOKEN_STRING")
+auth := context.WithValue(context.Background(), syncp.ContextAccessToken, "BEARER_TOKEN_STRING")
 r, err := client.Service.Operation(auth, args)
 ```
 

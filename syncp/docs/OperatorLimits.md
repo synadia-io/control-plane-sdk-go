@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TieredLimits** | Pointer to [**map[string]JetStreamLimits**](JetStreamLimits.md) |  | [optional] 
 **Data** | Pointer to **int64** |  | [optional] 
 **Payload** | Pointer to **int64** |  | [optional] 
 **Subs** | Pointer to **int64** |  | [optional] 
@@ -22,6 +21,7 @@ Name | Type | Description | Notes
 **MemMaxStreamBytes** | Pointer to **int64** |  | [optional] 
 **MemStorage** | Pointer to **int64** |  | [optional] 
 **Streams** | Pointer to **int64** |  | [optional] 
+**TieredLimits** | Pointer to [**map[string]JetStreamLimits**](JetStreamLimits.md) |  | [optional] 
 
 ## Methods
 
@@ -41,31 +41,6 @@ will change when the set of required properties is changed
 NewOperatorLimitsWithDefaults instantiates a new OperatorLimits object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetTieredLimits
-
-`func (o *OperatorLimits) GetTieredLimits() map[string]JetStreamLimits`
-
-GetTieredLimits returns the TieredLimits field if non-nil, zero value otherwise.
-
-### GetTieredLimitsOk
-
-`func (o *OperatorLimits) GetTieredLimitsOk() (*map[string]JetStreamLimits, bool)`
-
-GetTieredLimitsOk returns a tuple with the TieredLimits field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTieredLimits
-
-`func (o *OperatorLimits) SetTieredLimits(v map[string]JetStreamLimits)`
-
-SetTieredLimits sets TieredLimits field to given value.
-
-### HasTieredLimits
-
-`func (o *OperatorLimits) HasTieredLimits() bool`
-
-HasTieredLimits returns a boolean if a field has been set.
 
 ### GetData
 
@@ -491,6 +466,31 @@ SetStreams sets Streams field to given value.
 `func (o *OperatorLimits) HasStreams() bool`
 
 HasStreams returns a boolean if a field has been set.
+
+### GetTieredLimits
+
+`func (o *OperatorLimits) GetTieredLimits() map[string]JetStreamLimits`
+
+GetTieredLimits returns the TieredLimits field if non-nil, zero value otherwise.
+
+### GetTieredLimitsOk
+
+`func (o *OperatorLimits) GetTieredLimitsOk() (*map[string]JetStreamLimits, bool)`
+
+GetTieredLimitsOk returns a tuple with the TieredLimits field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTieredLimits
+
+`func (o *OperatorLimits) SetTieredLimits(v map[string]JetStreamLimits)`
+
+SetTieredLimits sets TieredLimits field to given value.
+
+### HasTieredLimits
+
+`func (o *OperatorLimits) HasTieredLimits() bool`
+
+HasTieredLimits returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

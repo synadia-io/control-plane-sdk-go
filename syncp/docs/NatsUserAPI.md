@@ -4,22 +4,22 @@ All URIs are relative to *http://localhost/api/core/beta*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssignNatsUserAppUser**](NatsUserAPI.md#AssignNatsUserAppUser) | **Post** /nats-users/{userId}/app-users/{appUserId} | Assign App User to NATS User
+[**AssignNatsUserTeamAppUser**](NatsUserAPI.md#AssignNatsUserTeamAppUser) | **Post** /nats-users/{userId}/app-users/{teamAppUserId} | Assign Team App User to NATS User
 [**DeleteNatsUser**](NatsUserAPI.md#DeleteNatsUser) | **Delete** /nats-users/{userId} | Delete NATS User
 [**DownloadNatsUserCreds**](NatsUserAPI.md#DownloadNatsUserCreds) | **Post** /nats-users/{userId}/creds | Get Creds
 [**GetNatsUser**](NatsUserAPI.md#GetNatsUser) | **Get** /nats-users/{userId} | Get NATS User
-[**ListNatsUserAppUsers**](NatsUserAPI.md#ListNatsUserAppUsers) | **Get** /nats-users/{userId}/app-users | List App Users
 [**ListNatsUserConnections**](NatsUserAPI.md#ListNatsUserConnections) | **Get** /nats-users/{userId}/connections | List NATs User Connections
-[**UnAssignNatsUserAppUser**](NatsUserAPI.md#UnAssignNatsUserAppUser) | **Delete** /nats-users/{userId}/app-users/{appUserId} | Unassign App User from NATS User
+[**ListNatsUserTeamAppUsers**](NatsUserAPI.md#ListNatsUserTeamAppUsers) | **Get** /nats-users/{userId}/app-users | List Team App Users
+[**UnAssignNatsUserTeamAppUser**](NatsUserAPI.md#UnAssignNatsUserTeamAppUser) | **Delete** /nats-users/{userId}/app-users/{teamAppUserId} | Unassign Team App User from NATS User
 [**UpdateNatsUser**](NatsUserAPI.md#UpdateNatsUser) | **Patch** /nats-users/{userId} | Update NATS User
 
 
 
-## AssignNatsUserAppUser
+## AssignNatsUserTeamAppUser
 
-> AppUserAssignResponse AssignNatsUserAppUser(ctx, userId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
+> AppUserAssignResponse AssignNatsUserTeamAppUser(ctx, userId, teamAppUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
 
-Assign App User to NATS User
+Assign Team App User to NATS User
 
 
 
@@ -37,18 +37,18 @@ import (
 
 func main() {
     userId := "userId_example" // string | 
-    appUserId := "appUserId_example" // string | 
+    teamAppUserId := "teamAppUserId_example" // string | 
     appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("Role_example") // AppUserAssignRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NatsUserAPI.AssignNatsUserAppUser(context.Background(), userId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
+    resp, r, err := apiClient.NatsUserAPI.AssignNatsUserTeamAppUser(context.Background(), userId, teamAppUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.AssignNatsUserAppUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.AssignNatsUserTeamAppUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AssignNatsUserAppUser`: AppUserAssignResponse
-    fmt.Fprintf(os.Stdout, "Response from `NatsUserAPI.AssignNatsUserAppUser`: %v\n", resp)
+    // response from `AssignNatsUserTeamAppUser`: AppUserAssignResponse
+    fmt.Fprintf(os.Stdout, "Response from `NatsUserAPI.AssignNatsUserTeamAppUser`: %v\n", resp)
 }
 ```
 
@@ -59,11 +59,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **userId** | **string** |  | 
-**appUserId** | **string** |  | 
+**teamAppUserId** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAssignNatsUserAppUserRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiAssignNatsUserTeamAppUserRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -298,76 +298,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ListNatsUserAppUsers
-
-> AppUserAssignListResponse ListNatsUserAppUsers(ctx, userId).Execute()
-
-List App Users
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    userId := "userId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NatsUserAPI.ListNatsUserAppUsers(context.Background(), userId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.ListNatsUserAppUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListNatsUserAppUsers`: AppUserAssignListResponse
-    fmt.Fprintf(os.Stdout, "Response from `NatsUserAPI.ListNatsUserAppUsers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListNatsUserAppUsersRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**AppUserAssignListResponse**](AppUserAssignListResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListNatsUserConnections
 
 > NatsUserConnectionsListResponse ListNatsUserConnections(ctx, userId).Sort(sort).Cid(cid).State(state).Subject(subject).Limit(limit).Execute()
@@ -448,11 +378,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## UnAssignNatsUserAppUser
+## ListNatsUserTeamAppUsers
 
-> UnAssignNatsUserAppUser(ctx, userId, appUserId).Execute()
+> AppUserAssignListResponse ListNatsUserTeamAppUsers(ctx, userId).Execute()
 
-Unassign App User from NATS User
+List Team App Users
 
 
 
@@ -470,13 +400,83 @@ import (
 
 func main() {
     userId := "userId_example" // string | 
-    appUserId := "appUserId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.NatsUserAPI.UnAssignNatsUserAppUser(context.Background(), userId, appUserId).Execute()
+    resp, r, err := apiClient.NatsUserAPI.ListNatsUserTeamAppUsers(context.Background(), userId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.UnAssignNatsUserAppUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.ListNatsUserTeamAppUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListNatsUserTeamAppUsers`: AppUserAssignListResponse
+    fmt.Fprintf(os.Stdout, "Response from `NatsUserAPI.ListNatsUserTeamAppUsers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**userId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListNatsUserTeamAppUsersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AppUserAssignListResponse**](AppUserAssignListResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UnAssignNatsUserTeamAppUser
+
+> UnAssignNatsUserTeamAppUser(ctx, userId, teamAppUserId).Execute()
+
+Unassign Team App User from NATS User
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    userId := "userId_example" // string | 
+    teamAppUserId := "teamAppUserId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.NatsUserAPI.UnAssignNatsUserTeamAppUser(context.Background(), userId, teamAppUserId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.UnAssignNatsUserTeamAppUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -489,11 +489,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **userId** | **string** |  | 
-**appUserId** | **string** |  | 
+**teamAppUserId** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUnAssignNatsUserAppUserRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUnAssignNatsUserTeamAppUserRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

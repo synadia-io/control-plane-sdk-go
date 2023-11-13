@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the StreamExportCreateRequest type satisfies the MappedNullable interface at compile time
@@ -22,6 +23,8 @@ type StreamExportCreateRequest struct {
 	IsPublic   bool   `json:"is_public"`
 	StreamName string `json:"stream_name"`
 }
+
+type _StreamExportCreateRequest StreamExportCreateRequest
 
 // NewStreamExportCreateRequest instantiates a new StreamExportCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -103,6 +106,42 @@ func (o StreamExportCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["is_public"] = o.IsPublic
 	toSerialize["stream_name"] = o.StreamName
 	return toSerialize, nil
+}
+
+func (o *StreamExportCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"is_public",
+		"stream_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStreamExportCreateRequest := _StreamExportCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varStreamExportCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StreamExportCreateRequest(varStreamExportCreateRequest)
+
+	return err
 }
 
 type NullableStreamExportCreateRequest struct {

@@ -22,20 +22,20 @@ import (
 type AccountAPI interface {
 
 	/*
-		AssignAccountAppUser Assign App User to Account
+		AssignAccountTeamAppUser Assign Team App User to Account
 
-		Assign an App User to an Account
+		Assign a Team App User to an Account
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param accountId
-		@param appUserId
-		@return ApiAssignAccountAppUserRequest
+		@param teamAppUserId
+		@return ApiAssignAccountTeamAppUserRequest
 	*/
-	AssignAccountAppUser(ctx context.Context, accountId string, appUserId string) ApiAssignAccountAppUserRequest
+	AssignAccountTeamAppUser(ctx context.Context, accountId string, teamAppUserId string) ApiAssignAccountTeamAppUserRequest
 
-	// AssignAccountAppUserExecute executes the request
+	// AssignAccountTeamAppUserExecute executes the request
 	//  @return AppUserAssignResponse
-	AssignAccountAppUserExecute(r ApiAssignAccountAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
+	AssignAccountTeamAppUserExecute(r ApiAssignAccountTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
 
 	/*
 		CreateAccountSkGroup Create Account Signing Key Group
@@ -278,21 +278,6 @@ type AccountAPI interface {
 	GetAlertRuleExecute(r ApiGetAlertRuleRequest) (*AlertRuleViewResponse, *http.Response, error)
 
 	/*
-		ListAccountAppUsers List App Users
-
-		Returns a list of App Users associated with the Account
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param accountId
-		@return ApiListAccountAppUsersRequest
-	*/
-	ListAccountAppUsers(ctx context.Context, accountId string) ApiListAccountAppUsersRequest
-
-	// ListAccountAppUsersExecute executes the request
-	//  @return AppUserAssignListResponse
-	ListAccountAppUsersExecute(r ApiListAccountAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error)
-
-	/*
 		ListAccountConnections List Account Connections
 
 		List Account Connections
@@ -321,6 +306,21 @@ type AccountAPI interface {
 	// ListAccountSkGroupExecute executes the request
 	//  @return SigningKeyGroupListResponse
 	ListAccountSkGroupExecute(r ApiListAccountSkGroupRequest) (*SigningKeyGroupListResponse, *http.Response, error)
+
+	/*
+		ListAccountTeamAppUsers List Account Team App Users
+
+		Returns a list of Team App Users associated with the Account
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId
+		@return ApiListAccountTeamAppUsersRequest
+	*/
+	ListAccountTeamAppUsers(ctx context.Context, accountId string) ApiListAccountTeamAppUsersRequest
+
+	// ListAccountTeamAppUsersExecute executes the request
+	//  @return AppUserAssignListResponse
+	ListAccountTeamAppUsersExecute(r ApiListAccountTeamAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error)
 
 	/*
 		ListAlertRules List Account Alert Rules
@@ -519,19 +519,33 @@ type AccountAPI interface {
 	RunAlertRuleExecute(r ApiRunAlertRuleRequest) (*AlertViewResponse, *http.Response, error)
 
 	/*
-		UnAssignAccountAppUser Unassign App User from Account
+		UnAssignAccountTeamAppUser Unassign Team App User from Account
 
-		Unassign an App User from an Account
+		Unassign a Team App User from an Account
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param accountId
-		@param appUserId
-		@return ApiUnAssignAccountAppUserRequest
+		@param teamAppUserId
+		@return ApiUnAssignAccountTeamAppUserRequest
 	*/
-	UnAssignAccountAppUser(ctx context.Context, accountId string, appUserId string) ApiUnAssignAccountAppUserRequest
+	UnAssignAccountTeamAppUser(ctx context.Context, accountId string, teamAppUserId string) ApiUnAssignAccountTeamAppUserRequest
 
-	// UnAssignAccountAppUserExecute executes the request
-	UnAssignAccountAppUserExecute(r ApiUnAssignAccountAppUserRequest) (*http.Response, error)
+	// UnAssignAccountTeamAppUserExecute executes the request
+	UnAssignAccountTeamAppUserExecute(r ApiUnAssignAccountTeamAppUserRequest) (*http.Response, error)
+
+	/*
+		UnmanageAccount Unmanage Account
+
+		Unmanage a Account in a system
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId
+		@return ApiUnmanageAccountRequest
+	*/
+	UnmanageAccount(ctx context.Context, accountId string) ApiUnmanageAccountRequest
+
+	// UnmanageAccountExecute executes the request
+	UnmanageAccountExecute(r ApiUnmanageAccountRequest) (*http.Response, error)
 
 	/*
 		UpdateAccount Update Account
@@ -568,46 +582,46 @@ type AccountAPI interface {
 // AccountAPIService AccountAPI service
 type AccountAPIService service
 
-type ApiAssignAccountAppUserRequest struct {
+type ApiAssignAccountTeamAppUserRequest struct {
 	ctx                  context.Context
 	ApiService           AccountAPI
 	accountId            string
-	appUserId            string
+	teamAppUserId        string
 	appUserAssignRequest *AppUserAssignRequest
 }
 
-func (r ApiAssignAccountAppUserRequest) AppUserAssignRequest(appUserAssignRequest AppUserAssignRequest) ApiAssignAccountAppUserRequest {
+func (r ApiAssignAccountTeamAppUserRequest) AppUserAssignRequest(appUserAssignRequest AppUserAssignRequest) ApiAssignAccountTeamAppUserRequest {
 	r.appUserAssignRequest = &appUserAssignRequest
 	return r
 }
 
-func (r ApiAssignAccountAppUserRequest) Execute() (*AppUserAssignResponse, *http.Response, error) {
-	return r.ApiService.AssignAccountAppUserExecute(r)
+func (r ApiAssignAccountTeamAppUserRequest) Execute() (*AppUserAssignResponse, *http.Response, error) {
+	return r.ApiService.AssignAccountTeamAppUserExecute(r)
 }
 
 /*
-AssignAccountAppUser Assign App User to Account
+AssignAccountTeamAppUser Assign Team App User to Account
 
-Assign an App User to an Account
+Assign a Team App User to an Account
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param accountId
-	@param appUserId
-	@return ApiAssignAccountAppUserRequest
+	@param teamAppUserId
+	@return ApiAssignAccountTeamAppUserRequest
 */
-func (a *AccountAPIService) AssignAccountAppUser(ctx context.Context, accountId string, appUserId string) ApiAssignAccountAppUserRequest {
-	return ApiAssignAccountAppUserRequest{
-		ApiService: a,
-		ctx:        ctx,
-		accountId:  accountId,
-		appUserId:  appUserId,
+func (a *AccountAPIService) AssignAccountTeamAppUser(ctx context.Context, accountId string, teamAppUserId string) ApiAssignAccountTeamAppUserRequest {
+	return ApiAssignAccountTeamAppUserRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		accountId:     accountId,
+		teamAppUserId: teamAppUserId,
 	}
 }
 
 // Execute executes the request
 //
 //	@return AppUserAssignResponse
-func (a *AccountAPIService) AssignAccountAppUserExecute(r ApiAssignAccountAppUserRequest) (*AppUserAssignResponse, *http.Response, error) {
+func (a *AccountAPIService) AssignAccountTeamAppUserExecute(r ApiAssignAccountTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -615,14 +629,14 @@ func (a *AccountAPIService) AssignAccountAppUserExecute(r ApiAssignAccountAppUse
 		localVarReturnValue *AppUserAssignResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.AssignAccountAppUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.AssignAccountTeamAppUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/app-users/{appUserId}"
+	localVarPath := localBasePath + "/accounts/{accountId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1808,12 +1822,6 @@ type ApiDeleteAccountRequest struct {
 	ctx        context.Context
 	ApiService AccountAPI
 	accountId  string
-	unmanage   *bool
-}
-
-func (r ApiDeleteAccountRequest) Unmanage(unmanage bool) ApiDeleteAccountRequest {
-	r.unmanage = &unmanage
-	return r
 }
 
 func (r ApiDeleteAccountRequest) Execute() (*http.Response, error) {
@@ -1857,9 +1865,6 @@ func (a *AccountAPIService) DeleteAccountExecute(r ApiDeleteAccountRequest) (*ht
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.unmanage != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "unmanage", r.unmanage, "")
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2421,110 +2426,6 @@ func (a *AccountAPIService) GetAlertRuleExecute(r ApiGetAlertRuleRequest) (*Aler
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListAccountAppUsersRequest struct {
-	ctx        context.Context
-	ApiService AccountAPI
-	accountId  string
-}
-
-func (r ApiListAccountAppUsersRequest) Execute() (*AppUserAssignListResponse, *http.Response, error) {
-	return r.ApiService.ListAccountAppUsersExecute(r)
-}
-
-/*
-ListAccountAppUsers List App Users
-
-Returns a list of App Users associated with the Account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param accountId
-	@return ApiListAccountAppUsersRequest
-*/
-func (a *AccountAPIService) ListAccountAppUsers(ctx context.Context, accountId string) ApiListAccountAppUsersRequest {
-	return ApiListAccountAppUsersRequest{
-		ApiService: a,
-		ctx:        ctx,
-		accountId:  accountId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AppUserAssignListResponse
-func (a *AccountAPIService) ListAccountAppUsersExecute(r ApiListAccountAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AppUserAssignListResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.ListAccountAppUsers")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/accounts/{accountId}/app-users"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiListAccountConnectionsRequest struct {
 	ctx        context.Context
 	ApiService AccountAPI
@@ -2727,6 +2628,110 @@ func (a *AccountAPIService) ListAccountSkGroupExecute(r ApiListAccountSkGroupReq
 	}
 
 	localVarPath := localBasePath + "/accounts/{accountId}/account-sk-groups"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListAccountTeamAppUsersRequest struct {
+	ctx        context.Context
+	ApiService AccountAPI
+	accountId  string
+}
+
+func (r ApiListAccountTeamAppUsersRequest) Execute() (*AppUserAssignListResponse, *http.Response, error) {
+	return r.ApiService.ListAccountTeamAppUsersExecute(r)
+}
+
+/*
+ListAccountTeamAppUsers List Account Team App Users
+
+Returns a list of Team App Users associated with the Account
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId
+	@return ApiListAccountTeamAppUsersRequest
+*/
+func (a *AccountAPIService) ListAccountTeamAppUsers(ctx context.Context, accountId string) ApiListAccountTeamAppUsersRequest {
+	return ApiListAccountTeamAppUsersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		accountId:  accountId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AppUserAssignListResponse
+func (a *AccountAPIService) ListAccountTeamAppUsersExecute(r ApiListAccountTeamAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AppUserAssignListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.ListAccountTeamAppUsers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{accountId}/app-users"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4143,52 +4148,144 @@ func (a *AccountAPIService) RunAlertRuleExecute(r ApiRunAlertRuleRequest) (*Aler
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUnAssignAccountAppUserRequest struct {
-	ctx        context.Context
-	ApiService AccountAPI
-	accountId  string
-	appUserId  string
+type ApiUnAssignAccountTeamAppUserRequest struct {
+	ctx           context.Context
+	ApiService    AccountAPI
+	accountId     string
+	teamAppUserId string
 }
 
-func (r ApiUnAssignAccountAppUserRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UnAssignAccountAppUserExecute(r)
+func (r ApiUnAssignAccountTeamAppUserRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UnAssignAccountTeamAppUserExecute(r)
 }
 
 /*
-UnAssignAccountAppUser Unassign App User from Account
+UnAssignAccountTeamAppUser Unassign Team App User from Account
 
-Unassign an App User from an Account
+Unassign a Team App User from an Account
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param accountId
-	@param appUserId
-	@return ApiUnAssignAccountAppUserRequest
+	@param teamAppUserId
+	@return ApiUnAssignAccountTeamAppUserRequest
 */
-func (a *AccountAPIService) UnAssignAccountAppUser(ctx context.Context, accountId string, appUserId string) ApiUnAssignAccountAppUserRequest {
-	return ApiUnAssignAccountAppUserRequest{
-		ApiService: a,
-		ctx:        ctx,
-		accountId:  accountId,
-		appUserId:  appUserId,
+func (a *AccountAPIService) UnAssignAccountTeamAppUser(ctx context.Context, accountId string, teamAppUserId string) ApiUnAssignAccountTeamAppUserRequest {
+	return ApiUnAssignAccountTeamAppUserRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		accountId:     accountId,
+		teamAppUserId: teamAppUserId,
 	}
 }
 
 // Execute executes the request
-func (a *AccountAPIService) UnAssignAccountAppUserExecute(r ApiUnAssignAccountAppUserRequest) (*http.Response, error) {
+func (a *AccountAPIService) UnAssignAccountTeamAppUserExecute(r ApiUnAssignAccountTeamAppUserRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.UnAssignAccountAppUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.UnAssignAccountTeamAppUser")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/app-users/{appUserId}"
+	localVarPath := localBasePath + "/accounts/{accountId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiUnmanageAccountRequest struct {
+	ctx        context.Context
+	ApiService AccountAPI
+	accountId  string
+}
+
+func (r ApiUnmanageAccountRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UnmanageAccountExecute(r)
+}
+
+/*
+UnmanageAccount Unmanage Account
+
+Unmanage a Account in a system
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId
+	@return ApiUnmanageAccountRequest
+*/
+func (a *AccountAPIService) UnmanageAccount(ctx context.Context, accountId string) ApiUnmanageAccountRequest {
+	return ApiUnmanageAccountRequest{
+		ApiService: a,
+		ctx:        ctx,
+		accountId:  accountId,
+	}
+}
+
+// Execute executes the request
+func (a *AccountAPIService) UnmanageAccountExecute(r ApiUnmanageAccountRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.UnmanageAccount")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{accountId}/unmanage"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

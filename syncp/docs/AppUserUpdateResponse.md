@@ -4,20 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResetPasswordLink** | Pointer to **string** |  | [optional] 
 **Created** | **time.Time** |  | 
 **Id** | **string** |  | 
 **Identifier** | **NullableString** |  | 
 **Name** | **string** |  | 
+**OryId** | **NullableString** |  | 
 **RoleId** | **string** |  | 
 **RoleName** | **string** |  | 
+**TermsAcceptedUpdated** | **NullableString** |  | 
 **Type** | [**AppUserType**](AppUserType.md) |  | 
+**ResetPasswordLink** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewAppUserUpdateResponse
 
-`func NewAppUserUpdateResponse(created time.Time, id string, identifier NullableString, name string, roleId string, roleName string, type_ AppUserType, ) *AppUserUpdateResponse`
+`func NewAppUserUpdateResponse(created time.Time, id string, identifier NullableString, name string, oryId NullableString, roleId string, roleName string, termsAcceptedUpdated NullableString, type_ AppUserType, ) *AppUserUpdateResponse`
 
 NewAppUserUpdateResponse instantiates a new AppUserUpdateResponse object
 This constructor will assign default values to properties that have it defined,
@@ -31,31 +33,6 @@ will change when the set of required properties is changed
 NewAppUserUpdateResponseWithDefaults instantiates a new AppUserUpdateResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetResetPasswordLink
-
-`func (o *AppUserUpdateResponse) GetResetPasswordLink() string`
-
-GetResetPasswordLink returns the ResetPasswordLink field if non-nil, zero value otherwise.
-
-### GetResetPasswordLinkOk
-
-`func (o *AppUserUpdateResponse) GetResetPasswordLinkOk() (*string, bool)`
-
-GetResetPasswordLinkOk returns a tuple with the ResetPasswordLink field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetResetPasswordLink
-
-`func (o *AppUserUpdateResponse) SetResetPasswordLink(v string)`
-
-SetResetPasswordLink sets ResetPasswordLink field to given value.
-
-### HasResetPasswordLink
-
-`func (o *AppUserUpdateResponse) HasResetPasswordLink() bool`
-
-HasResetPasswordLink returns a boolean if a field has been set.
 
 ### GetCreated
 
@@ -147,6 +124,36 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetOryId
+
+`func (o *AppUserUpdateResponse) GetOryId() string`
+
+GetOryId returns the OryId field if non-nil, zero value otherwise.
+
+### GetOryIdOk
+
+`func (o *AppUserUpdateResponse) GetOryIdOk() (*string, bool)`
+
+GetOryIdOk returns a tuple with the OryId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOryId
+
+`func (o *AppUserUpdateResponse) SetOryId(v string)`
+
+SetOryId sets OryId field to given value.
+
+
+### SetOryIdNil
+
+`func (o *AppUserUpdateResponse) SetOryIdNil(b bool)`
+
+ SetOryIdNil sets the value for OryId to be an explicit nil
+
+### UnsetOryId
+`func (o *AppUserUpdateResponse) UnsetOryId()`
+
+UnsetOryId ensures that no value is present for OryId, not even an explicit nil
 ### GetRoleId
 
 `func (o *AppUserUpdateResponse) GetRoleId() string`
@@ -187,6 +194,36 @@ and a boolean to check if the value has been set.
 SetRoleName sets RoleName field to given value.
 
 
+### GetTermsAcceptedUpdated
+
+`func (o *AppUserUpdateResponse) GetTermsAcceptedUpdated() string`
+
+GetTermsAcceptedUpdated returns the TermsAcceptedUpdated field if non-nil, zero value otherwise.
+
+### GetTermsAcceptedUpdatedOk
+
+`func (o *AppUserUpdateResponse) GetTermsAcceptedUpdatedOk() (*string, bool)`
+
+GetTermsAcceptedUpdatedOk returns a tuple with the TermsAcceptedUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTermsAcceptedUpdated
+
+`func (o *AppUserUpdateResponse) SetTermsAcceptedUpdated(v string)`
+
+SetTermsAcceptedUpdated sets TermsAcceptedUpdated field to given value.
+
+
+### SetTermsAcceptedUpdatedNil
+
+`func (o *AppUserUpdateResponse) SetTermsAcceptedUpdatedNil(b bool)`
+
+ SetTermsAcceptedUpdatedNil sets the value for TermsAcceptedUpdated to be an explicit nil
+
+### UnsetTermsAcceptedUpdated
+`func (o *AppUserUpdateResponse) UnsetTermsAcceptedUpdated()`
+
+UnsetTermsAcceptedUpdated ensures that no value is present for TermsAcceptedUpdated, not even an explicit nil
 ### GetType
 
 `func (o *AppUserUpdateResponse) GetType() AppUserType`
@@ -206,6 +243,31 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+
+### GetResetPasswordLink
+
+`func (o *AppUserUpdateResponse) GetResetPasswordLink() string`
+
+GetResetPasswordLink returns the ResetPasswordLink field if non-nil, zero value otherwise.
+
+### GetResetPasswordLinkOk
+
+`func (o *AppUserUpdateResponse) GetResetPasswordLinkOk() (*string, bool)`
+
+GetResetPasswordLinkOk returns a tuple with the ResetPasswordLink field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResetPasswordLink
+
+`func (o *AppUserUpdateResponse) SetResetPasswordLink(v string)`
+
+SetResetPasswordLink sets ResetPasswordLink field to given value.
+
+### HasResetPasswordLink
+
+`func (o *AppUserUpdateResponse) HasResetPasswordLink() bool`
+
+HasResetPasswordLink returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

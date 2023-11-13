@@ -17,9 +17,8 @@ import (
 // checks if the OperatorLimits type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OperatorLimits{}
 
-// OperatorLimits OperatorLimits are used to limit access by an account
+// OperatorLimits struct for OperatorLimits
 type OperatorLimits struct {
-	TieredLimits       *map[string]JetStreamLimits `json:"tiered_limits,omitempty"`
 	Data               *int64                      `json:"data,omitempty"`
 	Payload            *int64                      `json:"payload,omitempty"`
 	Subs               *int64                      `json:"subs,omitempty"`
@@ -37,6 +36,7 @@ type OperatorLimits struct {
 	MemMaxStreamBytes  *int64                      `json:"mem_max_stream_bytes,omitempty"`
 	MemStorage         *int64                      `json:"mem_storage,omitempty"`
 	Streams            *int64                      `json:"streams,omitempty"`
+	TieredLimits       *map[string]JetStreamLimits `json:"tiered_limits,omitempty"`
 }
 
 // NewOperatorLimits instantiates a new OperatorLimits object
@@ -54,38 +54,6 @@ func NewOperatorLimits() *OperatorLimits {
 func NewOperatorLimitsWithDefaults() *OperatorLimits {
 	this := OperatorLimits{}
 	return &this
-}
-
-// GetTieredLimits returns the TieredLimits field value if set, zero value otherwise.
-func (o *OperatorLimits) GetTieredLimits() map[string]JetStreamLimits {
-	if o == nil || IsNil(o.TieredLimits) {
-		var ret map[string]JetStreamLimits
-		return ret
-	}
-	return *o.TieredLimits
-}
-
-// GetTieredLimitsOk returns a tuple with the TieredLimits field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OperatorLimits) GetTieredLimitsOk() (*map[string]JetStreamLimits, bool) {
-	if o == nil || IsNil(o.TieredLimits) {
-		return nil, false
-	}
-	return o.TieredLimits, true
-}
-
-// HasTieredLimits returns a boolean if a field has been set.
-func (o *OperatorLimits) HasTieredLimits() bool {
-	if o != nil && !IsNil(o.TieredLimits) {
-		return true
-	}
-
-	return false
-}
-
-// SetTieredLimits gets a reference to the given map[string]JetStreamLimits and assigns it to the TieredLimits field.
-func (o *OperatorLimits) SetTieredLimits(v map[string]JetStreamLimits) {
-	o.TieredLimits = &v
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
@@ -632,6 +600,38 @@ func (o *OperatorLimits) SetStreams(v int64) {
 	o.Streams = &v
 }
 
+// GetTieredLimits returns the TieredLimits field value if set, zero value otherwise.
+func (o *OperatorLimits) GetTieredLimits() map[string]JetStreamLimits {
+	if o == nil || IsNil(o.TieredLimits) {
+		var ret map[string]JetStreamLimits
+		return ret
+	}
+	return *o.TieredLimits
+}
+
+// GetTieredLimitsOk returns a tuple with the TieredLimits field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OperatorLimits) GetTieredLimitsOk() (*map[string]JetStreamLimits, bool) {
+	if o == nil || IsNil(o.TieredLimits) {
+		return nil, false
+	}
+	return o.TieredLimits, true
+}
+
+// HasTieredLimits returns a boolean if a field has been set.
+func (o *OperatorLimits) HasTieredLimits() bool {
+	if o != nil && !IsNil(o.TieredLimits) {
+		return true
+	}
+
+	return false
+}
+
+// SetTieredLimits gets a reference to the given map[string]JetStreamLimits and assigns it to the TieredLimits field.
+func (o *OperatorLimits) SetTieredLimits(v map[string]JetStreamLimits) {
+	o.TieredLimits = &v
+}
+
 func (o OperatorLimits) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -642,9 +642,6 @@ func (o OperatorLimits) MarshalJSON() ([]byte, error) {
 
 func (o OperatorLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.TieredLimits) {
-		toSerialize["tiered_limits"] = o.TieredLimits
-	}
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
@@ -695,6 +692,9 @@ func (o OperatorLimits) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Streams) {
 		toSerialize["streams"] = o.Streams
+	}
+	if !IsNil(o.TieredLimits) {
+		toSerialize["tiered_limits"] = o.TieredLimits
 	}
 	return toSerialize, nil
 }

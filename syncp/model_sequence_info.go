@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SequenceInfo type satisfies the MappedNullable interface at compile time
@@ -23,6 +24,8 @@ type SequenceInfo struct {
 	LastActive  NullableString `json:"last_active,omitempty"`
 	StreamSeq   int32          `json:"stream_seq"`
 }
+
+type _SequenceInfo SequenceInfo
 
 // NewSequenceInfo instantiates a new SequenceInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -150,6 +153,42 @@ func (o SequenceInfo) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["stream_seq"] = o.StreamSeq
 	return toSerialize, nil
+}
+
+func (o *SequenceInfo) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"consumer_seq",
+		"stream_seq",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSequenceInfo := _SequenceInfo{}
+
+	err = json.Unmarshal(bytes, &varSequenceInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SequenceInfo(varSequenceInfo)
+
+	return err
 }
 
 type NullableSequenceInfo struct {

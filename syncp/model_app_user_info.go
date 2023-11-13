@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AppUserInfo type satisfies the MappedNullable interface at compile time
@@ -22,17 +23,21 @@ type AppUserInfo struct {
 	Id         string         `json:"id"`
 	Identifier NullableString `json:"identifier"`
 	Name       string         `json:"name"`
+	OryId      NullableString `json:"ory_id"`
 }
+
+type _AppUserInfo AppUserInfo
 
 // NewAppUserInfo instantiates a new AppUserInfo object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppUserInfo(id string, identifier NullableString, name string) *AppUserInfo {
+func NewAppUserInfo(id string, identifier NullableString, name string, oryId NullableString) *AppUserInfo {
 	this := AppUserInfo{}
 	this.Id = id
 	this.Identifier = identifier
 	this.Name = name
+	this.OryId = oryId
 	return &this
 }
 
@@ -118,6 +123,32 @@ func (o *AppUserInfo) SetName(v string) {
 	o.Name = v
 }
 
+// GetOryId returns the OryId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *AppUserInfo) GetOryId() string {
+	if o == nil || o.OryId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.OryId.Get()
+}
+
+// GetOryIdOk returns a tuple with the OryId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AppUserInfo) GetOryIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OryId.Get(), o.OryId.IsSet()
+}
+
+// SetOryId sets field value
+func (o *AppUserInfo) SetOryId(v string) {
+	o.OryId.Set(&v)
+}
+
 func (o AppUserInfo) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -131,7 +162,46 @@ func (o AppUserInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["identifier"] = o.Identifier.Get()
 	toSerialize["name"] = o.Name
+	toSerialize["ory_id"] = o.OryId.Get()
 	return toSerialize, nil
+}
+
+func (o *AppUserInfo) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"identifier",
+		"name",
+		"ory_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppUserInfo := _AppUserInfo{}
+
+	err = json.Unmarshal(bytes, &varAppUserInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppUserInfo(varAppUserInfo)
+
+	return err
 }
 
 type NullableAppUserInfo struct {

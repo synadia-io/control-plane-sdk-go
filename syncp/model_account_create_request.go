@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AccountCreateRequest type satisfies the MappedNullable interface at compile time
@@ -19,18 +20,19 @@ var _ MappedNullable = &AccountCreateRequest{}
 
 // AccountCreateRequest struct for AccountCreateRequest
 type AccountCreateRequest struct {
-	JwtSettings          NullableAccountCreateRequestJwtSettings `json:"jwt_settings"`
-	Name                 string                                  `json:"name"`
-	UserJwtExpiresInSecs *int64                                  `json:"user_jwt_expires_in_secs,omitempty"`
+	JwtSettings          *AccountJWTSettings `json:"jwt_settings,omitempty"`
+	Name                 string              `json:"name"`
+	UserJwtExpiresInSecs *int64              `json:"user_jwt_expires_in_secs,omitempty"`
 }
+
+type _AccountCreateRequest AccountCreateRequest
 
 // NewAccountCreateRequest instantiates a new AccountCreateRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountCreateRequest(jwtSettings NullableAccountCreateRequestJwtSettings, name string) *AccountCreateRequest {
+func NewAccountCreateRequest(name string) *AccountCreateRequest {
 	this := AccountCreateRequest{}
-	this.JwtSettings = jwtSettings
 	this.Name = name
 	return &this
 }
@@ -43,30 +45,36 @@ func NewAccountCreateRequestWithDefaults() *AccountCreateRequest {
 	return &this
 }
 
-// GetJwtSettings returns the JwtSettings field value
-// If the value is explicit nil, the zero value for AccountCreateRequestJwtSettings will be returned
-func (o *AccountCreateRequest) GetJwtSettings() AccountCreateRequestJwtSettings {
-	if o == nil || o.JwtSettings.Get() == nil {
-		var ret AccountCreateRequestJwtSettings
+// GetJwtSettings returns the JwtSettings field value if set, zero value otherwise.
+func (o *AccountCreateRequest) GetJwtSettings() AccountJWTSettings {
+	if o == nil || IsNil(o.JwtSettings) {
+		var ret AccountJWTSettings
 		return ret
 	}
-
-	return *o.JwtSettings.Get()
+	return *o.JwtSettings
 }
 
-// GetJwtSettingsOk returns a tuple with the JwtSettings field value
+// GetJwtSettingsOk returns a tuple with the JwtSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AccountCreateRequest) GetJwtSettingsOk() (*AccountCreateRequestJwtSettings, bool) {
-	if o == nil {
+func (o *AccountCreateRequest) GetJwtSettingsOk() (*AccountJWTSettings, bool) {
+	if o == nil || IsNil(o.JwtSettings) {
 		return nil, false
 	}
-	return o.JwtSettings.Get(), o.JwtSettings.IsSet()
+	return o.JwtSettings, true
 }
 
-// SetJwtSettings sets field value
-func (o *AccountCreateRequest) SetJwtSettings(v AccountCreateRequestJwtSettings) {
-	o.JwtSettings.Set(&v)
+// HasJwtSettings returns a boolean if a field has been set.
+func (o *AccountCreateRequest) HasJwtSettings() bool {
+	if o != nil && !IsNil(o.JwtSettings) {
+		return true
+	}
+
+	return false
+}
+
+// SetJwtSettings gets a reference to the given AccountJWTSettings and assigns it to the JwtSettings field.
+func (o *AccountCreateRequest) SetJwtSettings(v AccountJWTSettings) {
+	o.JwtSettings = &v
 }
 
 // GetName returns the Name field value
@@ -135,12 +143,49 @@ func (o AccountCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o AccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["jwt_settings"] = o.JwtSettings.Get()
+	if !IsNil(o.JwtSettings) {
+		toSerialize["jwt_settings"] = o.JwtSettings
+	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.UserJwtExpiresInSecs) {
 		toSerialize["user_jwt_expires_in_secs"] = o.UserJwtExpiresInSecs
 	}
 	return toSerialize, nil
+}
+
+func (o *AccountCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccountCreateRequest := _AccountCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varAccountCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountCreateRequest(varAccountCreateRequest)
+
+	return err
 }
 
 type NullableAccountCreateRequest struct {

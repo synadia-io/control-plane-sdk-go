@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SubjectExportSharedListResponse type satisfies the MappedNullable interface at compile time
@@ -21,6 +22,8 @@ var _ MappedNullable = &SubjectExportSharedListResponse{}
 type SubjectExportSharedListResponse struct {
 	Items []SubjectExportSharedViewResponse `json:"items"`
 }
+
+type _SubjectExportSharedListResponse SubjectExportSharedListResponse
 
 // NewSubjectExportSharedListResponse instantiates a new SubjectExportSharedListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -76,6 +79,41 @@ func (o SubjectExportSharedListResponse) ToMap() (map[string]interface{}, error)
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
+}
+
+func (o *SubjectExportSharedListResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"items",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubjectExportSharedListResponse := _SubjectExportSharedListResponse{}
+
+	err = json.Unmarshal(bytes, &varSubjectExportSharedListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubjectExportSharedListResponse(varSubjectExportSharedListResponse)
+
+	return err
 }
 
 type NullableSubjectExportSharedListResponse struct {

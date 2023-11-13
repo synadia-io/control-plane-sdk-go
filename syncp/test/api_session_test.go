@@ -23,6 +23,16 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test SessionAPIService AcceptTerms", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.SessionAPI.AcceptTerms(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SessionAPIService CreateAppUser", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -43,10 +53,10 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test SessionAPIService CreateSystem", func(t *testing.T) {
+	t.Run("Test SessionAPIService CreateTeam", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
-		resp, httpRes, err := apiClient.SessionAPI.CreateSystem(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SessionAPI.CreateTeam(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -57,16 +67,6 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.GetVersion(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
-	t.Run("Test SessionAPIService ImportSystem", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.SessionAPI.ImportSystem(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -103,40 +103,10 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test SessionAPIService ListSessionAccounts", func(t *testing.T) {
+	t.Run("Test SessionAPIService ListTeams", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
-		resp, httpRes, err := apiClient.SessionAPI.ListSessionAccounts(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
-	t.Run("Test SessionAPIService ListSessionNatsUsers", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.SessionAPI.ListSessionNatsUsers(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
-	t.Run("Test SessionAPIService ListSystems", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.SessionAPI.ListSystems(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
-	t.Run("Test SessionAPIService SearchAppUsers", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.SessionAPI.SearchAppUsers(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SessionAPI.ListTeams(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -161,6 +131,18 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		var systemId string
 
 		resp, httpRes, err := apiClient.SessionAPI.SearchSystemServers(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SessionAPIService SearchTeamAppUsers", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var teamId string
+
+		resp, httpRes, err := apiClient.SessionAPI.SearchTeamAppUsers(context.Background(), teamId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

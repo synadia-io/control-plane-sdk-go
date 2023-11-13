@@ -23,13 +23,13 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test AccountAPIService AssignAccountAppUser", func(t *testing.T) {
+	t.Run("Test AccountAPIService AssignAccountTeamAppUser", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
-		var appUserId string
+		var teamAppUserId string
 
-		resp, httpRes, err := apiClient.AccountAPI.AssignAccountAppUser(context.Background(), accountId, appUserId).Execute()
+		resp, httpRes, err := apiClient.AccountAPI.AssignAccountTeamAppUser(context.Background(), accountId, teamAppUserId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -228,18 +228,6 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test AccountAPIService ListAccountAppUsers", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		var accountId string
-
-		resp, httpRes, err := apiClient.AccountAPI.ListAccountAppUsers(context.Background(), accountId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
 	t.Run("Test AccountAPIService ListAccountConnections", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -258,6 +246,18 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		var accountId string
 
 		resp, httpRes, err := apiClient.AccountAPI.ListAccountSkGroup(context.Background(), accountId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test AccountAPIService ListAccountTeamAppUsers", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var accountId string
+
+		resp, httpRes, err := apiClient.AccountAPI.ListAccountTeamAppUsers(context.Background(), accountId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -421,13 +421,24 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test AccountAPIService UnAssignAccountAppUser", func(t *testing.T) {
+	t.Run("Test AccountAPIService UnAssignAccountTeamAppUser", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var accountId string
-		var appUserId string
+		var teamAppUserId string
 
-		httpRes, err := apiClient.AccountAPI.UnAssignAccountAppUser(context.Background(), accountId, appUserId).Execute()
+		httpRes, err := apiClient.AccountAPI.UnAssignAccountTeamAppUser(context.Background(), accountId, teamAppUserId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test AccountAPIService UnmanageAccount", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var accountId string
+
+		httpRes, err := apiClient.AccountAPI.UnmanageAccount(context.Background(), accountId).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SystemCreateRequest type satisfies the MappedNullable interface at compile time
@@ -22,18 +23,22 @@ type SystemCreateRequest struct {
 	JetstreamDomain  NullableString `json:"jetstream_domain,omitempty"`
 	JetstreamEnabled *bool          `json:"jetstream_enabled,omitempty"`
 	Name             string         `json:"name"`
+	TeamId           string         `json:"team_id"`
 	Url              NullableString `json:"url,omitempty"`
 }
+
+type _SystemCreateRequest SystemCreateRequest
 
 // NewSystemCreateRequest instantiates a new SystemCreateRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemCreateRequest(name string) *SystemCreateRequest {
+func NewSystemCreateRequest(name string, teamId string) *SystemCreateRequest {
 	this := SystemCreateRequest{}
 	var jetstreamEnabled bool = true
 	this.JetstreamEnabled = &jetstreamEnabled
 	this.Name = name
+	this.TeamId = teamId
 	return &this
 }
 
@@ -146,6 +151,30 @@ func (o *SystemCreateRequest) SetName(v string) {
 	o.Name = v
 }
 
+// GetTeamId returns the TeamId field value
+func (o *SystemCreateRequest) GetTeamId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TeamId
+}
+
+// GetTeamIdOk returns a tuple with the TeamId field value
+// and a boolean to check if the value has been set.
+func (o *SystemCreateRequest) GetTeamIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TeamId, true
+}
+
+// SetTeamId sets field value
+func (o *SystemCreateRequest) SetTeamId(v string) {
+	o.TeamId = v
+}
+
 // GetUrl returns the Url field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SystemCreateRequest) GetUrl() string {
 	if o == nil || IsNil(o.Url.Get()) {
@@ -206,10 +235,47 @@ func (o SystemCreateRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["jetstream_enabled"] = o.JetstreamEnabled
 	}
 	toSerialize["name"] = o.Name
+	toSerialize["team_id"] = o.TeamId
 	if o.Url.IsSet() {
 		toSerialize["url"] = o.Url.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *SystemCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"team_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSystemCreateRequest := _SystemCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varSystemCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SystemCreateRequest(varSystemCreateRequest)
+
+	return err
 }
 
 type NullableSystemCreateRequest struct {

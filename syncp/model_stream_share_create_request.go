@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the StreamShareCreateRequest type satisfies the MappedNullable interface at compile time
@@ -21,6 +22,8 @@ var _ MappedNullable = &StreamShareCreateRequest{}
 type StreamShareCreateRequest struct {
 	TargetAccountNkeyPublic string `json:"target_account_nkey_public"`
 }
+
+type _StreamShareCreateRequest StreamShareCreateRequest
 
 // NewStreamShareCreateRequest instantiates a new StreamShareCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -76,6 +79,41 @@ func (o StreamShareCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["target_account_nkey_public"] = o.TargetAccountNkeyPublic
 	return toSerialize, nil
+}
+
+func (o *StreamShareCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"target_account_nkey_public",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStreamShareCreateRequest := _StreamShareCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varStreamShareCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StreamShareCreateRequest(varStreamShareCreateRequest)
+
+	return err
 }
 
 type NullableStreamShareCreateRequest struct {

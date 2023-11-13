@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JSCommonStreamConfigRepublish type satisfies the MappedNullable interface at compile time
@@ -23,6 +24,8 @@ type JSCommonStreamConfigRepublish struct {
 	HeadersOnly *bool   `json:"headers_only,omitempty"`
 	Src         *string `json:"src,omitempty"`
 }
+
+type _JSCommonStreamConfigRepublish JSCommonStreamConfigRepublish
 
 // NewJSCommonStreamConfigRepublish instantiates a new JSCommonStreamConfigRepublish object
 // This constructor will assign default values to properties that have it defined,
@@ -148,6 +151,41 @@ func (o JSCommonStreamConfigRepublish) ToMap() (map[string]interface{}, error) {
 		toSerialize["src"] = o.Src
 	}
 	return toSerialize, nil
+}
+
+func (o *JSCommonStreamConfigRepublish) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"dest",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSCommonStreamConfigRepublish := _JSCommonStreamConfigRepublish{}
+
+	err = json.Unmarshal(bytes, &varJSCommonStreamConfigRepublish)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSCommonStreamConfigRepublish(varJSCommonStreamConfigRepublish)
+
+	return err
 }
 
 type NullableJSCommonStreamConfigRepublish struct {

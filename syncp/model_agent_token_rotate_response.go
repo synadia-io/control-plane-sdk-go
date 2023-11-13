@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AgentTokenRotateResponse type satisfies the MappedNullable interface at compile time
@@ -22,6 +23,8 @@ type AgentTokenRotateResponse struct {
 	Id    string `json:"id"`
 	Token string `json:"token"`
 }
+
+type _AgentTokenRotateResponse AgentTokenRotateResponse
 
 // NewAgentTokenRotateResponse instantiates a new AgentTokenRotateResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -103,6 +106,42 @@ func (o AgentTokenRotateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["token"] = o.Token
 	return toSerialize, nil
+}
+
+func (o *AgentTokenRotateResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAgentTokenRotateResponse := _AgentTokenRotateResponse{}
+
+	err = json.Unmarshal(bytes, &varAgentTokenRotateResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AgentTokenRotateResponse(varAgentTokenRotateResponse)
+
+	return err
 }
 
 type NullableAgentTokenRotateResponse struct {

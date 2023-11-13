@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -31,14 +32,17 @@ type NatsUserViewResponse struct {
 	Revoked          bool        `json:"revoked"`
 	SkGroupId        *string     `json:"sk_group_id,omitempty"`
 	System           SystemInfo  `json:"system"`
+	Team             TeamInfo    `json:"team"`
 	UserPublicKey    string      `json:"user_public_key"`
 }
+
+type _NatsUserViewResponse NatsUserViewResponse
 
 // NewNatsUserViewResponse instantiates a new NatsUserViewResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNatsUserViewResponse(account AccountInfo, claims UserClaims, created time.Time, id string, jwt string, jwtExpiresAtMax int64, jwtExpiresInSecs int64, name string, revoked bool, system SystemInfo, userPublicKey string) *NatsUserViewResponse {
+func NewNatsUserViewResponse(account AccountInfo, claims UserClaims, created time.Time, id string, jwt string, jwtExpiresAtMax int64, jwtExpiresInSecs int64, name string, revoked bool, system SystemInfo, team TeamInfo, userPublicKey string) *NatsUserViewResponse {
 	this := NatsUserViewResponse{}
 	this.Account = account
 	this.Claims = claims
@@ -50,6 +54,7 @@ func NewNatsUserViewResponse(account AccountInfo, claims UserClaims, created tim
 	this.Name = name
 	this.Revoked = revoked
 	this.System = system
+	this.Team = team
 	this.UserPublicKey = userPublicKey
 	return &this
 }
@@ -334,6 +339,30 @@ func (o *NatsUserViewResponse) SetSystem(v SystemInfo) {
 	o.System = v
 }
 
+// GetTeam returns the Team field value
+func (o *NatsUserViewResponse) GetTeam() TeamInfo {
+	if o == nil {
+		var ret TeamInfo
+		return ret
+	}
+
+	return o.Team
+}
+
+// GetTeamOk returns a tuple with the Team field value
+// and a boolean to check if the value has been set.
+func (o *NatsUserViewResponse) GetTeamOk() (*TeamInfo, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Team, true
+}
+
+// SetTeam sets field value
+func (o *NatsUserViewResponse) SetTeam(v TeamInfo) {
+	o.Team = v
+}
+
 // GetUserPublicKey returns the UserPublicKey field value
 func (o *NatsUserViewResponse) GetUserPublicKey() string {
 	if o == nil {
@@ -381,8 +410,55 @@ func (o NatsUserViewResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["sk_group_id"] = o.SkGroupId
 	}
 	toSerialize["system"] = o.System
+	toSerialize["team"] = o.Team
 	toSerialize["user_public_key"] = o.UserPublicKey
 	return toSerialize, nil
+}
+
+func (o *NatsUserViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account",
+		"claims",
+		"created",
+		"id",
+		"jwt",
+		"jwt_expires_at_max",
+		"jwt_expires_in_secs",
+		"name",
+		"revoked",
+		"system",
+		"team",
+		"user_public_key",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNatsUserViewResponse := _NatsUserViewResponse{}
+
+	err = json.Unmarshal(bytes, &varNatsUserViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NatsUserViewResponse(varNatsUserViewResponse)
+
+	return err
 }
 
 type NullableNatsUserViewResponse struct {

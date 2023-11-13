@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JSStreamConfigRequest type satisfies the MappedNullable interface at compile time
@@ -19,7 +20,6 @@ var _ MappedNullable = &JSStreamConfigRequest{}
 
 // JSStreamConfigRequest struct for JSStreamConfigRequest
 type JSStreamConfigRequest struct {
-	Subjects             []string                              `json:"subjects,omitempty"`
 	AllowDirect          bool                                  `json:"allow_direct"`
 	AllowRollupHdrs      bool                                  `json:"allow_rollup_hdrs"`
 	DenyDelete           bool                                  `json:"deny_delete"`
@@ -44,7 +44,10 @@ type JSStreamConfigRequest struct {
 	Sources              []StreamSource                        `json:"sources,omitempty"`
 	Storage              StorageType                           `json:"storage"`
 	TemplateOwner        *string                               `json:"template_owner,omitempty"`
+	Subjects             []string                              `json:"subjects,omitempty"`
 }
+
+type _JSStreamConfigRequest JSStreamConfigRequest
 
 // NewJSStreamConfigRequest instantiates a new JSStreamConfigRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -76,38 +79,6 @@ func NewJSStreamConfigRequest(allowDirect bool, allowRollupHdrs bool, denyDelete
 func NewJSStreamConfigRequestWithDefaults() *JSStreamConfigRequest {
 	this := JSStreamConfigRequest{}
 	return &this
-}
-
-// GetSubjects returns the Subjects field value if set, zero value otherwise.
-func (o *JSStreamConfigRequest) GetSubjects() []string {
-	if o == nil || IsNil(o.Subjects) {
-		var ret []string
-		return ret
-	}
-	return o.Subjects
-}
-
-// GetSubjectsOk returns a tuple with the Subjects field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSStreamConfigRequest) GetSubjectsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Subjects) {
-		return nil, false
-	}
-	return o.Subjects, true
-}
-
-// HasSubjects returns a boolean if a field has been set.
-func (o *JSStreamConfigRequest) HasSubjects() bool {
-	if o != nil && !IsNil(o.Subjects) {
-		return true
-	}
-
-	return false
-}
-
-// SetSubjects gets a reference to the given []string and assigns it to the Subjects field.
-func (o *JSStreamConfigRequest) SetSubjects(v []string) {
-	o.Subjects = v
 }
 
 // GetAllowDirect returns the AllowDirect field value
@@ -781,6 +752,38 @@ func (o *JSStreamConfigRequest) SetTemplateOwner(v string) {
 	o.TemplateOwner = &v
 }
 
+// GetSubjects returns the Subjects field value if set, zero value otherwise.
+func (o *JSStreamConfigRequest) GetSubjects() []string {
+	if o == nil || IsNil(o.Subjects) {
+		var ret []string
+		return ret
+	}
+	return o.Subjects
+}
+
+// GetSubjectsOk returns a tuple with the Subjects field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSStreamConfigRequest) GetSubjectsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Subjects) {
+		return nil, false
+	}
+	return o.Subjects, true
+}
+
+// HasSubjects returns a boolean if a field has been set.
+func (o *JSStreamConfigRequest) HasSubjects() bool {
+	if o != nil && !IsNil(o.Subjects) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubjects gets a reference to the given []string and assigns it to the Subjects field.
+func (o *JSStreamConfigRequest) SetSubjects(v []string) {
+	o.Subjects = v
+}
+
 func (o JSStreamConfigRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -791,9 +794,6 @@ func (o JSStreamConfigRequest) MarshalJSON() ([]byte, error) {
 
 func (o JSStreamConfigRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Subjects) {
-		toSerialize["subjects"] = o.Subjects
-	}
 	toSerialize["allow_direct"] = o.AllowDirect
 	toSerialize["allow_rollup_hdrs"] = o.AllowRollupHdrs
 	toSerialize["deny_delete"] = o.DenyDelete
@@ -836,7 +836,59 @@ func (o JSStreamConfigRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TemplateOwner) {
 		toSerialize["template_owner"] = o.TemplateOwner
 	}
+	if !IsNil(o.Subjects) {
+		toSerialize["subjects"] = o.Subjects
+	}
 	return toSerialize, nil
+}
+
+func (o *JSStreamConfigRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"allow_direct",
+		"allow_rollup_hdrs",
+		"deny_delete",
+		"deny_purge",
+		"discard",
+		"max_age",
+		"max_bytes",
+		"max_consumers",
+		"max_msgs",
+		"max_msgs_per_subject",
+		"name",
+		"num_replicas",
+		"retention",
+		"sealed",
+		"storage",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSStreamConfigRequest := _JSStreamConfigRequest{}
+
+	err = json.Unmarshal(bytes, &varJSStreamConfigRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSStreamConfigRequest(varJSStreamConfigRequest)
+
+	return err
 }
 
 type NullableJSStreamConfigRequest struct {

@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,29 +21,36 @@ var _ MappedNullable = &AppUserCreateResponse{}
 
 // AppUserCreateResponse struct for AppUserCreateResponse
 type AppUserCreateResponse struct {
-	InviteLink *string        `json:"invite_link,omitempty"`
-	Created    time.Time      `json:"created"`
-	Id         string         `json:"id"`
-	Identifier NullableString `json:"identifier"`
-	Name       string         `json:"name"`
-	RoleId     string         `json:"role_id"`
-	RoleName   string         `json:"role_name"`
-	Type       AppUserType    `json:"type"`
+	Created              time.Time      `json:"created"`
+	Id                   string         `json:"id"`
+	Identifier           NullableString `json:"identifier"`
+	Name                 string         `json:"name"`
+	OryId                NullableString `json:"ory_id"`
+	RoleId               string         `json:"role_id"`
+	RoleName             string         `json:"role_name"`
+	TermsAcceptedUpdated NullableString `json:"terms_accepted_updated"`
+	Type                 AppUserType    `json:"type"`
+	InviteLink           string         `json:"invite_link"`
 }
+
+type _AppUserCreateResponse AppUserCreateResponse
 
 // NewAppUserCreateResponse instantiates a new AppUserCreateResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppUserCreateResponse(created time.Time, id string, identifier NullableString, name string, roleId string, roleName string, type_ AppUserType) *AppUserCreateResponse {
+func NewAppUserCreateResponse(created time.Time, id string, identifier NullableString, name string, oryId NullableString, roleId string, roleName string, termsAcceptedUpdated NullableString, type_ AppUserType, inviteLink string) *AppUserCreateResponse {
 	this := AppUserCreateResponse{}
 	this.Created = created
 	this.Id = id
 	this.Identifier = identifier
 	this.Name = name
+	this.OryId = oryId
 	this.RoleId = roleId
 	this.RoleName = roleName
+	this.TermsAcceptedUpdated = termsAcceptedUpdated
 	this.Type = type_
+	this.InviteLink = inviteLink
 	return &this
 }
 
@@ -52,38 +60,6 @@ func NewAppUserCreateResponse(created time.Time, id string, identifier NullableS
 func NewAppUserCreateResponseWithDefaults() *AppUserCreateResponse {
 	this := AppUserCreateResponse{}
 	return &this
-}
-
-// GetInviteLink returns the InviteLink field value if set, zero value otherwise.
-func (o *AppUserCreateResponse) GetInviteLink() string {
-	if o == nil || IsNil(o.InviteLink) {
-		var ret string
-		return ret
-	}
-	return *o.InviteLink
-}
-
-// GetInviteLinkOk returns a tuple with the InviteLink field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AppUserCreateResponse) GetInviteLinkOk() (*string, bool) {
-	if o == nil || IsNil(o.InviteLink) {
-		return nil, false
-	}
-	return o.InviteLink, true
-}
-
-// HasInviteLink returns a boolean if a field has been set.
-func (o *AppUserCreateResponse) HasInviteLink() bool {
-	if o != nil && !IsNil(o.InviteLink) {
-		return true
-	}
-
-	return false
-}
-
-// SetInviteLink gets a reference to the given string and assigns it to the InviteLink field.
-func (o *AppUserCreateResponse) SetInviteLink(v string) {
-	o.InviteLink = &v
 }
 
 // GetCreated returns the Created field value
@@ -184,6 +160,32 @@ func (o *AppUserCreateResponse) SetName(v string) {
 	o.Name = v
 }
 
+// GetOryId returns the OryId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *AppUserCreateResponse) GetOryId() string {
+	if o == nil || o.OryId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.OryId.Get()
+}
+
+// GetOryIdOk returns a tuple with the OryId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AppUserCreateResponse) GetOryIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OryId.Get(), o.OryId.IsSet()
+}
+
+// SetOryId sets field value
+func (o *AppUserCreateResponse) SetOryId(v string) {
+	o.OryId.Set(&v)
+}
+
 // GetRoleId returns the RoleId field value
 func (o *AppUserCreateResponse) GetRoleId() string {
 	if o == nil {
@@ -232,6 +234,32 @@ func (o *AppUserCreateResponse) SetRoleName(v string) {
 	o.RoleName = v
 }
 
+// GetTermsAcceptedUpdated returns the TermsAcceptedUpdated field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *AppUserCreateResponse) GetTermsAcceptedUpdated() string {
+	if o == nil || o.TermsAcceptedUpdated.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.TermsAcceptedUpdated.Get()
+}
+
+// GetTermsAcceptedUpdatedOk returns a tuple with the TermsAcceptedUpdated field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AppUserCreateResponse) GetTermsAcceptedUpdatedOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TermsAcceptedUpdated.Get(), o.TermsAcceptedUpdated.IsSet()
+}
+
+// SetTermsAcceptedUpdated sets field value
+func (o *AppUserCreateResponse) SetTermsAcceptedUpdated(v string) {
+	o.TermsAcceptedUpdated.Set(&v)
+}
+
 // GetType returns the Type field value
 func (o *AppUserCreateResponse) GetType() AppUserType {
 	if o == nil {
@@ -256,6 +284,30 @@ func (o *AppUserCreateResponse) SetType(v AppUserType) {
 	o.Type = v
 }
 
+// GetInviteLink returns the InviteLink field value
+func (o *AppUserCreateResponse) GetInviteLink() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.InviteLink
+}
+
+// GetInviteLinkOk returns a tuple with the InviteLink field value
+// and a boolean to check if the value has been set.
+func (o *AppUserCreateResponse) GetInviteLinkOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.InviteLink, true
+}
+
+// SetInviteLink sets field value
+func (o *AppUserCreateResponse) SetInviteLink(v string) {
+	o.InviteLink = v
+}
+
 func (o AppUserCreateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -266,17 +318,61 @@ func (o AppUserCreateResponse) MarshalJSON() ([]byte, error) {
 
 func (o AppUserCreateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.InviteLink) {
-		toSerialize["invite_link"] = o.InviteLink
-	}
 	toSerialize["created"] = o.Created
 	toSerialize["id"] = o.Id
 	toSerialize["identifier"] = o.Identifier.Get()
 	toSerialize["name"] = o.Name
+	toSerialize["ory_id"] = o.OryId.Get()
 	toSerialize["role_id"] = o.RoleId
 	toSerialize["role_name"] = o.RoleName
+	toSerialize["terms_accepted_updated"] = o.TermsAcceptedUpdated.Get()
 	toSerialize["type"] = o.Type
+	toSerialize["invite_link"] = o.InviteLink
 	return toSerialize, nil
+}
+
+func (o *AppUserCreateResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"id",
+		"identifier",
+		"name",
+		"ory_id",
+		"role_id",
+		"role_name",
+		"terms_accepted_updated",
+		"type",
+		"invite_link",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppUserCreateResponse := _AppUserCreateResponse{}
+
+	err = json.Unmarshal(bytes, &varAppUserCreateResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppUserCreateResponse(varAppUserCreateResponse)
+
+	return err
 }
 
 type NullableAppUserCreateResponse struct {

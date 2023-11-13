@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -21,7 +22,7 @@ var _ MappedNullable = &JSPullConsumerInfoResponse{}
 // JSPullConsumerInfoResponse struct for JSPullConsumerInfoResponse
 type JSPullConsumerInfoResponse struct {
 	AckFloor       SequenceInfo                 `json:"ack_floor"`
-	Cluster        NullableConsumerInfoCluster  `json:"cluster,omitempty"`
+	Cluster        *ClusterInfo                 `json:"cluster,omitempty"`
 	Config         *JSPullConsumerConfigRequest `json:"config,omitempty"`
 	Created        time.Time                    `json:"created"`
 	Delivered      SequenceInfo                 `json:"delivered"`
@@ -33,6 +34,8 @@ type JSPullConsumerInfoResponse struct {
 	NumWaiting     int32                        `json:"num_waiting"`
 	StreamName     string                       `json:"stream_name"`
 }
+
+type _JSPullConsumerInfoResponse JSPullConsumerInfoResponse
 
 // NewJSPullConsumerInfoResponse instantiates a new JSPullConsumerInfoResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,47 +88,36 @@ func (o *JSPullConsumerInfoResponse) SetAckFloor(v SequenceInfo) {
 	o.AckFloor = v
 }
 
-// GetCluster returns the Cluster field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *JSPullConsumerInfoResponse) GetCluster() ConsumerInfoCluster {
-	if o == nil || IsNil(o.Cluster.Get()) {
-		var ret ConsumerInfoCluster
+// GetCluster returns the Cluster field value if set, zero value otherwise.
+func (o *JSPullConsumerInfoResponse) GetCluster() ClusterInfo {
+	if o == nil || IsNil(o.Cluster) {
+		var ret ClusterInfo
 		return ret
 	}
-	return *o.Cluster.Get()
+	return *o.Cluster
 }
 
 // GetClusterOk returns a tuple with the Cluster field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *JSPullConsumerInfoResponse) GetClusterOk() (*ConsumerInfoCluster, bool) {
-	if o == nil {
+func (o *JSPullConsumerInfoResponse) GetClusterOk() (*ClusterInfo, bool) {
+	if o == nil || IsNil(o.Cluster) {
 		return nil, false
 	}
-	return o.Cluster.Get(), o.Cluster.IsSet()
+	return o.Cluster, true
 }
 
 // HasCluster returns a boolean if a field has been set.
 func (o *JSPullConsumerInfoResponse) HasCluster() bool {
-	if o != nil && o.Cluster.IsSet() {
+	if o != nil && !IsNil(o.Cluster) {
 		return true
 	}
 
 	return false
 }
 
-// SetCluster gets a reference to the given NullableConsumerInfoCluster and assigns it to the Cluster field.
-func (o *JSPullConsumerInfoResponse) SetCluster(v ConsumerInfoCluster) {
-	o.Cluster.Set(&v)
-}
-
-// SetClusterNil sets the value for Cluster to be an explicit nil
-func (o *JSPullConsumerInfoResponse) SetClusterNil() {
-	o.Cluster.Set(nil)
-}
-
-// UnsetCluster ensures that no value is present for Cluster, not even an explicit nil
-func (o *JSPullConsumerInfoResponse) UnsetCluster() {
-	o.Cluster.Unset()
+// SetCluster gets a reference to the given ClusterInfo and assigns it to the Cluster field.
+func (o *JSPullConsumerInfoResponse) SetCluster(v ClusterInfo) {
+	o.Cluster = &v
 }
 
 // GetConfig returns the Config field value if set, zero value otherwise.
@@ -387,8 +379,8 @@ func (o JSPullConsumerInfoResponse) MarshalJSON() ([]byte, error) {
 func (o JSPullConsumerInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["ack_floor"] = o.AckFloor
-	if o.Cluster.IsSet() {
-		toSerialize["cluster"] = o.Cluster.Get()
+	if !IsNil(o.Cluster) {
+		toSerialize["cluster"] = o.Cluster
 	}
 	if !IsNil(o.Config) {
 		toSerialize["config"] = o.Config
@@ -403,6 +395,50 @@ func (o JSPullConsumerInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["num_waiting"] = o.NumWaiting
 	toSerialize["stream_name"] = o.StreamName
 	return toSerialize, nil
+}
+
+func (o *JSPullConsumerInfoResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ack_floor",
+		"created",
+		"delivered",
+		"id",
+		"name",
+		"num_ack_pending",
+		"num_pending",
+		"num_redelivered",
+		"num_waiting",
+		"stream_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSPullConsumerInfoResponse := _JSPullConsumerInfoResponse{}
+
+	err = json.Unmarshal(bytes, &varJSPullConsumerInfoResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSPullConsumerInfoResponse(varJSPullConsumerInfoResponse)
+
+	return err
 }
 
 type NullableJSPullConsumerInfoResponse struct {

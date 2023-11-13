@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,24 +21,29 @@ var _ MappedNullable = &JSAssetInfoResponse{}
 
 // JSAssetInfoResponse struct for JSAssetInfoResponse
 type JSAssetInfoResponse struct {
-	Config        *JSCommonStreamConfig `json:"config,omitempty"`
-	Id            *string               `json:"id,omitempty"`
-	JetstreamType *JSType               `json:"jetstream_type,omitempty"`
-	Alternates    []StreamAlternate     `json:"alternates,omitempty"`
-	Cluster       *ClusterInfo          `json:"cluster,omitempty"`
-	Created       time.Time             `json:"created"`
-	Sources       []StreamSourceInfo    `json:"sources,omitempty"`
-	State         StreamState           `json:"state"`
+	Alternates    []StreamAlternate    `json:"alternates,omitempty"`
+	Cluster       *ClusterInfo         `json:"cluster,omitempty"`
+	Created       time.Time            `json:"created"`
+	Sources       []StreamSourceInfo   `json:"sources,omitempty"`
+	State         StreamState          `json:"state"`
+	Config        JSCommonStreamConfig `json:"config"`
+	Id            string               `json:"id"`
+	JetstreamType JSType               `json:"jetstream_type"`
 }
+
+type _JSAssetInfoResponse JSAssetInfoResponse
 
 // NewJSAssetInfoResponse instantiates a new JSAssetInfoResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJSAssetInfoResponse(created time.Time, state StreamState) *JSAssetInfoResponse {
+func NewJSAssetInfoResponse(created time.Time, state StreamState, config JSCommonStreamConfig, id string, jetstreamType JSType) *JSAssetInfoResponse {
 	this := JSAssetInfoResponse{}
 	this.Created = created
 	this.State = state
+	this.Config = config
+	this.Id = id
+	this.JetstreamType = jetstreamType
 	return &this
 }
 
@@ -47,102 +53,6 @@ func NewJSAssetInfoResponse(created time.Time, state StreamState) *JSAssetInfoRe
 func NewJSAssetInfoResponseWithDefaults() *JSAssetInfoResponse {
 	this := JSAssetInfoResponse{}
 	return &this
-}
-
-// GetConfig returns the Config field value if set, zero value otherwise.
-func (o *JSAssetInfoResponse) GetConfig() JSCommonStreamConfig {
-	if o == nil || IsNil(o.Config) {
-		var ret JSCommonStreamConfig
-		return ret
-	}
-	return *o.Config
-}
-
-// GetConfigOk returns a tuple with the Config field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSAssetInfoResponse) GetConfigOk() (*JSCommonStreamConfig, bool) {
-	if o == nil || IsNil(o.Config) {
-		return nil, false
-	}
-	return o.Config, true
-}
-
-// HasConfig returns a boolean if a field has been set.
-func (o *JSAssetInfoResponse) HasConfig() bool {
-	if o != nil && !IsNil(o.Config) {
-		return true
-	}
-
-	return false
-}
-
-// SetConfig gets a reference to the given JSCommonStreamConfig and assigns it to the Config field.
-func (o *JSAssetInfoResponse) SetConfig(v JSCommonStreamConfig) {
-	o.Config = &v
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *JSAssetInfoResponse) GetId() string {
-	if o == nil || IsNil(o.Id) {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSAssetInfoResponse) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *JSAssetInfoResponse) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *JSAssetInfoResponse) SetId(v string) {
-	o.Id = &v
-}
-
-// GetJetstreamType returns the JetstreamType field value if set, zero value otherwise.
-func (o *JSAssetInfoResponse) GetJetstreamType() JSType {
-	if o == nil || IsNil(o.JetstreamType) {
-		var ret JSType
-		return ret
-	}
-	return *o.JetstreamType
-}
-
-// GetJetstreamTypeOk returns a tuple with the JetstreamType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSAssetInfoResponse) GetJetstreamTypeOk() (*JSType, bool) {
-	if o == nil || IsNil(o.JetstreamType) {
-		return nil, false
-	}
-	return o.JetstreamType, true
-}
-
-// HasJetstreamType returns a boolean if a field has been set.
-func (o *JSAssetInfoResponse) HasJetstreamType() bool {
-	if o != nil && !IsNil(o.JetstreamType) {
-		return true
-	}
-
-	return false
-}
-
-// SetJetstreamType gets a reference to the given JSType and assigns it to the JetstreamType field.
-func (o *JSAssetInfoResponse) SetJetstreamType(v JSType) {
-	o.JetstreamType = &v
 }
 
 // GetAlternates returns the Alternates field value if set, zero value otherwise.
@@ -289,6 +199,78 @@ func (o *JSAssetInfoResponse) SetState(v StreamState) {
 	o.State = v
 }
 
+// GetConfig returns the Config field value
+func (o *JSAssetInfoResponse) GetConfig() JSCommonStreamConfig {
+	if o == nil {
+		var ret JSCommonStreamConfig
+		return ret
+	}
+
+	return o.Config
+}
+
+// GetConfigOk returns a tuple with the Config field value
+// and a boolean to check if the value has been set.
+func (o *JSAssetInfoResponse) GetConfigOk() (*JSCommonStreamConfig, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Config, true
+}
+
+// SetConfig sets field value
+func (o *JSAssetInfoResponse) SetConfig(v JSCommonStreamConfig) {
+	o.Config = v
+}
+
+// GetId returns the Id field value
+func (o *JSAssetInfoResponse) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *JSAssetInfoResponse) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *JSAssetInfoResponse) SetId(v string) {
+	o.Id = v
+}
+
+// GetJetstreamType returns the JetstreamType field value
+func (o *JSAssetInfoResponse) GetJetstreamType() JSType {
+	if o == nil {
+		var ret JSType
+		return ret
+	}
+
+	return o.JetstreamType
+}
+
+// GetJetstreamTypeOk returns a tuple with the JetstreamType field value
+// and a boolean to check if the value has been set.
+func (o *JSAssetInfoResponse) GetJetstreamTypeOk() (*JSType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.JetstreamType, true
+}
+
+// SetJetstreamType sets field value
+func (o *JSAssetInfoResponse) SetJetstreamType(v JSType) {
+	o.JetstreamType = v
+}
+
 func (o JSAssetInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -299,15 +281,6 @@ func (o JSAssetInfoResponse) MarshalJSON() ([]byte, error) {
 
 func (o JSAssetInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Config) {
-		toSerialize["config"] = o.Config
-	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.JetstreamType) {
-		toSerialize["jetstream_type"] = o.JetstreamType
-	}
 	if !IsNil(o.Alternates) {
 		toSerialize["alternates"] = o.Alternates
 	}
@@ -319,7 +292,49 @@ func (o JSAssetInfoResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["state"] = o.State
+	toSerialize["config"] = o.Config
+	toSerialize["id"] = o.Id
+	toSerialize["jetstream_type"] = o.JetstreamType
 	return toSerialize, nil
+}
+
+func (o *JSAssetInfoResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"state",
+		"config",
+		"id",
+		"jetstream_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSAssetInfoResponse := _JSAssetInfoResponse{}
+
+	err = json.Unmarshal(bytes, &varJSAssetInfoResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSAssetInfoResponse(varJSAssetInfoResponse)
+
+	return err
 }
 
 type NullableJSAssetInfoResponse struct {

@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AccountInfo type satisfies the MappedNullable interface at compile time
@@ -21,19 +22,23 @@ var _ MappedNullable = &AccountInfo{}
 type AccountInfo struct {
 	AccountPublicKey     string `json:"account_public_key"`
 	Id                   string `json:"id"`
+	IsScpAccount         bool   `json:"is_scp_account"`
 	IsSystemAccount      bool   `json:"is_system_account"`
 	Name                 string `json:"name"`
 	UserJwtExpiresInSecs int64  `json:"user_jwt_expires_in_secs"`
 }
 
+type _AccountInfo AccountInfo
+
 // NewAccountInfo instantiates a new AccountInfo object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountInfo(accountPublicKey string, id string, isSystemAccount bool, name string, userJwtExpiresInSecs int64) *AccountInfo {
+func NewAccountInfo(accountPublicKey string, id string, isScpAccount bool, isSystemAccount bool, name string, userJwtExpiresInSecs int64) *AccountInfo {
 	this := AccountInfo{}
 	this.AccountPublicKey = accountPublicKey
 	this.Id = id
+	this.IsScpAccount = isScpAccount
 	this.IsSystemAccount = isSystemAccount
 	this.Name = name
 	this.UserJwtExpiresInSecs = userJwtExpiresInSecs
@@ -94,6 +99,30 @@ func (o *AccountInfo) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *AccountInfo) SetId(v string) {
 	o.Id = v
+}
+
+// GetIsScpAccount returns the IsScpAccount field value
+func (o *AccountInfo) GetIsScpAccount() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsScpAccount
+}
+
+// GetIsScpAccountOk returns a tuple with the IsScpAccount field value
+// and a boolean to check if the value has been set.
+func (o *AccountInfo) GetIsScpAccountOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsScpAccount, true
+}
+
+// SetIsScpAccount sets field value
+func (o *AccountInfo) SetIsScpAccount(v bool) {
+	o.IsScpAccount = v
 }
 
 // GetIsSystemAccount returns the IsSystemAccount field value
@@ -180,10 +209,51 @@ func (o AccountInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["account_public_key"] = o.AccountPublicKey
 	toSerialize["id"] = o.Id
+	toSerialize["is_scp_account"] = o.IsScpAccount
 	toSerialize["is_system_account"] = o.IsSystemAccount
 	toSerialize["name"] = o.Name
 	toSerialize["user_jwt_expires_in_secs"] = o.UserJwtExpiresInSecs
 	return toSerialize, nil
+}
+
+func (o *AccountInfo) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_public_key",
+		"id",
+		"is_scp_account",
+		"is_system_account",
+		"name",
+		"user_jwt_expires_in_secs",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccountInfo := _AccountInfo{}
+
+	err = json.Unmarshal(bytes, &varAccountInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountInfo(varAccountInfo)
+
+	return err
 }
 
 type NullableAccountInfo struct {

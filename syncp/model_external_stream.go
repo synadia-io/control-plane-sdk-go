@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ExternalStream type satisfies the MappedNullable interface at compile time
@@ -22,6 +23,8 @@ type ExternalStream struct {
 	Api     string `json:"api"`
 	Deliver string `json:"deliver"`
 }
+
+type _ExternalStream ExternalStream
 
 // NewExternalStream instantiates a new ExternalStream object
 // This constructor will assign default values to properties that have it defined,
@@ -103,6 +106,42 @@ func (o ExternalStream) ToMap() (map[string]interface{}, error) {
 	toSerialize["api"] = o.Api
 	toSerialize["deliver"] = o.Deliver
 	return toSerialize, nil
+}
+
+func (o *ExternalStream) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"api",
+		"deliver",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExternalStream := _ExternalStream{}
+
+	err = json.Unmarshal(bytes, &varExternalStream)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExternalStream(varExternalStream)
+
+	return err
 }
 
 type NullableExternalStream struct {

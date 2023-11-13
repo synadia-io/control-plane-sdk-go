@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,26 +21,30 @@ var _ MappedNullable = &AgentTokenCurrentResponse{}
 
 // AgentTokenCurrentResponse struct for AgentTokenCurrentResponse
 type AgentTokenCurrentResponse struct {
-	Token          *string    `json:"token,omitempty"`
-	Url            *string    `json:"url,omitempty"`
 	Created        time.Time  `json:"created"`
 	Id             string     `json:"id"`
 	IsCurrent      bool       `json:"is_current"`
 	LastAccessedAt *time.Time `json:"last_accessed_at,omitempty"`
 	NkeyPublic     string     `json:"nkey_public"`
 	RotatedAt      *time.Time `json:"rotated_at,omitempty"`
+	Token          string     `json:"token"`
+	Url            string     `json:"url"`
 }
+
+type _AgentTokenCurrentResponse AgentTokenCurrentResponse
 
 // NewAgentTokenCurrentResponse instantiates a new AgentTokenCurrentResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAgentTokenCurrentResponse(created time.Time, id string, isCurrent bool, nkeyPublic string) *AgentTokenCurrentResponse {
+func NewAgentTokenCurrentResponse(created time.Time, id string, isCurrent bool, nkeyPublic string, token string, url string) *AgentTokenCurrentResponse {
 	this := AgentTokenCurrentResponse{}
 	this.Created = created
 	this.Id = id
 	this.IsCurrent = isCurrent
 	this.NkeyPublic = nkeyPublic
+	this.Token = token
+	this.Url = url
 	return &this
 }
 
@@ -49,70 +54,6 @@ func NewAgentTokenCurrentResponse(created time.Time, id string, isCurrent bool, 
 func NewAgentTokenCurrentResponseWithDefaults() *AgentTokenCurrentResponse {
 	this := AgentTokenCurrentResponse{}
 	return &this
-}
-
-// GetToken returns the Token field value if set, zero value otherwise.
-func (o *AgentTokenCurrentResponse) GetToken() string {
-	if o == nil || IsNil(o.Token) {
-		var ret string
-		return ret
-	}
-	return *o.Token
-}
-
-// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentTokenCurrentResponse) GetTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.Token) {
-		return nil, false
-	}
-	return o.Token, true
-}
-
-// HasToken returns a boolean if a field has been set.
-func (o *AgentTokenCurrentResponse) HasToken() bool {
-	if o != nil && !IsNil(o.Token) {
-		return true
-	}
-
-	return false
-}
-
-// SetToken gets a reference to the given string and assigns it to the Token field.
-func (o *AgentTokenCurrentResponse) SetToken(v string) {
-	o.Token = &v
-}
-
-// GetUrl returns the Url field value if set, zero value otherwise.
-func (o *AgentTokenCurrentResponse) GetUrl() string {
-	if o == nil || IsNil(o.Url) {
-		var ret string
-		return ret
-	}
-	return *o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentTokenCurrentResponse) GetUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.Url) {
-		return nil, false
-	}
-	return o.Url, true
-}
-
-// HasUrl returns a boolean if a field has been set.
-func (o *AgentTokenCurrentResponse) HasUrl() bool {
-	if o != nil && !IsNil(o.Url) {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
-func (o *AgentTokenCurrentResponse) SetUrl(v string) {
-	o.Url = &v
 }
 
 // GetCreated returns the Created field value
@@ -275,6 +216,54 @@ func (o *AgentTokenCurrentResponse) SetRotatedAt(v time.Time) {
 	o.RotatedAt = &v
 }
 
+// GetToken returns the Token field value
+func (o *AgentTokenCurrentResponse) GetToken() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Token
+}
+
+// GetTokenOk returns a tuple with the Token field value
+// and a boolean to check if the value has been set.
+func (o *AgentTokenCurrentResponse) GetTokenOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Token, true
+}
+
+// SetToken sets field value
+func (o *AgentTokenCurrentResponse) SetToken(v string) {
+	o.Token = v
+}
+
+// GetUrl returns the Url field value
+func (o *AgentTokenCurrentResponse) GetUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value
+// and a boolean to check if the value has been set.
+func (o *AgentTokenCurrentResponse) GetUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Url, true
+}
+
+// SetUrl sets field value
+func (o *AgentTokenCurrentResponse) SetUrl(v string) {
+	o.Url = v
+}
+
 func (o AgentTokenCurrentResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -285,12 +274,6 @@ func (o AgentTokenCurrentResponse) MarshalJSON() ([]byte, error) {
 
 func (o AgentTokenCurrentResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Token) {
-		toSerialize["token"] = o.Token
-	}
-	if !IsNil(o.Url) {
-		toSerialize["url"] = o.Url
-	}
 	toSerialize["created"] = o.Created
 	toSerialize["id"] = o.Id
 	toSerialize["is_current"] = o.IsCurrent
@@ -301,7 +284,49 @@ func (o AgentTokenCurrentResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RotatedAt) {
 		toSerialize["rotated_at"] = o.RotatedAt
 	}
+	toSerialize["token"] = o.Token
+	toSerialize["url"] = o.Url
 	return toSerialize, nil
+}
+
+func (o *AgentTokenCurrentResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"id",
+		"is_current",
+		"nkey_public",
+		"token",
+		"url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAgentTokenCurrentResponse := _AgentTokenCurrentResponse{}
+
+	err = json.Unmarshal(bytes, &varAgentTokenCurrentResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AgentTokenCurrentResponse(varAgentTokenCurrentResponse)
+
+	return err
 }
 
 type NullableAgentTokenCurrentResponse struct {

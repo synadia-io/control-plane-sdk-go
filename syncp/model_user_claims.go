@@ -17,9 +17,8 @@ import (
 // checks if the UserClaims type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UserClaims{}
 
-// UserClaims UserClaims defines a user JWT
+// UserClaims struct for UserClaims
 type UserClaims struct {
-	Nats *User   `json:"nats,omitempty"`
 	Aud  *string `json:"aud,omitempty"`
 	Exp  *int64  `json:"exp,omitempty"`
 	Iat  *int64  `json:"iat,omitempty"`
@@ -28,6 +27,7 @@ type UserClaims struct {
 	Name *string `json:"name,omitempty"`
 	Nbf  *int64  `json:"nbf,omitempty"`
 	Sub  *string `json:"sub,omitempty"`
+	Nats *User   `json:"nats,omitempty"`
 }
 
 // NewUserClaims instantiates a new UserClaims object
@@ -45,38 +45,6 @@ func NewUserClaims() *UserClaims {
 func NewUserClaimsWithDefaults() *UserClaims {
 	this := UserClaims{}
 	return &this
-}
-
-// GetNats returns the Nats field value if set, zero value otherwise.
-func (o *UserClaims) GetNats() User {
-	if o == nil || IsNil(o.Nats) {
-		var ret User
-		return ret
-	}
-	return *o.Nats
-}
-
-// GetNatsOk returns a tuple with the Nats field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UserClaims) GetNatsOk() (*User, bool) {
-	if o == nil || IsNil(o.Nats) {
-		return nil, false
-	}
-	return o.Nats, true
-}
-
-// HasNats returns a boolean if a field has been set.
-func (o *UserClaims) HasNats() bool {
-	if o != nil && !IsNil(o.Nats) {
-		return true
-	}
-
-	return false
-}
-
-// SetNats gets a reference to the given User and assigns it to the Nats field.
-func (o *UserClaims) SetNats(v User) {
-	o.Nats = &v
 }
 
 // GetAud returns the Aud field value if set, zero value otherwise.
@@ -335,6 +303,38 @@ func (o *UserClaims) SetSub(v string) {
 	o.Sub = &v
 }
 
+// GetNats returns the Nats field value if set, zero value otherwise.
+func (o *UserClaims) GetNats() User {
+	if o == nil || IsNil(o.Nats) {
+		var ret User
+		return ret
+	}
+	return *o.Nats
+}
+
+// GetNatsOk returns a tuple with the Nats field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserClaims) GetNatsOk() (*User, bool) {
+	if o == nil || IsNil(o.Nats) {
+		return nil, false
+	}
+	return o.Nats, true
+}
+
+// HasNats returns a boolean if a field has been set.
+func (o *UserClaims) HasNats() bool {
+	if o != nil && !IsNil(o.Nats) {
+		return true
+	}
+
+	return false
+}
+
+// SetNats gets a reference to the given User and assigns it to the Nats field.
+func (o *UserClaims) SetNats(v User) {
+	o.Nats = &v
+}
+
 func (o UserClaims) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -345,9 +345,6 @@ func (o UserClaims) MarshalJSON() ([]byte, error) {
 
 func (o UserClaims) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Nats) {
-		toSerialize["nats"] = o.Nats
-	}
 	if !IsNil(o.Aud) {
 		toSerialize["aud"] = o.Aud
 	}
@@ -371,6 +368,9 @@ func (o UserClaims) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Sub) {
 		toSerialize["sub"] = o.Sub
+	}
+	if !IsNil(o.Nats) {
+		toSerialize["nats"] = o.Nats
 	}
 	return toSerialize, nil
 }
