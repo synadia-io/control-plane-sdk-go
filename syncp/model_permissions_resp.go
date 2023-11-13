@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PermissionsResp type satisfies the MappedNullable interface at compile time
@@ -22,6 +23,8 @@ type PermissionsResp struct {
 	Max int32 `json:"max"`
 	Ttl int64 `json:"ttl"`
 }
+
+type _PermissionsResp PermissionsResp
 
 // NewPermissionsResp instantiates a new PermissionsResp object
 // This constructor will assign default values to properties that have it defined,
@@ -103,6 +106,42 @@ func (o PermissionsResp) ToMap() (map[string]interface{}, error) {
 	toSerialize["max"] = o.Max
 	toSerialize["ttl"] = o.Ttl
 	return toSerialize, nil
+}
+
+func (o *PermissionsResp) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"max",
+		"ttl",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPermissionsResp := _PermissionsResp{}
+
+	err = json.Unmarshal(bytes, &varPermissionsResp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PermissionsResp(varPermissionsResp)
+
+	return err
 }
 
 type NullablePermissionsResp struct {

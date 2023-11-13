@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JSApiError type satisfies the MappedNullable interface at compile time
@@ -23,6 +24,8 @@ type JSApiError struct {
 	Description *string `json:"description,omitempty"`
 	ErrCode     *int32  `json:"err_code,omitempty"`
 }
+
+type _JSApiError JSApiError
 
 // NewJSApiError instantiates a new JSApiError object
 // This constructor will assign default values to properties that have it defined,
@@ -148,6 +151,41 @@ func (o JSApiError) ToMap() (map[string]interface{}, error) {
 		toSerialize["err_code"] = o.ErrCode
 	}
 	return toSerialize, nil
+}
+
+func (o *JSApiError) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"code",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSApiError := _JSApiError{}
+
+	err = json.Unmarshal(bytes, &varJSApiError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSApiError(varJSApiError)
+
+	return err
 }
 
 type NullableJSApiError struct {

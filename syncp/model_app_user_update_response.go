@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,28 +21,34 @@ var _ MappedNullable = &AppUserUpdateResponse{}
 
 // AppUserUpdateResponse struct for AppUserUpdateResponse
 type AppUserUpdateResponse struct {
-	ResetPasswordLink *string        `json:"reset_password_link,omitempty"`
-	Created           time.Time      `json:"created"`
-	Id                string         `json:"id"`
-	Identifier        NullableString `json:"identifier"`
-	Name              string         `json:"name"`
-	RoleId            string         `json:"role_id"`
-	RoleName          string         `json:"role_name"`
-	Type              AppUserType    `json:"type"`
+	Created              time.Time      `json:"created"`
+	Id                   string         `json:"id"`
+	Identifier           NullableString `json:"identifier"`
+	Name                 string         `json:"name"`
+	OryId                NullableString `json:"ory_id"`
+	RoleId               string         `json:"role_id"`
+	RoleName             string         `json:"role_name"`
+	TermsAcceptedUpdated NullableString `json:"terms_accepted_updated"`
+	Type                 AppUserType    `json:"type"`
+	ResetPasswordLink    *string        `json:"reset_password_link,omitempty"`
 }
+
+type _AppUserUpdateResponse AppUserUpdateResponse
 
 // NewAppUserUpdateResponse instantiates a new AppUserUpdateResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppUserUpdateResponse(created time.Time, id string, identifier NullableString, name string, roleId string, roleName string, type_ AppUserType) *AppUserUpdateResponse {
+func NewAppUserUpdateResponse(created time.Time, id string, identifier NullableString, name string, oryId NullableString, roleId string, roleName string, termsAcceptedUpdated NullableString, type_ AppUserType) *AppUserUpdateResponse {
 	this := AppUserUpdateResponse{}
 	this.Created = created
 	this.Id = id
 	this.Identifier = identifier
 	this.Name = name
+	this.OryId = oryId
 	this.RoleId = roleId
 	this.RoleName = roleName
+	this.TermsAcceptedUpdated = termsAcceptedUpdated
 	this.Type = type_
 	return &this
 }
@@ -52,38 +59,6 @@ func NewAppUserUpdateResponse(created time.Time, id string, identifier NullableS
 func NewAppUserUpdateResponseWithDefaults() *AppUserUpdateResponse {
 	this := AppUserUpdateResponse{}
 	return &this
-}
-
-// GetResetPasswordLink returns the ResetPasswordLink field value if set, zero value otherwise.
-func (o *AppUserUpdateResponse) GetResetPasswordLink() string {
-	if o == nil || IsNil(o.ResetPasswordLink) {
-		var ret string
-		return ret
-	}
-	return *o.ResetPasswordLink
-}
-
-// GetResetPasswordLinkOk returns a tuple with the ResetPasswordLink field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AppUserUpdateResponse) GetResetPasswordLinkOk() (*string, bool) {
-	if o == nil || IsNil(o.ResetPasswordLink) {
-		return nil, false
-	}
-	return o.ResetPasswordLink, true
-}
-
-// HasResetPasswordLink returns a boolean if a field has been set.
-func (o *AppUserUpdateResponse) HasResetPasswordLink() bool {
-	if o != nil && !IsNil(o.ResetPasswordLink) {
-		return true
-	}
-
-	return false
-}
-
-// SetResetPasswordLink gets a reference to the given string and assigns it to the ResetPasswordLink field.
-func (o *AppUserUpdateResponse) SetResetPasswordLink(v string) {
-	o.ResetPasswordLink = &v
 }
 
 // GetCreated returns the Created field value
@@ -184,6 +159,32 @@ func (o *AppUserUpdateResponse) SetName(v string) {
 	o.Name = v
 }
 
+// GetOryId returns the OryId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *AppUserUpdateResponse) GetOryId() string {
+	if o == nil || o.OryId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.OryId.Get()
+}
+
+// GetOryIdOk returns a tuple with the OryId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AppUserUpdateResponse) GetOryIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OryId.Get(), o.OryId.IsSet()
+}
+
+// SetOryId sets field value
+func (o *AppUserUpdateResponse) SetOryId(v string) {
+	o.OryId.Set(&v)
+}
+
 // GetRoleId returns the RoleId field value
 func (o *AppUserUpdateResponse) GetRoleId() string {
 	if o == nil {
@@ -232,6 +233,32 @@ func (o *AppUserUpdateResponse) SetRoleName(v string) {
 	o.RoleName = v
 }
 
+// GetTermsAcceptedUpdated returns the TermsAcceptedUpdated field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *AppUserUpdateResponse) GetTermsAcceptedUpdated() string {
+	if o == nil || o.TermsAcceptedUpdated.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.TermsAcceptedUpdated.Get()
+}
+
+// GetTermsAcceptedUpdatedOk returns a tuple with the TermsAcceptedUpdated field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AppUserUpdateResponse) GetTermsAcceptedUpdatedOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TermsAcceptedUpdated.Get(), o.TermsAcceptedUpdated.IsSet()
+}
+
+// SetTermsAcceptedUpdated sets field value
+func (o *AppUserUpdateResponse) SetTermsAcceptedUpdated(v string) {
+	o.TermsAcceptedUpdated.Set(&v)
+}
+
 // GetType returns the Type field value
 func (o *AppUserUpdateResponse) GetType() AppUserType {
 	if o == nil {
@@ -256,6 +283,38 @@ func (o *AppUserUpdateResponse) SetType(v AppUserType) {
 	o.Type = v
 }
 
+// GetResetPasswordLink returns the ResetPasswordLink field value if set, zero value otherwise.
+func (o *AppUserUpdateResponse) GetResetPasswordLink() string {
+	if o == nil || IsNil(o.ResetPasswordLink) {
+		var ret string
+		return ret
+	}
+	return *o.ResetPasswordLink
+}
+
+// GetResetPasswordLinkOk returns a tuple with the ResetPasswordLink field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppUserUpdateResponse) GetResetPasswordLinkOk() (*string, bool) {
+	if o == nil || IsNil(o.ResetPasswordLink) {
+		return nil, false
+	}
+	return o.ResetPasswordLink, true
+}
+
+// HasResetPasswordLink returns a boolean if a field has been set.
+func (o *AppUserUpdateResponse) HasResetPasswordLink() bool {
+	if o != nil && !IsNil(o.ResetPasswordLink) {
+		return true
+	}
+
+	return false
+}
+
+// SetResetPasswordLink gets a reference to the given string and assigns it to the ResetPasswordLink field.
+func (o *AppUserUpdateResponse) SetResetPasswordLink(v string) {
+	o.ResetPasswordLink = &v
+}
+
 func (o AppUserUpdateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -266,17 +325,62 @@ func (o AppUserUpdateResponse) MarshalJSON() ([]byte, error) {
 
 func (o AppUserUpdateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ResetPasswordLink) {
-		toSerialize["reset_password_link"] = o.ResetPasswordLink
-	}
 	toSerialize["created"] = o.Created
 	toSerialize["id"] = o.Id
 	toSerialize["identifier"] = o.Identifier.Get()
 	toSerialize["name"] = o.Name
+	toSerialize["ory_id"] = o.OryId.Get()
 	toSerialize["role_id"] = o.RoleId
 	toSerialize["role_name"] = o.RoleName
+	toSerialize["terms_accepted_updated"] = o.TermsAcceptedUpdated.Get()
 	toSerialize["type"] = o.Type
+	if !IsNil(o.ResetPasswordLink) {
+		toSerialize["reset_password_link"] = o.ResetPasswordLink
+	}
 	return toSerialize, nil
+}
+
+func (o *AppUserUpdateResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"id",
+		"identifier",
+		"name",
+		"ory_id",
+		"role_id",
+		"role_name",
+		"terms_accepted_updated",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppUserUpdateResponse := _AppUserUpdateResponse{}
+
+	err = json.Unmarshal(bytes, &varAppUserUpdateResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppUserUpdateResponse(varAppUserUpdateResponse)
+
+	return err
 }
 
 type NullableAppUserUpdateResponse struct {

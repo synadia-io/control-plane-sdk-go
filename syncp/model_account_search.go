@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AccountSearch type satisfies the MappedNullable interface at compile time
@@ -21,18 +22,22 @@ var _ MappedNullable = &AccountSearch{}
 type AccountSearch struct {
 	AccountPublicKey string `json:"account_public_key"`
 	Id               string `json:"id"`
+	IsScpAccount     bool   `json:"is_scp_account"`
 	IsSystemAccount  bool   `json:"is_system_account"`
 	Name             string `json:"name"`
 }
+
+type _AccountSearch AccountSearch
 
 // NewAccountSearch instantiates a new AccountSearch object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountSearch(accountPublicKey string, id string, isSystemAccount bool, name string) *AccountSearch {
+func NewAccountSearch(accountPublicKey string, id string, isScpAccount bool, isSystemAccount bool, name string) *AccountSearch {
 	this := AccountSearch{}
 	this.AccountPublicKey = accountPublicKey
 	this.Id = id
+	this.IsScpAccount = isScpAccount
 	this.IsSystemAccount = isSystemAccount
 	this.Name = name
 	return &this
@@ -92,6 +97,30 @@ func (o *AccountSearch) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *AccountSearch) SetId(v string) {
 	o.Id = v
+}
+
+// GetIsScpAccount returns the IsScpAccount field value
+func (o *AccountSearch) GetIsScpAccount() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsScpAccount
+}
+
+// GetIsScpAccountOk returns a tuple with the IsScpAccount field value
+// and a boolean to check if the value has been set.
+func (o *AccountSearch) GetIsScpAccountOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsScpAccount, true
+}
+
+// SetIsScpAccount sets field value
+func (o *AccountSearch) SetIsScpAccount(v bool) {
+	o.IsScpAccount = v
 }
 
 // GetIsSystemAccount returns the IsSystemAccount field value
@@ -154,9 +183,49 @@ func (o AccountSearch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["account_public_key"] = o.AccountPublicKey
 	toSerialize["id"] = o.Id
+	toSerialize["is_scp_account"] = o.IsScpAccount
 	toSerialize["is_system_account"] = o.IsSystemAccount
 	toSerialize["name"] = o.Name
 	return toSerialize, nil
+}
+
+func (o *AccountSearch) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_public_key",
+		"id",
+		"is_scp_account",
+		"is_system_account",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccountSearch := _AccountSearch{}
+
+	err = json.Unmarshal(bytes, &varAccountSearch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountSearch(varAccountSearch)
+
+	return err
 }
 
 type NullableAccountSearch struct {

@@ -4,8 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AllowedConnectionTypes** | Pointer to **[]string** | StringList is a wrapper for an array of strings | [optional] 
-**BearerToken** | Pointer to **bool** |  | [optional] 
 **Pub** | Pointer to [**Permission**](Permission.md) |  | [optional] 
 **Resp** | Pointer to [**NullablePermissionsResp**](PermissionsResp.md) |  | [optional] 
 **Sub** | Pointer to [**Permission**](Permission.md) |  | [optional] 
@@ -15,6 +13,8 @@ Name | Type | Description | Notes
 **Data** | Pointer to **int64** |  | [optional] 
 **Payload** | Pointer to **int64** |  | [optional] 
 **Subs** | Pointer to **int64** |  | [optional] 
+**AllowedConnectionTypes** | Pointer to **[]string** | StringList is a wrapper for an array of strings | [optional] 
+**BearerToken** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -34,66 +34,6 @@ will change when the set of required properties is changed
 NewUserPermissionLimitsWithDefaults instantiates a new UserPermissionLimits object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetAllowedConnectionTypes
-
-`func (o *UserPermissionLimits) GetAllowedConnectionTypes() []string`
-
-GetAllowedConnectionTypes returns the AllowedConnectionTypes field if non-nil, zero value otherwise.
-
-### GetAllowedConnectionTypesOk
-
-`func (o *UserPermissionLimits) GetAllowedConnectionTypesOk() (*[]string, bool)`
-
-GetAllowedConnectionTypesOk returns a tuple with the AllowedConnectionTypes field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAllowedConnectionTypes
-
-`func (o *UserPermissionLimits) SetAllowedConnectionTypes(v []string)`
-
-SetAllowedConnectionTypes sets AllowedConnectionTypes field to given value.
-
-### HasAllowedConnectionTypes
-
-`func (o *UserPermissionLimits) HasAllowedConnectionTypes() bool`
-
-HasAllowedConnectionTypes returns a boolean if a field has been set.
-
-### SetAllowedConnectionTypesNil
-
-`func (o *UserPermissionLimits) SetAllowedConnectionTypesNil(b bool)`
-
- SetAllowedConnectionTypesNil sets the value for AllowedConnectionTypes to be an explicit nil
-
-### UnsetAllowedConnectionTypes
-`func (o *UserPermissionLimits) UnsetAllowedConnectionTypes()`
-
-UnsetAllowedConnectionTypes ensures that no value is present for AllowedConnectionTypes, not even an explicit nil
-### GetBearerToken
-
-`func (o *UserPermissionLimits) GetBearerToken() bool`
-
-GetBearerToken returns the BearerToken field if non-nil, zero value otherwise.
-
-### GetBearerTokenOk
-
-`func (o *UserPermissionLimits) GetBearerTokenOk() (*bool, bool)`
-
-GetBearerTokenOk returns a tuple with the BearerToken field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBearerToken
-
-`func (o *UserPermissionLimits) SetBearerToken(v bool)`
-
-SetBearerToken sets BearerToken field to given value.
-
-### HasBearerToken
-
-`func (o *UserPermissionLimits) HasBearerToken() bool`
-
-HasBearerToken returns a boolean if a field has been set.
 
 ### GetPub
 
@@ -339,6 +279,66 @@ SetSubs sets Subs field to given value.
 `func (o *UserPermissionLimits) HasSubs() bool`
 
 HasSubs returns a boolean if a field has been set.
+
+### GetAllowedConnectionTypes
+
+`func (o *UserPermissionLimits) GetAllowedConnectionTypes() []string`
+
+GetAllowedConnectionTypes returns the AllowedConnectionTypes field if non-nil, zero value otherwise.
+
+### GetAllowedConnectionTypesOk
+
+`func (o *UserPermissionLimits) GetAllowedConnectionTypesOk() (*[]string, bool)`
+
+GetAllowedConnectionTypesOk returns a tuple with the AllowedConnectionTypes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowedConnectionTypes
+
+`func (o *UserPermissionLimits) SetAllowedConnectionTypes(v []string)`
+
+SetAllowedConnectionTypes sets AllowedConnectionTypes field to given value.
+
+### HasAllowedConnectionTypes
+
+`func (o *UserPermissionLimits) HasAllowedConnectionTypes() bool`
+
+HasAllowedConnectionTypes returns a boolean if a field has been set.
+
+### SetAllowedConnectionTypesNil
+
+`func (o *UserPermissionLimits) SetAllowedConnectionTypesNil(b bool)`
+
+ SetAllowedConnectionTypesNil sets the value for AllowedConnectionTypes to be an explicit nil
+
+### UnsetAllowedConnectionTypes
+`func (o *UserPermissionLimits) UnsetAllowedConnectionTypes()`
+
+UnsetAllowedConnectionTypes ensures that no value is present for AllowedConnectionTypes, not even an explicit nil
+### GetBearerToken
+
+`func (o *UserPermissionLimits) GetBearerToken() bool`
+
+GetBearerToken returns the BearerToken field if non-nil, zero value otherwise.
+
+### GetBearerTokenOk
+
+`func (o *UserPermissionLimits) GetBearerTokenOk() (*bool, bool)`
+
+GetBearerTokenOk returns a tuple with the BearerToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBearerToken
+
+`func (o *UserPermissionLimits) SetBearerToken(v bool)`
+
+SetBearerToken sets BearerToken field to given value.
+
+### HasBearerToken
+
+`func (o *UserPermissionLimits) HasBearerToken() bool`
+
+HasBearerToken returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

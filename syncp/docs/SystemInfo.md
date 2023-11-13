@@ -4,9 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AgentType** | **string** |  | 
 **Id** | **string** |  | 
+**IsTenant** | **bool** |  | 
 **JetstreamDomain** | Pointer to **NullableString** |  | [optional] 
 **JetstreamEnabled** | **bool** |  | 
+**JetstreamTiers** | Pointer to **[]string** |  | [optional] 
 **Name** | **string** |  | 
 **ServerUrls** | Pointer to **string** |  | [optional] 
 **State** | [**SystemState**](SystemState.md) |  | 
@@ -16,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewSystemInfo
 
-`func NewSystemInfo(id string, jetstreamEnabled bool, name string, state SystemState, userJwtExpiresInSecs int64, ) *SystemInfo`
+`func NewSystemInfo(agentType string, id string, isTenant bool, jetstreamEnabled bool, name string, state SystemState, userJwtExpiresInSecs int64, ) *SystemInfo`
 
 NewSystemInfo instantiates a new SystemInfo object
 This constructor will assign default values to properties that have it defined,
@@ -30,6 +33,26 @@ will change when the set of required properties is changed
 NewSystemInfoWithDefaults instantiates a new SystemInfo object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAgentType
+
+`func (o *SystemInfo) GetAgentType() string`
+
+GetAgentType returns the AgentType field if non-nil, zero value otherwise.
+
+### GetAgentTypeOk
+
+`func (o *SystemInfo) GetAgentTypeOk() (*string, bool)`
+
+GetAgentTypeOk returns a tuple with the AgentType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAgentType
+
+`func (o *SystemInfo) SetAgentType(v string)`
+
+SetAgentType sets AgentType field to given value.
+
 
 ### GetId
 
@@ -49,6 +72,26 @@ and a boolean to check if the value has been set.
 `func (o *SystemInfo) SetId(v string)`
 
 SetId sets Id field to given value.
+
+
+### GetIsTenant
+
+`func (o *SystemInfo) GetIsTenant() bool`
+
+GetIsTenant returns the IsTenant field if non-nil, zero value otherwise.
+
+### GetIsTenantOk
+
+`func (o *SystemInfo) GetIsTenantOk() (*bool, bool)`
+
+GetIsTenantOk returns a tuple with the IsTenant field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsTenant
+
+`func (o *SystemInfo) SetIsTenant(v bool)`
+
+SetIsTenant sets IsTenant field to given value.
 
 
 ### GetJetstreamDomain
@@ -105,6 +148,31 @@ and a boolean to check if the value has been set.
 
 SetJetstreamEnabled sets JetstreamEnabled field to given value.
 
+
+### GetJetstreamTiers
+
+`func (o *SystemInfo) GetJetstreamTiers() []string`
+
+GetJetstreamTiers returns the JetstreamTiers field if non-nil, zero value otherwise.
+
+### GetJetstreamTiersOk
+
+`func (o *SystemInfo) GetJetstreamTiersOk() (*[]string, bool)`
+
+GetJetstreamTiersOk returns a tuple with the JetstreamTiers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJetstreamTiers
+
+`func (o *SystemInfo) SetJetstreamTiers(v []string)`
+
+SetJetstreamTiers sets JetstreamTiers field to given value.
+
+### HasJetstreamTiers
+
+`func (o *SystemInfo) HasJetstreamTiers() bool`
+
+HasJetstreamTiers returns a boolean if a field has been set.
 
 ### GetName
 

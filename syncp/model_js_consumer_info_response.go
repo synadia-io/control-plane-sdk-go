@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,8 +21,6 @@ var _ MappedNullable = &JSConsumerInfoResponse{}
 
 // JSConsumerInfoResponse struct for JSConsumerInfoResponse
 type JSConsumerInfoResponse struct {
-	ConsumerType   *JSConsumerType             `json:"consumer_type,omitempty"`
-	Id             *string                     `json:"id,omitempty"`
 	AckFloor       SequenceInfo                `json:"ack_floor"`
 	Cluster        NullableConsumerInfoCluster `json:"cluster,omitempty"`
 	Config         ConsumerConfig              `json:"config"`
@@ -34,13 +33,17 @@ type JSConsumerInfoResponse struct {
 	NumWaiting     int32                       `json:"num_waiting"`
 	PushBound      *bool                       `json:"push_bound,omitempty"`
 	StreamName     string                      `json:"stream_name"`
+	ConsumerType   JSConsumerType              `json:"consumer_type"`
+	Id             string                      `json:"id"`
 }
+
+type _JSConsumerInfoResponse JSConsumerInfoResponse
 
 // NewJSConsumerInfoResponse instantiates a new JSConsumerInfoResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJSConsumerInfoResponse(ackFloor SequenceInfo, config ConsumerConfig, created time.Time, delivered SequenceInfo, name string, numAckPending int32, numPending int32, numRedelivered int32, numWaiting int32, streamName string) *JSConsumerInfoResponse {
+func NewJSConsumerInfoResponse(ackFloor SequenceInfo, config ConsumerConfig, created time.Time, delivered SequenceInfo, name string, numAckPending int32, numPending int32, numRedelivered int32, numWaiting int32, streamName string, consumerType JSConsumerType, id string) *JSConsumerInfoResponse {
 	this := JSConsumerInfoResponse{}
 	this.AckFloor = ackFloor
 	this.Config = config
@@ -52,6 +55,8 @@ func NewJSConsumerInfoResponse(ackFloor SequenceInfo, config ConsumerConfig, cre
 	this.NumRedelivered = numRedelivered
 	this.NumWaiting = numWaiting
 	this.StreamName = streamName
+	this.ConsumerType = consumerType
+	this.Id = id
 	return &this
 }
 
@@ -61,70 +66,6 @@ func NewJSConsumerInfoResponse(ackFloor SequenceInfo, config ConsumerConfig, cre
 func NewJSConsumerInfoResponseWithDefaults() *JSConsumerInfoResponse {
 	this := JSConsumerInfoResponse{}
 	return &this
-}
-
-// GetConsumerType returns the ConsumerType field value if set, zero value otherwise.
-func (o *JSConsumerInfoResponse) GetConsumerType() JSConsumerType {
-	if o == nil || IsNil(o.ConsumerType) {
-		var ret JSConsumerType
-		return ret
-	}
-	return *o.ConsumerType
-}
-
-// GetConsumerTypeOk returns a tuple with the ConsumerType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSConsumerInfoResponse) GetConsumerTypeOk() (*JSConsumerType, bool) {
-	if o == nil || IsNil(o.ConsumerType) {
-		return nil, false
-	}
-	return o.ConsumerType, true
-}
-
-// HasConsumerType returns a boolean if a field has been set.
-func (o *JSConsumerInfoResponse) HasConsumerType() bool {
-	if o != nil && !IsNil(o.ConsumerType) {
-		return true
-	}
-
-	return false
-}
-
-// SetConsumerType gets a reference to the given JSConsumerType and assigns it to the ConsumerType field.
-func (o *JSConsumerInfoResponse) SetConsumerType(v JSConsumerType) {
-	o.ConsumerType = &v
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *JSConsumerInfoResponse) GetId() string {
-	if o == nil || IsNil(o.Id) {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSConsumerInfoResponse) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *JSConsumerInfoResponse) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *JSConsumerInfoResponse) SetId(v string) {
-	o.Id = &v
 }
 
 // GetAckFloor returns the AckFloor field value
@@ -442,6 +383,54 @@ func (o *JSConsumerInfoResponse) SetStreamName(v string) {
 	o.StreamName = v
 }
 
+// GetConsumerType returns the ConsumerType field value
+func (o *JSConsumerInfoResponse) GetConsumerType() JSConsumerType {
+	if o == nil {
+		var ret JSConsumerType
+		return ret
+	}
+
+	return o.ConsumerType
+}
+
+// GetConsumerTypeOk returns a tuple with the ConsumerType field value
+// and a boolean to check if the value has been set.
+func (o *JSConsumerInfoResponse) GetConsumerTypeOk() (*JSConsumerType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ConsumerType, true
+}
+
+// SetConsumerType sets field value
+func (o *JSConsumerInfoResponse) SetConsumerType(v JSConsumerType) {
+	o.ConsumerType = v
+}
+
+// GetId returns the Id field value
+func (o *JSConsumerInfoResponse) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *JSConsumerInfoResponse) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *JSConsumerInfoResponse) SetId(v string) {
+	o.Id = v
+}
+
 func (o JSConsumerInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -452,12 +441,6 @@ func (o JSConsumerInfoResponse) MarshalJSON() ([]byte, error) {
 
 func (o JSConsumerInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ConsumerType) {
-		toSerialize["consumer_type"] = o.ConsumerType
-	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
 	toSerialize["ack_floor"] = o.AckFloor
 	if o.Cluster.IsSet() {
 		toSerialize["cluster"] = o.Cluster.Get()
@@ -474,7 +457,55 @@ func (o JSConsumerInfoResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["push_bound"] = o.PushBound
 	}
 	toSerialize["stream_name"] = o.StreamName
+	toSerialize["consumer_type"] = o.ConsumerType
+	toSerialize["id"] = o.Id
 	return toSerialize, nil
+}
+
+func (o *JSConsumerInfoResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ack_floor",
+		"config",
+		"created",
+		"delivered",
+		"name",
+		"num_ack_pending",
+		"num_pending",
+		"num_redelivered",
+		"num_waiting",
+		"stream_name",
+		"consumer_type",
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSConsumerInfoResponse := _JSConsumerInfoResponse{}
+
+	err = json.Unmarshal(bytes, &varJSConsumerInfoResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSConsumerInfoResponse(varJSConsumerInfoResponse)
+
+	return err
 }
 
 type NullableJSConsumerInfoResponse struct {

@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -27,6 +28,8 @@ type SubjectImportViewResponse struct {
 	RemoteAccountNkeyPublic string    `json:"remote_account_nkey_public"`
 	RemoteSubject           string    `json:"remote_subject"`
 }
+
+type _SubjectImportViewResponse SubjectImportViewResponse
 
 // NewSubjectImportViewResponse instantiates a new SubjectImportViewResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -212,6 +215,46 @@ func (o SubjectImportViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["remote_account_nkey_public"] = o.RemoteAccountNkeyPublic
 	toSerialize["remote_subject"] = o.RemoteSubject
 	return toSerialize, nil
+}
+
+func (o *SubjectImportViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"id",
+		"jwt_settings",
+		"name",
+		"remote_account_nkey_public",
+		"remote_subject",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubjectImportViewResponse := _SubjectImportViewResponse{}
+
+	err = json.Unmarshal(bytes, &varSubjectImportViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubjectImportViewResponse(varSubjectImportViewResponse)
+
+	return err
 }
 
 type NullableSubjectImportViewResponse struct {

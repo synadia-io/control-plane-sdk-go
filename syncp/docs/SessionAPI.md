@@ -4,21 +4,80 @@ All URIs are relative to *http://localhost/api/core/beta*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AcceptTerms**](SessionAPI.md#AcceptTerms) | **Post** /terms/accept | Accept terms
 [**CreateAppUser**](SessionAPI.md#CreateAppUser) | **Post** /app-users | Create App User
 [**CreatePersonalAccessToken**](SessionAPI.md#CreatePersonalAccessToken) | **Post** /personal-access-tokens | Create Personal Access Token
-[**CreateSystem**](SessionAPI.md#CreateSystem) | **Post** /systems | Create System
+[**CreateTeam**](SessionAPI.md#CreateTeam) | **Post** /teams | Create Team
 [**GetVersion**](SessionAPI.md#GetVersion) | **Get** /version | Get Version
-[**ImportSystem**](SessionAPI.md#ImportSystem) | **Post** /import-system | Import a System
 [**ListAlerts**](SessionAPI.md#ListAlerts) | **Get** /alerts | List Alerts
 [**ListAppUsers**](SessionAPI.md#ListAppUsers) | **Get** /app-users | List App Users
 [**ListPersonalAccessTokens**](SessionAPI.md#ListPersonalAccessTokens) | **Get** /personal-access-tokens | List Personal Access Tokens
-[**ListSessionAccounts**](SessionAPI.md#ListSessionAccounts) | **Get** /accounts | List Accounts
-[**ListSessionNatsUsers**](SessionAPI.md#ListSessionNatsUsers) | **Get** /nats-users | List NATS Users
-[**ListSystems**](SessionAPI.md#ListSystems) | **Get** /systems | List Systems
-[**SearchAppUsers**](SessionAPI.md#SearchAppUsers) | **Get** /search/app-users | Search App Users
+[**ListTeams**](SessionAPI.md#ListTeams) | **Get** /teams | List Teams
 [**SearchSystemAccounts**](SessionAPI.md#SearchSystemAccounts) | **Get** /search/systems/{systemId}/accounts | Search System Accounts
 [**SearchSystemServers**](SessionAPI.md#SearchSystemServers) | **Get** /search/systems/{systemId}/servers | Search System Servers
+[**SearchTeamAppUsers**](SessionAPI.md#SearchTeamAppUsers) | **Get** /search/teams/{teamId}/app-users | Search App Users in Team
 
+
+
+## AcceptTerms
+
+> AcceptTermsResponse AcceptTerms(ctx).Execute()
+
+Accept terms
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SessionAPI.AcceptTerms(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.AcceptTerms``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AcceptTerms`: AcceptTermsResponse
+    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.AcceptTerms`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAcceptTermsRequest struct via the builder pattern
+
+
+### Return type
+
+[**AcceptTermsResponse**](AcceptTermsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateAppUser
@@ -153,11 +212,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## CreateSystem
+## CreateTeam
 
-> SystemViewResponse CreateSystem(ctx).SystemCreateRequest(systemCreateRequest).Execute()
+> TeamViewResponse CreateTeam(ctx).TeamCreateRequest(teamCreateRequest).Execute()
 
-Create System
+Create Team
 
 
 
@@ -174,17 +233,17 @@ import (
 )
 
 func main() {
-    systemCreateRequest := *openapiclient.NewSystemCreateRequest("Name_example") // SystemCreateRequest |  (optional)
+    teamCreateRequest := *openapiclient.NewTeamCreateRequest("Name_example") // TeamCreateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.CreateSystem(context.Background()).SystemCreateRequest(systemCreateRequest).Execute()
+    resp, r, err := apiClient.SessionAPI.CreateTeam(context.Background()).TeamCreateRequest(teamCreateRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.CreateSystem``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.CreateTeam``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateSystem`: SystemViewResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.CreateSystem`: %v\n", resp)
+    // response from `CreateTeam`: TeamViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.CreateTeam`: %v\n", resp)
 }
 ```
 
@@ -194,16 +253,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateSystemRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateTeamRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **systemCreateRequest** | [**SystemCreateRequest**](SystemCreateRequest.md) |  | 
+ **teamCreateRequest** | [**TeamCreateRequest**](TeamCreateRequest.md) |  | 
 
 ### Return type
 
-[**SystemViewResponse**](SystemViewResponse.md)
+[**TeamViewResponse**](TeamViewResponse.md)
 
 ### Authorization
 
@@ -273,72 +332,6 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ImportSystem
-
-> SystemViewResponse ImportSystem(ctx).SystemImportRequest(systemImportRequest).Execute()
-
-Import a System
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    systemImportRequest := *openapiclient.NewSystemImportRequest("OperatorJwt_example", "OperatorKey_example", "SystemJwt_example", "SystemKey_example") // SystemImportRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.ImportSystem(context.Background()).SystemImportRequest(systemImportRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ImportSystem``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ImportSystem`: SystemViewResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.ImportSystem`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiImportSystemRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **systemImportRequest** | [**SystemImportRequest**](SystemImportRequest.md) |  | 
-
-### Return type
-
-[**SystemViewResponse**](SystemViewResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -534,72 +527,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ListSessionAccounts
+## ListTeams
 
-> SessionAccountListResponse ListSessionAccounts(ctx).Execute()
+> TeamListResponse ListTeams(ctx).Execute()
 
-List Accounts
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.ListSessionAccounts(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ListSessionAccounts``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSessionAccounts`: SessionAccountListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.ListSessionAccounts`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListSessionAccountsRequest struct via the builder pattern
-
-
-### Return type
-
-[**SessionAccountListResponse**](SessionAccountListResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListSessionNatsUsers
-
-> SessionNatsUserListResponse ListSessionNatsUsers(ctx).Execute()
-
-List NATS Users
+List Teams
 
 
 
@@ -619,13 +551,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.ListSessionNatsUsers(context.Background()).Execute()
+    resp, r, err := apiClient.SessionAPI.ListTeams(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ListSessionNatsUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ListTeams``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListSessionNatsUsers`: SessionNatsUserListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.ListSessionNatsUsers`: %v\n", resp)
+    // response from `ListTeams`: TeamListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.ListTeams`: %v\n", resp)
 }
 ```
 
@@ -635,134 +567,12 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListSessionNatsUsersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListTeamsRequest struct via the builder pattern
 
 
 ### Return type
 
-[**SessionNatsUserListResponse**](SessionNatsUserListResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListSystems
-
-> SessionSystemListResponse ListSystems(ctx).Execute()
-
-List Systems
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.ListSystems(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ListSystems``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSystems`: SessionSystemListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.ListSystems`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListSystemsRequest struct via the builder pattern
-
-
-### Return type
-
-[**SessionSystemListResponse**](SessionSystemListResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchAppUsers
-
-> AppUserInfoListResponse SearchAppUsers(ctx).Execute()
-
-Search App Users
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.SearchAppUsers(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.SearchAppUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SearchAppUsers`: AppUserInfoListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.SearchAppUsers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchAppUsersRequest struct via the builder pattern
-
-
-### Return type
-
-[**AppUserInfoListResponse**](AppUserInfoListResponse.md)
+[**TeamListResponse**](TeamListResponse.md)
 
 ### Authorization
 
@@ -903,6 +713,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**NatsServerInfoListResponse**](NatsServerInfoListResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SearchTeamAppUsers
+
+> TeamAppUserListResponse SearchTeamAppUsers(ctx, teamId).Execute()
+
+Search App Users in Team
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    teamId := "teamId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SessionAPI.SearchTeamAppUsers(context.Background(), teamId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.SearchTeamAppUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SearchTeamAppUsers`: TeamAppUserListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.SearchTeamAppUsers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**teamId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSearchTeamAppUsersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**TeamAppUserListResponse**](TeamAppUserListResponse.md)
 
 ### Authorization
 

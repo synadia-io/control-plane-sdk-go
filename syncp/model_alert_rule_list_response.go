@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AlertRuleListResponse type satisfies the MappedNullable interface at compile time
@@ -21,6 +22,8 @@ var _ MappedNullable = &AlertRuleListResponse{}
 type AlertRuleListResponse struct {
 	Items []AlertRuleViewResponse `json:"items"`
 }
+
+type _AlertRuleListResponse AlertRuleListResponse
 
 // NewAlertRuleListResponse instantiates a new AlertRuleListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -76,6 +79,41 @@ func (o AlertRuleListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
+}
+
+func (o *AlertRuleListResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"items",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAlertRuleListResponse := _AlertRuleListResponse{}
+
+	err = json.Unmarshal(bytes, &varAlertRuleListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AlertRuleListResponse(varAlertRuleListResponse)
+
+	return err
 }
 
 type NullableAlertRuleListResponse struct {

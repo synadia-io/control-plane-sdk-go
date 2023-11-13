@@ -22,6 +22,20 @@ import (
 type SessionAPI interface {
 
 	/*
+		AcceptTerms Accept terms
+
+		Accept terms
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiAcceptTermsRequest
+	*/
+	AcceptTerms(ctx context.Context) ApiAcceptTermsRequest
+
+	// AcceptTermsExecute executes the request
+	//  @return AcceptTermsResponse
+	AcceptTermsExecute(r ApiAcceptTermsRequest) (*AcceptTermsResponse, *http.Response, error)
+
+	/*
 		CreateAppUser Create App User
 
 		Create a User to invite to the Application
@@ -50,18 +64,18 @@ type SessionAPI interface {
 	CreatePersonalAccessTokenExecute(r ApiCreatePersonalAccessTokenRequest) (*AppUserAccessTokenCreateResponse, *http.Response, error)
 
 	/*
-		CreateSystem Create System
+		CreateTeam Create Team
 
-		Create a System
+		Create a Team
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreateSystemRequest
+		@return ApiCreateTeamRequest
 	*/
-	CreateSystem(ctx context.Context) ApiCreateSystemRequest
+	CreateTeam(ctx context.Context) ApiCreateTeamRequest
 
-	// CreateSystemExecute executes the request
-	//  @return SystemViewResponse
-	CreateSystemExecute(r ApiCreateSystemRequest) (*SystemViewResponse, *http.Response, error)
+	// CreateTeamExecute executes the request
+	//  @return TeamViewResponse
+	CreateTeamExecute(r ApiCreateTeamRequest) (*TeamViewResponse, *http.Response, error)
 
 	/*
 		GetVersion Get Version
@@ -76,20 +90,6 @@ type SessionAPI interface {
 	// GetVersionExecute executes the request
 	//  @return VersionResponse
 	GetVersionExecute(r ApiGetVersionRequest) (*VersionResponse, *http.Response, error)
-
-	/*
-		ImportSystem Import a System
-
-		Import a System
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiImportSystemRequest
-	*/
-	ImportSystem(ctx context.Context) ApiImportSystemRequest
-
-	// ImportSystemExecute executes the request
-	//  @return SystemViewResponse
-	ImportSystemExecute(r ApiImportSystemRequest) (*SystemViewResponse, *http.Response, error)
 
 	/*
 		ListAlerts List Alerts
@@ -134,60 +134,18 @@ type SessionAPI interface {
 	ListPersonalAccessTokensExecute(r ApiListPersonalAccessTokensRequest) (*AppUserAccessTokenListResponse, *http.Response, error)
 
 	/*
-		ListSessionAccounts List Accounts
+		ListTeams List Teams
 
-		Returns a list of Accounts directly associated with the current session
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListSessionAccountsRequest
-	*/
-	ListSessionAccounts(ctx context.Context) ApiListSessionAccountsRequest
-
-	// ListSessionAccountsExecute executes the request
-	//  @return SessionAccountListResponse
-	ListSessionAccountsExecute(r ApiListSessionAccountsRequest) (*SessionAccountListResponse, *http.Response, error)
-
-	/*
-		ListSessionNatsUsers List NATS Users
-
-		Returns a list of NATS Users directly associated with the current session
+		Returns a list of Teams
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListSessionNatsUsersRequest
+		@return ApiListTeamsRequest
 	*/
-	ListSessionNatsUsers(ctx context.Context) ApiListSessionNatsUsersRequest
+	ListTeams(ctx context.Context) ApiListTeamsRequest
 
-	// ListSessionNatsUsersExecute executes the request
-	//  @return SessionNatsUserListResponse
-	ListSessionNatsUsersExecute(r ApiListSessionNatsUsersRequest) (*SessionNatsUserListResponse, *http.Response, error)
-
-	/*
-		ListSystems List Systems
-
-		Returns a list of Systems
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListSystemsRequest
-	*/
-	ListSystems(ctx context.Context) ApiListSystemsRequest
-
-	// ListSystemsExecute executes the request
-	//  @return SessionSystemListResponse
-	ListSystemsExecute(r ApiListSystemsRequest) (*SessionSystemListResponse, *http.Response, error)
-
-	/*
-		SearchAppUsers Search App Users
-
-		Search for App Users
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiSearchAppUsersRequest
-	*/
-	SearchAppUsers(ctx context.Context) ApiSearchAppUsersRequest
-
-	// SearchAppUsersExecute executes the request
-	//  @return AppUserInfoListResponse
-	SearchAppUsersExecute(r ApiSearchAppUsersRequest) (*AppUserInfoListResponse, *http.Response, error)
+	// ListTeamsExecute executes the request
+	//  @return TeamListResponse
+	ListTeamsExecute(r ApiListTeamsRequest) (*TeamListResponse, *http.Response, error)
 
 	/*
 		SearchSystemAccounts Search System Accounts
@@ -218,10 +176,125 @@ type SessionAPI interface {
 	// SearchSystemServersExecute executes the request
 	//  @return NatsServerInfoListResponse
 	SearchSystemServersExecute(r ApiSearchSystemServersRequest) (*NatsServerInfoListResponse, *http.Response, error)
+
+	/*
+		SearchTeamAppUsers Search App Users in Team
+
+		Search for App Users in Team
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param teamId
+		@return ApiSearchTeamAppUsersRequest
+	*/
+	SearchTeamAppUsers(ctx context.Context, teamId string) ApiSearchTeamAppUsersRequest
+
+	// SearchTeamAppUsersExecute executes the request
+	//  @return TeamAppUserListResponse
+	SearchTeamAppUsersExecute(r ApiSearchTeamAppUsersRequest) (*TeamAppUserListResponse, *http.Response, error)
 }
 
 // SessionAPIService SessionAPI service
 type SessionAPIService service
+
+type ApiAcceptTermsRequest struct {
+	ctx        context.Context
+	ApiService SessionAPI
+}
+
+func (r ApiAcceptTermsRequest) Execute() (*AcceptTermsResponse, *http.Response, error) {
+	return r.ApiService.AcceptTermsExecute(r)
+}
+
+/*
+AcceptTerms Accept terms
+
+Accept terms
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAcceptTermsRequest
+*/
+func (a *SessionAPIService) AcceptTerms(ctx context.Context) ApiAcceptTermsRequest {
+	return ApiAcceptTermsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AcceptTermsResponse
+func (a *SessionAPIService) AcceptTermsExecute(r ApiAcceptTermsRequest) (*AcceptTermsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AcceptTermsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.AcceptTerms")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/terms/accept"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type ApiCreateAppUserRequest struct {
 	ctx                  context.Context
@@ -439,31 +512,31 @@ func (a *SessionAPIService) CreatePersonalAccessTokenExecute(r ApiCreatePersonal
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiCreateSystemRequest struct {
-	ctx                 context.Context
-	ApiService          SessionAPI
-	systemCreateRequest *SystemCreateRequest
+type ApiCreateTeamRequest struct {
+	ctx               context.Context
+	ApiService        SessionAPI
+	teamCreateRequest *TeamCreateRequest
 }
 
-func (r ApiCreateSystemRequest) SystemCreateRequest(systemCreateRequest SystemCreateRequest) ApiCreateSystemRequest {
-	r.systemCreateRequest = &systemCreateRequest
+func (r ApiCreateTeamRequest) TeamCreateRequest(teamCreateRequest TeamCreateRequest) ApiCreateTeamRequest {
+	r.teamCreateRequest = &teamCreateRequest
 	return r
 }
 
-func (r ApiCreateSystemRequest) Execute() (*SystemViewResponse, *http.Response, error) {
-	return r.ApiService.CreateSystemExecute(r)
+func (r ApiCreateTeamRequest) Execute() (*TeamViewResponse, *http.Response, error) {
+	return r.ApiService.CreateTeamExecute(r)
 }
 
 /*
-CreateSystem Create System
+CreateTeam Create Team
 
-Create a System
+Create a Team
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSystemRequest
+	@return ApiCreateTeamRequest
 */
-func (a *SessionAPIService) CreateSystem(ctx context.Context) ApiCreateSystemRequest {
-	return ApiCreateSystemRequest{
+func (a *SessionAPIService) CreateTeam(ctx context.Context) ApiCreateTeamRequest {
+	return ApiCreateTeamRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -471,21 +544,21 @@ func (a *SessionAPIService) CreateSystem(ctx context.Context) ApiCreateSystemReq
 
 // Execute executes the request
 //
-//	@return SystemViewResponse
-func (a *SessionAPIService) CreateSystemExecute(r ApiCreateSystemRequest) (*SystemViewResponse, *http.Response, error) {
+//	@return TeamViewResponse
+func (a *SessionAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*TeamViewResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SystemViewResponse
+		localVarReturnValue *TeamViewResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.CreateSystem")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.CreateTeam")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems"
+	localVarPath := localBasePath + "/teams"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -509,7 +582,7 @@ func (a *SessionAPIService) CreateSystemExecute(r ApiCreateSystemRequest) (*Syst
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.systemCreateRequest
+	localVarPostBody = r.teamCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -610,114 +683,6 @@ func (a *SessionAPIService) GetVersionExecute(r ApiGetVersionRequest) (*VersionR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiImportSystemRequest struct {
-	ctx                 context.Context
-	ApiService          SessionAPI
-	systemImportRequest *SystemImportRequest
-}
-
-func (r ApiImportSystemRequest) SystemImportRequest(systemImportRequest SystemImportRequest) ApiImportSystemRequest {
-	r.systemImportRequest = &systemImportRequest
-	return r
-}
-
-func (r ApiImportSystemRequest) Execute() (*SystemViewResponse, *http.Response, error) {
-	return r.ApiService.ImportSystemExecute(r)
-}
-
-/*
-ImportSystem Import a System
-
-Import a System
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiImportSystemRequest
-*/
-func (a *SessionAPIService) ImportSystem(ctx context.Context) ApiImportSystemRequest {
-	return ApiImportSystemRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return SystemViewResponse
-func (a *SessionAPIService) ImportSystemExecute(r ApiImportSystemRequest) (*SystemViewResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SystemViewResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.ImportSystem")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/import-system"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.systemImportRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1064,25 +1029,25 @@ func (a *SessionAPIService) ListPersonalAccessTokensExecute(r ApiListPersonalAcc
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListSessionAccountsRequest struct {
+type ApiListTeamsRequest struct {
 	ctx        context.Context
 	ApiService SessionAPI
 }
 
-func (r ApiListSessionAccountsRequest) Execute() (*SessionAccountListResponse, *http.Response, error) {
-	return r.ApiService.ListSessionAccountsExecute(r)
+func (r ApiListTeamsRequest) Execute() (*TeamListResponse, *http.Response, error) {
+	return r.ApiService.ListTeamsExecute(r)
 }
 
 /*
-ListSessionAccounts List Accounts
+ListTeams List Teams
 
-Returns a list of Accounts directly associated with the current session
+Returns a list of Teams
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSessionAccountsRequest
+	@return ApiListTeamsRequest
 */
-func (a *SessionAPIService) ListSessionAccounts(ctx context.Context) ApiListSessionAccountsRequest {
-	return ApiListSessionAccountsRequest{
+func (a *SessionAPIService) ListTeams(ctx context.Context) ApiListTeamsRequest {
+	return ApiListTeamsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1090,321 +1055,21 @@ func (a *SessionAPIService) ListSessionAccounts(ctx context.Context) ApiListSess
 
 // Execute executes the request
 //
-//	@return SessionAccountListResponse
-func (a *SessionAPIService) ListSessionAccountsExecute(r ApiListSessionAccountsRequest) (*SessionAccountListResponse, *http.Response, error) {
+//	@return TeamListResponse
+func (a *SessionAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*TeamListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionAccountListResponse
+		localVarReturnValue *TeamListResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.ListSessionAccounts")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.ListTeams")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListSessionNatsUsersRequest struct {
-	ctx        context.Context
-	ApiService SessionAPI
-}
-
-func (r ApiListSessionNatsUsersRequest) Execute() (*SessionNatsUserListResponse, *http.Response, error) {
-	return r.ApiService.ListSessionNatsUsersExecute(r)
-}
-
-/*
-ListSessionNatsUsers List NATS Users
-
-Returns a list of NATS Users directly associated with the current session
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSessionNatsUsersRequest
-*/
-func (a *SessionAPIService) ListSessionNatsUsers(ctx context.Context) ApiListSessionNatsUsersRequest {
-	return ApiListSessionNatsUsersRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return SessionNatsUserListResponse
-func (a *SessionAPIService) ListSessionNatsUsersExecute(r ApiListSessionNatsUsersRequest) (*SessionNatsUserListResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SessionNatsUserListResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.ListSessionNatsUsers")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/nats-users"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListSystemsRequest struct {
-	ctx        context.Context
-	ApiService SessionAPI
-}
-
-func (r ApiListSystemsRequest) Execute() (*SessionSystemListResponse, *http.Response, error) {
-	return r.ApiService.ListSystemsExecute(r)
-}
-
-/*
-ListSystems List Systems
-
-Returns a list of Systems
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSystemsRequest
-*/
-func (a *SessionAPIService) ListSystems(ctx context.Context) ApiListSystemsRequest {
-	return ApiListSystemsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return SessionSystemListResponse
-func (a *SessionAPIService) ListSystemsExecute(r ApiListSystemsRequest) (*SessionSystemListResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SessionSystemListResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.ListSystems")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/systems"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchAppUsersRequest struct {
-	ctx        context.Context
-	ApiService SessionAPI
-}
-
-func (r ApiSearchAppUsersRequest) Execute() (*AppUserInfoListResponse, *http.Response, error) {
-	return r.ApiService.SearchAppUsersExecute(r)
-}
-
-/*
-SearchAppUsers Search App Users
-
-Search for App Users
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSearchAppUsersRequest
-*/
-func (a *SessionAPIService) SearchAppUsers(ctx context.Context) ApiSearchAppUsersRequest {
-	return ApiSearchAppUsersRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AppUserInfoListResponse
-func (a *SessionAPIService) SearchAppUsersExecute(r ApiSearchAppUsersRequest) (*AppUserInfoListResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AppUserInfoListResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.SearchAppUsers")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/search/app-users"
+	localVarPath := localBasePath + "/teams"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1613,6 +1278,110 @@ func (a *SessionAPIService) SearchSystemServersExecute(r ApiSearchSystemServersR
 
 	localVarPath := localBasePath + "/search/systems/{systemId}/servers"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSearchTeamAppUsersRequest struct {
+	ctx        context.Context
+	ApiService SessionAPI
+	teamId     string
+}
+
+func (r ApiSearchTeamAppUsersRequest) Execute() (*TeamAppUserListResponse, *http.Response, error) {
+	return r.ApiService.SearchTeamAppUsersExecute(r)
+}
+
+/*
+SearchTeamAppUsers Search App Users in Team
+
+Search for App Users in Team
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param teamId
+	@return ApiSearchTeamAppUsersRequest
+*/
+func (a *SessionAPIService) SearchTeamAppUsers(ctx context.Context, teamId string) ApiSearchTeamAppUsersRequest {
+	return ApiSearchTeamAppUsersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		teamId:     teamId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TeamAppUserListResponse
+func (a *SessionAPIService) SearchTeamAppUsersExecute(r ApiSearchTeamAppUsersRequest) (*TeamAppUserListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamAppUserListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.SearchTeamAppUsers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/search/teams/{teamId}/app-users"
+	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

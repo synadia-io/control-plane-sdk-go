@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JetStreamVarzMeta type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type JetStreamVarzMeta struct {
 	Name        *string                    `json:"name,omitempty"`
 	Replicas    []ClusterInfoReplicasInner `json:"replicas,omitempty"`
 }
+
+type _JetStreamVarzMeta JetStreamVarzMeta
 
 // NewJetStreamVarzMeta instantiates a new JetStreamVarzMeta object
 // This constructor will assign default values to properties that have it defined,
@@ -184,6 +187,41 @@ func (o JetStreamVarzMeta) ToMap() (map[string]interface{}, error) {
 		toSerialize["replicas"] = o.Replicas
 	}
 	return toSerialize, nil
+}
+
+func (o *JetStreamVarzMeta) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"cluster_size",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJetStreamVarzMeta := _JetStreamVarzMeta{}
+
+	err = json.Unmarshal(bytes, &varJetStreamVarzMeta)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JetStreamVarzMeta(varJetStreamVarzMeta)
+
+	return err
 }
 
 type NullableJetStreamVarzMeta struct {

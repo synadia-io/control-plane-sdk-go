@@ -21,7 +21,7 @@ var _ MappedNullable = &SystemUpdateRequest{}
 type SystemUpdateRequest struct {
 	JetstreamDomain  NullableString `json:"jetstream_domain,omitempty"`
 	JetstreamEnabled *bool          `json:"jetstream_enabled,omitempty"`
-	Name             string         `json:"name"`
+	Name             *string        `json:"name,omitempty"`
 	Url              NullableString `json:"url,omitempty"`
 }
 
@@ -29,9 +29,8 @@ type SystemUpdateRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemUpdateRequest(name string) *SystemUpdateRequest {
+func NewSystemUpdateRequest() *SystemUpdateRequest {
 	this := SystemUpdateRequest{}
-	this.Name = name
 	return &this
 }
 
@@ -118,28 +117,36 @@ func (o *SystemUpdateRequest) SetJetstreamEnabled(v bool) {
 	o.JetstreamEnabled = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *SystemUpdateRequest) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemUpdateRequest) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *SystemUpdateRequest) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *SystemUpdateRequest) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
 // GetUrl returns the Url field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -201,7 +208,9 @@ func (o SystemUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.JetstreamEnabled) {
 		toSerialize["jetstream_enabled"] = o.JetstreamEnabled
 	}
-	toSerialize["name"] = o.Name
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
 	if o.Url.IsSet() {
 		toSerialize["url"] = o.Url.Get()
 	}

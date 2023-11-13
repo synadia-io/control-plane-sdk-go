@@ -4,23 +4,28 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AgentType** | **string** |  | 
 **HasManagedOperator** | **bool** |  | 
 **HasManagedSystemAccount** | **bool** |  | 
+**HostSystemId** | Pointer to **NullableString** |  | [optional] 
 **Id** | **string** |  | 
+**IsTenant** | **bool** |  | 
 **JetstreamDomain** | Pointer to **NullableString** |  | [optional] 
 **JetstreamEnabled** | **bool** |  | 
+**JetstreamTiers** | Pointer to **[]string** |  | [optional] 
 **Name** | **string** |  | 
 **OperatorClaims** | Pointer to [**OperatorClaims**](OperatorClaims.md) |  | [optional] 
 **OperatorJwt** | Pointer to **string** |  | [optional] 
 **State** | [**SystemState**](SystemState.md) |  | 
 **SystemAccountJwt** | Pointer to **string** |  | [optional] 
+**Team** | [**TeamInfo**](TeamInfo.md) |  | 
 **UserJwtExpiresInSecs** | **int64** |  | 
 
 ## Methods
 
 ### NewSystemViewResponse
 
-`func NewSystemViewResponse(hasManagedOperator bool, hasManagedSystemAccount bool, id string, jetstreamEnabled bool, name string, state SystemState, userJwtExpiresInSecs int64, ) *SystemViewResponse`
+`func NewSystemViewResponse(agentType string, hasManagedOperator bool, hasManagedSystemAccount bool, id string, isTenant bool, jetstreamEnabled bool, name string, state SystemState, team TeamInfo, userJwtExpiresInSecs int64, ) *SystemViewResponse`
 
 NewSystemViewResponse instantiates a new SystemViewResponse object
 This constructor will assign default values to properties that have it defined,
@@ -34,6 +39,26 @@ will change when the set of required properties is changed
 NewSystemViewResponseWithDefaults instantiates a new SystemViewResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAgentType
+
+`func (o *SystemViewResponse) GetAgentType() string`
+
+GetAgentType returns the AgentType field if non-nil, zero value otherwise.
+
+### GetAgentTypeOk
+
+`func (o *SystemViewResponse) GetAgentTypeOk() (*string, bool)`
+
+GetAgentTypeOk returns a tuple with the AgentType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAgentType
+
+`func (o *SystemViewResponse) SetAgentType(v string)`
+
+SetAgentType sets AgentType field to given value.
+
 
 ### GetHasManagedOperator
 
@@ -75,6 +100,41 @@ and a boolean to check if the value has been set.
 SetHasManagedSystemAccount sets HasManagedSystemAccount field to given value.
 
 
+### GetHostSystemId
+
+`func (o *SystemViewResponse) GetHostSystemId() string`
+
+GetHostSystemId returns the HostSystemId field if non-nil, zero value otherwise.
+
+### GetHostSystemIdOk
+
+`func (o *SystemViewResponse) GetHostSystemIdOk() (*string, bool)`
+
+GetHostSystemIdOk returns a tuple with the HostSystemId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHostSystemId
+
+`func (o *SystemViewResponse) SetHostSystemId(v string)`
+
+SetHostSystemId sets HostSystemId field to given value.
+
+### HasHostSystemId
+
+`func (o *SystemViewResponse) HasHostSystemId() bool`
+
+HasHostSystemId returns a boolean if a field has been set.
+
+### SetHostSystemIdNil
+
+`func (o *SystemViewResponse) SetHostSystemIdNil(b bool)`
+
+ SetHostSystemIdNil sets the value for HostSystemId to be an explicit nil
+
+### UnsetHostSystemId
+`func (o *SystemViewResponse) UnsetHostSystemId()`
+
+UnsetHostSystemId ensures that no value is present for HostSystemId, not even an explicit nil
 ### GetId
 
 `func (o *SystemViewResponse) GetId() string`
@@ -93,6 +153,26 @@ and a boolean to check if the value has been set.
 `func (o *SystemViewResponse) SetId(v string)`
 
 SetId sets Id field to given value.
+
+
+### GetIsTenant
+
+`func (o *SystemViewResponse) GetIsTenant() bool`
+
+GetIsTenant returns the IsTenant field if non-nil, zero value otherwise.
+
+### GetIsTenantOk
+
+`func (o *SystemViewResponse) GetIsTenantOk() (*bool, bool)`
+
+GetIsTenantOk returns a tuple with the IsTenant field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsTenant
+
+`func (o *SystemViewResponse) SetIsTenant(v bool)`
+
+SetIsTenant sets IsTenant field to given value.
 
 
 ### GetJetstreamDomain
@@ -149,6 +229,31 @@ and a boolean to check if the value has been set.
 
 SetJetstreamEnabled sets JetstreamEnabled field to given value.
 
+
+### GetJetstreamTiers
+
+`func (o *SystemViewResponse) GetJetstreamTiers() []string`
+
+GetJetstreamTiers returns the JetstreamTiers field if non-nil, zero value otherwise.
+
+### GetJetstreamTiersOk
+
+`func (o *SystemViewResponse) GetJetstreamTiersOk() (*[]string, bool)`
+
+GetJetstreamTiersOk returns a tuple with the JetstreamTiers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJetstreamTiers
+
+`func (o *SystemViewResponse) SetJetstreamTiers(v []string)`
+
+SetJetstreamTiers sets JetstreamTiers field to given value.
+
+### HasJetstreamTiers
+
+`func (o *SystemViewResponse) HasJetstreamTiers() bool`
+
+HasJetstreamTiers returns a boolean if a field has been set.
 
 ### GetName
 
@@ -264,6 +369,26 @@ SetSystemAccountJwt sets SystemAccountJwt field to given value.
 `func (o *SystemViewResponse) HasSystemAccountJwt() bool`
 
 HasSystemAccountJwt returns a boolean if a field has been set.
+
+### GetTeam
+
+`func (o *SystemViewResponse) GetTeam() TeamInfo`
+
+GetTeam returns the Team field if non-nil, zero value otherwise.
+
+### GetTeamOk
+
+`func (o *SystemViewResponse) GetTeamOk() (*TeamInfo, bool)`
+
+GetTeamOk returns a tuple with the Team field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeam
+
+`func (o *SystemViewResponse) SetTeam(v TeamInfo)`
+
+SetTeam sets Team field to given value.
+
 
 ### GetUserJwtExpiresInSecs
 

@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JSPushConsumerConfigRequest type satisfies the MappedNullable interface at compile time
@@ -19,13 +20,6 @@ var _ MappedNullable = &JSPushConsumerConfigRequest{}
 
 // JSPushConsumerConfigRequest struct for JSPushConsumerConfigRequest
 type JSPushConsumerConfigRequest struct {
-	DeliverGroup *string `json:"deliver_group,omitempty"`
-	// Push based options.
-	DeliverSubject    *string        `json:"deliver_subject,omitempty"`
-	FlowControl       *bool          `json:"flow_control,omitempty"`
-	HeadersOnly       *bool          `json:"headers_only,omitempty"`
-	IdleHeartbeat     *int64         `json:"idle_heartbeat,omitempty"`
-	RateLimitBps      *int32         `json:"rate_limit_bps,omitempty"`
 	AckPolicy         AckPolicy      `json:"ack_policy"`
 	AckWait           *int64         `json:"ack_wait,omitempty"`
 	Backoff           []int64        `json:"backoff,omitempty"`
@@ -44,7 +38,16 @@ type JSPushConsumerConfigRequest struct {
 	OptStartTime      NullableString `json:"opt_start_time,omitempty"`
 	ReplayPolicy      ReplayPolicy   `json:"replay_policy"`
 	SampleFreq        *string        `json:"sample_freq,omitempty"`
+	DeliverGroup      *string        `json:"deliver_group,omitempty"`
+	// Push based options.
+	DeliverSubject *string `json:"deliver_subject,omitempty"`
+	FlowControl    *bool   `json:"flow_control,omitempty"`
+	HeadersOnly    *bool   `json:"headers_only,omitempty"`
+	IdleHeartbeat  *int64  `json:"idle_heartbeat,omitempty"`
+	RateLimitBps   *int32  `json:"rate_limit_bps,omitempty"`
 }
+
+type _JSPushConsumerConfigRequest JSPushConsumerConfigRequest
 
 // NewJSPushConsumerConfigRequest instantiates a new JSPushConsumerConfigRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -65,198 +68,6 @@ func NewJSPushConsumerConfigRequest(ackPolicy AckPolicy, deliverPolicy DeliverPo
 func NewJSPushConsumerConfigRequestWithDefaults() *JSPushConsumerConfigRequest {
 	this := JSPushConsumerConfigRequest{}
 	return &this
-}
-
-// GetDeliverGroup returns the DeliverGroup field value if set, zero value otherwise.
-func (o *JSPushConsumerConfigRequest) GetDeliverGroup() string {
-	if o == nil || IsNil(o.DeliverGroup) {
-		var ret string
-		return ret
-	}
-	return *o.DeliverGroup
-}
-
-// GetDeliverGroupOk returns a tuple with the DeliverGroup field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPushConsumerConfigRequest) GetDeliverGroupOk() (*string, bool) {
-	if o == nil || IsNil(o.DeliverGroup) {
-		return nil, false
-	}
-	return o.DeliverGroup, true
-}
-
-// HasDeliverGroup returns a boolean if a field has been set.
-func (o *JSPushConsumerConfigRequest) HasDeliverGroup() bool {
-	if o != nil && !IsNil(o.DeliverGroup) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeliverGroup gets a reference to the given string and assigns it to the DeliverGroup field.
-func (o *JSPushConsumerConfigRequest) SetDeliverGroup(v string) {
-	o.DeliverGroup = &v
-}
-
-// GetDeliverSubject returns the DeliverSubject field value if set, zero value otherwise.
-func (o *JSPushConsumerConfigRequest) GetDeliverSubject() string {
-	if o == nil || IsNil(o.DeliverSubject) {
-		var ret string
-		return ret
-	}
-	return *o.DeliverSubject
-}
-
-// GetDeliverSubjectOk returns a tuple with the DeliverSubject field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPushConsumerConfigRequest) GetDeliverSubjectOk() (*string, bool) {
-	if o == nil || IsNil(o.DeliverSubject) {
-		return nil, false
-	}
-	return o.DeliverSubject, true
-}
-
-// HasDeliverSubject returns a boolean if a field has been set.
-func (o *JSPushConsumerConfigRequest) HasDeliverSubject() bool {
-	if o != nil && !IsNil(o.DeliverSubject) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeliverSubject gets a reference to the given string and assigns it to the DeliverSubject field.
-func (o *JSPushConsumerConfigRequest) SetDeliverSubject(v string) {
-	o.DeliverSubject = &v
-}
-
-// GetFlowControl returns the FlowControl field value if set, zero value otherwise.
-func (o *JSPushConsumerConfigRequest) GetFlowControl() bool {
-	if o == nil || IsNil(o.FlowControl) {
-		var ret bool
-		return ret
-	}
-	return *o.FlowControl
-}
-
-// GetFlowControlOk returns a tuple with the FlowControl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPushConsumerConfigRequest) GetFlowControlOk() (*bool, bool) {
-	if o == nil || IsNil(o.FlowControl) {
-		return nil, false
-	}
-	return o.FlowControl, true
-}
-
-// HasFlowControl returns a boolean if a field has been set.
-func (o *JSPushConsumerConfigRequest) HasFlowControl() bool {
-	if o != nil && !IsNil(o.FlowControl) {
-		return true
-	}
-
-	return false
-}
-
-// SetFlowControl gets a reference to the given bool and assigns it to the FlowControl field.
-func (o *JSPushConsumerConfigRequest) SetFlowControl(v bool) {
-	o.FlowControl = &v
-}
-
-// GetHeadersOnly returns the HeadersOnly field value if set, zero value otherwise.
-func (o *JSPushConsumerConfigRequest) GetHeadersOnly() bool {
-	if o == nil || IsNil(o.HeadersOnly) {
-		var ret bool
-		return ret
-	}
-	return *o.HeadersOnly
-}
-
-// GetHeadersOnlyOk returns a tuple with the HeadersOnly field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPushConsumerConfigRequest) GetHeadersOnlyOk() (*bool, bool) {
-	if o == nil || IsNil(o.HeadersOnly) {
-		return nil, false
-	}
-	return o.HeadersOnly, true
-}
-
-// HasHeadersOnly returns a boolean if a field has been set.
-func (o *JSPushConsumerConfigRequest) HasHeadersOnly() bool {
-	if o != nil && !IsNil(o.HeadersOnly) {
-		return true
-	}
-
-	return false
-}
-
-// SetHeadersOnly gets a reference to the given bool and assigns it to the HeadersOnly field.
-func (o *JSPushConsumerConfigRequest) SetHeadersOnly(v bool) {
-	o.HeadersOnly = &v
-}
-
-// GetIdleHeartbeat returns the IdleHeartbeat field value if set, zero value otherwise.
-func (o *JSPushConsumerConfigRequest) GetIdleHeartbeat() int64 {
-	if o == nil || IsNil(o.IdleHeartbeat) {
-		var ret int64
-		return ret
-	}
-	return *o.IdleHeartbeat
-}
-
-// GetIdleHeartbeatOk returns a tuple with the IdleHeartbeat field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPushConsumerConfigRequest) GetIdleHeartbeatOk() (*int64, bool) {
-	if o == nil || IsNil(o.IdleHeartbeat) {
-		return nil, false
-	}
-	return o.IdleHeartbeat, true
-}
-
-// HasIdleHeartbeat returns a boolean if a field has been set.
-func (o *JSPushConsumerConfigRequest) HasIdleHeartbeat() bool {
-	if o != nil && !IsNil(o.IdleHeartbeat) {
-		return true
-	}
-
-	return false
-}
-
-// SetIdleHeartbeat gets a reference to the given int64 and assigns it to the IdleHeartbeat field.
-func (o *JSPushConsumerConfigRequest) SetIdleHeartbeat(v int64) {
-	o.IdleHeartbeat = &v
-}
-
-// GetRateLimitBps returns the RateLimitBps field value if set, zero value otherwise.
-func (o *JSPushConsumerConfigRequest) GetRateLimitBps() int32 {
-	if o == nil || IsNil(o.RateLimitBps) {
-		var ret int32
-		return ret
-	}
-	return *o.RateLimitBps
-}
-
-// GetRateLimitBpsOk returns a tuple with the RateLimitBps field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSPushConsumerConfigRequest) GetRateLimitBpsOk() (*int32, bool) {
-	if o == nil || IsNil(o.RateLimitBps) {
-		return nil, false
-	}
-	return o.RateLimitBps, true
-}
-
-// HasRateLimitBps returns a boolean if a field has been set.
-func (o *JSPushConsumerConfigRequest) HasRateLimitBps() bool {
-	if o != nil && !IsNil(o.RateLimitBps) {
-		return true
-	}
-
-	return false
-}
-
-// SetRateLimitBps gets a reference to the given int32 and assigns it to the RateLimitBps field.
-func (o *JSPushConsumerConfigRequest) SetRateLimitBps(v int32) {
-	o.RateLimitBps = &v
 }
 
 // GetAckPolicy returns the AckPolicy field value
@@ -814,6 +625,198 @@ func (o *JSPushConsumerConfigRequest) SetSampleFreq(v string) {
 	o.SampleFreq = &v
 }
 
+// GetDeliverGroup returns the DeliverGroup field value if set, zero value otherwise.
+func (o *JSPushConsumerConfigRequest) GetDeliverGroup() string {
+	if o == nil || IsNil(o.DeliverGroup) {
+		var ret string
+		return ret
+	}
+	return *o.DeliverGroup
+}
+
+// GetDeliverGroupOk returns a tuple with the DeliverGroup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPushConsumerConfigRequest) GetDeliverGroupOk() (*string, bool) {
+	if o == nil || IsNil(o.DeliverGroup) {
+		return nil, false
+	}
+	return o.DeliverGroup, true
+}
+
+// HasDeliverGroup returns a boolean if a field has been set.
+func (o *JSPushConsumerConfigRequest) HasDeliverGroup() bool {
+	if o != nil && !IsNil(o.DeliverGroup) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeliverGroup gets a reference to the given string and assigns it to the DeliverGroup field.
+func (o *JSPushConsumerConfigRequest) SetDeliverGroup(v string) {
+	o.DeliverGroup = &v
+}
+
+// GetDeliverSubject returns the DeliverSubject field value if set, zero value otherwise.
+func (o *JSPushConsumerConfigRequest) GetDeliverSubject() string {
+	if o == nil || IsNil(o.DeliverSubject) {
+		var ret string
+		return ret
+	}
+	return *o.DeliverSubject
+}
+
+// GetDeliverSubjectOk returns a tuple with the DeliverSubject field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPushConsumerConfigRequest) GetDeliverSubjectOk() (*string, bool) {
+	if o == nil || IsNil(o.DeliverSubject) {
+		return nil, false
+	}
+	return o.DeliverSubject, true
+}
+
+// HasDeliverSubject returns a boolean if a field has been set.
+func (o *JSPushConsumerConfigRequest) HasDeliverSubject() bool {
+	if o != nil && !IsNil(o.DeliverSubject) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeliverSubject gets a reference to the given string and assigns it to the DeliverSubject field.
+func (o *JSPushConsumerConfigRequest) SetDeliverSubject(v string) {
+	o.DeliverSubject = &v
+}
+
+// GetFlowControl returns the FlowControl field value if set, zero value otherwise.
+func (o *JSPushConsumerConfigRequest) GetFlowControl() bool {
+	if o == nil || IsNil(o.FlowControl) {
+		var ret bool
+		return ret
+	}
+	return *o.FlowControl
+}
+
+// GetFlowControlOk returns a tuple with the FlowControl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPushConsumerConfigRequest) GetFlowControlOk() (*bool, bool) {
+	if o == nil || IsNil(o.FlowControl) {
+		return nil, false
+	}
+	return o.FlowControl, true
+}
+
+// HasFlowControl returns a boolean if a field has been set.
+func (o *JSPushConsumerConfigRequest) HasFlowControl() bool {
+	if o != nil && !IsNil(o.FlowControl) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowControl gets a reference to the given bool and assigns it to the FlowControl field.
+func (o *JSPushConsumerConfigRequest) SetFlowControl(v bool) {
+	o.FlowControl = &v
+}
+
+// GetHeadersOnly returns the HeadersOnly field value if set, zero value otherwise.
+func (o *JSPushConsumerConfigRequest) GetHeadersOnly() bool {
+	if o == nil || IsNil(o.HeadersOnly) {
+		var ret bool
+		return ret
+	}
+	return *o.HeadersOnly
+}
+
+// GetHeadersOnlyOk returns a tuple with the HeadersOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPushConsumerConfigRequest) GetHeadersOnlyOk() (*bool, bool) {
+	if o == nil || IsNil(o.HeadersOnly) {
+		return nil, false
+	}
+	return o.HeadersOnly, true
+}
+
+// HasHeadersOnly returns a boolean if a field has been set.
+func (o *JSPushConsumerConfigRequest) HasHeadersOnly() bool {
+	if o != nil && !IsNil(o.HeadersOnly) {
+		return true
+	}
+
+	return false
+}
+
+// SetHeadersOnly gets a reference to the given bool and assigns it to the HeadersOnly field.
+func (o *JSPushConsumerConfigRequest) SetHeadersOnly(v bool) {
+	o.HeadersOnly = &v
+}
+
+// GetIdleHeartbeat returns the IdleHeartbeat field value if set, zero value otherwise.
+func (o *JSPushConsumerConfigRequest) GetIdleHeartbeat() int64 {
+	if o == nil || IsNil(o.IdleHeartbeat) {
+		var ret int64
+		return ret
+	}
+	return *o.IdleHeartbeat
+}
+
+// GetIdleHeartbeatOk returns a tuple with the IdleHeartbeat field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPushConsumerConfigRequest) GetIdleHeartbeatOk() (*int64, bool) {
+	if o == nil || IsNil(o.IdleHeartbeat) {
+		return nil, false
+	}
+	return o.IdleHeartbeat, true
+}
+
+// HasIdleHeartbeat returns a boolean if a field has been set.
+func (o *JSPushConsumerConfigRequest) HasIdleHeartbeat() bool {
+	if o != nil && !IsNil(o.IdleHeartbeat) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdleHeartbeat gets a reference to the given int64 and assigns it to the IdleHeartbeat field.
+func (o *JSPushConsumerConfigRequest) SetIdleHeartbeat(v int64) {
+	o.IdleHeartbeat = &v
+}
+
+// GetRateLimitBps returns the RateLimitBps field value if set, zero value otherwise.
+func (o *JSPushConsumerConfigRequest) GetRateLimitBps() int32 {
+	if o == nil || IsNil(o.RateLimitBps) {
+		var ret int32
+		return ret
+	}
+	return *o.RateLimitBps
+}
+
+// GetRateLimitBpsOk returns a tuple with the RateLimitBps field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JSPushConsumerConfigRequest) GetRateLimitBpsOk() (*int32, bool) {
+	if o == nil || IsNil(o.RateLimitBps) {
+		return nil, false
+	}
+	return o.RateLimitBps, true
+}
+
+// HasRateLimitBps returns a boolean if a field has been set.
+func (o *JSPushConsumerConfigRequest) HasRateLimitBps() bool {
+	if o != nil && !IsNil(o.RateLimitBps) {
+		return true
+	}
+
+	return false
+}
+
+// SetRateLimitBps gets a reference to the given int32 and assigns it to the RateLimitBps field.
+func (o *JSPushConsumerConfigRequest) SetRateLimitBps(v int32) {
+	o.RateLimitBps = &v
+}
+
 func (o JSPushConsumerConfigRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -824,24 +827,6 @@ func (o JSPushConsumerConfigRequest) MarshalJSON() ([]byte, error) {
 
 func (o JSPushConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.DeliverGroup) {
-		toSerialize["deliver_group"] = o.DeliverGroup
-	}
-	if !IsNil(o.DeliverSubject) {
-		toSerialize["deliver_subject"] = o.DeliverSubject
-	}
-	if !IsNil(o.FlowControl) {
-		toSerialize["flow_control"] = o.FlowControl
-	}
-	if !IsNil(o.HeadersOnly) {
-		toSerialize["headers_only"] = o.HeadersOnly
-	}
-	if !IsNil(o.IdleHeartbeat) {
-		toSerialize["idle_heartbeat"] = o.IdleHeartbeat
-	}
-	if !IsNil(o.RateLimitBps) {
-		toSerialize["rate_limit_bps"] = o.RateLimitBps
-	}
 	toSerialize["ack_policy"] = o.AckPolicy
 	if !IsNil(o.AckWait) {
 		toSerialize["ack_wait"] = o.AckWait
@@ -888,7 +873,63 @@ func (o JSPushConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SampleFreq) {
 		toSerialize["sample_freq"] = o.SampleFreq
 	}
+	if !IsNil(o.DeliverGroup) {
+		toSerialize["deliver_group"] = o.DeliverGroup
+	}
+	if !IsNil(o.DeliverSubject) {
+		toSerialize["deliver_subject"] = o.DeliverSubject
+	}
+	if !IsNil(o.FlowControl) {
+		toSerialize["flow_control"] = o.FlowControl
+	}
+	if !IsNil(o.HeadersOnly) {
+		toSerialize["headers_only"] = o.HeadersOnly
+	}
+	if !IsNil(o.IdleHeartbeat) {
+		toSerialize["idle_heartbeat"] = o.IdleHeartbeat
+	}
+	if !IsNil(o.RateLimitBps) {
+		toSerialize["rate_limit_bps"] = o.RateLimitBps
+	}
 	return toSerialize, nil
+}
+
+func (o *JSPushConsumerConfigRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ack_policy",
+		"deliver_policy",
+		"num_replicas",
+		"replay_policy",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSPushConsumerConfigRequest := _JSPushConsumerConfigRequest{}
+
+	err = json.Unmarshal(bytes, &varJSPushConsumerConfigRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSPushConsumerConfigRequest(varJSPushConsumerConfigRequest)
+
+	return err
 }
 
 type NullableJSPushConsumerConfigRequest struct {

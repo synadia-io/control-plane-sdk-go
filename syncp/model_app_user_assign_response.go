@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,22 +21,26 @@ var _ MappedNullable = &AppUserAssignResponse{}
 
 // AppUserAssignResponse struct for AppUserAssignResponse
 type AppUserAssignResponse struct {
-	Account    *AccountInfo  `json:"account,omitempty"`
-	AppUser    AppUserInfo   `json:"app_user"`
-	Created    time.Time     `json:"created"`
-	NatsUser   *NatsUserInfo `json:"nats_user,omitempty"`
-	ResourceId string        `json:"resource_id"`
-	RoleId     string        `json:"role_id"`
-	RoleName   string        `json:"role_name"`
-	Scope      AppRoleScope  `json:"scope"`
-	System     *SystemInfo   `json:"system,omitempty"`
+	Account     *AccountInfo    `json:"account,omitempty"`
+	AppUser     AppUserInfo     `json:"app_user"`
+	Created     time.Time       `json:"created"`
+	NatsUser    *NatsUserInfo   `json:"nats_user,omitempty"`
+	ResourceId  string          `json:"resource_id"`
+	RoleId      string          `json:"role_id"`
+	RoleName    string          `json:"role_name"`
+	Scope       AppRoleScope    `json:"scope"`
+	System      *SystemInfo     `json:"system,omitempty"`
+	Team        *TeamInfo       `json:"team,omitempty"`
+	TeamAppUser TeamAppUserInfo `json:"team_app_user"`
 }
+
+type _AppUserAssignResponse AppUserAssignResponse
 
 // NewAppUserAssignResponse instantiates a new AppUserAssignResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppUserAssignResponse(appUser AppUserInfo, created time.Time, resourceId string, roleId string, roleName string, scope AppRoleScope) *AppUserAssignResponse {
+func NewAppUserAssignResponse(appUser AppUserInfo, created time.Time, resourceId string, roleId string, roleName string, scope AppRoleScope, teamAppUser TeamAppUserInfo) *AppUserAssignResponse {
 	this := AppUserAssignResponse{}
 	this.AppUser = appUser
 	this.Created = created
@@ -43,6 +48,7 @@ func NewAppUserAssignResponse(appUser AppUserInfo, created time.Time, resourceId
 	this.RoleId = roleId
 	this.RoleName = roleName
 	this.Scope = scope
+	this.TeamAppUser = teamAppUser
 	return &this
 }
 
@@ -294,6 +300,62 @@ func (o *AppUserAssignResponse) SetSystem(v SystemInfo) {
 	o.System = &v
 }
 
+// GetTeam returns the Team field value if set, zero value otherwise.
+func (o *AppUserAssignResponse) GetTeam() TeamInfo {
+	if o == nil || IsNil(o.Team) {
+		var ret TeamInfo
+		return ret
+	}
+	return *o.Team
+}
+
+// GetTeamOk returns a tuple with the Team field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppUserAssignResponse) GetTeamOk() (*TeamInfo, bool) {
+	if o == nil || IsNil(o.Team) {
+		return nil, false
+	}
+	return o.Team, true
+}
+
+// HasTeam returns a boolean if a field has been set.
+func (o *AppUserAssignResponse) HasTeam() bool {
+	if o != nil && !IsNil(o.Team) {
+		return true
+	}
+
+	return false
+}
+
+// SetTeam gets a reference to the given TeamInfo and assigns it to the Team field.
+func (o *AppUserAssignResponse) SetTeam(v TeamInfo) {
+	o.Team = &v
+}
+
+// GetTeamAppUser returns the TeamAppUser field value
+func (o *AppUserAssignResponse) GetTeamAppUser() TeamAppUserInfo {
+	if o == nil {
+		var ret TeamAppUserInfo
+		return ret
+	}
+
+	return o.TeamAppUser
+}
+
+// GetTeamAppUserOk returns a tuple with the TeamAppUser field value
+// and a boolean to check if the value has been set.
+func (o *AppUserAssignResponse) GetTeamAppUserOk() (*TeamAppUserInfo, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TeamAppUser, true
+}
+
+// SetTeamAppUser sets field value
+func (o *AppUserAssignResponse) SetTeamAppUser(v TeamAppUserInfo) {
+	o.TeamAppUser = v
+}
+
 func (o AppUserAssignResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -319,7 +381,52 @@ func (o AppUserAssignResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.System) {
 		toSerialize["system"] = o.System
 	}
+	if !IsNil(o.Team) {
+		toSerialize["team"] = o.Team
+	}
+	toSerialize["team_app_user"] = o.TeamAppUser
 	return toSerialize, nil
+}
+
+func (o *AppUserAssignResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"app_user",
+		"created",
+		"resource_id",
+		"role_id",
+		"role_name",
+		"scope",
+		"team_app_user",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppUserAssignResponse := _AppUserAssignResponse{}
+
+	err = json.Unmarshal(bytes, &varAppUserAssignResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppUserAssignResponse(varAppUserAssignResponse)
+
+	return err
 }
 
 type NullableAppUserAssignResponse struct {

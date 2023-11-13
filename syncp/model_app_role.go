@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AppRole type satisfies the MappedNullable interface at compile time
@@ -27,6 +28,8 @@ type AppRole struct {
 	Scope       AppRoleScope `json:"scope"`
 	SortOrder   float32      `json:"sort_order"`
 }
+
+type _AppRole AppRole
 
 // NewAppRole instantiates a new AppRole object
 // This constructor will assign default values to properties that have it defined,
@@ -238,6 +241,47 @@ func (o AppRole) ToMap() (map[string]interface{}, error) {
 	toSerialize["scope"] = o.Scope
 	toSerialize["sort_order"] = o.SortOrder
 	return toSerialize, nil
+}
+
+func (o *AppRole) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"description",
+		"enabled",
+		"id",
+		"name",
+		"policies",
+		"scope",
+		"sort_order",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppRole := _AppRole{}
+
+	err = json.Unmarshal(bytes, &varAppRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppRole(varAppRole)
+
+	return err
 }
 
 type NullableAppRole struct {

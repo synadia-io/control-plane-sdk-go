@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AccountMetrics type satisfies the MappedNullable interface at compile time
@@ -34,6 +35,8 @@ type AccountMetrics struct {
 	NatsCoreAccountMsgsSent                 float64 `json:"nats_core_account_msgs_sent"`
 	NatsCoreAccountSubCount                 float64 `json:"nats_core_account_sub_count"`
 }
+
+type _AccountMetrics AccountMetrics
 
 // NewAccountMetrics instantiates a new AccountMetrics object
 // This constructor will assign default values to properties that have it defined,
@@ -427,6 +430,54 @@ func (o AccountMetrics) ToMap() (map[string]interface{}, error) {
 	toSerialize["nats_core_account_msgs_sent"] = o.NatsCoreAccountMsgsSent
 	toSerialize["nats_core_account_sub_count"] = o.NatsCoreAccountSubCount
 	return toSerialize, nil
+}
+
+func (o *AccountMetrics) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"nats_core_account_bytes_recv",
+		"nats_core_account_bytes_sent",
+		"nats_core_account_conn_count",
+		"nats_core_account_jetstream_consumer_count",
+		"nats_core_account_jetstream_enabled",
+		"nats_core_account_jetstream_memory_reserved",
+		"nats_core_account_jetstream_memory_used",
+		"nats_core_account_jetstream_storage_reserved",
+		"nats_core_account_jetstream_storage_used",
+		"nats_core_account_jetstream_stream_count",
+		"nats_core_account_leaf_count",
+		"nats_core_account_msgs_recv",
+		"nats_core_account_msgs_sent",
+		"nats_core_account_sub_count",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccountMetrics := _AccountMetrics{}
+
+	err = json.Unmarshal(bytes, &varAccountMetrics)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountMetrics(varAccountMetrics)
+
+	return err
 }
 
 type NullableAccountMetrics struct {

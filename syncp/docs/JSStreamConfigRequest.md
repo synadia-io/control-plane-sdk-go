@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Subjects** | Pointer to **[]string** |  | [optional] 
 **AllowDirect** | **bool** |  | 
 **AllowRollupHdrs** | **bool** |  | 
 **DenyDelete** | **bool** |  | 
@@ -29,6 +28,7 @@ Name | Type | Description | Notes
 **Sources** | Pointer to [**[]StreamSource**](StreamSource.md) |  | [optional] 
 **Storage** | [**StorageType**](StorageType.md) |  | 
 **TemplateOwner** | Pointer to **string** |  | [optional] 
+**Subjects** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -48,31 +48,6 @@ will change when the set of required properties is changed
 NewJSStreamConfigRequestWithDefaults instantiates a new JSStreamConfigRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetSubjects
-
-`func (o *JSStreamConfigRequest) GetSubjects() []string`
-
-GetSubjects returns the Subjects field if non-nil, zero value otherwise.
-
-### GetSubjectsOk
-
-`func (o *JSStreamConfigRequest) GetSubjectsOk() (*[]string, bool)`
-
-GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSubjects
-
-`func (o *JSStreamConfigRequest) SetSubjects(v []string)`
-
-SetSubjects sets Subjects field to given value.
-
-### HasSubjects
-
-`func (o *JSStreamConfigRequest) HasSubjects() bool`
-
-HasSubjects returns a boolean if a field has been set.
 
 ### GetAllowDirect
 
@@ -628,6 +603,31 @@ SetTemplateOwner sets TemplateOwner field to given value.
 `func (o *JSStreamConfigRequest) HasTemplateOwner() bool`
 
 HasTemplateOwner returns a boolean if a field has been set.
+
+### GetSubjects
+
+`func (o *JSStreamConfigRequest) GetSubjects() []string`
+
+GetSubjects returns the Subjects field if non-nil, zero value otherwise.
+
+### GetSubjectsOk
+
+`func (o *JSStreamConfigRequest) GetSubjectsOk() (*[]string, bool)`
+
+GetSubjectsOk returns a tuple with the Subjects field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubjects
+
+`func (o *JSStreamConfigRequest) SetSubjects(v []string)`
+
+SetSubjects sets Subjects field to given value.
+
+### HasSubjects
+
+`func (o *JSStreamConfigRequest) HasSubjects() bool`
+
+HasSubjects returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -19,8 +19,20 @@ var _ MappedNullable = &ExportsInner{}
 
 // ExportsInner struct for ExportsInner
 type ExportsInner struct {
-	Description *string `json:"description,omitempty"`
-	InfoUrl     *string `json:"info_url,omitempty"`
+	Description          *string       `json:"description,omitempty"`
+	InfoUrl              *string       `json:"info_url,omitempty"`
+	AccountTokenPosition *int32        `json:"account_token_position,omitempty"`
+	Advertise            *bool         `json:"advertise,omitempty"`
+	Name                 *string       `json:"name,omitempty"`
+	ResponseThreshold    *int64        `json:"response_threshold,omitempty"`
+	ResponseType         *ResponseType `json:"response_type,omitempty"`
+	// RevocationList is used to store a mapping of public keys to unix timestamps
+	Revocations    *map[string]int64                 `json:"revocations,omitempty"`
+	ServiceLatency NullableExportAllOfServiceLatency `json:"service_latency,omitempty"`
+	// Subject is a string that represents a NATS subject
+	Subject  *string     `json:"subject,omitempty"`
+	TokenReq *bool       `json:"token_req,omitempty"`
+	Type     *ExportType `json:"type,omitempty"`
 }
 
 // NewExportsInner instantiates a new ExportsInner object
@@ -104,6 +116,337 @@ func (o *ExportsInner) SetInfoUrl(v string) {
 	o.InfoUrl = &v
 }
 
+// GetAccountTokenPosition returns the AccountTokenPosition field value if set, zero value otherwise.
+func (o *ExportsInner) GetAccountTokenPosition() int32 {
+	if o == nil || IsNil(o.AccountTokenPosition) {
+		var ret int32
+		return ret
+	}
+	return *o.AccountTokenPosition
+}
+
+// GetAccountTokenPositionOk returns a tuple with the AccountTokenPosition field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExportsInner) GetAccountTokenPositionOk() (*int32, bool) {
+	if o == nil || IsNil(o.AccountTokenPosition) {
+		return nil, false
+	}
+	return o.AccountTokenPosition, true
+}
+
+// HasAccountTokenPosition returns a boolean if a field has been set.
+func (o *ExportsInner) HasAccountTokenPosition() bool {
+	if o != nil && !IsNil(o.AccountTokenPosition) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountTokenPosition gets a reference to the given int32 and assigns it to the AccountTokenPosition field.
+func (o *ExportsInner) SetAccountTokenPosition(v int32) {
+	o.AccountTokenPosition = &v
+}
+
+// GetAdvertise returns the Advertise field value if set, zero value otherwise.
+func (o *ExportsInner) GetAdvertise() bool {
+	if o == nil || IsNil(o.Advertise) {
+		var ret bool
+		return ret
+	}
+	return *o.Advertise
+}
+
+// GetAdvertiseOk returns a tuple with the Advertise field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExportsInner) GetAdvertiseOk() (*bool, bool) {
+	if o == nil || IsNil(o.Advertise) {
+		return nil, false
+	}
+	return o.Advertise, true
+}
+
+// HasAdvertise returns a boolean if a field has been set.
+func (o *ExportsInner) HasAdvertise() bool {
+	if o != nil && !IsNil(o.Advertise) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdvertise gets a reference to the given bool and assigns it to the Advertise field.
+func (o *ExportsInner) SetAdvertise(v bool) {
+	o.Advertise = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *ExportsInner) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExportsInner) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *ExportsInner) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *ExportsInner) SetName(v string) {
+	o.Name = &v
+}
+
+// GetResponseThreshold returns the ResponseThreshold field value if set, zero value otherwise.
+func (o *ExportsInner) GetResponseThreshold() int64 {
+	if o == nil || IsNil(o.ResponseThreshold) {
+		var ret int64
+		return ret
+	}
+	return *o.ResponseThreshold
+}
+
+// GetResponseThresholdOk returns a tuple with the ResponseThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExportsInner) GetResponseThresholdOk() (*int64, bool) {
+	if o == nil || IsNil(o.ResponseThreshold) {
+		return nil, false
+	}
+	return o.ResponseThreshold, true
+}
+
+// HasResponseThreshold returns a boolean if a field has been set.
+func (o *ExportsInner) HasResponseThreshold() bool {
+	if o != nil && !IsNil(o.ResponseThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetResponseThreshold gets a reference to the given int64 and assigns it to the ResponseThreshold field.
+func (o *ExportsInner) SetResponseThreshold(v int64) {
+	o.ResponseThreshold = &v
+}
+
+// GetResponseType returns the ResponseType field value if set, zero value otherwise.
+func (o *ExportsInner) GetResponseType() ResponseType {
+	if o == nil || IsNil(o.ResponseType) {
+		var ret ResponseType
+		return ret
+	}
+	return *o.ResponseType
+}
+
+// GetResponseTypeOk returns a tuple with the ResponseType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExportsInner) GetResponseTypeOk() (*ResponseType, bool) {
+	if o == nil || IsNil(o.ResponseType) {
+		return nil, false
+	}
+	return o.ResponseType, true
+}
+
+// HasResponseType returns a boolean if a field has been set.
+func (o *ExportsInner) HasResponseType() bool {
+	if o != nil && !IsNil(o.ResponseType) {
+		return true
+	}
+
+	return false
+}
+
+// SetResponseType gets a reference to the given ResponseType and assigns it to the ResponseType field.
+func (o *ExportsInner) SetResponseType(v ResponseType) {
+	o.ResponseType = &v
+}
+
+// GetRevocations returns the Revocations field value if set, zero value otherwise.
+func (o *ExportsInner) GetRevocations() map[string]int64 {
+	if o == nil || IsNil(o.Revocations) {
+		var ret map[string]int64
+		return ret
+	}
+	return *o.Revocations
+}
+
+// GetRevocationsOk returns a tuple with the Revocations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExportsInner) GetRevocationsOk() (*map[string]int64, bool) {
+	if o == nil || IsNil(o.Revocations) {
+		return nil, false
+	}
+	return o.Revocations, true
+}
+
+// HasRevocations returns a boolean if a field has been set.
+func (o *ExportsInner) HasRevocations() bool {
+	if o != nil && !IsNil(o.Revocations) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevocations gets a reference to the given map[string]int64 and assigns it to the Revocations field.
+func (o *ExportsInner) SetRevocations(v map[string]int64) {
+	o.Revocations = &v
+}
+
+// GetServiceLatency returns the ServiceLatency field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ExportsInner) GetServiceLatency() ExportAllOfServiceLatency {
+	if o == nil || IsNil(o.ServiceLatency.Get()) {
+		var ret ExportAllOfServiceLatency
+		return ret
+	}
+	return *o.ServiceLatency.Get()
+}
+
+// GetServiceLatencyOk returns a tuple with the ServiceLatency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ExportsInner) GetServiceLatencyOk() (*ExportAllOfServiceLatency, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ServiceLatency.Get(), o.ServiceLatency.IsSet()
+}
+
+// HasServiceLatency returns a boolean if a field has been set.
+func (o *ExportsInner) HasServiceLatency() bool {
+	if o != nil && o.ServiceLatency.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceLatency gets a reference to the given NullableExportAllOfServiceLatency and assigns it to the ServiceLatency field.
+func (o *ExportsInner) SetServiceLatency(v ExportAllOfServiceLatency) {
+	o.ServiceLatency.Set(&v)
+}
+
+// SetServiceLatencyNil sets the value for ServiceLatency to be an explicit nil
+func (o *ExportsInner) SetServiceLatencyNil() {
+	o.ServiceLatency.Set(nil)
+}
+
+// UnsetServiceLatency ensures that no value is present for ServiceLatency, not even an explicit nil
+func (o *ExportsInner) UnsetServiceLatency() {
+	o.ServiceLatency.Unset()
+}
+
+// GetSubject returns the Subject field value if set, zero value otherwise.
+func (o *ExportsInner) GetSubject() string {
+	if o == nil || IsNil(o.Subject) {
+		var ret string
+		return ret
+	}
+	return *o.Subject
+}
+
+// GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExportsInner) GetSubjectOk() (*string, bool) {
+	if o == nil || IsNil(o.Subject) {
+		return nil, false
+	}
+	return o.Subject, true
+}
+
+// HasSubject returns a boolean if a field has been set.
+func (o *ExportsInner) HasSubject() bool {
+	if o != nil && !IsNil(o.Subject) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubject gets a reference to the given string and assigns it to the Subject field.
+func (o *ExportsInner) SetSubject(v string) {
+	o.Subject = &v
+}
+
+// GetTokenReq returns the TokenReq field value if set, zero value otherwise.
+func (o *ExportsInner) GetTokenReq() bool {
+	if o == nil || IsNil(o.TokenReq) {
+		var ret bool
+		return ret
+	}
+	return *o.TokenReq
+}
+
+// GetTokenReqOk returns a tuple with the TokenReq field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExportsInner) GetTokenReqOk() (*bool, bool) {
+	if o == nil || IsNil(o.TokenReq) {
+		return nil, false
+	}
+	return o.TokenReq, true
+}
+
+// HasTokenReq returns a boolean if a field has been set.
+func (o *ExportsInner) HasTokenReq() bool {
+	if o != nil && !IsNil(o.TokenReq) {
+		return true
+	}
+
+	return false
+}
+
+// SetTokenReq gets a reference to the given bool and assigns it to the TokenReq field.
+func (o *ExportsInner) SetTokenReq(v bool) {
+	o.TokenReq = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ExportsInner) GetType() ExportType {
+	if o == nil || IsNil(o.Type) {
+		var ret ExportType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExportsInner) GetTypeOk() (*ExportType, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ExportsInner) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given ExportType and assigns it to the Type field.
+func (o *ExportsInner) SetType(v ExportType) {
+	o.Type = &v
+}
+
 func (o ExportsInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -119,6 +462,36 @@ func (o ExportsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.InfoUrl) {
 		toSerialize["info_url"] = o.InfoUrl
+	}
+	if !IsNil(o.AccountTokenPosition) {
+		toSerialize["account_token_position"] = o.AccountTokenPosition
+	}
+	if !IsNil(o.Advertise) {
+		toSerialize["advertise"] = o.Advertise
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.ResponseThreshold) {
+		toSerialize["response_threshold"] = o.ResponseThreshold
+	}
+	if !IsNil(o.ResponseType) {
+		toSerialize["response_type"] = o.ResponseType
+	}
+	if !IsNil(o.Revocations) {
+		toSerialize["revocations"] = o.Revocations
+	}
+	if o.ServiceLatency.IsSet() {
+		toSerialize["service_latency"] = o.ServiceLatency.Get()
+	}
+	if !IsNil(o.Subject) {
+		toSerialize["subject"] = o.Subject
+	}
+	if !IsNil(o.TokenReq) {
+		toSerialize["token_req"] = o.TokenReq
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
 	}
 	return toSerialize, nil
 }

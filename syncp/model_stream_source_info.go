@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the StreamSourceInfo type satisfies the MappedNullable interface at compile time
@@ -25,6 +26,8 @@ type StreamSourceInfo struct {
 	Lag      int32                         `json:"lag"`
 	Name     string                        `json:"name"`
 }
+
+type _StreamSourceInfo StreamSourceInfo
 
 // NewStreamSourceInfo instantiates a new StreamSourceInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -224,6 +227,43 @@ func (o StreamSourceInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["lag"] = o.Lag
 	toSerialize["name"] = o.Name
 	return toSerialize, nil
+}
+
+func (o *StreamSourceInfo) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"active",
+		"lag",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStreamSourceInfo := _StreamSourceInfo{}
+
+	err = json.Unmarshal(bytes, &varStreamSourceInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StreamSourceInfo(varStreamSourceInfo)
+
+	return err
 }
 
 type NullableStreamSourceInfo struct {

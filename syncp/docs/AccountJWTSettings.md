@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Description** | Pointer to **string** |  | [optional] 
+**InfoUrl** | Pointer to **string** |  | [optional] 
 **Authorization** | Pointer to [**Authorization**](Authorization.md) |  | [optional] 
 **Limits** | Pointer to [**OperatorLimits**](OperatorLimits.md) |  | [optional] 
 **Mappings** | Pointer to [**map[string][]WeightedMapping**](array.md) |  | [optional] 
 **Revocations** | Pointer to **map[string]int64** | RevocationList is used to store a mapping of public keys to unix timestamps | [optional] 
 **Tags** | Pointer to **[]string** | TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**InfoUrl** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -30,6 +30,56 @@ will change when the set of required properties is changed
 NewAccountJWTSettingsWithDefaults instantiates a new AccountJWTSettings object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetDescription
+
+`func (o *AccountJWTSettings) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *AccountJWTSettings) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *AccountJWTSettings) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *AccountJWTSettings) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetInfoUrl
+
+`func (o *AccountJWTSettings) GetInfoUrl() string`
+
+GetInfoUrl returns the InfoUrl field if non-nil, zero value otherwise.
+
+### GetInfoUrlOk
+
+`func (o *AccountJWTSettings) GetInfoUrlOk() (*string, bool)`
+
+GetInfoUrlOk returns a tuple with the InfoUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInfoUrl
+
+`func (o *AccountJWTSettings) SetInfoUrl(v string)`
+
+SetInfoUrl sets InfoUrl field to given value.
+
+### HasInfoUrl
+
+`func (o *AccountJWTSettings) HasInfoUrl() bool`
+
+HasInfoUrl returns a boolean if a field has been set.
 
 ### GetAuthorization
 
@@ -166,56 +216,6 @@ HasTags returns a boolean if a field has been set.
 `func (o *AccountJWTSettings) UnsetTags()`
 
 UnsetTags ensures that no value is present for Tags, not even an explicit nil
-### GetDescription
-
-`func (o *AccountJWTSettings) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *AccountJWTSettings) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *AccountJWTSettings) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
-
-### HasDescription
-
-`func (o *AccountJWTSettings) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
-
-### GetInfoUrl
-
-`func (o *AccountJWTSettings) GetInfoUrl() string`
-
-GetInfoUrl returns the InfoUrl field if non-nil, zero value otherwise.
-
-### GetInfoUrlOk
-
-`func (o *AccountJWTSettings) GetInfoUrlOk() (*string, bool)`
-
-GetInfoUrlOk returns a tuple with the InfoUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInfoUrl
-
-`func (o *AccountJWTSettings) SetInfoUrl(v string)`
-
-SetInfoUrl sets InfoUrl field to given value.
-
-### HasInfoUrl
-
-`func (o *AccountJWTSettings) HasInfoUrl() bool`
-
-HasInfoUrl returns a boolean if a field has been set.
-
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

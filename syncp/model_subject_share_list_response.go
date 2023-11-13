@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SubjectShareListResponse type satisfies the MappedNullable interface at compile time
@@ -21,6 +22,8 @@ var _ MappedNullable = &SubjectShareListResponse{}
 type SubjectShareListResponse struct {
 	Items []SubjectShareViewResponse `json:"items"`
 }
+
+type _SubjectShareListResponse SubjectShareListResponse
 
 // NewSubjectShareListResponse instantiates a new SubjectShareListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -76,6 +79,41 @@ func (o SubjectShareListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
+}
+
+func (o *SubjectShareListResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"items",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubjectShareListResponse := _SubjectShareListResponse{}
+
+	err = json.Unmarshal(bytes, &varSubjectShareListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubjectShareListResponse(varSubjectShareListResponse)
+
+	return err
 }
 
 type NullableSubjectShareListResponse struct {

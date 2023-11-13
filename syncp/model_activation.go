@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Activation type satisfies the MappedNullable interface at compile time
@@ -26,6 +27,8 @@ type Activation struct {
 	// Subject is a string that represents a NATS subject
 	Subject *string `json:"subject,omitempty"`
 }
+
+type _Activation Activation
 
 // NewActivation instantiates a new Activation object
 // This constructor will assign default values to properties that have it defined,
@@ -186,6 +189,41 @@ func (o Activation) ToMap() (map[string]interface{}, error) {
 		toSerialize["subject"] = o.Subject
 	}
 	return toSerialize, nil
+}
+
+func (o *Activation) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"GenericFields",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varActivation := _Activation{}
+
+	err = json.Unmarshal(bytes, &varActivation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Activation(varActivation)
+
+	return err
 }
 
 type NullableActivation struct {

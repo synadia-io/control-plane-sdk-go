@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,23 +21,27 @@ var _ MappedNullable = &JSStreamInfoResponse{}
 
 // JSStreamInfoResponse struct for JSStreamInfoResponse
 type JSStreamInfoResponse struct {
-	Config     *JSStreamConfigRequest `json:"config,omitempty"`
-	Id         *string                `json:"id,omitempty"`
-	Alternates []StreamAlternate      `json:"alternates,omitempty"`
-	Cluster    *ClusterInfo           `json:"cluster,omitempty"`
-	Created    time.Time              `json:"created"`
-	Sources    []StreamSourceInfo     `json:"sources,omitempty"`
-	State      StreamState            `json:"state"`
+	Alternates []StreamAlternate     `json:"alternates,omitempty"`
+	Cluster    *ClusterInfo          `json:"cluster,omitempty"`
+	Created    time.Time             `json:"created"`
+	Sources    []StreamSourceInfo    `json:"sources,omitempty"`
+	State      StreamState           `json:"state"`
+	Config     JSStreamConfigRequest `json:"config"`
+	Id         string                `json:"id"`
 }
+
+type _JSStreamInfoResponse JSStreamInfoResponse
 
 // NewJSStreamInfoResponse instantiates a new JSStreamInfoResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJSStreamInfoResponse(created time.Time, state StreamState) *JSStreamInfoResponse {
+func NewJSStreamInfoResponse(created time.Time, state StreamState, config JSStreamConfigRequest, id string) *JSStreamInfoResponse {
 	this := JSStreamInfoResponse{}
 	this.Created = created
 	this.State = state
+	this.Config = config
+	this.Id = id
 	return &this
 }
 
@@ -46,70 +51,6 @@ func NewJSStreamInfoResponse(created time.Time, state StreamState) *JSStreamInfo
 func NewJSStreamInfoResponseWithDefaults() *JSStreamInfoResponse {
 	this := JSStreamInfoResponse{}
 	return &this
-}
-
-// GetConfig returns the Config field value if set, zero value otherwise.
-func (o *JSStreamInfoResponse) GetConfig() JSStreamConfigRequest {
-	if o == nil || IsNil(o.Config) {
-		var ret JSStreamConfigRequest
-		return ret
-	}
-	return *o.Config
-}
-
-// GetConfigOk returns a tuple with the Config field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSStreamInfoResponse) GetConfigOk() (*JSStreamConfigRequest, bool) {
-	if o == nil || IsNil(o.Config) {
-		return nil, false
-	}
-	return o.Config, true
-}
-
-// HasConfig returns a boolean if a field has been set.
-func (o *JSStreamInfoResponse) HasConfig() bool {
-	if o != nil && !IsNil(o.Config) {
-		return true
-	}
-
-	return false
-}
-
-// SetConfig gets a reference to the given JSStreamConfigRequest and assigns it to the Config field.
-func (o *JSStreamInfoResponse) SetConfig(v JSStreamConfigRequest) {
-	o.Config = &v
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *JSStreamInfoResponse) GetId() string {
-	if o == nil || IsNil(o.Id) {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSStreamInfoResponse) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *JSStreamInfoResponse) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *JSStreamInfoResponse) SetId(v string) {
-	o.Id = &v
 }
 
 // GetAlternates returns the Alternates field value if set, zero value otherwise.
@@ -256,6 +197,54 @@ func (o *JSStreamInfoResponse) SetState(v StreamState) {
 	o.State = v
 }
 
+// GetConfig returns the Config field value
+func (o *JSStreamInfoResponse) GetConfig() JSStreamConfigRequest {
+	if o == nil {
+		var ret JSStreamConfigRequest
+		return ret
+	}
+
+	return o.Config
+}
+
+// GetConfigOk returns a tuple with the Config field value
+// and a boolean to check if the value has been set.
+func (o *JSStreamInfoResponse) GetConfigOk() (*JSStreamConfigRequest, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Config, true
+}
+
+// SetConfig sets field value
+func (o *JSStreamInfoResponse) SetConfig(v JSStreamConfigRequest) {
+	o.Config = v
+}
+
+// GetId returns the Id field value
+func (o *JSStreamInfoResponse) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *JSStreamInfoResponse) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *JSStreamInfoResponse) SetId(v string) {
+	o.Id = v
+}
+
 func (o JSStreamInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -266,12 +255,6 @@ func (o JSStreamInfoResponse) MarshalJSON() ([]byte, error) {
 
 func (o JSStreamInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Config) {
-		toSerialize["config"] = o.Config
-	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
 	if !IsNil(o.Alternates) {
 		toSerialize["alternates"] = o.Alternates
 	}
@@ -283,7 +266,47 @@ func (o JSStreamInfoResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["state"] = o.State
+	toSerialize["config"] = o.Config
+	toSerialize["id"] = o.Id
 	return toSerialize, nil
+}
+
+func (o *JSStreamInfoResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"state",
+		"config",
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSStreamInfoResponse := _JSStreamInfoResponse{}
+
+	err = json.Unmarshal(bytes, &varJSStreamInfoResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSStreamInfoResponse(varJSStreamInfoResponse)
+
+	return err
 }
 
 type NullableJSStreamInfoResponse struct {

@@ -10,12 +10,13 @@ Name | Type | Description | Notes
 **OperatorKey** | **string** |  | 
 **SystemJwt** | **string** |  | 
 **SystemKey** | **string** |  | 
+**TeamId** | **string** |  | 
 
 ## Methods
 
 ### NewSystemImportRequest
 
-`func NewSystemImportRequest(operatorJwt string, operatorKey string, systemJwt string, systemKey string, ) *SystemImportRequest`
+`func NewSystemImportRequest(operatorJwt string, operatorKey string, systemJwt string, systemKey string, teamId string, ) *SystemImportRequest`
 
 NewSystemImportRequest instantiates a new SystemImportRequest object
 This constructor will assign default values to properties that have it defined,
@@ -168,6 +169,26 @@ and a boolean to check if the value has been set.
 `func (o *SystemImportRequest) SetSystemKey(v string)`
 
 SetSystemKey sets SystemKey field to given value.
+
+
+### GetTeamId
+
+`func (o *SystemImportRequest) GetTeamId() string`
+
+GetTeamId returns the TeamId field if non-nil, zero value otherwise.
+
+### GetTeamIdOk
+
+`func (o *SystemImportRequest) GetTeamIdOk() (*string, bool)`
+
+GetTeamIdOk returns a tuple with the TeamId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeamId
+
+`func (o *SystemImportRequest) SetTeamId(v string)`
+
+SetTeamId sets TeamId field to given value.
 
 
 

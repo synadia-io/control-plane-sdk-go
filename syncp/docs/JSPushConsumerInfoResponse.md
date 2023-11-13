@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AckFloor** | [**SequenceInfo**](SequenceInfo.md) |  | 
-**Cluster** | Pointer to [**NullableConsumerInfoCluster**](ConsumerInfoCluster.md) |  | [optional] 
+**Cluster** | Pointer to [**ClusterInfo**](ClusterInfo.md) |  | [optional] 
 **Config** | Pointer to [**JSPushConsumerConfigRequest**](JSPushConsumerConfigRequest.md) |  | [optional] 
 **Created** | **time.Time** |  | 
 **Delivered** | [**SequenceInfo**](SequenceInfo.md) |  | 
@@ -58,20 +58,20 @@ SetAckFloor sets AckFloor field to given value.
 
 ### GetCluster
 
-`func (o *JSPushConsumerInfoResponse) GetCluster() ConsumerInfoCluster`
+`func (o *JSPushConsumerInfoResponse) GetCluster() ClusterInfo`
 
 GetCluster returns the Cluster field if non-nil, zero value otherwise.
 
 ### GetClusterOk
 
-`func (o *JSPushConsumerInfoResponse) GetClusterOk() (*ConsumerInfoCluster, bool)`
+`func (o *JSPushConsumerInfoResponse) GetClusterOk() (*ClusterInfo, bool)`
 
 GetClusterOk returns a tuple with the Cluster field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCluster
 
-`func (o *JSPushConsumerInfoResponse) SetCluster(v ConsumerInfoCluster)`
+`func (o *JSPushConsumerInfoResponse) SetCluster(v ClusterInfo)`
 
 SetCluster sets Cluster field to given value.
 
@@ -81,16 +81,6 @@ SetCluster sets Cluster field to given value.
 
 HasCluster returns a boolean if a field has been set.
 
-### SetClusterNil
-
-`func (o *JSPushConsumerInfoResponse) SetClusterNil(b bool)`
-
- SetClusterNil sets the value for Cluster to be an explicit nil
-
-### UnsetCluster
-`func (o *JSPushConsumerInfoResponse) UnsetCluster()`
-
-UnsetCluster ensures that no value is present for Cluster, not even an explicit nil
 ### GetConfig
 
 `func (o *JSPushConsumerInfoResponse) GetConfig() JSPushConsumerConfigRequest`

@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -32,6 +33,8 @@ type SubjectExportViewResponse struct {
 	StreamExportId            NullableString `json:"stream_export_id"`
 	Subject                   string         `json:"subject"`
 }
+
+type _SubjectExportViewResponse SubjectExportViewResponse
 
 // NewSubjectExportViewResponse instantiates a new SubjectExportViewResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -353,6 +356,51 @@ func (o SubjectExportViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["stream_export_id"] = o.StreamExportId.Get()
 	toSerialize["subject"] = o.Subject
 	return toSerialize, nil
+}
+
+func (o *SubjectExportViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account",
+		"created",
+		"id",
+		"is_public",
+		"jwt_settings",
+		"metrics_enabled",
+		"metrics_sampling_percentage",
+		"name",
+		"share_sk_public",
+		"stream_export_id",
+		"subject",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubjectExportViewResponse := _SubjectExportViewResponse{}
+
+	err = json.Unmarshal(bytes, &varSubjectExportViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubjectExportViewResponse(varSubjectExportViewResponse)
+
+	return err
 }
 
 type NullableSubjectExportViewResponse struct {

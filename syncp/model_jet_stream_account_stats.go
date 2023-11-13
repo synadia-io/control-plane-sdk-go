@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JetStreamAccountStats type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type JetStreamAccountStats struct {
 	Domain        *string                   `json:"domain,omitempty"`
 	Tiers         *map[string]JetStreamTier `json:"tiers,omitempty"`
 }
+
+type _JetStreamAccountStats JetStreamAccountStats
 
 // NewJetStreamAccountStats instantiates a new JetStreamAccountStats object
 // This constructor will assign default values to properties that have it defined,
@@ -175,6 +178,42 @@ func (o JetStreamAccountStats) ToMap() (map[string]interface{}, error) {
 		toSerialize["tiers"] = o.Tiers
 	}
 	return toSerialize, nil
+}
+
+func (o *JetStreamAccountStats) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"JetStreamTier",
+		"api",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJetStreamAccountStats := _JetStreamAccountStats{}
+
+	err = json.Unmarshal(bytes, &varJetStreamAccountStats)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JetStreamAccountStats(varJetStreamAccountStats)
+
+	return err
 }
 
 type NullableJetStreamAccountStats struct {

@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the StreamImportCreateRequest type satisfies the MappedNullable interface at compile time
@@ -25,6 +26,8 @@ type StreamImportCreateRequest struct {
 	RemoteAccountNkeyPublic string `json:"remote_account_nkey_public"`
 	StreamName              string `json:"stream_name"`
 }
+
+type _StreamImportCreateRequest StreamImportCreateRequest
 
 // NewStreamImportCreateRequest instantiates a new StreamImportCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -184,6 +187,45 @@ func (o StreamImportCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["remote_account_nkey_public"] = o.RemoteAccountNkeyPublic
 	toSerialize["stream_name"] = o.StreamName
 	return toSerialize, nil
+}
+
+func (o *StreamImportCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"deliver_subject_prefix",
+		"is_public",
+		"js_subject_prefix",
+		"remote_account_nkey_public",
+		"stream_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStreamImportCreateRequest := _StreamImportCreateRequest{}
+
+	err = json.Unmarshal(bytes, &varStreamImportCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StreamImportCreateRequest(varStreamImportCreateRequest)
+
+	return err
 }
 
 type NullableStreamImportCreateRequest struct {

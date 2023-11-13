@@ -17,10 +17,8 @@ import (
 // checks if the User type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &User{}
 
-// User User defines the user specific data in a user JWT
+// User struct for User
 type User struct {
-	// IssuerAccount stores the public key for the account the issuer represents. When set, the claim was issued by a signing key.
-	IssuerAccount *string `json:"issuer_account,omitempty"`
 	// TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments
 	Tags []string `json:"tags,omitempty"`
 	// ClaimType is used to indicate the type of JWT being stored in a Claim
@@ -35,6 +33,11 @@ type User struct {
 	Data          *int64                  `json:"data,omitempty"`
 	Payload       *int64                  `json:"payload,omitempty"`
 	Subs          *int64                  `json:"subs,omitempty"`
+	// StringList is a wrapper for an array of strings
+	AllowedConnectionTypes []string `json:"allowed_connection_types,omitempty"`
+	BearerToken            *bool    `json:"bearer_token,omitempty"`
+	// IssuerAccount stores the public key for the account the issuer represents. When set, the claim was issued by a signing key.
+	IssuerAccount *string `json:"issuer_account,omitempty"`
 }
 
 // NewUser instantiates a new User object
@@ -52,38 +55,6 @@ func NewUser() *User {
 func NewUserWithDefaults() *User {
 	this := User{}
 	return &this
-}
-
-// GetIssuerAccount returns the IssuerAccount field value if set, zero value otherwise.
-func (o *User) GetIssuerAccount() string {
-	if o == nil || IsNil(o.IssuerAccount) {
-		var ret string
-		return ret
-	}
-	return *o.IssuerAccount
-}
-
-// GetIssuerAccountOk returns a tuple with the IssuerAccount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *User) GetIssuerAccountOk() (*string, bool) {
-	if o == nil || IsNil(o.IssuerAccount) {
-		return nil, false
-	}
-	return o.IssuerAccount, true
-}
-
-// HasIssuerAccount returns a boolean if a field has been set.
-func (o *User) HasIssuerAccount() bool {
-	if o != nil && !IsNil(o.IssuerAccount) {
-		return true
-	}
-
-	return false
-}
-
-// SetIssuerAccount gets a reference to the given string and assigns it to the IssuerAccount field.
-func (o *User) SetIssuerAccount(v string) {
-	o.IssuerAccount = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -483,6 +454,103 @@ func (o *User) SetSubs(v int64) {
 	o.Subs = &v
 }
 
+// GetAllowedConnectionTypes returns the AllowedConnectionTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetAllowedConnectionTypes() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.AllowedConnectionTypes
+}
+
+// GetAllowedConnectionTypesOk returns a tuple with the AllowedConnectionTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetAllowedConnectionTypesOk() ([]string, bool) {
+	if o == nil || IsNil(o.AllowedConnectionTypes) {
+		return nil, false
+	}
+	return o.AllowedConnectionTypes, true
+}
+
+// HasAllowedConnectionTypes returns a boolean if a field has been set.
+func (o *User) HasAllowedConnectionTypes() bool {
+	if o != nil && IsNil(o.AllowedConnectionTypes) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowedConnectionTypes gets a reference to the given []string and assigns it to the AllowedConnectionTypes field.
+func (o *User) SetAllowedConnectionTypes(v []string) {
+	o.AllowedConnectionTypes = v
+}
+
+// GetBearerToken returns the BearerToken field value if set, zero value otherwise.
+func (o *User) GetBearerToken() bool {
+	if o == nil || IsNil(o.BearerToken) {
+		var ret bool
+		return ret
+	}
+	return *o.BearerToken
+}
+
+// GetBearerTokenOk returns a tuple with the BearerToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *User) GetBearerTokenOk() (*bool, bool) {
+	if o == nil || IsNil(o.BearerToken) {
+		return nil, false
+	}
+	return o.BearerToken, true
+}
+
+// HasBearerToken returns a boolean if a field has been set.
+func (o *User) HasBearerToken() bool {
+	if o != nil && !IsNil(o.BearerToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetBearerToken gets a reference to the given bool and assigns it to the BearerToken field.
+func (o *User) SetBearerToken(v bool) {
+	o.BearerToken = &v
+}
+
+// GetIssuerAccount returns the IssuerAccount field value if set, zero value otherwise.
+func (o *User) GetIssuerAccount() string {
+	if o == nil || IsNil(o.IssuerAccount) {
+		var ret string
+		return ret
+	}
+	return *o.IssuerAccount
+}
+
+// GetIssuerAccountOk returns a tuple with the IssuerAccount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *User) GetIssuerAccountOk() (*string, bool) {
+	if o == nil || IsNil(o.IssuerAccount) {
+		return nil, false
+	}
+	return o.IssuerAccount, true
+}
+
+// HasIssuerAccount returns a boolean if a field has been set.
+func (o *User) HasIssuerAccount() bool {
+	if o != nil && !IsNil(o.IssuerAccount) {
+		return true
+	}
+
+	return false
+}
+
+// SetIssuerAccount gets a reference to the given string and assigns it to the IssuerAccount field.
+func (o *User) SetIssuerAccount(v string) {
+	o.IssuerAccount = &v
+}
+
 func (o User) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -493,9 +561,6 @@ func (o User) MarshalJSON() ([]byte, error) {
 
 func (o User) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.IssuerAccount) {
-		toSerialize["issuer_account"] = o.IssuerAccount
-	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
@@ -531,6 +596,15 @@ func (o User) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Subs) {
 		toSerialize["subs"] = o.Subs
+	}
+	if o.AllowedConnectionTypes != nil {
+		toSerialize["allowed_connection_types"] = o.AllowedConnectionTypes
+	}
+	if !IsNil(o.BearerToken) {
+		toSerialize["bearer_token"] = o.BearerToken
+	}
+	if !IsNil(o.IssuerAccount) {
+		toSerialize["issuer_account"] = o.IssuerAccount
 	}
 	return toSerialize, nil
 }

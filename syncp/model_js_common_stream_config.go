@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JSCommonStreamConfig type satisfies the MappedNullable interface at compile time
@@ -44,6 +45,8 @@ type JSCommonStreamConfig struct {
 	Storage              StorageType                           `json:"storage"`
 	TemplateOwner        *string                               `json:"template_owner,omitempty"`
 }
+
+type _JSCommonStreamConfig JSCommonStreamConfig
 
 // NewJSCommonStreamConfig instantiates a new JSCommonStreamConfig object
 // This constructor will assign default values to properties that have it defined,
@@ -801,6 +804,55 @@ func (o JSCommonStreamConfig) ToMap() (map[string]interface{}, error) {
 		toSerialize["template_owner"] = o.TemplateOwner
 	}
 	return toSerialize, nil
+}
+
+func (o *JSCommonStreamConfig) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"allow_direct",
+		"allow_rollup_hdrs",
+		"deny_delete",
+		"deny_purge",
+		"discard",
+		"max_age",
+		"max_bytes",
+		"max_consumers",
+		"max_msgs",
+		"max_msgs_per_subject",
+		"name",
+		"num_replicas",
+		"retention",
+		"sealed",
+		"storage",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSCommonStreamConfig := _JSCommonStreamConfig{}
+
+	err = json.Unmarshal(bytes, &varJSCommonStreamConfig)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSCommonStreamConfig(varJSCommonStreamConfig)
+
+	return err
 }
 
 type NullableJSCommonStreamConfig struct {

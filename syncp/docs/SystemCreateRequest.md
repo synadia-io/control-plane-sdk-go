@@ -7,13 +7,14 @@ Name | Type | Description | Notes
 **JetstreamDomain** | Pointer to **NullableString** |  | [optional] 
 **JetstreamEnabled** | Pointer to **bool** |  | [optional] [default to true]
 **Name** | **string** |  | 
+**TeamId** | **string** |  | 
 **Url** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
 ### NewSystemCreateRequest
 
-`func NewSystemCreateRequest(name string, ) *SystemCreateRequest`
+`func NewSystemCreateRequest(name string, teamId string, ) *SystemCreateRequest`
 
 NewSystemCreateRequest instantiates a new SystemCreateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -106,6 +107,26 @@ and a boolean to check if the value has been set.
 `func (o *SystemCreateRequest) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetTeamId
+
+`func (o *SystemCreateRequest) GetTeamId() string`
+
+GetTeamId returns the TeamId field if non-nil, zero value otherwise.
+
+### GetTeamIdOk
+
+`func (o *SystemCreateRequest) GetTeamIdOk() (*string, bool)`
+
+GetTeamIdOk returns a tuple with the TeamId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeamId
+
+`func (o *SystemCreateRequest) SetTeamId(v string)`
+
+SetTeamId sets TeamId field to given value.
 
 
 ### GetUrl

@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Token** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
 **Created** | **time.Time** |  | 
 **Id** | **string** |  | 
 **IsCurrent** | **bool** |  | 
 **LastAccessedAt** | Pointer to **time.Time** |  | [optional] 
 **NkeyPublic** | **string** |  | 
 **RotatedAt** | Pointer to **time.Time** |  | [optional] 
+**Token** | **string** |  | 
+**Url** | **string** |  | 
 
 ## Methods
 
 ### NewAgentTokenCurrentResponse
 
-`func NewAgentTokenCurrentResponse(created time.Time, id string, isCurrent bool, nkeyPublic string, ) *AgentTokenCurrentResponse`
+`func NewAgentTokenCurrentResponse(created time.Time, id string, isCurrent bool, nkeyPublic string, token string, url string, ) *AgentTokenCurrentResponse`
 
 NewAgentTokenCurrentResponse instantiates a new AgentTokenCurrentResponse object
 This constructor will assign default values to properties that have it defined,
@@ -31,56 +31,6 @@ will change when the set of required properties is changed
 NewAgentTokenCurrentResponseWithDefaults instantiates a new AgentTokenCurrentResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetToken
-
-`func (o *AgentTokenCurrentResponse) GetToken() string`
-
-GetToken returns the Token field if non-nil, zero value otherwise.
-
-### GetTokenOk
-
-`func (o *AgentTokenCurrentResponse) GetTokenOk() (*string, bool)`
-
-GetTokenOk returns a tuple with the Token field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetToken
-
-`func (o *AgentTokenCurrentResponse) SetToken(v string)`
-
-SetToken sets Token field to given value.
-
-### HasToken
-
-`func (o *AgentTokenCurrentResponse) HasToken() bool`
-
-HasToken returns a boolean if a field has been set.
-
-### GetUrl
-
-`func (o *AgentTokenCurrentResponse) GetUrl() string`
-
-GetUrl returns the Url field if non-nil, zero value otherwise.
-
-### GetUrlOk
-
-`func (o *AgentTokenCurrentResponse) GetUrlOk() (*string, bool)`
-
-GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUrl
-
-`func (o *AgentTokenCurrentResponse) SetUrl(v string)`
-
-SetUrl sets Url field to given value.
-
-### HasUrl
-
-`func (o *AgentTokenCurrentResponse) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 ### GetCreated
 
@@ -211,6 +161,46 @@ SetRotatedAt sets RotatedAt field to given value.
 `func (o *AgentTokenCurrentResponse) HasRotatedAt() bool`
 
 HasRotatedAt returns a boolean if a field has been set.
+
+### GetToken
+
+`func (o *AgentTokenCurrentResponse) GetToken() string`
+
+GetToken returns the Token field if non-nil, zero value otherwise.
+
+### GetTokenOk
+
+`func (o *AgentTokenCurrentResponse) GetTokenOk() (*string, bool)`
+
+GetTokenOk returns a tuple with the Token field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetToken
+
+`func (o *AgentTokenCurrentResponse) SetToken(v string)`
+
+SetToken sets Token field to given value.
+
+
+### GetUrl
+
+`func (o *AgentTokenCurrentResponse) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *AgentTokenCurrentResponse) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *AgentTokenCurrentResponse) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

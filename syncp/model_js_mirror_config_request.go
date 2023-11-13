@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JSMirrorConfigRequest type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,6 @@ var _ MappedNullable = &JSMirrorConfigRequest{}
 
 // JSMirrorConfigRequest struct for JSMirrorConfigRequest
 type JSMirrorConfigRequest struct {
-	Mirror               *StreamSource                         `json:"mirror,omitempty"`
-	MirrorDirect         *bool                                 `json:"mirror_direct,omitempty"`
 	AllowDirect          bool                                  `json:"allow_direct"`
 	AllowRollupHdrs      bool                                  `json:"allow_rollup_hdrs"`
 	DenyDelete           bool                                  `json:"deny_delete"`
@@ -45,13 +44,17 @@ type JSMirrorConfigRequest struct {
 	Sources              []StreamSource                        `json:"sources,omitempty"`
 	Storage              StorageType                           `json:"storage"`
 	TemplateOwner        *string                               `json:"template_owner,omitempty"`
+	Mirror               StreamSource                          `json:"mirror"`
+	MirrorDirect         bool                                  `json:"mirror_direct"`
 }
+
+type _JSMirrorConfigRequest JSMirrorConfigRequest
 
 // NewJSMirrorConfigRequest instantiates a new JSMirrorConfigRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJSMirrorConfigRequest(allowDirect bool, allowRollupHdrs bool, denyDelete bool, denyPurge bool, discard DiscardPolicy, maxAge int64, maxBytes int64, maxConsumers int32, maxMsgs int64, maxMsgsPerSubject int64, name string, numReplicas int32, retention RetentionPolicy, sealed bool, storage StorageType) *JSMirrorConfigRequest {
+func NewJSMirrorConfigRequest(allowDirect bool, allowRollupHdrs bool, denyDelete bool, denyPurge bool, discard DiscardPolicy, maxAge int64, maxBytes int64, maxConsumers int32, maxMsgs int64, maxMsgsPerSubject int64, name string, numReplicas int32, retention RetentionPolicy, sealed bool, storage StorageType, mirror StreamSource, mirrorDirect bool) *JSMirrorConfigRequest {
 	this := JSMirrorConfigRequest{}
 	this.AllowDirect = allowDirect
 	this.AllowRollupHdrs = allowRollupHdrs
@@ -68,6 +71,8 @@ func NewJSMirrorConfigRequest(allowDirect bool, allowRollupHdrs bool, denyDelete
 	this.Retention = retention
 	this.Sealed = sealed
 	this.Storage = storage
+	this.Mirror = mirror
+	this.MirrorDirect = mirrorDirect
 	return &this
 }
 
@@ -77,70 +82,6 @@ func NewJSMirrorConfigRequest(allowDirect bool, allowRollupHdrs bool, denyDelete
 func NewJSMirrorConfigRequestWithDefaults() *JSMirrorConfigRequest {
 	this := JSMirrorConfigRequest{}
 	return &this
-}
-
-// GetMirror returns the Mirror field value if set, zero value otherwise.
-func (o *JSMirrorConfigRequest) GetMirror() StreamSource {
-	if o == nil || IsNil(o.Mirror) {
-		var ret StreamSource
-		return ret
-	}
-	return *o.Mirror
-}
-
-// GetMirrorOk returns a tuple with the Mirror field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSMirrorConfigRequest) GetMirrorOk() (*StreamSource, bool) {
-	if o == nil || IsNil(o.Mirror) {
-		return nil, false
-	}
-	return o.Mirror, true
-}
-
-// HasMirror returns a boolean if a field has been set.
-func (o *JSMirrorConfigRequest) HasMirror() bool {
-	if o != nil && !IsNil(o.Mirror) {
-		return true
-	}
-
-	return false
-}
-
-// SetMirror gets a reference to the given StreamSource and assigns it to the Mirror field.
-func (o *JSMirrorConfigRequest) SetMirror(v StreamSource) {
-	o.Mirror = &v
-}
-
-// GetMirrorDirect returns the MirrorDirect field value if set, zero value otherwise.
-func (o *JSMirrorConfigRequest) GetMirrorDirect() bool {
-	if o == nil || IsNil(o.MirrorDirect) {
-		var ret bool
-		return ret
-	}
-	return *o.MirrorDirect
-}
-
-// GetMirrorDirectOk returns a tuple with the MirrorDirect field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSMirrorConfigRequest) GetMirrorDirectOk() (*bool, bool) {
-	if o == nil || IsNil(o.MirrorDirect) {
-		return nil, false
-	}
-	return o.MirrorDirect, true
-}
-
-// HasMirrorDirect returns a boolean if a field has been set.
-func (o *JSMirrorConfigRequest) HasMirrorDirect() bool {
-	if o != nil && !IsNil(o.MirrorDirect) {
-		return true
-	}
-
-	return false
-}
-
-// SetMirrorDirect gets a reference to the given bool and assigns it to the MirrorDirect field.
-func (o *JSMirrorConfigRequest) SetMirrorDirect(v bool) {
-	o.MirrorDirect = &v
 }
 
 // GetAllowDirect returns the AllowDirect field value
@@ -814,6 +755,54 @@ func (o *JSMirrorConfigRequest) SetTemplateOwner(v string) {
 	o.TemplateOwner = &v
 }
 
+// GetMirror returns the Mirror field value
+func (o *JSMirrorConfigRequest) GetMirror() StreamSource {
+	if o == nil {
+		var ret StreamSource
+		return ret
+	}
+
+	return o.Mirror
+}
+
+// GetMirrorOk returns a tuple with the Mirror field value
+// and a boolean to check if the value has been set.
+func (o *JSMirrorConfigRequest) GetMirrorOk() (*StreamSource, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Mirror, true
+}
+
+// SetMirror sets field value
+func (o *JSMirrorConfigRequest) SetMirror(v StreamSource) {
+	o.Mirror = v
+}
+
+// GetMirrorDirect returns the MirrorDirect field value
+func (o *JSMirrorConfigRequest) GetMirrorDirect() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.MirrorDirect
+}
+
+// GetMirrorDirectOk returns a tuple with the MirrorDirect field value
+// and a boolean to check if the value has been set.
+func (o *JSMirrorConfigRequest) GetMirrorDirectOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MirrorDirect, true
+}
+
+// SetMirrorDirect sets field value
+func (o *JSMirrorConfigRequest) SetMirrorDirect(v bool) {
+	o.MirrorDirect = v
+}
+
 func (o JSMirrorConfigRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -824,12 +813,6 @@ func (o JSMirrorConfigRequest) MarshalJSON() ([]byte, error) {
 
 func (o JSMirrorConfigRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Mirror) {
-		toSerialize["mirror"] = o.Mirror
-	}
-	if !IsNil(o.MirrorDirect) {
-		toSerialize["mirror_direct"] = o.MirrorDirect
-	}
 	toSerialize["allow_direct"] = o.AllowDirect
 	toSerialize["allow_rollup_hdrs"] = o.AllowRollupHdrs
 	toSerialize["deny_delete"] = o.DenyDelete
@@ -872,7 +855,60 @@ func (o JSMirrorConfigRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TemplateOwner) {
 		toSerialize["template_owner"] = o.TemplateOwner
 	}
+	toSerialize["mirror"] = o.Mirror
+	toSerialize["mirror_direct"] = o.MirrorDirect
 	return toSerialize, nil
+}
+
+func (o *JSMirrorConfigRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"allow_direct",
+		"allow_rollup_hdrs",
+		"deny_delete",
+		"deny_purge",
+		"discard",
+		"max_age",
+		"max_bytes",
+		"max_consumers",
+		"max_msgs",
+		"max_msgs_per_subject",
+		"name",
+		"num_replicas",
+		"retention",
+		"sealed",
+		"storage",
+		"mirror",
+		"mirror_direct",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSMirrorConfigRequest := _JSMirrorConfigRequest{}
+
+	err = json.Unmarshal(bytes, &varJSMirrorConfigRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSMirrorConfigRequest(varJSMirrorConfigRequest)
+
+	return err
 }
 
 type NullableJSMirrorConfigRequest struct {

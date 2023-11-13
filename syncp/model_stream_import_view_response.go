@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -28,6 +29,8 @@ type StreamImportViewResponse struct {
 	RemoteAccountNkeyPublic string    `json:"remote_account_nkey_public"`
 	StreamName              string    `json:"stream_name"`
 }
+
+type _StreamImportViewResponse StreamImportViewResponse
 
 // NewStreamImportViewResponse instantiates a new StreamImportViewResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -239,6 +242,47 @@ func (o StreamImportViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["remote_account_nkey_public"] = o.RemoteAccountNkeyPublic
 	toSerialize["stream_name"] = o.StreamName
 	return toSerialize, nil
+}
+
+func (o *StreamImportViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_id",
+		"created",
+		"deliver_subject",
+		"id",
+		"js_subject_prefix",
+		"remote_account_nkey_public",
+		"stream_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStreamImportViewResponse := _StreamImportViewResponse{}
+
+	err = json.Unmarshal(bytes, &varStreamImportViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StreamImportViewResponse(varStreamImportViewResponse)
+
+	return err
 }
 
 type NullableStreamImportViewResponse struct {

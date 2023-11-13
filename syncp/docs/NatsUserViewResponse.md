@@ -15,13 +15,14 @@ Name | Type | Description | Notes
 **Revoked** | **bool** |  | 
 **SkGroupId** | Pointer to **string** |  | [optional] 
 **System** | [**SystemInfo**](SystemInfo.md) |  | 
+**Team** | [**TeamInfo**](TeamInfo.md) |  | 
 **UserPublicKey** | **string** |  | 
 
 ## Methods
 
 ### NewNatsUserViewResponse
 
-`func NewNatsUserViewResponse(account AccountInfo, claims UserClaims, created time.Time, id string, jwt string, jwtExpiresAtMax int64, jwtExpiresInSecs int64, name string, revoked bool, system SystemInfo, userPublicKey string, ) *NatsUserViewResponse`
+`func NewNatsUserViewResponse(account AccountInfo, claims UserClaims, created time.Time, id string, jwt string, jwtExpiresAtMax int64, jwtExpiresInSecs int64, name string, revoked bool, system SystemInfo, team TeamInfo, userPublicKey string, ) *NatsUserViewResponse`
 
 NewNatsUserViewResponse instantiates a new NatsUserViewResponse object
 This constructor will assign default values to properties that have it defined,
@@ -259,6 +260,26 @@ and a boolean to check if the value has been set.
 `func (o *NatsUserViewResponse) SetSystem(v SystemInfo)`
 
 SetSystem sets System field to given value.
+
+
+### GetTeam
+
+`func (o *NatsUserViewResponse) GetTeam() TeamInfo`
+
+GetTeam returns the Team field if non-nil, zero value otherwise.
+
+### GetTeamOk
+
+`func (o *NatsUserViewResponse) GetTeamOk() (*TeamInfo, bool)`
+
+GetTeamOk returns a tuple with the Team field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeam
+
+`func (o *NatsUserViewResponse) SetTeam(v TeamInfo)`
+
+SetTeam sets Team field to given value.
 
 
 ### GetUserPublicKey

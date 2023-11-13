@@ -19,18 +19,18 @@ var _ MappedNullable = &UserPermissionLimits{}
 
 // UserPermissionLimits struct for UserPermissionLimits
 type UserPermissionLimits struct {
+	Pub           *Permission             `json:"pub,omitempty"`
+	Resp          NullablePermissionsResp `json:"resp,omitempty"`
+	Sub           *Permission             `json:"sub,omitempty"`
+	Src           []string                `json:"src,omitempty"`
+	Times         []TimeRange             `json:"times,omitempty"`
+	TimesLocation *string                 `json:"times_location,omitempty"`
+	Data          *int64                  `json:"data,omitempty"`
+	Payload       *int64                  `json:"payload,omitempty"`
+	Subs          *int64                  `json:"subs,omitempty"`
 	// StringList is a wrapper for an array of strings
-	AllowedConnectionTypes []string                `json:"allowed_connection_types,omitempty"`
-	BearerToken            *bool                   `json:"bearer_token,omitempty"`
-	Pub                    *Permission             `json:"pub,omitempty"`
-	Resp                   NullablePermissionsResp `json:"resp,omitempty"`
-	Sub                    *Permission             `json:"sub,omitempty"`
-	Src                    []string                `json:"src,omitempty"`
-	Times                  []TimeRange             `json:"times,omitempty"`
-	TimesLocation          *string                 `json:"times_location,omitempty"`
-	Data                   *int64                  `json:"data,omitempty"`
-	Payload                *int64                  `json:"payload,omitempty"`
-	Subs                   *int64                  `json:"subs,omitempty"`
+	AllowedConnectionTypes []string `json:"allowed_connection_types,omitempty"`
+	BearerToken            *bool    `json:"bearer_token,omitempty"`
 }
 
 // NewUserPermissionLimits instantiates a new UserPermissionLimits object
@@ -48,71 +48,6 @@ func NewUserPermissionLimits() *UserPermissionLimits {
 func NewUserPermissionLimitsWithDefaults() *UserPermissionLimits {
 	this := UserPermissionLimits{}
 	return &this
-}
-
-// GetAllowedConnectionTypes returns the AllowedConnectionTypes field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UserPermissionLimits) GetAllowedConnectionTypes() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-	return o.AllowedConnectionTypes
-}
-
-// GetAllowedConnectionTypesOk returns a tuple with the AllowedConnectionTypes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UserPermissionLimits) GetAllowedConnectionTypesOk() ([]string, bool) {
-	if o == nil || IsNil(o.AllowedConnectionTypes) {
-		return nil, false
-	}
-	return o.AllowedConnectionTypes, true
-}
-
-// HasAllowedConnectionTypes returns a boolean if a field has been set.
-func (o *UserPermissionLimits) HasAllowedConnectionTypes() bool {
-	if o != nil && IsNil(o.AllowedConnectionTypes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAllowedConnectionTypes gets a reference to the given []string and assigns it to the AllowedConnectionTypes field.
-func (o *UserPermissionLimits) SetAllowedConnectionTypes(v []string) {
-	o.AllowedConnectionTypes = v
-}
-
-// GetBearerToken returns the BearerToken field value if set, zero value otherwise.
-func (o *UserPermissionLimits) GetBearerToken() bool {
-	if o == nil || IsNil(o.BearerToken) {
-		var ret bool
-		return ret
-	}
-	return *o.BearerToken
-}
-
-// GetBearerTokenOk returns a tuple with the BearerToken field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UserPermissionLimits) GetBearerTokenOk() (*bool, bool) {
-	if o == nil || IsNil(o.BearerToken) {
-		return nil, false
-	}
-	return o.BearerToken, true
-}
-
-// HasBearerToken returns a boolean if a field has been set.
-func (o *UserPermissionLimits) HasBearerToken() bool {
-	if o != nil && !IsNil(o.BearerToken) {
-		return true
-	}
-
-	return false
-}
-
-// SetBearerToken gets a reference to the given bool and assigns it to the BearerToken field.
-func (o *UserPermissionLimits) SetBearerToken(v bool) {
-	o.BearerToken = &v
 }
 
 // GetPub returns the Pub field value if set, zero value otherwise.
@@ -415,6 +350,71 @@ func (o *UserPermissionLimits) SetSubs(v int64) {
 	o.Subs = &v
 }
 
+// GetAllowedConnectionTypes returns the AllowedConnectionTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UserPermissionLimits) GetAllowedConnectionTypes() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.AllowedConnectionTypes
+}
+
+// GetAllowedConnectionTypesOk returns a tuple with the AllowedConnectionTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UserPermissionLimits) GetAllowedConnectionTypesOk() ([]string, bool) {
+	if o == nil || IsNil(o.AllowedConnectionTypes) {
+		return nil, false
+	}
+	return o.AllowedConnectionTypes, true
+}
+
+// HasAllowedConnectionTypes returns a boolean if a field has been set.
+func (o *UserPermissionLimits) HasAllowedConnectionTypes() bool {
+	if o != nil && IsNil(o.AllowedConnectionTypes) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowedConnectionTypes gets a reference to the given []string and assigns it to the AllowedConnectionTypes field.
+func (o *UserPermissionLimits) SetAllowedConnectionTypes(v []string) {
+	o.AllowedConnectionTypes = v
+}
+
+// GetBearerToken returns the BearerToken field value if set, zero value otherwise.
+func (o *UserPermissionLimits) GetBearerToken() bool {
+	if o == nil || IsNil(o.BearerToken) {
+		var ret bool
+		return ret
+	}
+	return *o.BearerToken
+}
+
+// GetBearerTokenOk returns a tuple with the BearerToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserPermissionLimits) GetBearerTokenOk() (*bool, bool) {
+	if o == nil || IsNil(o.BearerToken) {
+		return nil, false
+	}
+	return o.BearerToken, true
+}
+
+// HasBearerToken returns a boolean if a field has been set.
+func (o *UserPermissionLimits) HasBearerToken() bool {
+	if o != nil && !IsNil(o.BearerToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetBearerToken gets a reference to the given bool and assigns it to the BearerToken field.
+func (o *UserPermissionLimits) SetBearerToken(v bool) {
+	o.BearerToken = &v
+}
+
 func (o UserPermissionLimits) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -425,12 +425,6 @@ func (o UserPermissionLimits) MarshalJSON() ([]byte, error) {
 
 func (o UserPermissionLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AllowedConnectionTypes != nil {
-		toSerialize["allowed_connection_types"] = o.AllowedConnectionTypes
-	}
-	if !IsNil(o.BearerToken) {
-		toSerialize["bearer_token"] = o.BearerToken
-	}
 	if !IsNil(o.Pub) {
 		toSerialize["pub"] = o.Pub
 	}
@@ -457,6 +451,12 @@ func (o UserPermissionLimits) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Subs) {
 		toSerialize["subs"] = o.Subs
+	}
+	if o.AllowedConnectionTypes != nil {
+		toSerialize["allowed_connection_types"] = o.AllowedConnectionTypes
+	}
+	if !IsNil(o.BearerToken) {
+		toSerialize["bearer_token"] = o.BearerToken
 	}
 	return toSerialize, nil
 }

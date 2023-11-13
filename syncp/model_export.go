@@ -17,22 +17,22 @@ import (
 // checks if the Export type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Export{}
 
-// Export Export represents a single export
+// Export struct for Export
 type Export struct {
+	Description          *string       `json:"description,omitempty"`
+	InfoUrl              *string       `json:"info_url,omitempty"`
 	AccountTokenPosition *int32        `json:"account_token_position,omitempty"`
 	Advertise            *bool         `json:"advertise,omitempty"`
 	Name                 *string       `json:"name,omitempty"`
 	ResponseThreshold    *int64        `json:"response_threshold,omitempty"`
 	ResponseType         *ResponseType `json:"response_type,omitempty"`
 	// RevocationList is used to store a mapping of public keys to unix timestamps
-	Revocations    *map[string]int64      `json:"revocations,omitempty"`
-	ServiceLatency NullableServiceLatency `json:"service_latency,omitempty"`
+	Revocations    *map[string]int64                 `json:"revocations,omitempty"`
+	ServiceLatency NullableExportAllOfServiceLatency `json:"service_latency,omitempty"`
 	// Subject is a string that represents a NATS subject
-	Subject     *string     `json:"subject,omitempty"`
-	TokenReq    *bool       `json:"token_req,omitempty"`
-	Type        *ExportType `json:"type,omitempty"`
-	Description *string     `json:"description,omitempty"`
-	InfoUrl     *string     `json:"info_url,omitempty"`
+	Subject  *string     `json:"subject,omitempty"`
+	TokenReq *bool       `json:"token_req,omitempty"`
+	Type     *ExportType `json:"type,omitempty"`
 }
 
 // NewExport instantiates a new Export object
@@ -50,6 +50,70 @@ func NewExport() *Export {
 func NewExportWithDefaults() *Export {
 	this := Export{}
 	return &this
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Export) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Export) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *Export) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Export) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetInfoUrl returns the InfoUrl field value if set, zero value otherwise.
+func (o *Export) GetInfoUrl() string {
+	if o == nil || IsNil(o.InfoUrl) {
+		var ret string
+		return ret
+	}
+	return *o.InfoUrl
+}
+
+// GetInfoUrlOk returns a tuple with the InfoUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Export) GetInfoUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.InfoUrl) {
+		return nil, false
+	}
+	return o.InfoUrl, true
+}
+
+// HasInfoUrl returns a boolean if a field has been set.
+func (o *Export) HasInfoUrl() bool {
+	if o != nil && !IsNil(o.InfoUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetInfoUrl gets a reference to the given string and assigns it to the InfoUrl field.
+func (o *Export) SetInfoUrl(v string) {
+	o.InfoUrl = &v
 }
 
 // GetAccountTokenPosition returns the AccountTokenPosition field value if set, zero value otherwise.
@@ -245,9 +309,9 @@ func (o *Export) SetRevocations(v map[string]int64) {
 }
 
 // GetServiceLatency returns the ServiceLatency field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Export) GetServiceLatency() ServiceLatency {
+func (o *Export) GetServiceLatency() ExportAllOfServiceLatency {
 	if o == nil || IsNil(o.ServiceLatency.Get()) {
-		var ret ServiceLatency
+		var ret ExportAllOfServiceLatency
 		return ret
 	}
 	return *o.ServiceLatency.Get()
@@ -256,7 +320,7 @@ func (o *Export) GetServiceLatency() ServiceLatency {
 // GetServiceLatencyOk returns a tuple with the ServiceLatency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Export) GetServiceLatencyOk() (*ServiceLatency, bool) {
+func (o *Export) GetServiceLatencyOk() (*ExportAllOfServiceLatency, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -272,8 +336,8 @@ func (o *Export) HasServiceLatency() bool {
 	return false
 }
 
-// SetServiceLatency gets a reference to the given NullableServiceLatency and assigns it to the ServiceLatency field.
-func (o *Export) SetServiceLatency(v ServiceLatency) {
+// SetServiceLatency gets a reference to the given NullableExportAllOfServiceLatency and assigns it to the ServiceLatency field.
+func (o *Export) SetServiceLatency(v ExportAllOfServiceLatency) {
 	o.ServiceLatency.Set(&v)
 }
 
@@ -383,70 +447,6 @@ func (o *Export) SetType(v ExportType) {
 	o.Type = &v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *Export) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Export) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *Export) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *Export) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetInfoUrl returns the InfoUrl field value if set, zero value otherwise.
-func (o *Export) GetInfoUrl() string {
-	if o == nil || IsNil(o.InfoUrl) {
-		var ret string
-		return ret
-	}
-	return *o.InfoUrl
-}
-
-// GetInfoUrlOk returns a tuple with the InfoUrl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Export) GetInfoUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.InfoUrl) {
-		return nil, false
-	}
-	return o.InfoUrl, true
-}
-
-// HasInfoUrl returns a boolean if a field has been set.
-func (o *Export) HasInfoUrl() bool {
-	if o != nil && !IsNil(o.InfoUrl) {
-		return true
-	}
-
-	return false
-}
-
-// SetInfoUrl gets a reference to the given string and assigns it to the InfoUrl field.
-func (o *Export) SetInfoUrl(v string) {
-	o.InfoUrl = &v
-}
-
 func (o Export) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -457,6 +457,12 @@ func (o Export) MarshalJSON() ([]byte, error) {
 
 func (o Export) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.InfoUrl) {
+		toSerialize["info_url"] = o.InfoUrl
+	}
 	if !IsNil(o.AccountTokenPosition) {
 		toSerialize["account_token_position"] = o.AccountTokenPosition
 	}
@@ -486,12 +492,6 @@ func (o Export) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.InfoUrl) {
-		toSerialize["info_url"] = o.InfoUrl
 	}
 	return toSerialize, nil
 }

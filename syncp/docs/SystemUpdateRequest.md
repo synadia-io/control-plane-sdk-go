@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **JetstreamDomain** | Pointer to **NullableString** |  | [optional] 
 **JetstreamEnabled** | Pointer to **bool** |  | [optional] 
-**Name** | **string** |  | 
+**Name** | Pointer to **string** |  | [optional] 
 **Url** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
 ### NewSystemUpdateRequest
 
-`func NewSystemUpdateRequest(name string, ) *SystemUpdateRequest`
+`func NewSystemUpdateRequest() *SystemUpdateRequest`
 
 NewSystemUpdateRequest instantiates a new SystemUpdateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -107,6 +107,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *SystemUpdateRequest) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetUrl
 

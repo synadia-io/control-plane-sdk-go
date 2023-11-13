@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Description** | Pointer to **string** |  | [optional] 
+**InfoUrl** | Pointer to **string** |  | [optional] 
 **AccountTokenPosition** | Pointer to **int32** |  | [optional] 
 **Advertise** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **ResponseThreshold** | Pointer to **int64** |  | [optional] 
 **ResponseType** | Pointer to [**ResponseType**](ResponseType.md) |  | [optional] 
 **Revocations** | Pointer to **map[string]int64** | RevocationList is used to store a mapping of public keys to unix timestamps | [optional] 
-**ServiceLatency** | Pointer to [**NullableServiceLatency**](ServiceLatency.md) |  | [optional] 
+**ServiceLatency** | Pointer to [**NullableExportAllOfServiceLatency**](ExportAllOfServiceLatency.md) |  | [optional] 
 **Subject** | Pointer to **string** | Subject is a string that represents a NATS subject | [optional] 
 **TokenReq** | Pointer to **bool** |  | [optional] 
 **Type** | Pointer to [**ExportType**](ExportType.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**InfoUrl** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -35,6 +35,56 @@ will change when the set of required properties is changed
 NewExportWithDefaults instantiates a new Export object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetDescription
+
+`func (o *Export) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *Export) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *Export) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *Export) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetInfoUrl
+
+`func (o *Export) GetInfoUrl() string`
+
+GetInfoUrl returns the InfoUrl field if non-nil, zero value otherwise.
+
+### GetInfoUrlOk
+
+`func (o *Export) GetInfoUrlOk() (*string, bool)`
+
+GetInfoUrlOk returns a tuple with the InfoUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInfoUrl
+
+`func (o *Export) SetInfoUrl(v string)`
+
+SetInfoUrl sets InfoUrl field to given value.
+
+### HasInfoUrl
+
+`func (o *Export) HasInfoUrl() bool`
+
+HasInfoUrl returns a boolean if a field has been set.
 
 ### GetAccountTokenPosition
 
@@ -188,20 +238,20 @@ HasRevocations returns a boolean if a field has been set.
 
 ### GetServiceLatency
 
-`func (o *Export) GetServiceLatency() ServiceLatency`
+`func (o *Export) GetServiceLatency() ExportAllOfServiceLatency`
 
 GetServiceLatency returns the ServiceLatency field if non-nil, zero value otherwise.
 
 ### GetServiceLatencyOk
 
-`func (o *Export) GetServiceLatencyOk() (*ServiceLatency, bool)`
+`func (o *Export) GetServiceLatencyOk() (*ExportAllOfServiceLatency, bool)`
 
 GetServiceLatencyOk returns a tuple with the ServiceLatency field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetServiceLatency
 
-`func (o *Export) SetServiceLatency(v ServiceLatency)`
+`func (o *Export) SetServiceLatency(v ExportAllOfServiceLatency)`
 
 SetServiceLatency sets ServiceLatency field to given value.
 
@@ -295,56 +345,6 @@ SetType sets Type field to given value.
 `func (o *Export) HasType() bool`
 
 HasType returns a boolean if a field has been set.
-
-### GetDescription
-
-`func (o *Export) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *Export) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *Export) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
-
-### HasDescription
-
-`func (o *Export) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
-
-### GetInfoUrl
-
-`func (o *Export) GetInfoUrl() string`
-
-GetInfoUrl returns the InfoUrl field if non-nil, zero value otherwise.
-
-### GetInfoUrlOk
-
-`func (o *Export) GetInfoUrlOk() (*string, bool)`
-
-GetInfoUrlOk returns a tuple with the InfoUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInfoUrl
-
-`func (o *Export) SetInfoUrl(v string)`
-
-SetInfoUrl sets InfoUrl field to given value.
-
-### HasInfoUrl
-
-`func (o *Export) HasInfoUrl() bool`
-
-HasInfoUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

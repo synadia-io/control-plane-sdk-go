@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JetStreamAccountLimits type satisfies the MappedNullable interface at compile time
@@ -28,6 +29,8 @@ type JetStreamAccountLimits struct {
 	MemoryMaxStreamBytes  int64 `json:"memory_max_stream_bytes"`
 	StorageMaxStreamBytes int64 `json:"storage_max_stream_bytes"`
 }
+
+type _JetStreamAccountLimits JetStreamAccountLimits
 
 // NewJetStreamAccountLimits instantiates a new JetStreamAccountLimits object
 // This constructor will assign default values to properties that have it defined,
@@ -265,6 +268,48 @@ func (o JetStreamAccountLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize["memory_max_stream_bytes"] = o.MemoryMaxStreamBytes
 	toSerialize["storage_max_stream_bytes"] = o.StorageMaxStreamBytes
 	return toSerialize, nil
+}
+
+func (o *JetStreamAccountLimits) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"max_ack_pending",
+		"max_bytes_required",
+		"max_consumers",
+		"max_memory",
+		"max_storage",
+		"max_streams",
+		"memory_max_stream_bytes",
+		"storage_max_stream_bytes",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJetStreamAccountLimits := _JetStreamAccountLimits{}
+
+	err = json.Unmarshal(bytes, &varJetStreamAccountLimits)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JetStreamAccountLimits(varJetStreamAccountLimits)
+
+	return err
 }
 
 type NullableJetStreamAccountLimits struct {

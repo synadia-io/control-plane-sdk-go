@@ -19,15 +19,15 @@ var _ MappedNullable = &AccountJWTSettings{}
 
 // AccountJWTSettings struct for AccountJWTSettings
 type AccountJWTSettings struct {
+	Description   *string                       `json:"description,omitempty"`
+	InfoUrl       *string                       `json:"info_url,omitempty"`
 	Authorization *Authorization                `json:"authorization,omitempty"`
 	Limits        *OperatorLimits               `json:"limits,omitempty"`
 	Mappings      *map[string][]WeightedMapping `json:"mappings,omitempty"`
 	// RevocationList is used to store a mapping of public keys to unix timestamps
 	Revocations *map[string]int64 `json:"revocations,omitempty"`
 	// TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments
-	Tags        []string `json:"tags,omitempty"`
-	Description *string  `json:"description,omitempty"`
-	InfoUrl     *string  `json:"info_url,omitempty"`
+	Tags []string `json:"tags,omitempty"`
 }
 
 // NewAccountJWTSettings instantiates a new AccountJWTSettings object
@@ -45,6 +45,70 @@ func NewAccountJWTSettings() *AccountJWTSettings {
 func NewAccountJWTSettingsWithDefaults() *AccountJWTSettings {
 	this := AccountJWTSettings{}
 	return &this
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *AccountJWTSettings) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountJWTSettings) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *AccountJWTSettings) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *AccountJWTSettings) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetInfoUrl returns the InfoUrl field value if set, zero value otherwise.
+func (o *AccountJWTSettings) GetInfoUrl() string {
+	if o == nil || IsNil(o.InfoUrl) {
+		var ret string
+		return ret
+	}
+	return *o.InfoUrl
+}
+
+// GetInfoUrlOk returns a tuple with the InfoUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountJWTSettings) GetInfoUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.InfoUrl) {
+		return nil, false
+	}
+	return o.InfoUrl, true
+}
+
+// HasInfoUrl returns a boolean if a field has been set.
+func (o *AccountJWTSettings) HasInfoUrl() bool {
+	if o != nil && !IsNil(o.InfoUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetInfoUrl gets a reference to the given string and assigns it to the InfoUrl field.
+func (o *AccountJWTSettings) SetInfoUrl(v string) {
+	o.InfoUrl = &v
 }
 
 // GetAuthorization returns the Authorization field value if set, zero value otherwise.
@@ -208,70 +272,6 @@ func (o *AccountJWTSettings) SetTags(v []string) {
 	o.Tags = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *AccountJWTSettings) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountJWTSettings) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *AccountJWTSettings) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *AccountJWTSettings) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetInfoUrl returns the InfoUrl field value if set, zero value otherwise.
-func (o *AccountJWTSettings) GetInfoUrl() string {
-	if o == nil || IsNil(o.InfoUrl) {
-		var ret string
-		return ret
-	}
-	return *o.InfoUrl
-}
-
-// GetInfoUrlOk returns a tuple with the InfoUrl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountJWTSettings) GetInfoUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.InfoUrl) {
-		return nil, false
-	}
-	return o.InfoUrl, true
-}
-
-// HasInfoUrl returns a boolean if a field has been set.
-func (o *AccountJWTSettings) HasInfoUrl() bool {
-	if o != nil && !IsNil(o.InfoUrl) {
-		return true
-	}
-
-	return false
-}
-
-// SetInfoUrl gets a reference to the given string and assigns it to the InfoUrl field.
-func (o *AccountJWTSettings) SetInfoUrl(v string) {
-	o.InfoUrl = &v
-}
-
 func (o AccountJWTSettings) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -282,6 +282,12 @@ func (o AccountJWTSettings) MarshalJSON() ([]byte, error) {
 
 func (o AccountJWTSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.InfoUrl) {
+		toSerialize["info_url"] = o.InfoUrl
+	}
 	if !IsNil(o.Authorization) {
 		toSerialize["authorization"] = o.Authorization
 	}
@@ -296,12 +302,6 @@ func (o AccountJWTSettings) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.InfoUrl) {
-		toSerialize["info_url"] = o.InfoUrl
 	}
 	return toSerialize, nil
 }

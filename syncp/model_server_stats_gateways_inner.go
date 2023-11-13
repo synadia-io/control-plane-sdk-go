@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ServerStatsGatewaysInner type satisfies the MappedNullable interface at compile time
@@ -25,6 +26,8 @@ type ServerStatsGatewaysInner struct {
 	Received           DataStats `json:"received"`
 	Sent               DataStats `json:"sent"`
 }
+
+type _ServerStatsGatewaysInner ServerStatsGatewaysInner
 
 // NewServerStatsGatewaysInner instantiates a new ServerStatsGatewaysInner object
 // This constructor will assign default values to properties that have it defined,
@@ -184,6 +187,45 @@ func (o ServerStatsGatewaysInner) ToMap() (map[string]interface{}, error) {
 	toSerialize["received"] = o.Received
 	toSerialize["sent"] = o.Sent
 	return toSerialize, nil
+}
+
+func (o *ServerStatsGatewaysInner) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"gwid",
+		"inbound_connections",
+		"name",
+		"received",
+		"sent",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerStatsGatewaysInner := _ServerStatsGatewaysInner{}
+
+	err = json.Unmarshal(bytes, &varServerStatsGatewaysInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerStatsGatewaysInner(varServerStatsGatewaysInner)
+
+	return err
 }
 
 type NullableServerStatsGatewaysInner struct {

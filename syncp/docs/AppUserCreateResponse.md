@@ -4,20 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InviteLink** | Pointer to **string** |  | [optional] 
 **Created** | **time.Time** |  | 
 **Id** | **string** |  | 
 **Identifier** | **NullableString** |  | 
 **Name** | **string** |  | 
+**OryId** | **NullableString** |  | 
 **RoleId** | **string** |  | 
 **RoleName** | **string** |  | 
+**TermsAcceptedUpdated** | **NullableString** |  | 
 **Type** | [**AppUserType**](AppUserType.md) |  | 
+**InviteLink** | **string** |  | 
 
 ## Methods
 
 ### NewAppUserCreateResponse
 
-`func NewAppUserCreateResponse(created time.Time, id string, identifier NullableString, name string, roleId string, roleName string, type_ AppUserType, ) *AppUserCreateResponse`
+`func NewAppUserCreateResponse(created time.Time, id string, identifier NullableString, name string, oryId NullableString, roleId string, roleName string, termsAcceptedUpdated NullableString, type_ AppUserType, inviteLink string, ) *AppUserCreateResponse`
 
 NewAppUserCreateResponse instantiates a new AppUserCreateResponse object
 This constructor will assign default values to properties that have it defined,
@@ -31,31 +33,6 @@ will change when the set of required properties is changed
 NewAppUserCreateResponseWithDefaults instantiates a new AppUserCreateResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetInviteLink
-
-`func (o *AppUserCreateResponse) GetInviteLink() string`
-
-GetInviteLink returns the InviteLink field if non-nil, zero value otherwise.
-
-### GetInviteLinkOk
-
-`func (o *AppUserCreateResponse) GetInviteLinkOk() (*string, bool)`
-
-GetInviteLinkOk returns a tuple with the InviteLink field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInviteLink
-
-`func (o *AppUserCreateResponse) SetInviteLink(v string)`
-
-SetInviteLink sets InviteLink field to given value.
-
-### HasInviteLink
-
-`func (o *AppUserCreateResponse) HasInviteLink() bool`
-
-HasInviteLink returns a boolean if a field has been set.
 
 ### GetCreated
 
@@ -147,6 +124,36 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetOryId
+
+`func (o *AppUserCreateResponse) GetOryId() string`
+
+GetOryId returns the OryId field if non-nil, zero value otherwise.
+
+### GetOryIdOk
+
+`func (o *AppUserCreateResponse) GetOryIdOk() (*string, bool)`
+
+GetOryIdOk returns a tuple with the OryId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOryId
+
+`func (o *AppUserCreateResponse) SetOryId(v string)`
+
+SetOryId sets OryId field to given value.
+
+
+### SetOryIdNil
+
+`func (o *AppUserCreateResponse) SetOryIdNil(b bool)`
+
+ SetOryIdNil sets the value for OryId to be an explicit nil
+
+### UnsetOryId
+`func (o *AppUserCreateResponse) UnsetOryId()`
+
+UnsetOryId ensures that no value is present for OryId, not even an explicit nil
 ### GetRoleId
 
 `func (o *AppUserCreateResponse) GetRoleId() string`
@@ -187,6 +194,36 @@ and a boolean to check if the value has been set.
 SetRoleName sets RoleName field to given value.
 
 
+### GetTermsAcceptedUpdated
+
+`func (o *AppUserCreateResponse) GetTermsAcceptedUpdated() string`
+
+GetTermsAcceptedUpdated returns the TermsAcceptedUpdated field if non-nil, zero value otherwise.
+
+### GetTermsAcceptedUpdatedOk
+
+`func (o *AppUserCreateResponse) GetTermsAcceptedUpdatedOk() (*string, bool)`
+
+GetTermsAcceptedUpdatedOk returns a tuple with the TermsAcceptedUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTermsAcceptedUpdated
+
+`func (o *AppUserCreateResponse) SetTermsAcceptedUpdated(v string)`
+
+SetTermsAcceptedUpdated sets TermsAcceptedUpdated field to given value.
+
+
+### SetTermsAcceptedUpdatedNil
+
+`func (o *AppUserCreateResponse) SetTermsAcceptedUpdatedNil(b bool)`
+
+ SetTermsAcceptedUpdatedNil sets the value for TermsAcceptedUpdated to be an explicit nil
+
+### UnsetTermsAcceptedUpdated
+`func (o *AppUserCreateResponse) UnsetTermsAcceptedUpdated()`
+
+UnsetTermsAcceptedUpdated ensures that no value is present for TermsAcceptedUpdated, not even an explicit nil
 ### GetType
 
 `func (o *AppUserCreateResponse) GetType() AppUserType`
@@ -205,6 +242,26 @@ and a boolean to check if the value has been set.
 `func (o *AppUserCreateResponse) SetType(v AppUserType)`
 
 SetType sets Type field to given value.
+
+
+### GetInviteLink
+
+`func (o *AppUserCreateResponse) GetInviteLink() string`
+
+GetInviteLink returns the InviteLink field if non-nil, zero value otherwise.
+
+### GetInviteLinkOk
+
+`func (o *AppUserCreateResponse) GetInviteLinkOk() (*string, bool)`
+
+GetInviteLinkOk returns a tuple with the InviteLink field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInviteLink
+
+`func (o *AppUserCreateResponse) SetInviteLink(v string)`
+
+SetInviteLink sets InviteLink field to given value.
 
 
 

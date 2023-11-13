@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountPublicKey** | **string** |  | 
 **Id** | **string** |  | 
+**IsScpAccount** | **bool** |  | 
 **IsSystemAccount** | **bool** |  | 
 **Name** | **string** |  | 
 **UserJwtExpiresInSecs** | **int64** |  | 
@@ -14,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewAlertViewResponseAccount
 
-`func NewAlertViewResponseAccount(accountPublicKey string, id string, isSystemAccount bool, name string, userJwtExpiresInSecs int64, ) *AlertViewResponseAccount`
+`func NewAlertViewResponseAccount(accountPublicKey string, id string, isScpAccount bool, isSystemAccount bool, name string, userJwtExpiresInSecs int64, ) *AlertViewResponseAccount`
 
 NewAlertViewResponseAccount instantiates a new AlertViewResponseAccount object
 This constructor will assign default values to properties that have it defined,
@@ -67,6 +68,26 @@ and a boolean to check if the value has been set.
 `func (o *AlertViewResponseAccount) SetId(v string)`
 
 SetId sets Id field to given value.
+
+
+### GetIsScpAccount
+
+`func (o *AlertViewResponseAccount) GetIsScpAccount() bool`
+
+GetIsScpAccount returns the IsScpAccount field if non-nil, zero value otherwise.
+
+### GetIsScpAccountOk
+
+`func (o *AlertViewResponseAccount) GetIsScpAccountOk() (*bool, bool)`
+
+GetIsScpAccountOk returns a tuple with the IsScpAccount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsScpAccount
+
+`func (o *AlertViewResponseAccount) SetIsScpAccount(v bool)`
+
+SetIsScpAccount sets IsScpAccount field to given value.
 
 
 ### GetIsSystemAccount

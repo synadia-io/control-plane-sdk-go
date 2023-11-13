@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the JSConsumerInfoListResponse type satisfies the MappedNullable interface at compile time
@@ -21,6 +22,8 @@ var _ MappedNullable = &JSConsumerInfoListResponse{}
 type JSConsumerInfoListResponse struct {
 	Items []JSConsumerInfoResponse `json:"items"`
 }
+
+type _JSConsumerInfoListResponse JSConsumerInfoListResponse
 
 // NewJSConsumerInfoListResponse instantiates a new JSConsumerInfoListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -76,6 +79,41 @@ func (o JSConsumerInfoListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
+}
+
+func (o *JSConsumerInfoListResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"items",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJSConsumerInfoListResponse := _JSConsumerInfoListResponse{}
+
+	err = json.Unmarshal(bytes, &varJSConsumerInfoListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JSConsumerInfoListResponse(varJSConsumerInfoListResponse)
+
+	return err
 }
 
 type NullableJSConsumerInfoListResponse struct {

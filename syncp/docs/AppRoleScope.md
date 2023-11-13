@@ -5,6 +5,8 @@
 
 * `APP` (value: `"App"`)
 
+* `TEAM` (value: `"Team"`)
+
 * `SYSTEM` (value: `"System"`)
 
 * `ACCOUNT` (value: `"Account"`)

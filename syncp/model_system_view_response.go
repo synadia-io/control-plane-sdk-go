@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SystemViewResponse type satisfies the MappedNullable interface at compile time
@@ -19,31 +20,41 @@ var _ MappedNullable = &SystemViewResponse{}
 
 // SystemViewResponse struct for SystemViewResponse
 type SystemViewResponse struct {
+	AgentType               string          `json:"agent_type"`
 	HasManagedOperator      bool            `json:"has_managed_operator"`
 	HasManagedSystemAccount bool            `json:"has_managed_system_account"`
+	HostSystemId            NullableString  `json:"host_system_id,omitempty"`
 	Id                      string          `json:"id"`
+	IsTenant                bool            `json:"is_tenant"`
 	JetstreamDomain         NullableString  `json:"jetstream_domain,omitempty"`
 	JetstreamEnabled        bool            `json:"jetstream_enabled"`
+	JetstreamTiers          []string        `json:"jetstream_tiers,omitempty"`
 	Name                    string          `json:"name"`
 	OperatorClaims          *OperatorClaims `json:"operator_claims,omitempty"`
 	OperatorJwt             *string         `json:"operator_jwt,omitempty"`
 	State                   SystemState     `json:"state"`
 	SystemAccountJwt        *string         `json:"system_account_jwt,omitempty"`
+	Team                    TeamInfo        `json:"team"`
 	UserJwtExpiresInSecs    int64           `json:"user_jwt_expires_in_secs"`
 }
+
+type _SystemViewResponse SystemViewResponse
 
 // NewSystemViewResponse instantiates a new SystemViewResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemViewResponse(hasManagedOperator bool, hasManagedSystemAccount bool, id string, jetstreamEnabled bool, name string, state SystemState, userJwtExpiresInSecs int64) *SystemViewResponse {
+func NewSystemViewResponse(agentType string, hasManagedOperator bool, hasManagedSystemAccount bool, id string, isTenant bool, jetstreamEnabled bool, name string, state SystemState, team TeamInfo, userJwtExpiresInSecs int64) *SystemViewResponse {
 	this := SystemViewResponse{}
+	this.AgentType = agentType
 	this.HasManagedOperator = hasManagedOperator
 	this.HasManagedSystemAccount = hasManagedSystemAccount
 	this.Id = id
+	this.IsTenant = isTenant
 	this.JetstreamEnabled = jetstreamEnabled
 	this.Name = name
 	this.State = state
+	this.Team = team
 	this.UserJwtExpiresInSecs = userJwtExpiresInSecs
 	return &this
 }
@@ -54,6 +65,30 @@ func NewSystemViewResponse(hasManagedOperator bool, hasManagedSystemAccount bool
 func NewSystemViewResponseWithDefaults() *SystemViewResponse {
 	this := SystemViewResponse{}
 	return &this
+}
+
+// GetAgentType returns the AgentType field value
+func (o *SystemViewResponse) GetAgentType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AgentType
+}
+
+// GetAgentTypeOk returns a tuple with the AgentType field value
+// and a boolean to check if the value has been set.
+func (o *SystemViewResponse) GetAgentTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AgentType, true
+}
+
+// SetAgentType sets field value
+func (o *SystemViewResponse) SetAgentType(v string) {
+	o.AgentType = v
 }
 
 // GetHasManagedOperator returns the HasManagedOperator field value
@@ -104,6 +139,49 @@ func (o *SystemViewResponse) SetHasManagedSystemAccount(v bool) {
 	o.HasManagedSystemAccount = v
 }
 
+// GetHostSystemId returns the HostSystemId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SystemViewResponse) GetHostSystemId() string {
+	if o == nil || IsNil(o.HostSystemId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.HostSystemId.Get()
+}
+
+// GetHostSystemIdOk returns a tuple with the HostSystemId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SystemViewResponse) GetHostSystemIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.HostSystemId.Get(), o.HostSystemId.IsSet()
+}
+
+// HasHostSystemId returns a boolean if a field has been set.
+func (o *SystemViewResponse) HasHostSystemId() bool {
+	if o != nil && o.HostSystemId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetHostSystemId gets a reference to the given NullableString and assigns it to the HostSystemId field.
+func (o *SystemViewResponse) SetHostSystemId(v string) {
+	o.HostSystemId.Set(&v)
+}
+
+// SetHostSystemIdNil sets the value for HostSystemId to be an explicit nil
+func (o *SystemViewResponse) SetHostSystemIdNil() {
+	o.HostSystemId.Set(nil)
+}
+
+// UnsetHostSystemId ensures that no value is present for HostSystemId, not even an explicit nil
+func (o *SystemViewResponse) UnsetHostSystemId() {
+	o.HostSystemId.Unset()
+}
+
 // GetId returns the Id field value
 func (o *SystemViewResponse) GetId() string {
 	if o == nil {
@@ -126,6 +204,30 @@ func (o *SystemViewResponse) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *SystemViewResponse) SetId(v string) {
 	o.Id = v
+}
+
+// GetIsTenant returns the IsTenant field value
+func (o *SystemViewResponse) GetIsTenant() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsTenant
+}
+
+// GetIsTenantOk returns a tuple with the IsTenant field value
+// and a boolean to check if the value has been set.
+func (o *SystemViewResponse) GetIsTenantOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsTenant, true
+}
+
+// SetIsTenant sets field value
+func (o *SystemViewResponse) SetIsTenant(v bool) {
+	o.IsTenant = v
 }
 
 // GetJetstreamDomain returns the JetstreamDomain field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -193,6 +295,38 @@ func (o *SystemViewResponse) GetJetstreamEnabledOk() (*bool, bool) {
 // SetJetstreamEnabled sets field value
 func (o *SystemViewResponse) SetJetstreamEnabled(v bool) {
 	o.JetstreamEnabled = v
+}
+
+// GetJetstreamTiers returns the JetstreamTiers field value if set, zero value otherwise.
+func (o *SystemViewResponse) GetJetstreamTiers() []string {
+	if o == nil || IsNil(o.JetstreamTiers) {
+		var ret []string
+		return ret
+	}
+	return o.JetstreamTiers
+}
+
+// GetJetstreamTiersOk returns a tuple with the JetstreamTiers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemViewResponse) GetJetstreamTiersOk() ([]string, bool) {
+	if o == nil || IsNil(o.JetstreamTiers) {
+		return nil, false
+	}
+	return o.JetstreamTiers, true
+}
+
+// HasJetstreamTiers returns a boolean if a field has been set.
+func (o *SystemViewResponse) HasJetstreamTiers() bool {
+	if o != nil && !IsNil(o.JetstreamTiers) {
+		return true
+	}
+
+	return false
+}
+
+// SetJetstreamTiers gets a reference to the given []string and assigns it to the JetstreamTiers field.
+func (o *SystemViewResponse) SetJetstreamTiers(v []string) {
+	o.JetstreamTiers = v
 }
 
 // GetName returns the Name field value
@@ -339,6 +473,30 @@ func (o *SystemViewResponse) SetSystemAccountJwt(v string) {
 	o.SystemAccountJwt = &v
 }
 
+// GetTeam returns the Team field value
+func (o *SystemViewResponse) GetTeam() TeamInfo {
+	if o == nil {
+		var ret TeamInfo
+		return ret
+	}
+
+	return o.Team
+}
+
+// GetTeamOk returns a tuple with the Team field value
+// and a boolean to check if the value has been set.
+func (o *SystemViewResponse) GetTeamOk() (*TeamInfo, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Team, true
+}
+
+// SetTeam sets field value
+func (o *SystemViewResponse) SetTeam(v TeamInfo) {
+	o.Team = v
+}
+
 // GetUserJwtExpiresInSecs returns the UserJwtExpiresInSecs field value
 func (o *SystemViewResponse) GetUserJwtExpiresInSecs() int64 {
 	if o == nil {
@@ -373,13 +531,21 @@ func (o SystemViewResponse) MarshalJSON() ([]byte, error) {
 
 func (o SystemViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["agent_type"] = o.AgentType
 	toSerialize["has_managed_operator"] = o.HasManagedOperator
 	toSerialize["has_managed_system_account"] = o.HasManagedSystemAccount
+	if o.HostSystemId.IsSet() {
+		toSerialize["host_system_id"] = o.HostSystemId.Get()
+	}
 	toSerialize["id"] = o.Id
+	toSerialize["is_tenant"] = o.IsTenant
 	if o.JetstreamDomain.IsSet() {
 		toSerialize["jetstream_domain"] = o.JetstreamDomain.Get()
 	}
 	toSerialize["jetstream_enabled"] = o.JetstreamEnabled
+	if !IsNil(o.JetstreamTiers) {
+		toSerialize["jetstream_tiers"] = o.JetstreamTiers
+	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.OperatorClaims) {
 		toSerialize["operator_claims"] = o.OperatorClaims
@@ -391,8 +557,53 @@ func (o SystemViewResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SystemAccountJwt) {
 		toSerialize["system_account_jwt"] = o.SystemAccountJwt
 	}
+	toSerialize["team"] = o.Team
 	toSerialize["user_jwt_expires_in_secs"] = o.UserJwtExpiresInSecs
 	return toSerialize, nil
+}
+
+func (o *SystemViewResponse) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"agent_type",
+		"has_managed_operator",
+		"has_managed_system_account",
+		"id",
+		"is_tenant",
+		"jetstream_enabled",
+		"name",
+		"state",
+		"team",
+		"user_jwt_expires_in_secs",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSystemViewResponse := _SystemViewResponse{}
+
+	err = json.Unmarshal(bytes, &varSystemViewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SystemViewResponse(varSystemViewResponse)
+
+	return err
 }
 
 type NullableSystemViewResponse struct {

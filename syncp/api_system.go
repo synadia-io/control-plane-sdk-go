@@ -16,26 +16,27 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 )
 
 type SystemAPI interface {
 
 	/*
-		AssignSystemAppUser Assign App User to System
+		AssignSystemTeamAppUser Assign Team App User to System
 
-		Assign an App User to a System
+		Assign an Team App User to a System
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param systemId
-		@param appUserId
-		@return ApiAssignSystemAppUserRequest
+		@param teamAppUserId
+		@return ApiAssignSystemTeamAppUserRequest
 	*/
-	AssignSystemAppUser(ctx context.Context, systemId string, appUserId string) ApiAssignSystemAppUserRequest
+	AssignSystemTeamAppUser(ctx context.Context, systemId string, teamAppUserId string) ApiAssignSystemTeamAppUserRequest
 
-	// AssignSystemAppUserExecute executes the request
+	// AssignSystemTeamAppUserExecute executes the request
 	//  @return AppUserAssignResponse
-	AssignSystemAppUserExecute(r ApiAssignSystemAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
+	AssignSystemTeamAppUserExecute(r ApiAssignSystemTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
 
 	/*
 		CreateAccount Create Account
@@ -97,6 +98,21 @@ type SystemAPI interface {
 	DeleteSystemAlertRuleExecute(r ApiDeleteSystemAlertRuleRequest) (*http.Response, error)
 
 	/*
+		DownloadSystemLogs Download Logs
+
+		Download System Logs
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiDownloadSystemLogsRequest
+	*/
+	DownloadSystemLogs(ctx context.Context, systemId string) ApiDownloadSystemLogsRequest
+
+	// DownloadSystemLogsExecute executes the request
+	//  @return *os.File
+	DownloadSystemLogsExecute(r ApiDownloadSystemLogsRequest) (*os.File, *http.Response, error)
+
+	/*
 		GetCurrentAgentToken Get Current Agent Token
 
 		Get the Current Agent Token
@@ -143,6 +159,21 @@ type SystemAPI interface {
 	GetSystemAlertRuleExecute(r ApiGetSystemAlertRuleRequest) (*AlertRuleViewResponse, *http.Response, error)
 
 	/*
+		GetSystemLimits Get System Limits
+
+		Get system total and allocated limits
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiGetSystemLimitsRequest
+	*/
+	GetSystemLimits(ctx context.Context, systemId string) ApiGetSystemLimitsRequest
+
+	// GetSystemLimitsExecute executes the request
+	//  @return SystemLimitsResponse
+	GetSystemLimitsExecute(r ApiGetSystemLimitsRequest) (*SystemLimitsResponse, *http.Response, error)
+
+	/*
 		ImportAccount Import Account
 
 		Imports an existing account
@@ -185,6 +216,21 @@ type SystemAPI interface {
 	// ListAccountsExecute executes the request
 	//  @return AccountListResponse
 	ListAccountsExecute(r ApiListAccountsRequest) (*AccountListResponse, *http.Response, error)
+
+	/*
+		ListAccountsOverviewMetrics List Accounts overview metrics
+
+		List Accounts overview metrics
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiListAccountsOverviewMetricsRequest
+	*/
+	ListAccountsOverviewMetrics(ctx context.Context, systemId string) ApiListAccountsOverviewMetricsRequest
+
+	// ListAccountsOverviewMetricsExecute executes the request
+	//  @return AccountsOverviewListResponse
+	ListAccountsOverviewMetricsExecute(r ApiListAccountsOverviewMetricsRequest) (*AccountsOverviewListResponse, *http.Response, error)
 
 	/*
 		ListAgentTokens List Agent Tokens
@@ -262,19 +308,19 @@ type SystemAPI interface {
 	ListSystemAlertRulesExecute(r ApiListSystemAlertRulesRequest) (*AlertRuleListResponse, *http.Response, error)
 
 	/*
-		ListSystemAppUsers List App Users
+		ListSystemTeamAppUsers List System Team App Users
 
-		Returns a list of App Users associated with the System
+		Returns a list of Team App Users associated with the System
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param systemId
-		@return ApiListSystemAppUsersRequest
+		@return ApiListSystemTeamAppUsersRequest
 	*/
-	ListSystemAppUsers(ctx context.Context, systemId string) ApiListSystemAppUsersRequest
+	ListSystemTeamAppUsers(ctx context.Context, systemId string) ApiListSystemTeamAppUsersRequest
 
-	// ListSystemAppUsersExecute executes the request
+	// ListSystemTeamAppUsersExecute executes the request
 	//  @return AppUserAssignListResponse
-	ListSystemAppUsersExecute(r ApiListSystemAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error)
+	ListSystemTeamAppUsersExecute(r ApiListSystemTeamAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error)
 
 	/*
 		RotateAgentToken Rotate Agent Token
@@ -308,19 +354,19 @@ type SystemAPI interface {
 	RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequest) (*AlertViewResponse, *http.Response, error)
 
 	/*
-		UnAssignSystemAppUser Unassign App User from System
+		UnAssignSystemTeamAppUser Unassign Team App User from System
 
-		Unassign an App User from a System
+		Unassign a Team App User from a System
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param systemId
-		@param appUserId
-		@return ApiUnAssignSystemAppUserRequest
+		@param teamAppUserId
+		@return ApiUnAssignSystemTeamAppUserRequest
 	*/
-	UnAssignSystemAppUser(ctx context.Context, systemId string, appUserId string) ApiUnAssignSystemAppUserRequest
+	UnAssignSystemTeamAppUser(ctx context.Context, systemId string, teamAppUserId string) ApiUnAssignSystemTeamAppUserRequest
 
-	// UnAssignSystemAppUserExecute executes the request
-	UnAssignSystemAppUserExecute(r ApiUnAssignSystemAppUserRequest) (*http.Response, error)
+	// UnAssignSystemTeamAppUserExecute executes the request
+	UnAssignSystemTeamAppUserExecute(r ApiUnAssignSystemTeamAppUserRequest) (*http.Response, error)
 
 	/*
 		UpdateSystem Update System
@@ -357,46 +403,46 @@ type SystemAPI interface {
 // SystemAPIService SystemAPI service
 type SystemAPIService service
 
-type ApiAssignSystemAppUserRequest struct {
+type ApiAssignSystemTeamAppUserRequest struct {
 	ctx                  context.Context
 	ApiService           SystemAPI
 	systemId             string
-	appUserId            string
+	teamAppUserId        string
 	appUserAssignRequest *AppUserAssignRequest
 }
 
-func (r ApiAssignSystemAppUserRequest) AppUserAssignRequest(appUserAssignRequest AppUserAssignRequest) ApiAssignSystemAppUserRequest {
+func (r ApiAssignSystemTeamAppUserRequest) AppUserAssignRequest(appUserAssignRequest AppUserAssignRequest) ApiAssignSystemTeamAppUserRequest {
 	r.appUserAssignRequest = &appUserAssignRequest
 	return r
 }
 
-func (r ApiAssignSystemAppUserRequest) Execute() (*AppUserAssignResponse, *http.Response, error) {
-	return r.ApiService.AssignSystemAppUserExecute(r)
+func (r ApiAssignSystemTeamAppUserRequest) Execute() (*AppUserAssignResponse, *http.Response, error) {
+	return r.ApiService.AssignSystemTeamAppUserExecute(r)
 }
 
 /*
-AssignSystemAppUser Assign App User to System
+AssignSystemTeamAppUser Assign Team App User to System
 
-Assign an App User to a System
+Assign an Team App User to a System
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param systemId
-	@param appUserId
-	@return ApiAssignSystemAppUserRequest
+	@param teamAppUserId
+	@return ApiAssignSystemTeamAppUserRequest
 */
-func (a *SystemAPIService) AssignSystemAppUser(ctx context.Context, systemId string, appUserId string) ApiAssignSystemAppUserRequest {
-	return ApiAssignSystemAppUserRequest{
-		ApiService: a,
-		ctx:        ctx,
-		systemId:   systemId,
-		appUserId:  appUserId,
+func (a *SystemAPIService) AssignSystemTeamAppUser(ctx context.Context, systemId string, teamAppUserId string) ApiAssignSystemTeamAppUserRequest {
+	return ApiAssignSystemTeamAppUserRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		systemId:      systemId,
+		teamAppUserId: teamAppUserId,
 	}
 }
 
 // Execute executes the request
 //
 //	@return AppUserAssignResponse
-func (a *SystemAPIService) AssignSystemAppUserExecute(r ApiAssignSystemAppUserRequest) (*AppUserAssignResponse, *http.Response, error) {
+func (a *SystemAPIService) AssignSystemTeamAppUserExecute(r ApiAssignSystemTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -404,14 +450,14 @@ func (a *SystemAPIService) AssignSystemAppUserExecute(r ApiAssignSystemAppUserRe
 		localVarReturnValue *AppUserAssignResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.AssignSystemAppUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.AssignSystemTeamAppUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/app-users/{appUserId}"
+	localVarPath := localBasePath + "/systems/{systemId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -885,6 +931,110 @@ func (a *SystemAPIService) DeleteSystemAlertRuleExecute(r ApiDeleteSystemAlertRu
 	return localVarHTTPResponse, nil
 }
 
+type ApiDownloadSystemLogsRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiDownloadSystemLogsRequest) Execute() (*os.File, *http.Response, error) {
+	return r.ApiService.DownloadSystemLogsExecute(r)
+}
+
+/*
+DownloadSystemLogs Download Logs
+
+Download System Logs
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiDownloadSystemLogsRequest
+*/
+func (a *SystemAPIService) DownloadSystemLogs(ctx context.Context, systemId string) ApiDownloadSystemLogsRequest {
+	return ApiDownloadSystemLogsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return *os.File
+func (a *SystemAPIService) DownloadSystemLogsExecute(r ApiDownloadSystemLogsRequest) (*os.File, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *os.File
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.DownloadSystemLogs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/systems/{systemId}/logs"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/gzip"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetCurrentAgentTokenRequest struct {
 	ctx        context.Context
 	ApiService SystemAPI
@@ -1201,6 +1351,110 @@ func (a *SystemAPIService) GetSystemAlertRuleExecute(r ApiGetSystemAlertRuleRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetSystemLimitsRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiGetSystemLimitsRequest) Execute() (*SystemLimitsResponse, *http.Response, error) {
+	return r.ApiService.GetSystemLimitsExecute(r)
+}
+
+/*
+GetSystemLimits Get System Limits
+
+Get system total and allocated limits
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiGetSystemLimitsRequest
+*/
+func (a *SystemAPIService) GetSystemLimits(ctx context.Context, systemId string) ApiGetSystemLimitsRequest {
+	return ApiGetSystemLimitsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SystemLimitsResponse
+func (a *SystemAPIService) GetSystemLimitsExecute(r ApiGetSystemLimitsRequest) (*SystemLimitsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SystemLimitsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemLimits")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/systems/{systemId}/limits"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiImportAccountRequest struct {
 	ctx                        context.Context
 	ApiService                 SystemAPI
@@ -1457,6 +1711,110 @@ func (a *SystemAPIService) ListAccountsExecute(r ApiListAccountsRequest) (*Accou
 	}
 
 	localVarPath := localBasePath + "/systems/{systemId}/accounts"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListAccountsOverviewMetricsRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiListAccountsOverviewMetricsRequest) Execute() (*AccountsOverviewListResponse, *http.Response, error) {
+	return r.ApiService.ListAccountsOverviewMetricsExecute(r)
+}
+
+/*
+ListAccountsOverviewMetrics List Accounts overview metrics
+
+List Accounts overview metrics
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiListAccountsOverviewMetricsRequest
+*/
+func (a *SystemAPIService) ListAccountsOverviewMetrics(ctx context.Context, systemId string) ApiListAccountsOverviewMetricsRequest {
+	return ApiListAccountsOverviewMetricsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AccountsOverviewListResponse
+func (a *SystemAPIService) ListAccountsOverviewMetricsExecute(r ApiListAccountsOverviewMetricsRequest) (*AccountsOverviewListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountsOverviewListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListAccountsOverviewMetrics")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/systems/{systemId}/accounts-overview-metrics"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2100,27 +2458,27 @@ func (a *SystemAPIService) ListSystemAlertRulesExecute(r ApiListSystemAlertRules
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListSystemAppUsersRequest struct {
+type ApiListSystemTeamAppUsersRequest struct {
 	ctx        context.Context
 	ApiService SystemAPI
 	systemId   string
 }
 
-func (r ApiListSystemAppUsersRequest) Execute() (*AppUserAssignListResponse, *http.Response, error) {
-	return r.ApiService.ListSystemAppUsersExecute(r)
+func (r ApiListSystemTeamAppUsersRequest) Execute() (*AppUserAssignListResponse, *http.Response, error) {
+	return r.ApiService.ListSystemTeamAppUsersExecute(r)
 }
 
 /*
-ListSystemAppUsers List App Users
+ListSystemTeamAppUsers List System Team App Users
 
-Returns a list of App Users associated with the System
+Returns a list of Team App Users associated with the System
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param systemId
-	@return ApiListSystemAppUsersRequest
+	@return ApiListSystemTeamAppUsersRequest
 */
-func (a *SystemAPIService) ListSystemAppUsers(ctx context.Context, systemId string) ApiListSystemAppUsersRequest {
-	return ApiListSystemAppUsersRequest{
+func (a *SystemAPIService) ListSystemTeamAppUsers(ctx context.Context, systemId string) ApiListSystemTeamAppUsersRequest {
+	return ApiListSystemTeamAppUsersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		systemId:   systemId,
@@ -2130,7 +2488,7 @@ func (a *SystemAPIService) ListSystemAppUsers(ctx context.Context, systemId stri
 // Execute executes the request
 //
 //	@return AppUserAssignListResponse
-func (a *SystemAPIService) ListSystemAppUsersExecute(r ApiListSystemAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error) {
+func (a *SystemAPIService) ListSystemTeamAppUsersExecute(r ApiListSystemTeamAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2138,7 +2496,7 @@ func (a *SystemAPIService) ListSystemAppUsersExecute(r ApiListSystemAppUsersRequ
 		localVarReturnValue *AppUserAssignListResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListSystemAppUsers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListSystemTeamAppUsers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2424,52 +2782,52 @@ func (a *SystemAPIService) RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUnAssignSystemAppUserRequest struct {
-	ctx        context.Context
-	ApiService SystemAPI
-	systemId   string
-	appUserId  string
+type ApiUnAssignSystemTeamAppUserRequest struct {
+	ctx           context.Context
+	ApiService    SystemAPI
+	systemId      string
+	teamAppUserId string
 }
 
-func (r ApiUnAssignSystemAppUserRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UnAssignSystemAppUserExecute(r)
+func (r ApiUnAssignSystemTeamAppUserRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UnAssignSystemTeamAppUserExecute(r)
 }
 
 /*
-UnAssignSystemAppUser Unassign App User from System
+UnAssignSystemTeamAppUser Unassign Team App User from System
 
-Unassign an App User from a System
+Unassign a Team App User from a System
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param systemId
-	@param appUserId
-	@return ApiUnAssignSystemAppUserRequest
+	@param teamAppUserId
+	@return ApiUnAssignSystemTeamAppUserRequest
 */
-func (a *SystemAPIService) UnAssignSystemAppUser(ctx context.Context, systemId string, appUserId string) ApiUnAssignSystemAppUserRequest {
-	return ApiUnAssignSystemAppUserRequest{
-		ApiService: a,
-		ctx:        ctx,
-		systemId:   systemId,
-		appUserId:  appUserId,
+func (a *SystemAPIService) UnAssignSystemTeamAppUser(ctx context.Context, systemId string, teamAppUserId string) ApiUnAssignSystemTeamAppUserRequest {
+	return ApiUnAssignSystemTeamAppUserRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		systemId:      systemId,
+		teamAppUserId: teamAppUserId,
 	}
 }
 
 // Execute executes the request
-func (a *SystemAPIService) UnAssignSystemAppUserExecute(r ApiUnAssignSystemAppUserRequest) (*http.Response, error) {
+func (a *SystemAPIService) UnAssignSystemTeamAppUserExecute(r ApiUnAssignSystemTeamAppUserRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.UnAssignSystemAppUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.UnAssignSystemTeamAppUser")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/app-users/{appUserId}"
+	localVarPath := localBasePath + "/systems/{systemId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

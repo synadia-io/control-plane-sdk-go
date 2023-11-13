@@ -8,15 +8,17 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Identifier** | **NullableString** |  | 
 **Name** | **string** |  | 
+**OryId** | **NullableString** |  | 
 **RoleId** | **string** |  | 
 **RoleName** | **string** |  | 
+**TermsAcceptedUpdated** | **NullableString** |  | 
 **Type** | [**AppUserType**](AppUserType.md) |  | 
 
 ## Methods
 
 ### NewAppUserViewResponse
 
-`func NewAppUserViewResponse(created time.Time, id string, identifier NullableString, name string, roleId string, roleName string, type_ AppUserType, ) *AppUserViewResponse`
+`func NewAppUserViewResponse(created time.Time, id string, identifier NullableString, name string, oryId NullableString, roleId string, roleName string, termsAcceptedUpdated NullableString, type_ AppUserType, ) *AppUserViewResponse`
 
 NewAppUserViewResponse instantiates a new AppUserViewResponse object
 This constructor will assign default values to properties that have it defined,
@@ -121,6 +123,36 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetOryId
+
+`func (o *AppUserViewResponse) GetOryId() string`
+
+GetOryId returns the OryId field if non-nil, zero value otherwise.
+
+### GetOryIdOk
+
+`func (o *AppUserViewResponse) GetOryIdOk() (*string, bool)`
+
+GetOryIdOk returns a tuple with the OryId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOryId
+
+`func (o *AppUserViewResponse) SetOryId(v string)`
+
+SetOryId sets OryId field to given value.
+
+
+### SetOryIdNil
+
+`func (o *AppUserViewResponse) SetOryIdNil(b bool)`
+
+ SetOryIdNil sets the value for OryId to be an explicit nil
+
+### UnsetOryId
+`func (o *AppUserViewResponse) UnsetOryId()`
+
+UnsetOryId ensures that no value is present for OryId, not even an explicit nil
 ### GetRoleId
 
 `func (o *AppUserViewResponse) GetRoleId() string`
@@ -161,6 +193,36 @@ and a boolean to check if the value has been set.
 SetRoleName sets RoleName field to given value.
 
 
+### GetTermsAcceptedUpdated
+
+`func (o *AppUserViewResponse) GetTermsAcceptedUpdated() string`
+
+GetTermsAcceptedUpdated returns the TermsAcceptedUpdated field if non-nil, zero value otherwise.
+
+### GetTermsAcceptedUpdatedOk
+
+`func (o *AppUserViewResponse) GetTermsAcceptedUpdatedOk() (*string, bool)`
+
+GetTermsAcceptedUpdatedOk returns a tuple with the TermsAcceptedUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTermsAcceptedUpdated
+
+`func (o *AppUserViewResponse) SetTermsAcceptedUpdated(v string)`
+
+SetTermsAcceptedUpdated sets TermsAcceptedUpdated field to given value.
+
+
+### SetTermsAcceptedUpdatedNil
+
+`func (o *AppUserViewResponse) SetTermsAcceptedUpdatedNil(b bool)`
+
+ SetTermsAcceptedUpdatedNil sets the value for TermsAcceptedUpdated to be an explicit nil
+
+### UnsetTermsAcceptedUpdated
+`func (o *AppUserViewResponse) UnsetTermsAcceptedUpdated()`
+
+UnsetTermsAcceptedUpdated ensures that no value is present for TermsAcceptedUpdated, not even an explicit nil
 ### GetType
 
 `func (o *AppUserViewResponse) GetType() AppUserType`

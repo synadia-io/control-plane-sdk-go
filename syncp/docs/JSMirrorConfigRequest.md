@@ -4,8 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Mirror** | Pointer to [**StreamSource**](StreamSource.md) |  | [optional] 
-**MirrorDirect** | Pointer to **bool** |  | [optional] 
 **AllowDirect** | **bool** |  | 
 **AllowRollupHdrs** | **bool** |  | 
 **DenyDelete** | **bool** |  | 
@@ -30,12 +28,14 @@ Name | Type | Description | Notes
 **Sources** | Pointer to [**[]StreamSource**](StreamSource.md) |  | [optional] 
 **Storage** | [**StorageType**](StorageType.md) |  | 
 **TemplateOwner** | Pointer to **string** |  | [optional] 
+**Mirror** | [**StreamSource**](StreamSource.md) |  | 
+**MirrorDirect** | **bool** |  | 
 
 ## Methods
 
 ### NewJSMirrorConfigRequest
 
-`func NewJSMirrorConfigRequest(allowDirect bool, allowRollupHdrs bool, denyDelete bool, denyPurge bool, discard DiscardPolicy, maxAge int64, maxBytes int64, maxConsumers int32, maxMsgs int64, maxMsgsPerSubject int64, name string, numReplicas int32, retention RetentionPolicy, sealed bool, storage StorageType, ) *JSMirrorConfigRequest`
+`func NewJSMirrorConfigRequest(allowDirect bool, allowRollupHdrs bool, denyDelete bool, denyPurge bool, discard DiscardPolicy, maxAge int64, maxBytes int64, maxConsumers int32, maxMsgs int64, maxMsgsPerSubject int64, name string, numReplicas int32, retention RetentionPolicy, sealed bool, storage StorageType, mirror StreamSource, mirrorDirect bool, ) *JSMirrorConfigRequest`
 
 NewJSMirrorConfigRequest instantiates a new JSMirrorConfigRequest object
 This constructor will assign default values to properties that have it defined,
@@ -49,56 +49,6 @@ will change when the set of required properties is changed
 NewJSMirrorConfigRequestWithDefaults instantiates a new JSMirrorConfigRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetMirror
-
-`func (o *JSMirrorConfigRequest) GetMirror() StreamSource`
-
-GetMirror returns the Mirror field if non-nil, zero value otherwise.
-
-### GetMirrorOk
-
-`func (o *JSMirrorConfigRequest) GetMirrorOk() (*StreamSource, bool)`
-
-GetMirrorOk returns a tuple with the Mirror field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMirror
-
-`func (o *JSMirrorConfigRequest) SetMirror(v StreamSource)`
-
-SetMirror sets Mirror field to given value.
-
-### HasMirror
-
-`func (o *JSMirrorConfigRequest) HasMirror() bool`
-
-HasMirror returns a boolean if a field has been set.
-
-### GetMirrorDirect
-
-`func (o *JSMirrorConfigRequest) GetMirrorDirect() bool`
-
-GetMirrorDirect returns the MirrorDirect field if non-nil, zero value otherwise.
-
-### GetMirrorDirectOk
-
-`func (o *JSMirrorConfigRequest) GetMirrorDirectOk() (*bool, bool)`
-
-GetMirrorDirectOk returns a tuple with the MirrorDirect field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMirrorDirect
-
-`func (o *JSMirrorConfigRequest) SetMirrorDirect(v bool)`
-
-SetMirrorDirect sets MirrorDirect field to given value.
-
-### HasMirrorDirect
-
-`func (o *JSMirrorConfigRequest) HasMirrorDirect() bool`
-
-HasMirrorDirect returns a boolean if a field has been set.
 
 ### GetAllowDirect
 
@@ -654,6 +604,46 @@ SetTemplateOwner sets TemplateOwner field to given value.
 `func (o *JSMirrorConfigRequest) HasTemplateOwner() bool`
 
 HasTemplateOwner returns a boolean if a field has been set.
+
+### GetMirror
+
+`func (o *JSMirrorConfigRequest) GetMirror() StreamSource`
+
+GetMirror returns the Mirror field if non-nil, zero value otherwise.
+
+### GetMirrorOk
+
+`func (o *JSMirrorConfigRequest) GetMirrorOk() (*StreamSource, bool)`
+
+GetMirrorOk returns a tuple with the Mirror field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMirror
+
+`func (o *JSMirrorConfigRequest) SetMirror(v StreamSource)`
+
+SetMirror sets Mirror field to given value.
+
+
+### GetMirrorDirect
+
+`func (o *JSMirrorConfigRequest) GetMirrorDirect() bool`
+
+GetMirrorDirect returns the MirrorDirect field if non-nil, zero value otherwise.
+
+### GetMirrorDirectOk
+
+`func (o *JSMirrorConfigRequest) GetMirrorDirectOk() (*bool, bool)`
+
+GetMirrorDirectOk returns a tuple with the MirrorDirect field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMirrorDirect
+
+`func (o *JSMirrorConfigRequest) SetMirrorDirect(v bool)`
+
+SetMirrorDirect sets MirrorDirect field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

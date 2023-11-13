@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Config** | Pointer to [**JSCommonStreamConfig**](JSCommonStreamConfig.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**JetstreamType** | Pointer to [**JSType**](JSType.md) |  | [optional] 
 **Alternates** | Pointer to [**[]StreamAlternate**](StreamAlternate.md) |  | [optional] 
 **Cluster** | Pointer to [**ClusterInfo**](ClusterInfo.md) |  | [optional] 
 **Created** | **time.Time** |  | 
 **Sources** | Pointer to [**[]StreamSourceInfo**](StreamSourceInfo.md) |  | [optional] 
 **State** | [**StreamState**](StreamState.md) |  | 
+**Config** | [**JSCommonStreamConfig**](JSCommonStreamConfig.md) |  | 
+**Id** | **string** |  | 
+**JetstreamType** | [**JSType**](JSType.md) |  | 
 
 ## Methods
 
 ### NewJSAssetInfoResponse
 
-`func NewJSAssetInfoResponse(created time.Time, state StreamState, ) *JSAssetInfoResponse`
+`func NewJSAssetInfoResponse(created time.Time, state StreamState, config JSCommonStreamConfig, id string, jetstreamType JSType, ) *JSAssetInfoResponse`
 
 NewJSAssetInfoResponse instantiates a new JSAssetInfoResponse object
 This constructor will assign default values to properties that have it defined,
@@ -31,81 +31,6 @@ will change when the set of required properties is changed
 NewJSAssetInfoResponseWithDefaults instantiates a new JSAssetInfoResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetConfig
-
-`func (o *JSAssetInfoResponse) GetConfig() JSCommonStreamConfig`
-
-GetConfig returns the Config field if non-nil, zero value otherwise.
-
-### GetConfigOk
-
-`func (o *JSAssetInfoResponse) GetConfigOk() (*JSCommonStreamConfig, bool)`
-
-GetConfigOk returns a tuple with the Config field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetConfig
-
-`func (o *JSAssetInfoResponse) SetConfig(v JSCommonStreamConfig)`
-
-SetConfig sets Config field to given value.
-
-### HasConfig
-
-`func (o *JSAssetInfoResponse) HasConfig() bool`
-
-HasConfig returns a boolean if a field has been set.
-
-### GetId
-
-`func (o *JSAssetInfoResponse) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *JSAssetInfoResponse) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *JSAssetInfoResponse) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *JSAssetInfoResponse) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
-### GetJetstreamType
-
-`func (o *JSAssetInfoResponse) GetJetstreamType() JSType`
-
-GetJetstreamType returns the JetstreamType field if non-nil, zero value otherwise.
-
-### GetJetstreamTypeOk
-
-`func (o *JSAssetInfoResponse) GetJetstreamTypeOk() (*JSType, bool)`
-
-GetJetstreamTypeOk returns a tuple with the JetstreamType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetJetstreamType
-
-`func (o *JSAssetInfoResponse) SetJetstreamType(v JSType)`
-
-SetJetstreamType sets JetstreamType field to given value.
-
-### HasJetstreamType
-
-`func (o *JSAssetInfoResponse) HasJetstreamType() bool`
-
-HasJetstreamType returns a boolean if a field has been set.
 
 ### GetAlternates
 
@@ -220,6 +145,66 @@ and a boolean to check if the value has been set.
 `func (o *JSAssetInfoResponse) SetState(v StreamState)`
 
 SetState sets State field to given value.
+
+
+### GetConfig
+
+`func (o *JSAssetInfoResponse) GetConfig() JSCommonStreamConfig`
+
+GetConfig returns the Config field if non-nil, zero value otherwise.
+
+### GetConfigOk
+
+`func (o *JSAssetInfoResponse) GetConfigOk() (*JSCommonStreamConfig, bool)`
+
+GetConfigOk returns a tuple with the Config field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfig
+
+`func (o *JSAssetInfoResponse) SetConfig(v JSCommonStreamConfig)`
+
+SetConfig sets Config field to given value.
+
+
+### GetId
+
+`func (o *JSAssetInfoResponse) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *JSAssetInfoResponse) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *JSAssetInfoResponse) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetJetstreamType
+
+`func (o *JSAssetInfoResponse) GetJetstreamType() JSType`
+
+GetJetstreamType returns the JetstreamType field if non-nil, zero value otherwise.
+
+### GetJetstreamTypeOk
+
+`func (o *JSAssetInfoResponse) GetJetstreamTypeOk() (*JSType, bool)`
+
+GetJetstreamTypeOk returns a tuple with the JetstreamType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJetstreamType
+
+`func (o *JSAssetInfoResponse) SetJetstreamType(v JSType)`
+
+SetJetstreamType sets JetstreamType field to given value.
 
 
 

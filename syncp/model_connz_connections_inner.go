@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -55,6 +56,8 @@ type ConnzConnectionsInner struct {
 	Uptime         string                      `json:"uptime"`
 	Version        *string                     `json:"version,omitempty"`
 }
+
+type _ConnzConnectionsInner ConnzConnectionsInner
 
 // NewConnzConnectionsInner instantiates a new ConnzConnectionsInner object
 // This constructor will assign default values to properties that have it defined,
@@ -1134,6 +1137,53 @@ func (o ConnzConnectionsInner) ToMap() (map[string]interface{}, error) {
 		toSerialize["version"] = o.Version
 	}
 	return toSerialize, nil
+}
+
+func (o *ConnzConnectionsInner) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"cid",
+		"idle",
+		"in_bytes",
+		"in_msgs",
+		"ip",
+		"last_activity",
+		"out_bytes",
+		"out_msgs",
+		"pending_bytes",
+		"port",
+		"start",
+		"subscriptions",
+		"uptime",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varConnzConnectionsInner := _ConnzConnectionsInner{}
+
+	err = json.Unmarshal(bytes, &varConnzConnectionsInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ConnzConnectionsInner(varConnzConnectionsInner)
+
+	return err
 }
 
 type NullableConnzConnectionsInner struct {

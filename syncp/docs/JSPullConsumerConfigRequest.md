@@ -4,10 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaxBatch** | Pointer to **int32** |  | [optional] 
-**MaxBytes** | Pointer to **int32** |  | [optional] 
-**MaxExpires** | Pointer to **int64** |  | [optional] 
-**MaxWaiting** | Pointer to **int32** | Pull based options. | [optional] 
 **AckPolicy** | [**AckPolicy**](AckPolicy.md) |  | 
 **AckWait** | Pointer to **int64** |  | [optional] 
 **Backoff** | Pointer to **[]int64** |  | [optional] 
@@ -26,6 +22,10 @@ Name | Type | Description | Notes
 **OptStartTime** | Pointer to **NullableString** |  | [optional] 
 **ReplayPolicy** | [**ReplayPolicy**](ReplayPolicy.md) |  | 
 **SampleFreq** | Pointer to **string** |  | [optional] 
+**MaxBatch** | Pointer to **int32** |  | [optional] 
+**MaxBytes** | Pointer to **int32** |  | [optional] 
+**MaxExpires** | Pointer to **int64** |  | [optional] 
+**MaxWaiting** | Pointer to **int32** | Pull based options. | [optional] 
 
 ## Methods
 
@@ -45,106 +45,6 @@ will change when the set of required properties is changed
 NewJSPullConsumerConfigRequestWithDefaults instantiates a new JSPullConsumerConfigRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetMaxBatch
-
-`func (o *JSPullConsumerConfigRequest) GetMaxBatch() int32`
-
-GetMaxBatch returns the MaxBatch field if non-nil, zero value otherwise.
-
-### GetMaxBatchOk
-
-`func (o *JSPullConsumerConfigRequest) GetMaxBatchOk() (*int32, bool)`
-
-GetMaxBatchOk returns a tuple with the MaxBatch field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMaxBatch
-
-`func (o *JSPullConsumerConfigRequest) SetMaxBatch(v int32)`
-
-SetMaxBatch sets MaxBatch field to given value.
-
-### HasMaxBatch
-
-`func (o *JSPullConsumerConfigRequest) HasMaxBatch() bool`
-
-HasMaxBatch returns a boolean if a field has been set.
-
-### GetMaxBytes
-
-`func (o *JSPullConsumerConfigRequest) GetMaxBytes() int32`
-
-GetMaxBytes returns the MaxBytes field if non-nil, zero value otherwise.
-
-### GetMaxBytesOk
-
-`func (o *JSPullConsumerConfigRequest) GetMaxBytesOk() (*int32, bool)`
-
-GetMaxBytesOk returns a tuple with the MaxBytes field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMaxBytes
-
-`func (o *JSPullConsumerConfigRequest) SetMaxBytes(v int32)`
-
-SetMaxBytes sets MaxBytes field to given value.
-
-### HasMaxBytes
-
-`func (o *JSPullConsumerConfigRequest) HasMaxBytes() bool`
-
-HasMaxBytes returns a boolean if a field has been set.
-
-### GetMaxExpires
-
-`func (o *JSPullConsumerConfigRequest) GetMaxExpires() int64`
-
-GetMaxExpires returns the MaxExpires field if non-nil, zero value otherwise.
-
-### GetMaxExpiresOk
-
-`func (o *JSPullConsumerConfigRequest) GetMaxExpiresOk() (*int64, bool)`
-
-GetMaxExpiresOk returns a tuple with the MaxExpires field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMaxExpires
-
-`func (o *JSPullConsumerConfigRequest) SetMaxExpires(v int64)`
-
-SetMaxExpires sets MaxExpires field to given value.
-
-### HasMaxExpires
-
-`func (o *JSPullConsumerConfigRequest) HasMaxExpires() bool`
-
-HasMaxExpires returns a boolean if a field has been set.
-
-### GetMaxWaiting
-
-`func (o *JSPullConsumerConfigRequest) GetMaxWaiting() int32`
-
-GetMaxWaiting returns the MaxWaiting field if non-nil, zero value otherwise.
-
-### GetMaxWaitingOk
-
-`func (o *JSPullConsumerConfigRequest) GetMaxWaitingOk() (*int32, bool)`
-
-GetMaxWaitingOk returns a tuple with the MaxWaiting field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMaxWaiting
-
-`func (o *JSPullConsumerConfigRequest) SetMaxWaiting(v int32)`
-
-SetMaxWaiting sets MaxWaiting field to given value.
-
-### HasMaxWaiting
-
-`func (o *JSPullConsumerConfigRequest) HasMaxWaiting() bool`
-
-HasMaxWaiting returns a boolean if a field has been set.
 
 ### GetAckPolicy
 
@@ -585,6 +485,106 @@ SetSampleFreq sets SampleFreq field to given value.
 `func (o *JSPullConsumerConfigRequest) HasSampleFreq() bool`
 
 HasSampleFreq returns a boolean if a field has been set.
+
+### GetMaxBatch
+
+`func (o *JSPullConsumerConfigRequest) GetMaxBatch() int32`
+
+GetMaxBatch returns the MaxBatch field if non-nil, zero value otherwise.
+
+### GetMaxBatchOk
+
+`func (o *JSPullConsumerConfigRequest) GetMaxBatchOk() (*int32, bool)`
+
+GetMaxBatchOk returns a tuple with the MaxBatch field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxBatch
+
+`func (o *JSPullConsumerConfigRequest) SetMaxBatch(v int32)`
+
+SetMaxBatch sets MaxBatch field to given value.
+
+### HasMaxBatch
+
+`func (o *JSPullConsumerConfigRequest) HasMaxBatch() bool`
+
+HasMaxBatch returns a boolean if a field has been set.
+
+### GetMaxBytes
+
+`func (o *JSPullConsumerConfigRequest) GetMaxBytes() int32`
+
+GetMaxBytes returns the MaxBytes field if non-nil, zero value otherwise.
+
+### GetMaxBytesOk
+
+`func (o *JSPullConsumerConfigRequest) GetMaxBytesOk() (*int32, bool)`
+
+GetMaxBytesOk returns a tuple with the MaxBytes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxBytes
+
+`func (o *JSPullConsumerConfigRequest) SetMaxBytes(v int32)`
+
+SetMaxBytes sets MaxBytes field to given value.
+
+### HasMaxBytes
+
+`func (o *JSPullConsumerConfigRequest) HasMaxBytes() bool`
+
+HasMaxBytes returns a boolean if a field has been set.
+
+### GetMaxExpires
+
+`func (o *JSPullConsumerConfigRequest) GetMaxExpires() int64`
+
+GetMaxExpires returns the MaxExpires field if non-nil, zero value otherwise.
+
+### GetMaxExpiresOk
+
+`func (o *JSPullConsumerConfigRequest) GetMaxExpiresOk() (*int64, bool)`
+
+GetMaxExpiresOk returns a tuple with the MaxExpires field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxExpires
+
+`func (o *JSPullConsumerConfigRequest) SetMaxExpires(v int64)`
+
+SetMaxExpires sets MaxExpires field to given value.
+
+### HasMaxExpires
+
+`func (o *JSPullConsumerConfigRequest) HasMaxExpires() bool`
+
+HasMaxExpires returns a boolean if a field has been set.
+
+### GetMaxWaiting
+
+`func (o *JSPullConsumerConfigRequest) GetMaxWaiting() int32`
+
+GetMaxWaiting returns the MaxWaiting field if non-nil, zero value otherwise.
+
+### GetMaxWaitingOk
+
+`func (o *JSPullConsumerConfigRequest) GetMaxWaitingOk() (*int32, bool)`
+
+GetMaxWaitingOk returns a tuple with the MaxWaiting field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxWaiting
+
+`func (o *JSPullConsumerConfigRequest) SetMaxWaiting(v int32)`
+
+SetMaxWaiting sets MaxWaiting field to given value.
+
+### HasMaxWaiting
+
+`func (o *JSPullConsumerConfigRequest) HasMaxWaiting() bool`
+
+HasMaxWaiting returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

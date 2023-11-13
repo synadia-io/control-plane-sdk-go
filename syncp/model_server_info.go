@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -31,6 +32,8 @@ type ServerInfo struct {
 	Time      time.Time `json:"time"`
 	Ver       string    `json:"ver"`
 }
+
+type _ServerInfo ServerInfo
 
 // NewServerInfo instantiates a new ServerInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -347,6 +350,47 @@ func (o ServerInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["time"] = o.Time
 	toSerialize["ver"] = o.Ver
 	return toSerialize, nil
+}
+
+func (o *ServerInfo) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"host",
+		"id",
+		"jetstream",
+		"name",
+		"seq",
+		"time",
+		"ver",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerInfo := _ServerInfo{}
+
+	err = json.Unmarshal(bytes, &varServerInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerInfo(varServerInfo)
+
+	return err
 }
 
 type NullableServerInfo struct {

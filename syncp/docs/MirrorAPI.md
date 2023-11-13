@@ -387,7 +387,7 @@ import (
 
 func main() {
     streamId := "streamId_example" // string | 
-    jSMirrorConfigRequest := *openapiclient.NewJSMirrorConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int32(123), int64(123), int64(123), "Name_example", int32(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file")) // JSMirrorConfigRequest |  (optional)
+    jSMirrorConfigRequest := *openapiclient.NewJSMirrorConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int32(123), int64(123), int64(123), "Name_example", int32(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file"), *openapiclient.NewStreamSource("Name_example"), false) // JSMirrorConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

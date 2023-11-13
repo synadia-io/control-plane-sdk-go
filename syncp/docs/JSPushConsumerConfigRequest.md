@@ -4,12 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeliverGroup** | Pointer to **string** |  | [optional] 
-**DeliverSubject** | Pointer to **string** | Push based options. | [optional] 
-**FlowControl** | Pointer to **bool** |  | [optional] 
-**HeadersOnly** | Pointer to **bool** |  | [optional] 
-**IdleHeartbeat** | Pointer to **int64** |  | [optional] 
-**RateLimitBps** | Pointer to **int32** |  | [optional] 
 **AckPolicy** | [**AckPolicy**](AckPolicy.md) |  | 
 **AckWait** | Pointer to **int64** |  | [optional] 
 **Backoff** | Pointer to **[]int64** |  | [optional] 
@@ -28,6 +22,12 @@ Name | Type | Description | Notes
 **OptStartTime** | Pointer to **NullableString** |  | [optional] 
 **ReplayPolicy** | [**ReplayPolicy**](ReplayPolicy.md) |  | 
 **SampleFreq** | Pointer to **string** |  | [optional] 
+**DeliverGroup** | Pointer to **string** |  | [optional] 
+**DeliverSubject** | Pointer to **string** | Push based options. | [optional] 
+**FlowControl** | Pointer to **bool** |  | [optional] 
+**HeadersOnly** | Pointer to **bool** |  | [optional] 
+**IdleHeartbeat** | Pointer to **int64** |  | [optional] 
+**RateLimitBps** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -47,156 +47,6 @@ will change when the set of required properties is changed
 NewJSPushConsumerConfigRequestWithDefaults instantiates a new JSPushConsumerConfigRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetDeliverGroup
-
-`func (o *JSPushConsumerConfigRequest) GetDeliverGroup() string`
-
-GetDeliverGroup returns the DeliverGroup field if non-nil, zero value otherwise.
-
-### GetDeliverGroupOk
-
-`func (o *JSPushConsumerConfigRequest) GetDeliverGroupOk() (*string, bool)`
-
-GetDeliverGroupOk returns a tuple with the DeliverGroup field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeliverGroup
-
-`func (o *JSPushConsumerConfigRequest) SetDeliverGroup(v string)`
-
-SetDeliverGroup sets DeliverGroup field to given value.
-
-### HasDeliverGroup
-
-`func (o *JSPushConsumerConfigRequest) HasDeliverGroup() bool`
-
-HasDeliverGroup returns a boolean if a field has been set.
-
-### GetDeliverSubject
-
-`func (o *JSPushConsumerConfigRequest) GetDeliverSubject() string`
-
-GetDeliverSubject returns the DeliverSubject field if non-nil, zero value otherwise.
-
-### GetDeliverSubjectOk
-
-`func (o *JSPushConsumerConfigRequest) GetDeliverSubjectOk() (*string, bool)`
-
-GetDeliverSubjectOk returns a tuple with the DeliverSubject field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeliverSubject
-
-`func (o *JSPushConsumerConfigRequest) SetDeliverSubject(v string)`
-
-SetDeliverSubject sets DeliverSubject field to given value.
-
-### HasDeliverSubject
-
-`func (o *JSPushConsumerConfigRequest) HasDeliverSubject() bool`
-
-HasDeliverSubject returns a boolean if a field has been set.
-
-### GetFlowControl
-
-`func (o *JSPushConsumerConfigRequest) GetFlowControl() bool`
-
-GetFlowControl returns the FlowControl field if non-nil, zero value otherwise.
-
-### GetFlowControlOk
-
-`func (o *JSPushConsumerConfigRequest) GetFlowControlOk() (*bool, bool)`
-
-GetFlowControlOk returns a tuple with the FlowControl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFlowControl
-
-`func (o *JSPushConsumerConfigRequest) SetFlowControl(v bool)`
-
-SetFlowControl sets FlowControl field to given value.
-
-### HasFlowControl
-
-`func (o *JSPushConsumerConfigRequest) HasFlowControl() bool`
-
-HasFlowControl returns a boolean if a field has been set.
-
-### GetHeadersOnly
-
-`func (o *JSPushConsumerConfigRequest) GetHeadersOnly() bool`
-
-GetHeadersOnly returns the HeadersOnly field if non-nil, zero value otherwise.
-
-### GetHeadersOnlyOk
-
-`func (o *JSPushConsumerConfigRequest) GetHeadersOnlyOk() (*bool, bool)`
-
-GetHeadersOnlyOk returns a tuple with the HeadersOnly field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHeadersOnly
-
-`func (o *JSPushConsumerConfigRequest) SetHeadersOnly(v bool)`
-
-SetHeadersOnly sets HeadersOnly field to given value.
-
-### HasHeadersOnly
-
-`func (o *JSPushConsumerConfigRequest) HasHeadersOnly() bool`
-
-HasHeadersOnly returns a boolean if a field has been set.
-
-### GetIdleHeartbeat
-
-`func (o *JSPushConsumerConfigRequest) GetIdleHeartbeat() int64`
-
-GetIdleHeartbeat returns the IdleHeartbeat field if non-nil, zero value otherwise.
-
-### GetIdleHeartbeatOk
-
-`func (o *JSPushConsumerConfigRequest) GetIdleHeartbeatOk() (*int64, bool)`
-
-GetIdleHeartbeatOk returns a tuple with the IdleHeartbeat field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIdleHeartbeat
-
-`func (o *JSPushConsumerConfigRequest) SetIdleHeartbeat(v int64)`
-
-SetIdleHeartbeat sets IdleHeartbeat field to given value.
-
-### HasIdleHeartbeat
-
-`func (o *JSPushConsumerConfigRequest) HasIdleHeartbeat() bool`
-
-HasIdleHeartbeat returns a boolean if a field has been set.
-
-### GetRateLimitBps
-
-`func (o *JSPushConsumerConfigRequest) GetRateLimitBps() int32`
-
-GetRateLimitBps returns the RateLimitBps field if non-nil, zero value otherwise.
-
-### GetRateLimitBpsOk
-
-`func (o *JSPushConsumerConfigRequest) GetRateLimitBpsOk() (*int32, bool)`
-
-GetRateLimitBpsOk returns a tuple with the RateLimitBps field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRateLimitBps
-
-`func (o *JSPushConsumerConfigRequest) SetRateLimitBps(v int32)`
-
-SetRateLimitBps sets RateLimitBps field to given value.
-
-### HasRateLimitBps
-
-`func (o *JSPushConsumerConfigRequest) HasRateLimitBps() bool`
-
-HasRateLimitBps returns a boolean if a field has been set.
 
 ### GetAckPolicy
 
@@ -637,6 +487,156 @@ SetSampleFreq sets SampleFreq field to given value.
 `func (o *JSPushConsumerConfigRequest) HasSampleFreq() bool`
 
 HasSampleFreq returns a boolean if a field has been set.
+
+### GetDeliverGroup
+
+`func (o *JSPushConsumerConfigRequest) GetDeliverGroup() string`
+
+GetDeliverGroup returns the DeliverGroup field if non-nil, zero value otherwise.
+
+### GetDeliverGroupOk
+
+`func (o *JSPushConsumerConfigRequest) GetDeliverGroupOk() (*string, bool)`
+
+GetDeliverGroupOk returns a tuple with the DeliverGroup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeliverGroup
+
+`func (o *JSPushConsumerConfigRequest) SetDeliverGroup(v string)`
+
+SetDeliverGroup sets DeliverGroup field to given value.
+
+### HasDeliverGroup
+
+`func (o *JSPushConsumerConfigRequest) HasDeliverGroup() bool`
+
+HasDeliverGroup returns a boolean if a field has been set.
+
+### GetDeliverSubject
+
+`func (o *JSPushConsumerConfigRequest) GetDeliverSubject() string`
+
+GetDeliverSubject returns the DeliverSubject field if non-nil, zero value otherwise.
+
+### GetDeliverSubjectOk
+
+`func (o *JSPushConsumerConfigRequest) GetDeliverSubjectOk() (*string, bool)`
+
+GetDeliverSubjectOk returns a tuple with the DeliverSubject field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeliverSubject
+
+`func (o *JSPushConsumerConfigRequest) SetDeliverSubject(v string)`
+
+SetDeliverSubject sets DeliverSubject field to given value.
+
+### HasDeliverSubject
+
+`func (o *JSPushConsumerConfigRequest) HasDeliverSubject() bool`
+
+HasDeliverSubject returns a boolean if a field has been set.
+
+### GetFlowControl
+
+`func (o *JSPushConsumerConfigRequest) GetFlowControl() bool`
+
+GetFlowControl returns the FlowControl field if non-nil, zero value otherwise.
+
+### GetFlowControlOk
+
+`func (o *JSPushConsumerConfigRequest) GetFlowControlOk() (*bool, bool)`
+
+GetFlowControlOk returns a tuple with the FlowControl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFlowControl
+
+`func (o *JSPushConsumerConfigRequest) SetFlowControl(v bool)`
+
+SetFlowControl sets FlowControl field to given value.
+
+### HasFlowControl
+
+`func (o *JSPushConsumerConfigRequest) HasFlowControl() bool`
+
+HasFlowControl returns a boolean if a field has been set.
+
+### GetHeadersOnly
+
+`func (o *JSPushConsumerConfigRequest) GetHeadersOnly() bool`
+
+GetHeadersOnly returns the HeadersOnly field if non-nil, zero value otherwise.
+
+### GetHeadersOnlyOk
+
+`func (o *JSPushConsumerConfigRequest) GetHeadersOnlyOk() (*bool, bool)`
+
+GetHeadersOnlyOk returns a tuple with the HeadersOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHeadersOnly
+
+`func (o *JSPushConsumerConfigRequest) SetHeadersOnly(v bool)`
+
+SetHeadersOnly sets HeadersOnly field to given value.
+
+### HasHeadersOnly
+
+`func (o *JSPushConsumerConfigRequest) HasHeadersOnly() bool`
+
+HasHeadersOnly returns a boolean if a field has been set.
+
+### GetIdleHeartbeat
+
+`func (o *JSPushConsumerConfigRequest) GetIdleHeartbeat() int64`
+
+GetIdleHeartbeat returns the IdleHeartbeat field if non-nil, zero value otherwise.
+
+### GetIdleHeartbeatOk
+
+`func (o *JSPushConsumerConfigRequest) GetIdleHeartbeatOk() (*int64, bool)`
+
+GetIdleHeartbeatOk returns a tuple with the IdleHeartbeat field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIdleHeartbeat
+
+`func (o *JSPushConsumerConfigRequest) SetIdleHeartbeat(v int64)`
+
+SetIdleHeartbeat sets IdleHeartbeat field to given value.
+
+### HasIdleHeartbeat
+
+`func (o *JSPushConsumerConfigRequest) HasIdleHeartbeat() bool`
+
+HasIdleHeartbeat returns a boolean if a field has been set.
+
+### GetRateLimitBps
+
+`func (o *JSPushConsumerConfigRequest) GetRateLimitBps() int32`
+
+GetRateLimitBps returns the RateLimitBps field if non-nil, zero value otherwise.
+
+### GetRateLimitBpsOk
+
+`func (o *JSPushConsumerConfigRequest) GetRateLimitBpsOk() (*int32, bool)`
+
+GetRateLimitBpsOk returns a tuple with the RateLimitBps field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRateLimitBps
+
+`func (o *JSPushConsumerConfigRequest) SetRateLimitBps(v int32)`
+
+SetRateLimitBps sets RateLimitBps field to given value.
+
+### HasRateLimitBps
+
+`func (o *JSPushConsumerConfigRequest) HasRateLimitBps() bool`
+
+HasRateLimitBps returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

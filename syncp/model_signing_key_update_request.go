@@ -12,6 +12,7 @@ package syncp
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SigningKeyUpdateRequest type satisfies the MappedNullable interface at compile time
@@ -22,6 +23,8 @@ type SigningKeyUpdateRequest struct {
 	Disabled bool    `json:"disabled"`
 	Seed     *string `json:"seed,omitempty"`
 }
+
+type _SigningKeyUpdateRequest SigningKeyUpdateRequest
 
 // NewSigningKeyUpdateRequest instantiates a new SigningKeyUpdateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -112,6 +115,41 @@ func (o SigningKeyUpdateRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["seed"] = o.Seed
 	}
 	return toSerialize, nil
+}
+
+func (o *SigningKeyUpdateRequest) UnmarshalJSON(bytes []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"disabled",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSigningKeyUpdateRequest := _SigningKeyUpdateRequest{}
+
+	err = json.Unmarshal(bytes, &varSigningKeyUpdateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SigningKeyUpdateRequest(varSigningKeyUpdateRequest)
+
+	return err
 }
 
 type NullableSigningKeyUpdateRequest struct {

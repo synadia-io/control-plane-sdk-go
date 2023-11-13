@@ -13,12 +13,14 @@ Name | Type | Description | Notes
 **RoleName** | **string** |  | 
 **Scope** | [**AppRoleScope**](AppRoleScope.md) |  | 
 **System** | Pointer to [**SystemInfo**](SystemInfo.md) |  | [optional] 
+**Team** | Pointer to [**TeamInfo**](TeamInfo.md) |  | [optional] 
+**TeamAppUser** | [**TeamAppUserInfo**](TeamAppUserInfo.md) |  | 
 
 ## Methods
 
 ### NewAppUserAssignResponse
 
-`func NewAppUserAssignResponse(appUser AppUserInfo, created time.Time, resourceId string, roleId string, roleName string, scope AppRoleScope, ) *AppUserAssignResponse`
+`func NewAppUserAssignResponse(appUser AppUserInfo, created time.Time, resourceId string, roleId string, roleName string, scope AppRoleScope, teamAppUser TeamAppUserInfo, ) *AppUserAssignResponse`
 
 NewAppUserAssignResponse instantiates a new AppUserAssignResponse object
 This constructor will assign default values to properties that have it defined,
@@ -227,6 +229,51 @@ SetSystem sets System field to given value.
 `func (o *AppUserAssignResponse) HasSystem() bool`
 
 HasSystem returns a boolean if a field has been set.
+
+### GetTeam
+
+`func (o *AppUserAssignResponse) GetTeam() TeamInfo`
+
+GetTeam returns the Team field if non-nil, zero value otherwise.
+
+### GetTeamOk
+
+`func (o *AppUserAssignResponse) GetTeamOk() (*TeamInfo, bool)`
+
+GetTeamOk returns a tuple with the Team field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeam
+
+`func (o *AppUserAssignResponse) SetTeam(v TeamInfo)`
+
+SetTeam sets Team field to given value.
+
+### HasTeam
+
+`func (o *AppUserAssignResponse) HasTeam() bool`
+
+HasTeam returns a boolean if a field has been set.
+
+### GetTeamAppUser
+
+`func (o *AppUserAssignResponse) GetTeamAppUser() TeamAppUserInfo`
+
+GetTeamAppUser returns the TeamAppUser field if non-nil, zero value otherwise.
+
+### GetTeamAppUserOk
+
+`func (o *AppUserAssignResponse) GetTeamAppUserOk() (*TeamAppUserInfo, bool)`
+
+GetTeamAppUserOk returns a tuple with the TeamAppUser field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeamAppUser
+
+`func (o *AppUserAssignResponse) SetTeamAppUser(v TeamAppUserInfo)`
+
+SetTeamAppUser sets TeamAppUser field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

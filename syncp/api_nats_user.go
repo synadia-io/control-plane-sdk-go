@@ -22,20 +22,20 @@ import (
 type NatsUserAPI interface {
 
 	/*
-		AssignNatsUserAppUser Assign App User to NATS User
+		AssignNatsUserTeamAppUser Assign Team App User to NATS User
 
-		Assign an App User to a NATS User
+		Assign a Team App User to a NATS User
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId
-		@param appUserId
-		@return ApiAssignNatsUserAppUserRequest
+		@param teamAppUserId
+		@return ApiAssignNatsUserTeamAppUserRequest
 	*/
-	AssignNatsUserAppUser(ctx context.Context, userId string, appUserId string) ApiAssignNatsUserAppUserRequest
+	AssignNatsUserTeamAppUser(ctx context.Context, userId string, teamAppUserId string) ApiAssignNatsUserTeamAppUserRequest
 
-	// AssignNatsUserAppUserExecute executes the request
+	// AssignNatsUserTeamAppUserExecute executes the request
 	//  @return AppUserAssignResponse
-	AssignNatsUserAppUserExecute(r ApiAssignNatsUserAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
+	AssignNatsUserTeamAppUserExecute(r ApiAssignNatsUserTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
 
 	/*
 		DeleteNatsUser Delete NATS User
@@ -82,21 +82,6 @@ type NatsUserAPI interface {
 	GetNatsUserExecute(r ApiGetNatsUserRequest) (*NatsUserViewResponse, *http.Response, error)
 
 	/*
-		ListNatsUserAppUsers List App Users
-
-		Returns a list of App Users associated with the NATS user
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param userId
-		@return ApiListNatsUserAppUsersRequest
-	*/
-	ListNatsUserAppUsers(ctx context.Context, userId string) ApiListNatsUserAppUsersRequest
-
-	// ListNatsUserAppUsersExecute executes the request
-	//  @return AppUserAssignListResponse
-	ListNatsUserAppUsersExecute(r ApiListNatsUserAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error)
-
-	/*
 		ListNatsUserConnections List NATs User Connections
 
 		List NATs User Connections
@@ -112,19 +97,34 @@ type NatsUserAPI interface {
 	ListNatsUserConnectionsExecute(r ApiListNatsUserConnectionsRequest) (*NatsUserConnectionsListResponse, *http.Response, error)
 
 	/*
-		UnAssignNatsUserAppUser Unassign App User from NATS User
+		ListNatsUserTeamAppUsers List Team App Users
 
-		Unassign an App User a NATS User
+		Returns a list of Team App Users associated with the NATS user
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId
-		@param appUserId
-		@return ApiUnAssignNatsUserAppUserRequest
+		@return ApiListNatsUserTeamAppUsersRequest
 	*/
-	UnAssignNatsUserAppUser(ctx context.Context, userId string, appUserId string) ApiUnAssignNatsUserAppUserRequest
+	ListNatsUserTeamAppUsers(ctx context.Context, userId string) ApiListNatsUserTeamAppUsersRequest
 
-	// UnAssignNatsUserAppUserExecute executes the request
-	UnAssignNatsUserAppUserExecute(r ApiUnAssignNatsUserAppUserRequest) (*http.Response, error)
+	// ListNatsUserTeamAppUsersExecute executes the request
+	//  @return AppUserAssignListResponse
+	ListNatsUserTeamAppUsersExecute(r ApiListNatsUserTeamAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error)
+
+	/*
+		UnAssignNatsUserTeamAppUser Unassign Team App User from NATS User
+
+		Unassign a Team App User from a NATS User
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId
+		@param teamAppUserId
+		@return ApiUnAssignNatsUserTeamAppUserRequest
+	*/
+	UnAssignNatsUserTeamAppUser(ctx context.Context, userId string, teamAppUserId string) ApiUnAssignNatsUserTeamAppUserRequest
+
+	// UnAssignNatsUserTeamAppUserExecute executes the request
+	UnAssignNatsUserTeamAppUserExecute(r ApiUnAssignNatsUserTeamAppUserRequest) (*http.Response, error)
 
 	/*
 		UpdateNatsUser Update NATS User
@@ -145,46 +145,46 @@ type NatsUserAPI interface {
 // NatsUserAPIService NatsUserAPI service
 type NatsUserAPIService service
 
-type ApiAssignNatsUserAppUserRequest struct {
+type ApiAssignNatsUserTeamAppUserRequest struct {
 	ctx                  context.Context
 	ApiService           NatsUserAPI
 	userId               string
-	appUserId            string
+	teamAppUserId        string
 	appUserAssignRequest *AppUserAssignRequest
 }
 
-func (r ApiAssignNatsUserAppUserRequest) AppUserAssignRequest(appUserAssignRequest AppUserAssignRequest) ApiAssignNatsUserAppUserRequest {
+func (r ApiAssignNatsUserTeamAppUserRequest) AppUserAssignRequest(appUserAssignRequest AppUserAssignRequest) ApiAssignNatsUserTeamAppUserRequest {
 	r.appUserAssignRequest = &appUserAssignRequest
 	return r
 }
 
-func (r ApiAssignNatsUserAppUserRequest) Execute() (*AppUserAssignResponse, *http.Response, error) {
-	return r.ApiService.AssignNatsUserAppUserExecute(r)
+func (r ApiAssignNatsUserTeamAppUserRequest) Execute() (*AppUserAssignResponse, *http.Response, error) {
+	return r.ApiService.AssignNatsUserTeamAppUserExecute(r)
 }
 
 /*
-AssignNatsUserAppUser Assign App User to NATS User
+AssignNatsUserTeamAppUser Assign Team App User to NATS User
 
-Assign an App User to a NATS User
+Assign a Team App User to a NATS User
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@param appUserId
-	@return ApiAssignNatsUserAppUserRequest
+	@param teamAppUserId
+	@return ApiAssignNatsUserTeamAppUserRequest
 */
-func (a *NatsUserAPIService) AssignNatsUserAppUser(ctx context.Context, userId string, appUserId string) ApiAssignNatsUserAppUserRequest {
-	return ApiAssignNatsUserAppUserRequest{
-		ApiService: a,
-		ctx:        ctx,
-		userId:     userId,
-		appUserId:  appUserId,
+func (a *NatsUserAPIService) AssignNatsUserTeamAppUser(ctx context.Context, userId string, teamAppUserId string) ApiAssignNatsUserTeamAppUserRequest {
+	return ApiAssignNatsUserTeamAppUserRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		userId:        userId,
+		teamAppUserId: teamAppUserId,
 	}
 }
 
 // Execute executes the request
 //
 //	@return AppUserAssignResponse
-func (a *NatsUserAPIService) AssignNatsUserAppUserExecute(r ApiAssignNatsUserAppUserRequest) (*AppUserAssignResponse, *http.Response, error) {
+func (a *NatsUserAPIService) AssignNatsUserTeamAppUserExecute(r ApiAssignNatsUserTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -192,14 +192,14 @@ func (a *NatsUserAPIService) AssignNatsUserAppUserExecute(r ApiAssignNatsUserApp
 		localVarReturnValue *AppUserAssignResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.AssignNatsUserAppUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.AssignNatsUserTeamAppUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/app-users/{appUserId}"
+	localVarPath := localBasePath + "/nats-users/{userId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -561,110 +561,6 @@ func (a *NatsUserAPIService) GetNatsUserExecute(r ApiGetNatsUserRequest) (*NatsU
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListNatsUserAppUsersRequest struct {
-	ctx        context.Context
-	ApiService NatsUserAPI
-	userId     string
-}
-
-func (r ApiListNatsUserAppUsersRequest) Execute() (*AppUserAssignListResponse, *http.Response, error) {
-	return r.ApiService.ListNatsUserAppUsersExecute(r)
-}
-
-/*
-ListNatsUserAppUsers List App Users
-
-Returns a list of App Users associated with the NATS user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId
-	@return ApiListNatsUserAppUsersRequest
-*/
-func (a *NatsUserAPIService) ListNatsUserAppUsers(ctx context.Context, userId string) ApiListNatsUserAppUsersRequest {
-	return ApiListNatsUserAppUsersRequest{
-		ApiService: a,
-		ctx:        ctx,
-		userId:     userId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AppUserAssignListResponse
-func (a *NatsUserAPIService) ListNatsUserAppUsersExecute(r ApiListNatsUserAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AppUserAssignListResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.ListNatsUserAppUsers")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/nats-users/{userId}/app-users"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiListNatsUserConnectionsRequest struct {
 	ctx        context.Context
 	ApiService NatsUserAPI
@@ -814,52 +710,156 @@ func (a *NatsUserAPIService) ListNatsUserConnectionsExecute(r ApiListNatsUserCon
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUnAssignNatsUserAppUserRequest struct {
+type ApiListNatsUserTeamAppUsersRequest struct {
 	ctx        context.Context
 	ApiService NatsUserAPI
 	userId     string
-	appUserId  string
 }
 
-func (r ApiUnAssignNatsUserAppUserRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UnAssignNatsUserAppUserExecute(r)
+func (r ApiListNatsUserTeamAppUsersRequest) Execute() (*AppUserAssignListResponse, *http.Response, error) {
+	return r.ApiService.ListNatsUserTeamAppUsersExecute(r)
 }
 
 /*
-UnAssignNatsUserAppUser Unassign App User from NATS User
+ListNatsUserTeamAppUsers List Team App Users
 
-Unassign an App User a NATS User
+Returns a list of Team App Users associated with the NATS user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
-	@param appUserId
-	@return ApiUnAssignNatsUserAppUserRequest
+	@return ApiListNatsUserTeamAppUsersRequest
 */
-func (a *NatsUserAPIService) UnAssignNatsUserAppUser(ctx context.Context, userId string, appUserId string) ApiUnAssignNatsUserAppUserRequest {
-	return ApiUnAssignNatsUserAppUserRequest{
+func (a *NatsUserAPIService) ListNatsUserTeamAppUsers(ctx context.Context, userId string) ApiListNatsUserTeamAppUsersRequest {
+	return ApiListNatsUserTeamAppUsersRequest{
 		ApiService: a,
 		ctx:        ctx,
 		userId:     userId,
-		appUserId:  appUserId,
 	}
 }
 
 // Execute executes the request
-func (a *NatsUserAPIService) UnAssignNatsUserAppUserExecute(r ApiUnAssignNatsUserAppUserRequest) (*http.Response, error) {
+//
+//	@return AppUserAssignListResponse
+func (a *NatsUserAPIService) ListNatsUserTeamAppUsersExecute(r ApiListNatsUserTeamAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AppUserAssignListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.ListNatsUserTeamAppUsers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/nats-users/{userId}/app-users"
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUnAssignNatsUserTeamAppUserRequest struct {
+	ctx           context.Context
+	ApiService    NatsUserAPI
+	userId        string
+	teamAppUserId string
+}
+
+func (r ApiUnAssignNatsUserTeamAppUserRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UnAssignNatsUserTeamAppUserExecute(r)
+}
+
+/*
+UnAssignNatsUserTeamAppUser Unassign Team App User from NATS User
+
+Unassign a Team App User from a NATS User
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId
+	@param teamAppUserId
+	@return ApiUnAssignNatsUserTeamAppUserRequest
+*/
+func (a *NatsUserAPIService) UnAssignNatsUserTeamAppUser(ctx context.Context, userId string, teamAppUserId string) ApiUnAssignNatsUserTeamAppUserRequest {
+	return ApiUnAssignNatsUserTeamAppUserRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		userId:        userId,
+		teamAppUserId: teamAppUserId,
+	}
+}
+
+// Execute executes the request
+func (a *NatsUserAPIService) UnAssignNatsUserTeamAppUserExecute(r ApiUnAssignNatsUserTeamAppUserRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.UnAssignNatsUserAppUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.UnAssignNatsUserTeamAppUser")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/app-users/{appUserId}"
+	localVarPath := localBasePath + "/nats-users/{userId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
