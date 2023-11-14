@@ -1072,6 +1072,38 @@ paths:
       - account
       x-doc-tags:
       - "JetStream: Mirrors"
+  /accounts/{accountId}/jetstream/placement-options:
+    get:
+      description: Get available options for JetStream placement
+      operationId: getJetStreamPlacementOptions
+      parameters:
+      - explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JSPlacementOptionsResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get JetStream Placement Options
+      tags:
+      - account
+      x-doc-tags:
+      - JetStream
   /accounts/{accountId}/jetstream/streams:
     get:
       description: List Streams
@@ -5869,63 +5901,34 @@ components:
       - explicit
       type: string
     Activation:
-      description: Activation defines the custom parts of an activation claim
-      example:
-        GenericFields:
-          type: type
-          version: 5
-          tags:
-          - tags
-          - tags
-        kind: null
-        subject: subject
-        issuer_account: issuer_account
-      properties:
-        GenericFields:
-          $ref: '#/components/schemas/GenericFields'
-        issuer_account:
-          description: |-
-            IssuerAccount stores the public key for the account the issuer represents.
-            When set, the claim was issued by a signing key.
-          type: string
-        kind:
-          $ref: '#/components/schemas/ExportType'
-        subject:
-          description: Subject is a string that represents a NATS subject
-          type: string
-      required:
-      - GenericFields
+      allOf:
+      - $ref: '#/components/schemas/GenericFields'
+      - description: Activation defines the custom parts of an activation claim
+        properties:
+          issuer_account:
+            description: |-
+              IssuerAccount stores the public key for the account the issuer represents.
+              When set, the claim was issued by a signing key.
+            type: string
+          kind:
+            $ref: '#/components/schemas/ExportType'
+          subject:
+            $ref: '#/components/schemas/Subject'
+        type: object
+        example: null
       type: object
+      example: null
     ActivationClaims:
-      description: ActivationClaims holds the data specific to an activation JWT
-      example:
-        nats:
-          GenericFields:
-            type: type
-            version: 5
-            tags:
-            - tags
-            - tags
-          kind: null
-          subject: subject
-          issuer_account: issuer_account
-        ClaimsData:
-          aud: aud
-          sub: sub
-          nbf: 1
-          iss: iss
-          name: name
-          exp: 0
-          iat: 6
-          jti: jti
-      properties:
-        ClaimsData:
-          $ref: '#/components/schemas/ClaimsData'
-        nats:
-          $ref: '#/components/schemas/Activation'
-      required:
-      - ClaimsData
+      allOf:
+      - $ref: '#/components/schemas/ClaimsData'
+      - description: ActivationClaims holds the data specific to an activation JWT
+        properties:
+          nats:
+            $ref: '#/components/schemas/Activation'
+        type: object
+        example: null
       type: object
+      example: null
     AgentTokenCurrentResponse:
       allOf:
       - $ref: '#/components/schemas/AgentTokenViewResponse'
@@ -7144,15 +7147,6 @@ components:
       type: string
     ClaimsData:
       description: ClaimsData is the base struct for all claims
-      example:
-        aud: aud
-        sub: sub
-        nbf: 1
-        iss: iss
-        name: name
-        exp: 0
-        iat: 6
-        jti: jti
       properties:
         aud:
           type: string
@@ -7591,12 +7585,6 @@ components:
       - sent
       type: object
     GenericFields:
-      example:
-        type: type
-        version: 5
-        tags:
-        - tags
-        - tags
       properties:
         tags:
           description: |-
@@ -8087,6 +8075,35 @@ components:
         example: null
       type: object
       example: null
+    JSPlacementOptionsResponse:
+      example:
+        replicas:
+        - 0
+        - 0
+        clusters:
+        - clusters
+        - clusters
+        tags:
+        - tags
+        - tags
+      properties:
+        clusters:
+          items:
+            type: string
+          type: array
+        replicas:
+          items:
+            type: integer
+          type: array
+        tags:
+          items:
+            type: string
+          type: array
+      required:
+      - clusters
+      - replicas
+      - tags
+      type: object
     JSPullConsumerConfigRequest:
       allOf:
       - $ref: '#/components/schemas/JSCommonConsumerConfigRequest'
@@ -9081,96 +9098,46 @@ components:
       - user_public_key
       type: object
     Operator:
-      description: Operator specific claims
-      example:
-        GenericFields:
-          type: type
-          version: 5
-          tags:
-          - tags
-          - tags
-        system_account: system_account
-        signing_keys:
-        - signing_keys
-        - signing_keys
-        strict_signing_key_usage: true
-        operator_service_urls:
-        - operator_service_urls
-        - operator_service_urls
-        assert_server_version: assert_server_version
-        account_server_url: account_server_url
-      properties:
-        GenericFields:
-          $ref: '#/components/schemas/GenericFields'
-        account_server_url:
-          description: |-
-            AccountServerURL is a partial URL like "https://host.domain.org:<port>/jwt/v1"
-            tools will use the prefix and build queries by appending /accounts/<account_id>
-            or /operator to the path provided. Note this assumes that the account server
-            can handle requests in a account-server compatible way. See
-            https://github.com/nats-io/account-server.
-          type: string
-        assert_server_version:
-          description: Min Server version
-          type: string
-        operator_service_urls:
-          description: StringList is a wrapper for an array of strings
-          items:
+      allOf:
+      - $ref: '#/components/schemas/GenericFields'
+      - description: Operator specific claims
+        properties:
+          account_server_url:
+            description: |-
+              AccountServerURL is a partial URL like "https://host.domain.org:<port>/jwt/v1"
+              tools will use the prefix and build queries by appending /accounts/<account_id>
+              or /operator to the path provided. Note this assumes that the account server
+              can handle requests in a account-server compatible way. See
+              https://github.com/nats-io/account-server.
             type: string
-          nullable: true
-          type: array
-        signing_keys:
-          description: StringList is a wrapper for an array of strings
-          items:
+          assert_server_version:
+            description: Min Server version
             type: string
-          nullable: true
-          type: array
-        strict_signing_key_usage:
-          description: Signing of subordinate objects will require signing keys
-          type: boolean
-        system_account:
-          description: Identity of the system account
-          type: string
-      required:
-      - GenericFields
-      type: object
-    OperatorClaims:
-      description: OperatorClaims define the data for an operator JWT
-      example:
-        nats:
-          GenericFields:
-            type: type
-            version: 5
-            tags:
-            - tags
-            - tags
-          system_account: system_account
-          signing_keys:
-          - signing_keys
-          - signing_keys
-          strict_signing_key_usage: true
           operator_service_urls:
-          - operator_service_urls
-          - operator_service_urls
-          assert_server_version: assert_server_version
-          account_server_url: account_server_url
-        ClaimsData:
-          aud: aud
-          sub: sub
-          nbf: 1
-          iss: iss
-          name: name
-          exp: 0
-          iat: 6
-          jti: jti
-      properties:
-        ClaimsData:
-          $ref: '#/components/schemas/ClaimsData'
-        nats:
-          $ref: '#/components/schemas/Operator'
-      required:
-      - ClaimsData
+            $ref: '#/components/schemas/StringList'
+          signing_keys:
+            $ref: '#/components/schemas/StringList'
+          strict_signing_key_usage:
+            description: Signing of subordinate objects will require signing keys
+            type: boolean
+          system_account:
+            description: Identity of the system account
+            type: string
+        type: object
+        example: null
       type: object
+      example: null
+    OperatorClaims:
+      allOf:
+      - $ref: '#/components/schemas/ClaimsData'
+      - description: OperatorClaims define the data for an operator JWT
+        properties:
+          nats:
+            $ref: '#/components/schemas/Operator'
+        type: object
+        example: null
+      type: object
+      example: null
     OperatorLimits:
       allOf:
       - $ref: '#/components/schemas/NatsLimits'
@@ -10532,51 +10499,13 @@ components:
           jwt: jwt
           id: id
           target_account_nkey_public: target_account_nkey_public
-          jwt_claims:
-            nats:
-              GenericFields:
-                type: type
-                version: 5
-                tags:
-                - tags
-                - tags
-              kind: null
-              subject: subject
-              issuer_account: issuer_account
-            ClaimsData:
-              aud: aud
-              sub: sub
-              nbf: 1
-              iss: iss
-              name: name
-              exp: 0
-              iat: 6
-              jti: jti
+          jwt_claims: null
         - subject_export_id: subject_export_id
           created: 2000-01-23T04:56:07.000+00:00
           jwt: jwt
           id: id
           target_account_nkey_public: target_account_nkey_public
-          jwt_claims:
-            nats:
-              GenericFields:
-                type: type
-                version: 5
-                tags:
-                - tags
-                - tags
-              kind: null
-              subject: subject
-              issuer_account: issuer_account
-            ClaimsData:
-              aud: aud
-              sub: sub
-              nbf: 1
-              iss: iss
-              name: name
-              exp: 0
-              iat: 6
-              jti: jti
+          jwt_claims: null
       properties:
         items:
           items:
@@ -10592,26 +10521,7 @@ components:
         jwt: jwt
         id: id
         target_account_nkey_public: target_account_nkey_public
-        jwt_claims:
-          nats:
-            GenericFields:
-              type: type
-              version: 5
-              tags:
-              - tags
-              - tags
-            kind: null
-            subject: subject
-            issuer_account: issuer_account
-          ClaimsData:
-            aud: aud
-            sub: sub
-            nbf: 1
-            iss: iss
-            name: name
-            exp: 0
-            iat: 6
-            jti: jti
+        jwt_claims: null
       properties:
         created:
           format: date-time
@@ -10820,33 +10730,7 @@ components:
           system_account_jwt: system_account_jwt
           operator_jwt: operator_jwt
           user_jwt_expires_in_secs: 0
-          operator_claims:
-            nats:
-              GenericFields:
-                type: type
-                version: 5
-                tags:
-                - tags
-                - tags
-              system_account: system_account
-              signing_keys:
-              - signing_keys
-              - signing_keys
-              strict_signing_key_usage: true
-              operator_service_urls:
-              - operator_service_urls
-              - operator_service_urls
-              assert_server_version: assert_server_version
-              account_server_url: account_server_url
-            ClaimsData:
-              aud: aud
-              sub: sub
-              nbf: 1
-              iss: iss
-              name: name
-              exp: 0
-              iat: 6
-              jti: jti
+          operator_claims: null
           team:
             name: name
             id: id
@@ -10866,33 +10750,7 @@ components:
           system_account_jwt: system_account_jwt
           operator_jwt: operator_jwt
           user_jwt_expires_in_secs: 0
-          operator_claims:
-            nats:
-              GenericFields:
-                type: type
-                version: 5
-                tags:
-                - tags
-                - tags
-              system_account: system_account
-              signing_keys:
-              - signing_keys
-              - signing_keys
-              strict_signing_key_usage: true
-              operator_service_urls:
-              - operator_service_urls
-              - operator_service_urls
-              assert_server_version: assert_server_version
-              account_server_url: account_server_url
-            ClaimsData:
-              aud: aud
-              sub: sub
-              nbf: 1
-              iss: iss
-              name: name
-              exp: 0
-              iat: 6
-              jti: jti
+          operator_claims: null
           team:
             name: name
             id: id
@@ -10959,33 +10817,7 @@ components:
         system_account_jwt: system_account_jwt
         operator_jwt: operator_jwt
         user_jwt_expires_in_secs: 0
-        operator_claims:
-          nats:
-            GenericFields:
-              type: type
-              version: 5
-              tags:
-              - tags
-              - tags
-            system_account: system_account
-            signing_keys:
-            - signing_keys
-            - signing_keys
-            strict_signing_key_usage: true
-            operator_service_urls:
-            - operator_service_urls
-            - operator_service_urls
-            assert_server_version: assert_server_version
-            account_server_url: account_server_url
-          ClaimsData:
-            aud: aud
-            sub: sub
-            nbf: 1
-            iss: iss
-            name: name
-            exp: 0
-            iat: 6
-            jti: jti
+        operator_claims: null
         team:
           name: name
           id: id

@@ -12,15 +12,18 @@ package syncp
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the Activation type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Activation{}
 
-// Activation Activation defines the custom parts of an activation claim
+// Activation struct for Activation
 type Activation struct {
-	GenericFields GenericFields `json:"GenericFields"`
+	// TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments
+	Tags []string `json:"tags,omitempty"`
+	// ClaimType is used to indicate the type of JWT being stored in a Claim
+	Type    *string `json:"type,omitempty"`
+	Version *int32  `json:"version,omitempty"`
 	// IssuerAccount stores the public key for the account the issuer represents. When set, the claim was issued by a signing key.
 	IssuerAccount *string     `json:"issuer_account,omitempty"`
 	Kind          *ExportType `json:"kind,omitempty"`
@@ -28,15 +31,12 @@ type Activation struct {
 	Subject *string `json:"subject,omitempty"`
 }
 
-type _Activation Activation
-
 // NewActivation instantiates a new Activation object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewActivation(genericFields GenericFields) *Activation {
+func NewActivation() *Activation {
 	this := Activation{}
-	this.GenericFields = genericFields
 	return &this
 }
 
@@ -48,28 +48,101 @@ func NewActivationWithDefaults() *Activation {
 	return &this
 }
 
-// GetGenericFields returns the GenericFields field value
-func (o *Activation) GetGenericFields() GenericFields {
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Activation) GetTags() []string {
 	if o == nil {
-		var ret GenericFields
+		var ret []string
 		return ret
 	}
-
-	return o.GenericFields
+	return o.Tags
 }
 
-// GetGenericFieldsOk returns a tuple with the GenericFields field value
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Activation) GetGenericFieldsOk() (*GenericFields, bool) {
-	if o == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Activation) GetTagsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
-	return &o.GenericFields, true
+	return o.Tags, true
 }
 
-// SetGenericFields sets field value
-func (o *Activation) SetGenericFields(v GenericFields) {
-	o.GenericFields = v
+// HasTags returns a boolean if a field has been set.
+func (o *Activation) HasTags() bool {
+	if o != nil && IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *Activation) SetTags(v []string) {
+	o.Tags = v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Activation) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Activation) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Activation) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Activation) SetType(v string) {
+	o.Type = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *Activation) GetVersion() int32 {
+	if o == nil || IsNil(o.Version) {
+		var ret int32
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Activation) GetVersionOk() (*int32, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *Activation) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given int32 and assigns it to the Version field.
+func (o *Activation) SetVersion(v int32) {
+	o.Version = &v
 }
 
 // GetIssuerAccount returns the IssuerAccount field value if set, zero value otherwise.
@@ -178,7 +251,15 @@ func (o Activation) MarshalJSON() ([]byte, error) {
 
 func (o Activation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["GenericFields"] = o.GenericFields
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
 	if !IsNil(o.IssuerAccount) {
 		toSerialize["issuer_account"] = o.IssuerAccount
 	}
@@ -189,41 +270,6 @@ func (o Activation) ToMap() (map[string]interface{}, error) {
 		toSerialize["subject"] = o.Subject
 	}
 	return toSerialize, nil
-}
-
-func (o *Activation) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"GenericFields",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varActivation := _Activation{}
-
-	err = json.Unmarshal(bytes, &varActivation)
-
-	if err != nil {
-		return err
-	}
-
-	*o = Activation(varActivation)
-
-	return err
 }
 
 type NullableActivation struct {

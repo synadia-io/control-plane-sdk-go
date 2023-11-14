@@ -12,15 +12,18 @@ package syncp
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the Operator type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Operator{}
 
-// Operator Operator specific claims
+// Operator struct for Operator
 type Operator struct {
-	GenericFields GenericFields `json:"GenericFields"`
+	// TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments
+	Tags []string `json:"tags,omitempty"`
+	// ClaimType is used to indicate the type of JWT being stored in a Claim
+	Type    *string `json:"type,omitempty"`
+	Version *int32  `json:"version,omitempty"`
 	// AccountServerURL is a partial URL like \"https://host.domain.org:<port>/jwt/v1\" tools will use the prefix and build queries by appending /accounts/<account_id> or /operator to the path provided. Note this assumes that the account server can handle requests in a account-server compatible way. See https://github.com/nats-io/account-server.
 	AccountServerUrl *string `json:"account_server_url,omitempty"`
 	// Min Server version
@@ -35,15 +38,12 @@ type Operator struct {
 	SystemAccount *string `json:"system_account,omitempty"`
 }
 
-type _Operator Operator
-
 // NewOperator instantiates a new Operator object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOperator(genericFields GenericFields) *Operator {
+func NewOperator() *Operator {
 	this := Operator{}
-	this.GenericFields = genericFields
 	return &this
 }
 
@@ -55,28 +55,101 @@ func NewOperatorWithDefaults() *Operator {
 	return &this
 }
 
-// GetGenericFields returns the GenericFields field value
-func (o *Operator) GetGenericFields() GenericFields {
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Operator) GetTags() []string {
 	if o == nil {
-		var ret GenericFields
+		var ret []string
 		return ret
 	}
-
-	return o.GenericFields
+	return o.Tags
 }
 
-// GetGenericFieldsOk returns a tuple with the GenericFields field value
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Operator) GetGenericFieldsOk() (*GenericFields, bool) {
-	if o == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Operator) GetTagsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
-	return &o.GenericFields, true
+	return o.Tags, true
 }
 
-// SetGenericFields sets field value
-func (o *Operator) SetGenericFields(v GenericFields) {
-	o.GenericFields = v
+// HasTags returns a boolean if a field has been set.
+func (o *Operator) HasTags() bool {
+	if o != nil && IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *Operator) SetTags(v []string) {
+	o.Tags = v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Operator) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Operator) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Operator) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *Operator) SetType(v string) {
+	o.Type = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *Operator) GetVersion() int32 {
+	if o == nil || IsNil(o.Version) {
+		var ret int32
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Operator) GetVersionOk() (*int32, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *Operator) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given int32 and assigns it to the Version field.
+func (o *Operator) SetVersion(v int32) {
+	o.Version = &v
 }
 
 // GetAccountServerUrl returns the AccountServerUrl field value if set, zero value otherwise.
@@ -283,7 +356,15 @@ func (o Operator) MarshalJSON() ([]byte, error) {
 
 func (o Operator) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["GenericFields"] = o.GenericFields
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
 	if !IsNil(o.AccountServerUrl) {
 		toSerialize["account_server_url"] = o.AccountServerUrl
 	}
@@ -303,41 +384,6 @@ func (o Operator) ToMap() (map[string]interface{}, error) {
 		toSerialize["system_account"] = o.SystemAccount
 	}
 	return toSerialize, nil
-}
-
-func (o *Operator) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"GenericFields",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varOperator := _Operator{}
-
-	err = json.Unmarshal(bytes, &varOperator)
-
-	if err != nil {
-		return err
-	}
-
-	*o = Operator(varOperator)
-
-	return err
 }
 
 type NullableOperator struct {

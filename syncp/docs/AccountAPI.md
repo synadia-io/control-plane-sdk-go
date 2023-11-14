@@ -21,6 +21,7 @@ Method | HTTP request | Description
 [**GetAccountInfo**](AccountAPI.md#GetAccountInfo) | **Get** /accounts/{accountId}/info | Get Account Info
 [**GetAccountMetrics**](AccountAPI.md#GetAccountMetrics) | **Get** /accounts/{accountId}/metrics | Get Account Metrics
 [**GetAlertRule**](AccountAPI.md#GetAlertRule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId} | Get Account Alert Rule
+[**GetJetStreamPlacementOptions**](AccountAPI.md#GetJetStreamPlacementOptions) | **Get** /accounts/{accountId}/jetstream/placement-options | Get JetStream Placement Options
 [**ListAccountConnections**](AccountAPI.md#ListAccountConnections) | **Get** /accounts/{accountId}/connections | List Account Connections
 [**ListAccountSkGroup**](AccountAPI.md#ListAccountSkGroup) | **Get** /accounts/{accountId}/account-sk-groups | List Account Signing Key Groups
 [**ListAccountTeamAppUsers**](AccountAPI.md#ListAccountTeamAppUsers) | **Get** /accounts/{accountId}/app-users | List Account Team App Users
@@ -1246,6 +1247,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AlertRuleViewResponse**](AlertRuleViewResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetJetStreamPlacementOptions
+
+> JSPlacementOptionsResponse GetJetStreamPlacementOptions(ctx, accountId).Execute()
+
+Get JetStream Placement Options
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountAPI.GetJetStreamPlacementOptions(context.Background(), accountId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.GetJetStreamPlacementOptions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetJetStreamPlacementOptions`: JSPlacementOptionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.GetJetStreamPlacementOptions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetJetStreamPlacementOptionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**JSPlacementOptionsResponse**](JSPlacementOptionsResponse.md)
 
 ### Authorization
 

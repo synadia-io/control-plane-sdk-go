@@ -88,6 +88,7 @@ Class | Method | HTTP request | Description
 *AccountAPI* | [**GetAccountInfo**](docs/AccountAPI.md#getaccountinfo) | **Get** /accounts/{accountId}/info | Get Account Info
 *AccountAPI* | [**GetAccountMetrics**](docs/AccountAPI.md#getaccountmetrics) | **Get** /accounts/{accountId}/metrics | Get Account Metrics
 *AccountAPI* | [**GetAlertRule**](docs/AccountAPI.md#getalertrule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId} | Get Account Alert Rule
+*AccountAPI* | [**GetJetStreamPlacementOptions**](docs/AccountAPI.md#getjetstreamplacementoptions) | **Get** /accounts/{accountId}/jetstream/placement-options | Get JetStream Placement Options
 *AccountAPI* | [**ListAccountConnections**](docs/AccountAPI.md#listaccountconnections) | **Get** /accounts/{accountId}/connections | List Account Connections
 *AccountAPI* | [**ListAccountSkGroup**](docs/AccountAPI.md#listaccountskgroup) | **Get** /accounts/{accountId}/account-sk-groups | List Account Signing Key Groups
 *AccountAPI* | [**ListAccountTeamAppUsers**](docs/AccountAPI.md#listaccountteamappusers) | **Get** /accounts/{accountId}/app-users | List Account Team App Users
@@ -344,6 +345,7 @@ Class | Method | HTTP request | Description
  - [JSMirrorConfigRequest](docs/JSMirrorConfigRequest.md)
  - [JSMirrorInfoListResponse](docs/JSMirrorInfoListResponse.md)
  - [JSMirrorInfoResponse](docs/JSMirrorInfoResponse.md)
+ - [JSPlacementOptionsResponse](docs/JSPlacementOptionsResponse.md)
  - [JSPullConsumerConfigRequest](docs/JSPullConsumerConfigRequest.md)
  - [JSPullConsumerInfoResponse](docs/JSPullConsumerInfoResponse.md)
  - [JSPullConsumerUpdateRequest](docs/JSPullConsumerUpdateRequest.md)
