@@ -142,6 +142,7 @@ docs/JSKVBucketViewResponse.md
 docs/JSMirrorConfigRequest.md
 docs/JSMirrorInfoListResponse.md
 docs/JSMirrorInfoResponse.md
+docs/JSPlacementOptionsResponse.md
 docs/JSPullConsumerConfigRequest.md
 docs/JSPullConsumerInfoResponse.md
 docs/JSPullConsumerUpdateRequest.md
@@ -413,6 +414,7 @@ model_js_consumer_type.go
 model_js_mirror_config_request.go
 model_js_mirror_info_list_response.go
 model_js_mirror_info_response.go
+model_js_placement_options_response.go
 model_js_pull_consumer_config_request.go
 model_js_pull_consumer_info_response.go
 model_js_pull_consumer_update_request.go

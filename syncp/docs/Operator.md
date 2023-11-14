@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**GenericFields** | [**GenericFields**](GenericFields.md) |  | 
+**Tags** | Pointer to **[]string** | TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments | [optional] 
+**Type** | Pointer to **string** | ClaimType is used to indicate the type of JWT being stored in a Claim | [optional] 
+**Version** | Pointer to **int32** |  | [optional] 
 **AccountServerUrl** | Pointer to **string** | AccountServerURL is a partial URL like \&quot;https://host.domain.org:&lt;port&gt;/jwt/v1\&quot; tools will use the prefix and build queries by appending /accounts/&lt;account_id&gt; or /operator to the path provided. Note this assumes that the account server can handle requests in a account-server compatible way. See https://github.com/nats-io/account-server. | [optional] 
 **AssertServerVersion** | Pointer to **string** | Min Server version | [optional] 
 **OperatorServiceUrls** | Pointer to **[]string** | StringList is a wrapper for an array of strings | [optional] 
@@ -16,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewOperator
 
-`func NewOperator(genericFields GenericFields, ) *Operator`
+`func NewOperator() *Operator`
 
 NewOperator instantiates a new Operator object
 This constructor will assign default values to properties that have it defined,
@@ -31,25 +33,90 @@ NewOperatorWithDefaults instantiates a new Operator object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetGenericFields
+### GetTags
 
-`func (o *Operator) GetGenericFields() GenericFields`
+`func (o *Operator) GetTags() []string`
 
-GetGenericFields returns the GenericFields field if non-nil, zero value otherwise.
+GetTags returns the Tags field if non-nil, zero value otherwise.
 
-### GetGenericFieldsOk
+### GetTagsOk
 
-`func (o *Operator) GetGenericFieldsOk() (*GenericFields, bool)`
+`func (o *Operator) GetTagsOk() (*[]string, bool)`
 
-GetGenericFieldsOk returns a tuple with the GenericFields field if it's non-nil, zero value otherwise
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetGenericFields
+### SetTags
 
-`func (o *Operator) SetGenericFields(v GenericFields)`
+`func (o *Operator) SetTags(v []string)`
 
-SetGenericFields sets GenericFields field to given value.
+SetTags sets Tags field to given value.
 
+### HasTags
+
+`func (o *Operator) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
+
+### SetTagsNil
+
+`func (o *Operator) SetTagsNil(b bool)`
+
+ SetTagsNil sets the value for Tags to be an explicit nil
+
+### UnsetTags
+`func (o *Operator) UnsetTags()`
+
+UnsetTags ensures that no value is present for Tags, not even an explicit nil
+### GetType
+
+`func (o *Operator) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Operator) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Operator) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Operator) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *Operator) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *Operator) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *Operator) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *Operator) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 ### GetAccountServerUrl
 

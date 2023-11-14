@@ -12,27 +12,30 @@ package syncp
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the OperatorClaims type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OperatorClaims{}
 
-// OperatorClaims OperatorClaims define the data for an operator JWT
+// OperatorClaims struct for OperatorClaims
 type OperatorClaims struct {
-	ClaimsData ClaimsData `json:"ClaimsData"`
-	Nats       *Operator  `json:"nats,omitempty"`
+	Aud  *string   `json:"aud,omitempty"`
+	Exp  *int64    `json:"exp,omitempty"`
+	Iat  *int64    `json:"iat,omitempty"`
+	Iss  *string   `json:"iss,omitempty"`
+	Jti  *string   `json:"jti,omitempty"`
+	Name *string   `json:"name,omitempty"`
+	Nbf  *int64    `json:"nbf,omitempty"`
+	Sub  *string   `json:"sub,omitempty"`
+	Nats *Operator `json:"nats,omitempty"`
 }
-
-type _OperatorClaims OperatorClaims
 
 // NewOperatorClaims instantiates a new OperatorClaims object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOperatorClaims(claimsData ClaimsData) *OperatorClaims {
+func NewOperatorClaims() *OperatorClaims {
 	this := OperatorClaims{}
-	this.ClaimsData = claimsData
 	return &this
 }
 
@@ -44,28 +47,260 @@ func NewOperatorClaimsWithDefaults() *OperatorClaims {
 	return &this
 }
 
-// GetClaimsData returns the ClaimsData field value
-func (o *OperatorClaims) GetClaimsData() ClaimsData {
-	if o == nil {
-		var ret ClaimsData
+// GetAud returns the Aud field value if set, zero value otherwise.
+func (o *OperatorClaims) GetAud() string {
+	if o == nil || IsNil(o.Aud) {
+		var ret string
 		return ret
 	}
-
-	return o.ClaimsData
+	return *o.Aud
 }
 
-// GetClaimsDataOk returns a tuple with the ClaimsData field value
+// GetAudOk returns a tuple with the Aud field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OperatorClaims) GetClaimsDataOk() (*ClaimsData, bool) {
-	if o == nil {
+func (o *OperatorClaims) GetAudOk() (*string, bool) {
+	if o == nil || IsNil(o.Aud) {
 		return nil, false
 	}
-	return &o.ClaimsData, true
+	return o.Aud, true
 }
 
-// SetClaimsData sets field value
-func (o *OperatorClaims) SetClaimsData(v ClaimsData) {
-	o.ClaimsData = v
+// HasAud returns a boolean if a field has been set.
+func (o *OperatorClaims) HasAud() bool {
+	if o != nil && !IsNil(o.Aud) {
+		return true
+	}
+
+	return false
+}
+
+// SetAud gets a reference to the given string and assigns it to the Aud field.
+func (o *OperatorClaims) SetAud(v string) {
+	o.Aud = &v
+}
+
+// GetExp returns the Exp field value if set, zero value otherwise.
+func (o *OperatorClaims) GetExp() int64 {
+	if o == nil || IsNil(o.Exp) {
+		var ret int64
+		return ret
+	}
+	return *o.Exp
+}
+
+// GetExpOk returns a tuple with the Exp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OperatorClaims) GetExpOk() (*int64, bool) {
+	if o == nil || IsNil(o.Exp) {
+		return nil, false
+	}
+	return o.Exp, true
+}
+
+// HasExp returns a boolean if a field has been set.
+func (o *OperatorClaims) HasExp() bool {
+	if o != nil && !IsNil(o.Exp) {
+		return true
+	}
+
+	return false
+}
+
+// SetExp gets a reference to the given int64 and assigns it to the Exp field.
+func (o *OperatorClaims) SetExp(v int64) {
+	o.Exp = &v
+}
+
+// GetIat returns the Iat field value if set, zero value otherwise.
+func (o *OperatorClaims) GetIat() int64 {
+	if o == nil || IsNil(o.Iat) {
+		var ret int64
+		return ret
+	}
+	return *o.Iat
+}
+
+// GetIatOk returns a tuple with the Iat field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OperatorClaims) GetIatOk() (*int64, bool) {
+	if o == nil || IsNil(o.Iat) {
+		return nil, false
+	}
+	return o.Iat, true
+}
+
+// HasIat returns a boolean if a field has been set.
+func (o *OperatorClaims) HasIat() bool {
+	if o != nil && !IsNil(o.Iat) {
+		return true
+	}
+
+	return false
+}
+
+// SetIat gets a reference to the given int64 and assigns it to the Iat field.
+func (o *OperatorClaims) SetIat(v int64) {
+	o.Iat = &v
+}
+
+// GetIss returns the Iss field value if set, zero value otherwise.
+func (o *OperatorClaims) GetIss() string {
+	if o == nil || IsNil(o.Iss) {
+		var ret string
+		return ret
+	}
+	return *o.Iss
+}
+
+// GetIssOk returns a tuple with the Iss field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OperatorClaims) GetIssOk() (*string, bool) {
+	if o == nil || IsNil(o.Iss) {
+		return nil, false
+	}
+	return o.Iss, true
+}
+
+// HasIss returns a boolean if a field has been set.
+func (o *OperatorClaims) HasIss() bool {
+	if o != nil && !IsNil(o.Iss) {
+		return true
+	}
+
+	return false
+}
+
+// SetIss gets a reference to the given string and assigns it to the Iss field.
+func (o *OperatorClaims) SetIss(v string) {
+	o.Iss = &v
+}
+
+// GetJti returns the Jti field value if set, zero value otherwise.
+func (o *OperatorClaims) GetJti() string {
+	if o == nil || IsNil(o.Jti) {
+		var ret string
+		return ret
+	}
+	return *o.Jti
+}
+
+// GetJtiOk returns a tuple with the Jti field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OperatorClaims) GetJtiOk() (*string, bool) {
+	if o == nil || IsNil(o.Jti) {
+		return nil, false
+	}
+	return o.Jti, true
+}
+
+// HasJti returns a boolean if a field has been set.
+func (o *OperatorClaims) HasJti() bool {
+	if o != nil && !IsNil(o.Jti) {
+		return true
+	}
+
+	return false
+}
+
+// SetJti gets a reference to the given string and assigns it to the Jti field.
+func (o *OperatorClaims) SetJti(v string) {
+	o.Jti = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *OperatorClaims) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OperatorClaims) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *OperatorClaims) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *OperatorClaims) SetName(v string) {
+	o.Name = &v
+}
+
+// GetNbf returns the Nbf field value if set, zero value otherwise.
+func (o *OperatorClaims) GetNbf() int64 {
+	if o == nil || IsNil(o.Nbf) {
+		var ret int64
+		return ret
+	}
+	return *o.Nbf
+}
+
+// GetNbfOk returns a tuple with the Nbf field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OperatorClaims) GetNbfOk() (*int64, bool) {
+	if o == nil || IsNil(o.Nbf) {
+		return nil, false
+	}
+	return o.Nbf, true
+}
+
+// HasNbf returns a boolean if a field has been set.
+func (o *OperatorClaims) HasNbf() bool {
+	if o != nil && !IsNil(o.Nbf) {
+		return true
+	}
+
+	return false
+}
+
+// SetNbf gets a reference to the given int64 and assigns it to the Nbf field.
+func (o *OperatorClaims) SetNbf(v int64) {
+	o.Nbf = &v
+}
+
+// GetSub returns the Sub field value if set, zero value otherwise.
+func (o *OperatorClaims) GetSub() string {
+	if o == nil || IsNil(o.Sub) {
+		var ret string
+		return ret
+	}
+	return *o.Sub
+}
+
+// GetSubOk returns a tuple with the Sub field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OperatorClaims) GetSubOk() (*string, bool) {
+	if o == nil || IsNil(o.Sub) {
+		return nil, false
+	}
+	return o.Sub, true
+}
+
+// HasSub returns a boolean if a field has been set.
+func (o *OperatorClaims) HasSub() bool {
+	if o != nil && !IsNil(o.Sub) {
+		return true
+	}
+
+	return false
+}
+
+// SetSub gets a reference to the given string and assigns it to the Sub field.
+func (o *OperatorClaims) SetSub(v string) {
+	o.Sub = &v
 }
 
 // GetNats returns the Nats field value if set, zero value otherwise.
@@ -110,46 +345,34 @@ func (o OperatorClaims) MarshalJSON() ([]byte, error) {
 
 func (o OperatorClaims) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["ClaimsData"] = o.ClaimsData
+	if !IsNil(o.Aud) {
+		toSerialize["aud"] = o.Aud
+	}
+	if !IsNil(o.Exp) {
+		toSerialize["exp"] = o.Exp
+	}
+	if !IsNil(o.Iat) {
+		toSerialize["iat"] = o.Iat
+	}
+	if !IsNil(o.Iss) {
+		toSerialize["iss"] = o.Iss
+	}
+	if !IsNil(o.Jti) {
+		toSerialize["jti"] = o.Jti
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Nbf) {
+		toSerialize["nbf"] = o.Nbf
+	}
+	if !IsNil(o.Sub) {
+		toSerialize["sub"] = o.Sub
+	}
 	if !IsNil(o.Nats) {
 		toSerialize["nats"] = o.Nats
 	}
 	return toSerialize, nil
-}
-
-func (o *OperatorClaims) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"ClaimsData",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varOperatorClaims := _OperatorClaims{}
-
-	err = json.Unmarshal(bytes, &varOperatorClaims)
-
-	if err != nil {
-		return err
-	}
-
-	*o = OperatorClaims(varOperatorClaims)
-
-	return err
 }
 
 type NullableOperatorClaims struct {
