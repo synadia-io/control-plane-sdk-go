@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the TeamUpdateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TeamUpdateRequest{}
 
@@ -23,131 +18,8 @@ type TeamUpdateRequest struct {
 	Name string `json:"name"`
 }
 
-type _TeamUpdateRequest TeamUpdateRequest
-
-// NewTeamUpdateRequest instantiates a new TeamUpdateRequest object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewTeamUpdateRequest(name string) *TeamUpdateRequest {
-	this := TeamUpdateRequest{}
-	this.Name = name
-	return &this
-}
-
-// NewTeamUpdateRequestWithDefaults instantiates a new TeamUpdateRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewTeamUpdateRequestWithDefaults() *TeamUpdateRequest {
-	this := TeamUpdateRequest{}
-	return &this
-}
-
-// GetName returns the Name field value
-func (o *TeamUpdateRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *TeamUpdateRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *TeamUpdateRequest) SetName(v string) {
-	o.Name = v
-}
-
-func (o TeamUpdateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o TeamUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
 	return toSerialize, nil
-}
-
-func (o *TeamUpdateRequest) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"name",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varTeamUpdateRequest := _TeamUpdateRequest{}
-
-	err = json.Unmarshal(bytes, &varTeamUpdateRequest)
-
-	if err != nil {
-		return err
-	}
-
-	*o = TeamUpdateRequest(varTeamUpdateRequest)
-
-	return err
-}
-
-type NullableTeamUpdateRequest struct {
-	value *TeamUpdateRequest
-	isSet bool
-}
-
-func (v NullableTeamUpdateRequest) Get() *TeamUpdateRequest {
-	return v.value
-}
-
-func (v *NullableTeamUpdateRequest) Set(val *TeamUpdateRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTeamUpdateRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTeamUpdateRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTeamUpdateRequest(val *TeamUpdateRequest) *NullableTeamUpdateRequest {
-	return &NullableTeamUpdateRequest{value: val, isSet: true}
-}
-
-func (v NullableTeamUpdateRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableTeamUpdateRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

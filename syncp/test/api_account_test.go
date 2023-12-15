@@ -84,6 +84,18 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test AccountAPIService CreateObjectBucket", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var accountId string
+
+		resp, httpRes, err := apiClient.AccountAPI.CreateObjectBucket(context.Background(), accountId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test AccountAPIService CreateStream", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -318,6 +330,18 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		var accountId string
 
 		resp, httpRes, err := apiClient.AccountAPI.ListMirrors(context.Background(), accountId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test AccountAPIService ListObjectBuckets", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var accountId string
+
+		resp, httpRes, err := apiClient.AccountAPI.ListObjectBuckets(context.Background(), accountId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

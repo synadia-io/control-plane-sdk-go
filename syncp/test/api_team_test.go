@@ -23,19 +23,6 @@ func Test_syncp_TeamAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test TeamAPIService AssignTeamAppUser", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		var teamId string
-		var appUserId string
-
-		resp, httpRes, err := apiClient.TeamAPI.AssignTeamAppUser(context.Background(), teamId, appUserId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
 	t.Run("Test TeamAPIService CreateSystem", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -45,17 +32,6 @@ func Test_syncp_TeamAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
-	t.Run("Test TeamAPIService DecideInvitation", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		var teamId string
-
-		httpRes, err := apiClient.TeamAPI.DecideInvitation(context.Background(), teamId).Execute()
-
-		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
@@ -118,15 +94,14 @@ func Test_syncp_TeamAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test TeamAPIService ListInvites", func(t *testing.T) {
+	t.Run("Test TeamAPIService LeaveTeam", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var teamId string
 
-		resp, httpRes, err := apiClient.TeamAPI.ListInvites(context.Background(), teamId).Execute()
+		httpRes, err := apiClient.TeamAPI.LeaveTeam(context.Background(), teamId).Execute()
 
 		require.Nil(t, err)
-		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
@@ -196,6 +171,19 @@ func Test_syncp_TeamAPIService(t *testing.T) {
 		var teamId string
 
 		resp, httpRes, err := apiClient.TeamAPI.UpdateTeam(context.Background(), teamId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test TeamAPIService UpdateTeamAppUser", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var teamId string
+		var appUserId string
+
+		resp, httpRes, err := apiClient.TeamAPI.UpdateTeamAppUser(context.Background(), teamId, appUserId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

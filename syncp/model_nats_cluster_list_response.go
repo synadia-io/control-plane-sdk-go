@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the NatsClusterListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NatsClusterListResponse{}
 
@@ -23,131 +18,8 @@ type NatsClusterListResponse struct {
 	Items []NatsCluster `json:"items"`
 }
 
-type _NatsClusterListResponse NatsClusterListResponse
-
-// NewNatsClusterListResponse instantiates a new NatsClusterListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewNatsClusterListResponse(items []NatsCluster) *NatsClusterListResponse {
-	this := NatsClusterListResponse{}
-	this.Items = items
-	return &this
-}
-
-// NewNatsClusterListResponseWithDefaults instantiates a new NatsClusterListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewNatsClusterListResponseWithDefaults() *NatsClusterListResponse {
-	this := NatsClusterListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *NatsClusterListResponse) GetItems() []NatsCluster {
-	if o == nil {
-		var ret []NatsCluster
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *NatsClusterListResponse) GetItemsOk() ([]NatsCluster, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *NatsClusterListResponse) SetItems(v []NatsCluster) {
-	o.Items = v
-}
-
-func (o NatsClusterListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o NatsClusterListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
-}
-
-func (o *NatsClusterListResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varNatsClusterListResponse := _NatsClusterListResponse{}
-
-	err = json.Unmarshal(bytes, &varNatsClusterListResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = NatsClusterListResponse(varNatsClusterListResponse)
-
-	return err
-}
-
-type NullableNatsClusterListResponse struct {
-	value *NatsClusterListResponse
-	isSet bool
-}
-
-func (v NullableNatsClusterListResponse) Get() *NatsClusterListResponse {
-	return v.value
-}
-
-func (v *NullableNatsClusterListResponse) Set(val *NatsClusterListResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableNatsClusterListResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableNatsClusterListResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableNatsClusterListResponse(val *NatsClusterListResponse) *NullableNatsClusterListResponse {
-	return &NullableNatsClusterListResponse{value: val, isSet: true}
-}
-
-func (v NullableNatsClusterListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableNatsClusterListResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

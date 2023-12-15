@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the SystemListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SystemListResponse{}
 
@@ -23,131 +18,8 @@ type SystemListResponse struct {
 	Items []SystemViewResponse `json:"items"`
 }
 
-type _SystemListResponse SystemListResponse
-
-// NewSystemListResponse instantiates a new SystemListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewSystemListResponse(items []SystemViewResponse) *SystemListResponse {
-	this := SystemListResponse{}
-	this.Items = items
-	return &this
-}
-
-// NewSystemListResponseWithDefaults instantiates a new SystemListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewSystemListResponseWithDefaults() *SystemListResponse {
-	this := SystemListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *SystemListResponse) GetItems() []SystemViewResponse {
-	if o == nil {
-		var ret []SystemViewResponse
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *SystemListResponse) GetItemsOk() ([]SystemViewResponse, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *SystemListResponse) SetItems(v []SystemViewResponse) {
-	o.Items = v
-}
-
-func (o SystemListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o SystemListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
-}
-
-func (o *SystemListResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varSystemListResponse := _SystemListResponse{}
-
-	err = json.Unmarshal(bytes, &varSystemListResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = SystemListResponse(varSystemListResponse)
-
-	return err
-}
-
-type NullableSystemListResponse struct {
-	value *SystemListResponse
-	isSet bool
-}
-
-func (v NullableSystemListResponse) Get() *SystemListResponse {
-	return v.value
-}
-
-func (v *NullableSystemListResponse) Set(val *SystemListResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSystemListResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSystemListResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSystemListResponse(val *SystemListResponse) *NullableSystemListResponse {
-	return &NullableSystemListResponse{value: val, isSet: true}
-}
-
-func (v NullableSystemListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableSystemListResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

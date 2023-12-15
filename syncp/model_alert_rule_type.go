@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // AlertRuleType the model 'AlertRuleType'
@@ -79,40 +80,4 @@ func (v AlertRuleType) IsValid() bool {
 // Ptr returns reference to AlertRuleType value
 func (v AlertRuleType) Ptr() *AlertRuleType {
 	return &v
-}
-
-type NullableAlertRuleType struct {
-	value *AlertRuleType
-	isSet bool
-}
-
-func (v NullableAlertRuleType) Get() *AlertRuleType {
-	return v.value
-}
-
-func (v *NullableAlertRuleType) Set(val *AlertRuleType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAlertRuleType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAlertRuleType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAlertRuleType(val *AlertRuleType) *NullableAlertRuleType {
-	return &NullableAlertRuleType{value: val, isSet: true}
-}
-
-func (v NullableAlertRuleType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAlertRuleType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

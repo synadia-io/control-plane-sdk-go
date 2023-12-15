@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the AccountClaimsInfo type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccountClaimsInfo{}
 
@@ -23,131 +18,8 @@ type AccountClaimsInfo struct {
 	JsEnabled bool `json:"js_enabled"`
 }
 
-type _AccountClaimsInfo AccountClaimsInfo
-
-// NewAccountClaimsInfo instantiates a new AccountClaimsInfo object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewAccountClaimsInfo(jsEnabled bool) *AccountClaimsInfo {
-	this := AccountClaimsInfo{}
-	this.JsEnabled = jsEnabled
-	return &this
-}
-
-// NewAccountClaimsInfoWithDefaults instantiates a new AccountClaimsInfo object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewAccountClaimsInfoWithDefaults() *AccountClaimsInfo {
-	this := AccountClaimsInfo{}
-	return &this
-}
-
-// GetJsEnabled returns the JsEnabled field value
-func (o *AccountClaimsInfo) GetJsEnabled() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.JsEnabled
-}
-
-// GetJsEnabledOk returns a tuple with the JsEnabled field value
-// and a boolean to check if the value has been set.
-func (o *AccountClaimsInfo) GetJsEnabledOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.JsEnabled, true
-}
-
-// SetJsEnabled sets field value
-func (o *AccountClaimsInfo) SetJsEnabled(v bool) {
-	o.JsEnabled = v
-}
-
-func (o AccountClaimsInfo) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o AccountClaimsInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["js_enabled"] = o.JsEnabled
 	return toSerialize, nil
-}
-
-func (o *AccountClaimsInfo) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"js_enabled",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varAccountClaimsInfo := _AccountClaimsInfo{}
-
-	err = json.Unmarshal(bytes, &varAccountClaimsInfo)
-
-	if err != nil {
-		return err
-	}
-
-	*o = AccountClaimsInfo(varAccountClaimsInfo)
-
-	return err
-}
-
-type NullableAccountClaimsInfo struct {
-	value *AccountClaimsInfo
-	isSet bool
-}
-
-func (v NullableAccountClaimsInfo) Get() *AccountClaimsInfo {
-	return v.value
-}
-
-func (v *NullableAccountClaimsInfo) Set(val *AccountClaimsInfo) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAccountClaimsInfo) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAccountClaimsInfo) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAccountClaimsInfo(val *AccountClaimsInfo) *NullableAccountClaimsInfo {
-	return &NullableAccountClaimsInfo{value: val, isSet: true}
-}
-
-func (v NullableAccountClaimsInfo) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAccountClaimsInfo) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

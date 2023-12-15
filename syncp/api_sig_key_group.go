@@ -22,6 +22,21 @@ import (
 type SigKeyGroupAPI interface {
 
 	/*
+		CopyAccountSKGroup Copy Account SK Group
+
+		Copies Account SK Group. Copies all users from old SK group to the new SK group, genering new NKeys for copied users.
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId
+		@return ApiCopyAccountSKGroupRequest
+	*/
+	CopyAccountSKGroup(ctx context.Context, groupId string) ApiCopyAccountSKGroupRequest
+
+	// CopyAccountSKGroupExecute executes the request
+	//  @return SigningKeyGroupViewResponse
+	CopyAccountSKGroupExecute(r ApiCopyAccountSKGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error)
+
+	/*
 		DeleteAccountSkGroup Delete Account Signing Key Group
 
 		Deletes Account Signing Key Group
@@ -98,6 +113,118 @@ type SigKeyGroupAPI interface {
 
 // SigKeyGroupAPIService SigKeyGroupAPI service
 type SigKeyGroupAPIService service
+
+type ApiCopyAccountSKGroupRequest struct {
+	ctx                        context.Context
+	ApiService                 SigKeyGroupAPI
+	groupId                    string
+	signingKeyGroupCopyRequest *SigningKeyGroupCopyRequest
+}
+
+func (r ApiCopyAccountSKGroupRequest) SigningKeyGroupCopyRequest(signingKeyGroupCopyRequest SigningKeyGroupCopyRequest) ApiCopyAccountSKGroupRequest {
+	r.signingKeyGroupCopyRequest = &signingKeyGroupCopyRequest
+	return r
+}
+
+func (r ApiCopyAccountSKGroupRequest) Execute() (*SigningKeyGroupViewResponse, *http.Response, error) {
+	return r.ApiService.CopyAccountSKGroupExecute(r)
+}
+
+/*
+CopyAccountSKGroup Copy Account SK Group
+
+Copies Account SK Group. Copies all users from old SK group to the new SK group, genering new NKeys for copied users.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiCopyAccountSKGroupRequest
+*/
+func (a *SigKeyGroupAPIService) CopyAccountSKGroup(ctx context.Context, groupId string) ApiCopyAccountSKGroupRequest {
+	return ApiCopyAccountSKGroupRequest{
+		ApiService: a,
+		ctx:        ctx,
+		groupId:    groupId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SigningKeyGroupViewResponse
+func (a *SigKeyGroupAPIService) CopyAccountSKGroupExecute(r ApiCopyAccountSKGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SigningKeyGroupViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SigKeyGroupAPIService.CopyAccountSKGroup")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/account-sk-groups/{groupId}/copy"
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.signingKeyGroupCopyRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type ApiDeleteAccountSkGroupRequest struct {
 	ctx        context.Context

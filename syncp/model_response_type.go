@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // ResponseType ResponseType is used to store an export response type
@@ -73,40 +74,4 @@ func (v ResponseType) IsValid() bool {
 // Ptr returns reference to ResponseType value
 func (v ResponseType) Ptr() *ResponseType {
 	return &v
-}
-
-type NullableResponseType struct {
-	value *ResponseType
-	isSet bool
-}
-
-func (v NullableResponseType) Get() *ResponseType {
-	return v.value
-}
-
-func (v *NullableResponseType) Set(val *ResponseType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableResponseType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableResponseType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableResponseType(val *ResponseType) *NullableResponseType {
-	return &NullableResponseType{value: val, isSet: true}
-}
-
-func (v NullableResponseType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableResponseType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

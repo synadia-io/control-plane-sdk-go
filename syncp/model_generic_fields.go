@@ -10,190 +10,28 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-)
-
 // checks if the GenericFields type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GenericFields{}
 
 // GenericFields struct for GenericFields
 type GenericFields struct {
 	// TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments
-	Tags []string `json:"tags,omitempty"`
+	Tags *Nullable[[]string] `json:"tags,omitempty"`
 	// ClaimType is used to indicate the type of JWT being stored in a Claim
 	Type    *string `json:"type,omitempty"`
 	Version *int32  `json:"version,omitempty"`
 }
 
-// NewGenericFields instantiates a new GenericFields object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewGenericFields() *GenericFields {
-	this := GenericFields{}
-	return &this
-}
-
-// NewGenericFieldsWithDefaults instantiates a new GenericFields object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewGenericFieldsWithDefaults() *GenericFields {
-	this := GenericFields{}
-	return &this
-}
-
-// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GenericFields) GetTags() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GenericFields) GetTagsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Tags) {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *GenericFields) HasTags() bool {
-	if o != nil && IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *GenericFields) SetTags(v []string) {
-	o.Tags = v
-}
-
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *GenericFields) GetType() string {
-	if o == nil || IsNil(o.Type) {
-		var ret string
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GenericFields) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *GenericFields) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *GenericFields) SetType(v string) {
-	o.Type = &v
-}
-
-// GetVersion returns the Version field value if set, zero value otherwise.
-func (o *GenericFields) GetVersion() int32 {
-	if o == nil || IsNil(o.Version) {
-		var ret int32
-		return ret
-	}
-	return *o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GenericFields) GetVersionOk() (*int32, bool) {
-	if o == nil || IsNil(o.Version) {
-		return nil, false
-	}
-	return o.Version, true
-}
-
-// HasVersion returns a boolean if a field has been set.
-func (o *GenericFields) HasVersion() bool {
-	if o != nil && !IsNil(o.Version) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *GenericFields) SetVersion(v int32) {
-	o.Version = &v
-}
-
-func (o GenericFields) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o GenericFields) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
+	if o.Tags != nil && !o.Tags.IsNull() {
+		toSerialize["tags"] = o.Tags.Val
 	}
-	if !IsNil(o.Type) {
+	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
-	if !IsNil(o.Version) {
+	if o.Version != nil {
 		toSerialize["version"] = o.Version
 	}
 	return toSerialize, nil
-}
-
-type NullableGenericFields struct {
-	value *GenericFields
-	isSet bool
-}
-
-func (v NullableGenericFields) Get() *GenericFields {
-	return v.value
-}
-
-func (v *NullableGenericFields) Set(val *GenericFields) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGenericFields) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGenericFields) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGenericFields(val *GenericFields) *NullableGenericFields {
-	return &NullableGenericFields{value: val, isSet: true}
-}
-
-func (v NullableGenericFields) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableGenericFields) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

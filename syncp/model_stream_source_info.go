@@ -10,294 +10,40 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the StreamSourceInfo type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &StreamSourceInfo{}
 
 // StreamSourceInfo StreamSourceInfo shows information about an upstream stream source.
 type StreamSourceInfo struct {
-	Active   int64                         `json:"active"`
-	Error    NullableStreamSourceInfoError `json:"error,omitempty"`
-	External NullableStreamSourceExternal  `json:"external,omitempty"`
-	Lag      int32                         `json:"lag"`
-	Name     string                        `json:"name"`
-}
-
-type _StreamSourceInfo StreamSourceInfo
-
-// NewStreamSourceInfo instantiates a new StreamSourceInfo object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewStreamSourceInfo(active int64, lag int32, name string) *StreamSourceInfo {
-	this := StreamSourceInfo{}
-	this.Active = active
-	this.Lag = lag
-	this.Name = name
-	return &this
-}
-
-// NewStreamSourceInfoWithDefaults instantiates a new StreamSourceInfo object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewStreamSourceInfoWithDefaults() *StreamSourceInfo {
-	this := StreamSourceInfo{}
-	return &this
-}
-
-// GetActive returns the Active field value
-func (o *StreamSourceInfo) GetActive() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value
-// and a boolean to check if the value has been set.
-func (o *StreamSourceInfo) GetActiveOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Active, true
-}
-
-// SetActive sets field value
-func (o *StreamSourceInfo) SetActive(v int64) {
-	o.Active = v
-}
-
-// GetError returns the Error field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *StreamSourceInfo) GetError() StreamSourceInfoError {
-	if o == nil || IsNil(o.Error.Get()) {
-		var ret StreamSourceInfoError
-		return ret
-	}
-	return *o.Error.Get()
-}
-
-// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *StreamSourceInfo) GetErrorOk() (*StreamSourceInfoError, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Error.Get(), o.Error.IsSet()
-}
-
-// HasError returns a boolean if a field has been set.
-func (o *StreamSourceInfo) HasError() bool {
-	if o != nil && o.Error.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetError gets a reference to the given NullableStreamSourceInfoError and assigns it to the Error field.
-func (o *StreamSourceInfo) SetError(v StreamSourceInfoError) {
-	o.Error.Set(&v)
-}
-
-// SetErrorNil sets the value for Error to be an explicit nil
-func (o *StreamSourceInfo) SetErrorNil() {
-	o.Error.Set(nil)
-}
-
-// UnsetError ensures that no value is present for Error, not even an explicit nil
-func (o *StreamSourceInfo) UnsetError() {
-	o.Error.Unset()
-}
-
-// GetExternal returns the External field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *StreamSourceInfo) GetExternal() StreamSourceExternal {
-	if o == nil || IsNil(o.External.Get()) {
-		var ret StreamSourceExternal
-		return ret
-	}
-	return *o.External.Get()
-}
-
-// GetExternalOk returns a tuple with the External field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *StreamSourceInfo) GetExternalOk() (*StreamSourceExternal, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.External.Get(), o.External.IsSet()
-}
-
-// HasExternal returns a boolean if a field has been set.
-func (o *StreamSourceInfo) HasExternal() bool {
-	if o != nil && o.External.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetExternal gets a reference to the given NullableStreamSourceExternal and assigns it to the External field.
-func (o *StreamSourceInfo) SetExternal(v StreamSourceExternal) {
-	o.External.Set(&v)
-}
-
-// SetExternalNil sets the value for External to be an explicit nil
-func (o *StreamSourceInfo) SetExternalNil() {
-	o.External.Set(nil)
-}
-
-// UnsetExternal ensures that no value is present for External, not even an explicit nil
-func (o *StreamSourceInfo) UnsetExternal() {
-	o.External.Unset()
-}
-
-// GetLag returns the Lag field value
-func (o *StreamSourceInfo) GetLag() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.Lag
-}
-
-// GetLagOk returns a tuple with the Lag field value
-// and a boolean to check if the value has been set.
-func (o *StreamSourceInfo) GetLagOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Lag, true
-}
-
-// SetLag sets field value
-func (o *StreamSourceInfo) SetLag(v int32) {
-	o.Lag = v
-}
-
-// GetName returns the Name field value
-func (o *StreamSourceInfo) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *StreamSourceInfo) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *StreamSourceInfo) SetName(v string) {
-	o.Name = v
-}
-
-func (o StreamSourceInfo) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	Active               int64                     `json:"active"`
+	Error                *Nullable[JSApiError]     `json:"error,omitempty"`
+	External             *Nullable[ExternalStream] `json:"external,omitempty"`
+	FilterSubject        *string                   `json:"filter_subject,omitempty"`
+	Lag                  int32                     `json:"lag"`
+	Name                 string                    `json:"name"`
+	SubjectTransformDest *string                   `json:"subject_transform_dest,omitempty"`
+	SubjectTransforms    *[]SubjectTransformConfig `json:"subject_transforms,omitempty"`
 }
 
 func (o StreamSourceInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["active"] = o.Active
-	if o.Error.IsSet() {
-		toSerialize["error"] = o.Error.Get()
+	if o.Error != nil && !o.Error.IsNull() {
+		toSerialize["error"] = o.Error.Val
 	}
-	if o.External.IsSet() {
-		toSerialize["external"] = o.External.Get()
+	if o.External != nil && !o.External.IsNull() {
+		toSerialize["external"] = o.External.Val
+	}
+	if o.FilterSubject != nil {
+		toSerialize["filter_subject"] = o.FilterSubject
 	}
 	toSerialize["lag"] = o.Lag
 	toSerialize["name"] = o.Name
+	if o.SubjectTransformDest != nil {
+		toSerialize["subject_transform_dest"] = o.SubjectTransformDest
+	}
+	if o.SubjectTransforms != nil {
+		toSerialize["subject_transforms"] = o.SubjectTransforms
+	}
 	return toSerialize, nil
-}
-
-func (o *StreamSourceInfo) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"active",
-		"lag",
-		"name",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varStreamSourceInfo := _StreamSourceInfo{}
-
-	err = json.Unmarshal(bytes, &varStreamSourceInfo)
-
-	if err != nil {
-		return err
-	}
-
-	*o = StreamSourceInfo(varStreamSourceInfo)
-
-	return err
-}
-
-type NullableStreamSourceInfo struct {
-	value *StreamSourceInfo
-	isSet bool
-}
-
-func (v NullableStreamSourceInfo) Get() *StreamSourceInfo {
-	return v.value
-}
-
-func (v *NullableStreamSourceInfo) Set(val *StreamSourceInfo) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStreamSourceInfo) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStreamSourceInfo) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStreamSourceInfo(val *StreamSourceInfo) *NullableStreamSourceInfo {
-	return &NullableStreamSourceInfo{value: val, isSet: true}
-}
-
-func (v NullableStreamSourceInfo) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableStreamSourceInfo) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

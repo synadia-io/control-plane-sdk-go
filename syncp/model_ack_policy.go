@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // AckPolicy enums have been changed to match UnmarshalJSON in https://github.com/nats-io/jsm.go/blob/main/api/consumers.go
@@ -73,40 +74,4 @@ func (v AckPolicy) IsValid() bool {
 // Ptr returns reference to AckPolicy value
 func (v AckPolicy) Ptr() *AckPolicy {
 	return &v
-}
-
-type NullableAckPolicy struct {
-	value *AckPolicy
-	isSet bool
-}
-
-func (v NullableAckPolicy) Get() *AckPolicy {
-	return v.value
-}
-
-func (v *NullableAckPolicy) Set(val *AckPolicy) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAckPolicy) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAckPolicy) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAckPolicy(val *AckPolicy) *NullableAckPolicy {
-	return &NullableAckPolicy{value: val, isSet: true}
-}
-
-func (v NullableAckPolicy) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAckPolicy) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

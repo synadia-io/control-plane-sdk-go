@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the AccountSearchListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccountSearchListResponse{}
 
@@ -23,131 +18,8 @@ type AccountSearchListResponse struct {
 	Items []AccountSearch `json:"items"`
 }
 
-type _AccountSearchListResponse AccountSearchListResponse
-
-// NewAccountSearchListResponse instantiates a new AccountSearchListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewAccountSearchListResponse(items []AccountSearch) *AccountSearchListResponse {
-	this := AccountSearchListResponse{}
-	this.Items = items
-	return &this
-}
-
-// NewAccountSearchListResponseWithDefaults instantiates a new AccountSearchListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewAccountSearchListResponseWithDefaults() *AccountSearchListResponse {
-	this := AccountSearchListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *AccountSearchListResponse) GetItems() []AccountSearch {
-	if o == nil {
-		var ret []AccountSearch
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *AccountSearchListResponse) GetItemsOk() ([]AccountSearch, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *AccountSearchListResponse) SetItems(v []AccountSearch) {
-	o.Items = v
-}
-
-func (o AccountSearchListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o AccountSearchListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
-}
-
-func (o *AccountSearchListResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varAccountSearchListResponse := _AccountSearchListResponse{}
-
-	err = json.Unmarshal(bytes, &varAccountSearchListResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = AccountSearchListResponse(varAccountSearchListResponse)
-
-	return err
-}
-
-type NullableAccountSearchListResponse struct {
-	value *AccountSearchListResponse
-	isSet bool
-}
-
-func (v NullableAccountSearchListResponse) Get() *AccountSearchListResponse {
-	return v.value
-}
-
-func (v *NullableAccountSearchListResponse) Set(val *AccountSearchListResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAccountSearchListResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAccountSearchListResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAccountSearchListResponse(val *AccountSearchListResponse) *NullableAccountSearchListResponse {
-	return &NullableAccountSearchListResponse{value: val, isSet: true}
-}
-
-func (v NullableAccountSearchListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAccountSearchListResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

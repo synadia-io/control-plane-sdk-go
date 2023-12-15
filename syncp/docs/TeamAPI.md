@@ -4,97 +4,21 @@ All URIs are relative to *http://localhost/api/core/beta*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssignTeamAppUser**](TeamAPI.md#AssignTeamAppUser) | **Post** /teams/{teamId}/app-users/{appUserId} | Assign App User to Team
 [**CreateSystem**](TeamAPI.md#CreateSystem) | **Post** /teams/{teamId}/systems | Create System
-[**DecideInvitation**](TeamAPI.md#DecideInvitation) | **Post** /invites/{teamId} | Accept or reject team invitation
 [**DeleteTeam**](TeamAPI.md#DeleteTeam) | **Delete** /teams/{teamId} | Delete Team
 [**GetTeam**](TeamAPI.md#GetTeam) | **Get** /teams/{teamId} | Get Team
 [**GetTeamLimits**](TeamAPI.md#GetTeamLimits) | **Get** /teams/{teamId}/team-limits | Get Team Limits
 [**ImportSystem**](TeamAPI.md#ImportSystem) | **Post** /teams/{teamId}/import-system | Import a System
-[**InviteAppUser**](TeamAPI.md#InviteAppUser) | **Post** /teams/{teamId}/app-users/invite | Invite App Users
-[**ListInvites**](TeamAPI.md#ListInvites) | **Get** /invites | List of pending invites
+[**InviteAppUser**](TeamAPI.md#InviteAppUser) | **Post** /teams/{teamId}/app-users/invitations | Invite App Users
+[**LeaveTeam**](TeamAPI.md#LeaveTeam) | **Post** /teams/{teamId}/app-users/leave | Leave Team
 [**ListTeamAccounts**](TeamAPI.md#ListTeamAccounts) | **Get** /teams/{teamId}/accounts | List Accounts
 [**ListTeamAppUsers**](TeamAPI.md#ListTeamAppUsers) | **Get** /teams/{teamId}/app-users | List App Users
 [**ListTeamNatsUsers**](TeamAPI.md#ListTeamNatsUsers) | **Get** /teams/{teamId}/nats-users | List NATS Users
 [**ListTeamSystems**](TeamAPI.md#ListTeamSystems) | **Get** /teams/{teamId}/systems | List Systems
 [**UnAssignTeamAppUser**](TeamAPI.md#UnAssignTeamAppUser) | **Delete** /teams/{teamId}/app-users/{appUserId} | Unassign App User from Team
 [**UpdateTeam**](TeamAPI.md#UpdateTeam) | **Patch** /teams/{teamId} | Update Team
+[**UpdateTeamAppUser**](TeamAPI.md#UpdateTeamAppUser) | **Patch** /teams/{teamId}/app-users/{appUserId} | Update App User Team Assignment
 
-
-
-## AssignTeamAppUser
-
-> AppUserAssignResponse AssignTeamAppUser(ctx, teamId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
-
-Assign App User to Team
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    teamId := "teamId_example" // string | 
-    appUserId := "appUserId_example" // string | 
-    appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("Role_example") // AppUserAssignRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TeamAPI.AssignTeamAppUser(context.Background(), teamId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.AssignTeamAppUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AssignTeamAppUser`: AppUserAssignResponse
-    fmt.Fprintf(os.Stdout, "Response from `TeamAPI.AssignTeamAppUser`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**teamId** | **string** |  | 
-**appUserId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAssignTeamAppUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **appUserAssignRequest** | [**AppUserAssignRequest**](AppUserAssignRequest.md) |  | 
-
-### Return type
-
-[**AppUserAssignResponse**](AppUserAssignResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## CreateSystem
@@ -163,76 +87,6 @@ No authorization required
 
 - **Content-Type**: application/json
 - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DecideInvitation
-
-> DecideInvitation(ctx, teamId).InviteDecisionRequest(inviteDecisionRequest).Execute()
-
-Accept or reject team invitation
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    teamId := "teamId_example" // string | 
-    inviteDecisionRequest := *openapiclient.NewInviteDecisionRequest(false) // InviteDecisionRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.TeamAPI.DecideInvitation(context.Background(), teamId).InviteDecisionRequest(inviteDecisionRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.DecideInvitation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**teamId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDecideInvitationRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **inviteDecisionRequest** | [**InviteDecisionRequest**](InviteDecisionRequest.md) |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -521,7 +375,7 @@ No authorization required
 
 ## InviteAppUser
 
-> AppUserInviteResponse InviteAppUser(ctx, teamId).AppUserInviteRequest(appUserInviteRequest).Execute()
+> AppUserInvitationResponse InviteAppUser(ctx, teamId).AppUserInvitationRequest(appUserInvitationRequest).Execute()
 
 Invite App Users
 
@@ -541,16 +395,16 @@ import (
 
 func main() {
     teamId := "teamId_example" // string | 
-    appUserInviteRequest := *openapiclient.NewAppUserInviteRequest("Identifier_example", "Name_example") // AppUserInviteRequest |  (optional)
+    appUserInvitationRequest := *openapiclient.NewAppUserInvitationRequest("Identifier_example", "Name_example", "RoleId_example") // AppUserInvitationRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TeamAPI.InviteAppUser(context.Background(), teamId).AppUserInviteRequest(appUserInviteRequest).Execute()
+    resp, r, err := apiClient.TeamAPI.InviteAppUser(context.Background(), teamId).AppUserInvitationRequest(appUserInvitationRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.InviteAppUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `InviteAppUser`: AppUserInviteResponse
+    // response from `InviteAppUser`: AppUserInvitationResponse
     fmt.Fprintf(os.Stdout, "Response from `TeamAPI.InviteAppUser`: %v\n", resp)
 }
 ```
@@ -571,11 +425,11 @@ Other parameters are passed through a pointer to a apiInviteAppUserRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **appUserInviteRequest** | [**AppUserInviteRequest**](AppUserInviteRequest.md) |  | 
+ **appUserInvitationRequest** | [**AppUserInvitationRequest**](AppUserInvitationRequest.md) |  | 
 
 ### Return type
 
-[**AppUserInviteResponse**](AppUserInviteResponse.md)
+[**AppUserInvitationResponse**](AppUserInvitationResponse.md)
 
 ### Authorization
 
@@ -591,11 +445,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ListInvites
+## LeaveTeam
 
-> InviteListResponse ListInvites(ctx, teamId).Execute()
+> LeaveTeam(ctx, teamId).Execute()
 
-List of pending invites
+Leave Team
 
 
 
@@ -616,13 +470,11 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TeamAPI.ListInvites(context.Background(), teamId).Execute()
+    r, err := apiClient.TeamAPI.LeaveTeam(context.Background(), teamId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.ListInvites``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.LeaveTeam``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListInvites`: InviteListResponse
-    fmt.Fprintf(os.Stdout, "Response from `TeamAPI.ListInvites`: %v\n", resp)
 }
 ```
 
@@ -636,7 +488,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListInvitesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiLeaveTeamRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -645,7 +497,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InviteListResponse**](InviteListResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -654,7 +506,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1069,6 +921,81 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TeamViewResponse**](TeamViewResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateTeamAppUser
+
+> AppUserAssignResponse UpdateTeamAppUser(ctx, teamId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
+
+Update App User Team Assignment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    teamId := "teamId_example" // string | 
+    appUserId := "appUserId_example" // string | 
+    appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("RoleId_example") // AppUserAssignRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TeamAPI.UpdateTeamAppUser(context.Background(), teamId, appUserId).AppUserAssignRequest(appUserAssignRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.UpdateTeamAppUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateTeamAppUser`: AppUserAssignResponse
+    fmt.Fprintf(os.Stdout, "Response from `TeamAPI.UpdateTeamAppUser`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**teamId** | **string** |  | 
+**appUserId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateTeamAppUserRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **appUserAssignRequest** | [**AppUserAssignRequest**](AppUserAssignRequest.md) |  | 
+
+### Return type
+
+[**AppUserAssignResponse**](AppUserAssignResponse.md)
 
 ### Authorization
 

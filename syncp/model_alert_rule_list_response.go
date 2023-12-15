@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the AlertRuleListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AlertRuleListResponse{}
 
@@ -23,131 +18,8 @@ type AlertRuleListResponse struct {
 	Items []AlertRuleViewResponse `json:"items"`
 }
 
-type _AlertRuleListResponse AlertRuleListResponse
-
-// NewAlertRuleListResponse instantiates a new AlertRuleListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewAlertRuleListResponse(items []AlertRuleViewResponse) *AlertRuleListResponse {
-	this := AlertRuleListResponse{}
-	this.Items = items
-	return &this
-}
-
-// NewAlertRuleListResponseWithDefaults instantiates a new AlertRuleListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewAlertRuleListResponseWithDefaults() *AlertRuleListResponse {
-	this := AlertRuleListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *AlertRuleListResponse) GetItems() []AlertRuleViewResponse {
-	if o == nil {
-		var ret []AlertRuleViewResponse
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *AlertRuleListResponse) GetItemsOk() ([]AlertRuleViewResponse, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *AlertRuleListResponse) SetItems(v []AlertRuleViewResponse) {
-	o.Items = v
-}
-
-func (o AlertRuleListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o AlertRuleListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
-}
-
-func (o *AlertRuleListResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varAlertRuleListResponse := _AlertRuleListResponse{}
-
-	err = json.Unmarshal(bytes, &varAlertRuleListResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = AlertRuleListResponse(varAlertRuleListResponse)
-
-	return err
-}
-
-type NullableAlertRuleListResponse struct {
-	value *AlertRuleListResponse
-	isSet bool
-}
-
-func (v NullableAlertRuleListResponse) Get() *AlertRuleListResponse {
-	return v.value
-}
-
-func (v *NullableAlertRuleListResponse) Set(val *AlertRuleListResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAlertRuleListResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAlertRuleListResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAlertRuleListResponse(val *AlertRuleListResponse) *NullableAlertRuleListResponse {
-	return &NullableAlertRuleListResponse{value: val, isSet: true}
-}
-
-func (v NullableAlertRuleListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAlertRuleListResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the PolicyListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PolicyListResponse{}
 
@@ -23,131 +18,8 @@ type PolicyListResponse struct {
 	Items []AppPolicy `json:"items"`
 }
 
-type _PolicyListResponse PolicyListResponse
-
-// NewPolicyListResponse instantiates a new PolicyListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewPolicyListResponse(items []AppPolicy) *PolicyListResponse {
-	this := PolicyListResponse{}
-	this.Items = items
-	return &this
-}
-
-// NewPolicyListResponseWithDefaults instantiates a new PolicyListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewPolicyListResponseWithDefaults() *PolicyListResponse {
-	this := PolicyListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *PolicyListResponse) GetItems() []AppPolicy {
-	if o == nil {
-		var ret []AppPolicy
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *PolicyListResponse) GetItemsOk() ([]AppPolicy, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *PolicyListResponse) SetItems(v []AppPolicy) {
-	o.Items = v
-}
-
-func (o PolicyListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o PolicyListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
-}
-
-func (o *PolicyListResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varPolicyListResponse := _PolicyListResponse{}
-
-	err = json.Unmarshal(bytes, &varPolicyListResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = PolicyListResponse(varPolicyListResponse)
-
-	return err
-}
-
-type NullablePolicyListResponse struct {
-	value *PolicyListResponse
-	isSet bool
-}
-
-func (v NullablePolicyListResponse) Get() *PolicyListResponse {
-	return v.value
-}
-
-func (v *NullablePolicyListResponse) Set(val *PolicyListResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePolicyListResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePolicyListResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePolicyListResponse(val *PolicyListResponse) *NullablePolicyListResponse {
-	return &NullablePolicyListResponse{value: val, isSet: true}
-}
-
-func (v NullablePolicyListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullablePolicyListResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

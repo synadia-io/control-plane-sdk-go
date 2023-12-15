@@ -55,7 +55,7 @@ import (
 func main() {
     systemId := "systemId_example" // string | 
     teamAppUserId := "teamAppUserId_example" // string | 
-    appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("Role_example") // AppUserAssignRequest |  (optional)
+    appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("RoleId_example") // AppUserAssignRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

@@ -4,11 +4,87 @@ All URIs are relative to *http://localhost/api/core/beta*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AssignTeamAppUser**](AppUserAPI.md#AssignTeamAppUser) | **Post** /app-users/{appUserId}/teams/{teamId} | Assign App User to Team
 [**DeleteAppUser**](AppUserAPI.md#DeleteAppUser) | **Delete** /app-users/{appUserId} | Delete App User
 [**GetAppUser**](AppUserAPI.md#GetAppUser) | **Get** /app-users/{appUserId} | Get App User
 [**ListAppUserRoles**](AppUserAPI.md#ListAppUserRoles) | **Get** /app-users/{appUserId}/roles | List Roles
 [**UpdateAppUser**](AppUserAPI.md#UpdateAppUser) | **Patch** /app-users/{appUserId} | Update App User
 
+
+
+## AssignTeamAppUser
+
+> AppUserAssignResponse AssignTeamAppUser(ctx, appUserId, teamId).AppUserAssignRequest(appUserAssignRequest).Execute()
+
+Assign App User to Team
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    appUserId := "appUserId_example" // string | 
+    teamId := "teamId_example" // string | 
+    appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("RoleId_example") // AppUserAssignRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AppUserAPI.AssignTeamAppUser(context.Background(), appUserId, teamId).AppUserAssignRequest(appUserAssignRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AppUserAPI.AssignTeamAppUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AssignTeamAppUser`: AppUserAssignResponse
+    fmt.Fprintf(os.Stdout, "Response from `AppUserAPI.AssignTeamAppUser`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appUserId** | **string** |  | 
+**teamId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAssignTeamAppUserRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **appUserAssignRequest** | [**AppUserAssignRequest**](AppUserAssignRequest.md) |  | 
+
+### Return type
+
+[**AppUserAssignResponse**](AppUserAssignResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteAppUser

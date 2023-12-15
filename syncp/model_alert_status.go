@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // AlertStatus the model 'AlertStatus'
@@ -73,40 +74,4 @@ func (v AlertStatus) IsValid() bool {
 // Ptr returns reference to AlertStatus value
 func (v AlertStatus) Ptr() *AlertStatus {
 	return &v
-}
-
-type NullableAlertStatus struct {
-	value *AlertStatus
-	isSet bool
-}
-
-func (v NullableAlertStatus) Get() *AlertStatus {
-	return v.value
-}
-
-func (v *NullableAlertStatus) Set(val *AlertStatus) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAlertStatus) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAlertStatus) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAlertStatus(val *AlertStatus) *NullableAlertStatus {
-	return &NullableAlertStatus{value: val, isSet: true}
-}
-
-func (v NullableAlertStatus) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAlertStatus) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

@@ -23,6 +23,19 @@ func Test_syncp_AppUserAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test AppUserAPIService AssignTeamAppUser", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var appUserId string
+		var teamId string
+
+		resp, httpRes, err := apiClient.AppUserAPI.AssignTeamAppUser(context.Background(), appUserId, teamId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test AppUserAPIService DeleteAppUser", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 

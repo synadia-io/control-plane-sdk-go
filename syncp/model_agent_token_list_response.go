@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the AgentTokenListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AgentTokenListResponse{}
 
@@ -23,131 +18,8 @@ type AgentTokenListResponse struct {
 	Items []AgentTokenViewResponse `json:"items"`
 }
 
-type _AgentTokenListResponse AgentTokenListResponse
-
-// NewAgentTokenListResponse instantiates a new AgentTokenListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewAgentTokenListResponse(items []AgentTokenViewResponse) *AgentTokenListResponse {
-	this := AgentTokenListResponse{}
-	this.Items = items
-	return &this
-}
-
-// NewAgentTokenListResponseWithDefaults instantiates a new AgentTokenListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewAgentTokenListResponseWithDefaults() *AgentTokenListResponse {
-	this := AgentTokenListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *AgentTokenListResponse) GetItems() []AgentTokenViewResponse {
-	if o == nil {
-		var ret []AgentTokenViewResponse
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *AgentTokenListResponse) GetItemsOk() ([]AgentTokenViewResponse, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *AgentTokenListResponse) SetItems(v []AgentTokenViewResponse) {
-	o.Items = v
-}
-
-func (o AgentTokenListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o AgentTokenListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
-}
-
-func (o *AgentTokenListResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varAgentTokenListResponse := _AgentTokenListResponse{}
-
-	err = json.Unmarshal(bytes, &varAgentTokenListResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = AgentTokenListResponse(varAgentTokenListResponse)
-
-	return err
-}
-
-type NullableAgentTokenListResponse struct {
-	value *AgentTokenListResponse
-	isSet bool
-}
-
-func (v NullableAgentTokenListResponse) Get() *AgentTokenListResponse {
-	return v.value
-}
-
-func (v *NullableAgentTokenListResponse) Set(val *AgentTokenListResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAgentTokenListResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAgentTokenListResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAgentTokenListResponse(val *AgentTokenListResponse) *NullableAgentTokenListResponse {
-	return &NullableAgentTokenListResponse{value: val, isSet: true}
-}
-
-func (v NullableAgentTokenListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAgentTokenListResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // DeliverPolicy the model 'DeliverPolicy'
@@ -79,40 +80,4 @@ func (v DeliverPolicy) IsValid() bool {
 // Ptr returns reference to DeliverPolicy value
 func (v DeliverPolicy) Ptr() *DeliverPolicy {
 	return &v
-}
-
-type NullableDeliverPolicy struct {
-	value *DeliverPolicy
-	isSet bool
-}
-
-func (v NullableDeliverPolicy) Get() *DeliverPolicy {
-	return v.value
-}
-
-func (v *NullableDeliverPolicy) Set(val *DeliverPolicy) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDeliverPolicy) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDeliverPolicy) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDeliverPolicy(val *DeliverPolicy) *NullableDeliverPolicy {
-	return &NullableDeliverPolicy{value: val, isSet: true}
-}
-
-func (v NullableDeliverPolicy) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableDeliverPolicy) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

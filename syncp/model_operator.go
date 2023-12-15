@@ -10,414 +10,54 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-)
-
 // checks if the Operator type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Operator{}
 
-// Operator struct for Operator
+// Operator Operator specific claims
 type Operator struct {
-	// TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments
-	Tags []string `json:"tags,omitempty"`
-	// ClaimType is used to indicate the type of JWT being stored in a Claim
-	Type    *string `json:"type,omitempty"`
-	Version *int32  `json:"version,omitempty"`
+	GenericFields
 	// AccountServerURL is a partial URL like \"https://host.domain.org:<port>/jwt/v1\" tools will use the prefix and build queries by appending /accounts/<account_id> or /operator to the path provided. Note this assumes that the account server can handle requests in a account-server compatible way. See https://github.com/nats-io/account-server.
 	AccountServerUrl *string `json:"account_server_url,omitempty"`
 	// Min Server version
 	AssertServerVersion *string `json:"assert_server_version,omitempty"`
 	// StringList is a wrapper for an array of strings
-	OperatorServiceUrls []string `json:"operator_service_urls,omitempty"`
+	OperatorServiceUrls *Nullable[[]string] `json:"operator_service_urls,omitempty"`
 	// StringList is a wrapper for an array of strings
-	SigningKeys []string `json:"signing_keys,omitempty"`
+	SigningKeys *Nullable[[]string] `json:"signing_keys,omitempty"`
 	// Signing of subordinate objects will require signing keys
 	StrictSigningKeyUsage *bool `json:"strict_signing_key_usage,omitempty"`
 	// Identity of the system account
 	SystemAccount *string `json:"system_account,omitempty"`
 }
 
-// NewOperator instantiates a new Operator object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewOperator() *Operator {
-	this := Operator{}
-	return &this
-}
-
-// NewOperatorWithDefaults instantiates a new Operator object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewOperatorWithDefaults() *Operator {
-	this := Operator{}
-	return &this
-}
-
-// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Operator) GetTags() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Operator) GetTagsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Tags) {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *Operator) HasTags() bool {
-	if o != nil && IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *Operator) SetTags(v []string) {
-	o.Tags = v
-}
-
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *Operator) GetType() string {
-	if o == nil || IsNil(o.Type) {
-		var ret string
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Operator) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *Operator) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *Operator) SetType(v string) {
-	o.Type = &v
-}
-
-// GetVersion returns the Version field value if set, zero value otherwise.
-func (o *Operator) GetVersion() int32 {
-	if o == nil || IsNil(o.Version) {
-		var ret int32
-		return ret
-	}
-	return *o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Operator) GetVersionOk() (*int32, bool) {
-	if o == nil || IsNil(o.Version) {
-		return nil, false
-	}
-	return o.Version, true
-}
-
-// HasVersion returns a boolean if a field has been set.
-func (o *Operator) HasVersion() bool {
-	if o != nil && !IsNil(o.Version) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *Operator) SetVersion(v int32) {
-	o.Version = &v
-}
-
-// GetAccountServerUrl returns the AccountServerUrl field value if set, zero value otherwise.
-func (o *Operator) GetAccountServerUrl() string {
-	if o == nil || IsNil(o.AccountServerUrl) {
-		var ret string
-		return ret
-	}
-	return *o.AccountServerUrl
-}
-
-// GetAccountServerUrlOk returns a tuple with the AccountServerUrl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Operator) GetAccountServerUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.AccountServerUrl) {
-		return nil, false
-	}
-	return o.AccountServerUrl, true
-}
-
-// HasAccountServerUrl returns a boolean if a field has been set.
-func (o *Operator) HasAccountServerUrl() bool {
-	if o != nil && !IsNil(o.AccountServerUrl) {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountServerUrl gets a reference to the given string and assigns it to the AccountServerUrl field.
-func (o *Operator) SetAccountServerUrl(v string) {
-	o.AccountServerUrl = &v
-}
-
-// GetAssertServerVersion returns the AssertServerVersion field value if set, zero value otherwise.
-func (o *Operator) GetAssertServerVersion() string {
-	if o == nil || IsNil(o.AssertServerVersion) {
-		var ret string
-		return ret
-	}
-	return *o.AssertServerVersion
-}
-
-// GetAssertServerVersionOk returns a tuple with the AssertServerVersion field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Operator) GetAssertServerVersionOk() (*string, bool) {
-	if o == nil || IsNil(o.AssertServerVersion) {
-		return nil, false
-	}
-	return o.AssertServerVersion, true
-}
-
-// HasAssertServerVersion returns a boolean if a field has been set.
-func (o *Operator) HasAssertServerVersion() bool {
-	if o != nil && !IsNil(o.AssertServerVersion) {
-		return true
-	}
-
-	return false
-}
-
-// SetAssertServerVersion gets a reference to the given string and assigns it to the AssertServerVersion field.
-func (o *Operator) SetAssertServerVersion(v string) {
-	o.AssertServerVersion = &v
-}
-
-// GetOperatorServiceUrls returns the OperatorServiceUrls field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Operator) GetOperatorServiceUrls() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-	return o.OperatorServiceUrls
-}
-
-// GetOperatorServiceUrlsOk returns a tuple with the OperatorServiceUrls field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Operator) GetOperatorServiceUrlsOk() ([]string, bool) {
-	if o == nil || IsNil(o.OperatorServiceUrls) {
-		return nil, false
-	}
-	return o.OperatorServiceUrls, true
-}
-
-// HasOperatorServiceUrls returns a boolean if a field has been set.
-func (o *Operator) HasOperatorServiceUrls() bool {
-	if o != nil && IsNil(o.OperatorServiceUrls) {
-		return true
-	}
-
-	return false
-}
-
-// SetOperatorServiceUrls gets a reference to the given []string and assigns it to the OperatorServiceUrls field.
-func (o *Operator) SetOperatorServiceUrls(v []string) {
-	o.OperatorServiceUrls = v
-}
-
-// GetSigningKeys returns the SigningKeys field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Operator) GetSigningKeys() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-	return o.SigningKeys
-}
-
-// GetSigningKeysOk returns a tuple with the SigningKeys field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Operator) GetSigningKeysOk() ([]string, bool) {
-	if o == nil || IsNil(o.SigningKeys) {
-		return nil, false
-	}
-	return o.SigningKeys, true
-}
-
-// HasSigningKeys returns a boolean if a field has been set.
-func (o *Operator) HasSigningKeys() bool {
-	if o != nil && IsNil(o.SigningKeys) {
-		return true
-	}
-
-	return false
-}
-
-// SetSigningKeys gets a reference to the given []string and assigns it to the SigningKeys field.
-func (o *Operator) SetSigningKeys(v []string) {
-	o.SigningKeys = v
-}
-
-// GetStrictSigningKeyUsage returns the StrictSigningKeyUsage field value if set, zero value otherwise.
-func (o *Operator) GetStrictSigningKeyUsage() bool {
-	if o == nil || IsNil(o.StrictSigningKeyUsage) {
-		var ret bool
-		return ret
-	}
-	return *o.StrictSigningKeyUsage
-}
-
-// GetStrictSigningKeyUsageOk returns a tuple with the StrictSigningKeyUsage field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Operator) GetStrictSigningKeyUsageOk() (*bool, bool) {
-	if o == nil || IsNil(o.StrictSigningKeyUsage) {
-		return nil, false
-	}
-	return o.StrictSigningKeyUsage, true
-}
-
-// HasStrictSigningKeyUsage returns a boolean if a field has been set.
-func (o *Operator) HasStrictSigningKeyUsage() bool {
-	if o != nil && !IsNil(o.StrictSigningKeyUsage) {
-		return true
-	}
-
-	return false
-}
-
-// SetStrictSigningKeyUsage gets a reference to the given bool and assigns it to the StrictSigningKeyUsage field.
-func (o *Operator) SetStrictSigningKeyUsage(v bool) {
-	o.StrictSigningKeyUsage = &v
-}
-
-// GetSystemAccount returns the SystemAccount field value if set, zero value otherwise.
-func (o *Operator) GetSystemAccount() string {
-	if o == nil || IsNil(o.SystemAccount) {
-		var ret string
-		return ret
-	}
-	return *o.SystemAccount
-}
-
-// GetSystemAccountOk returns a tuple with the SystemAccount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Operator) GetSystemAccountOk() (*string, bool) {
-	if o == nil || IsNil(o.SystemAccount) {
-		return nil, false
-	}
-	return o.SystemAccount, true
-}
-
-// HasSystemAccount returns a boolean if a field has been set.
-func (o *Operator) HasSystemAccount() bool {
-	if o != nil && !IsNil(o.SystemAccount) {
-		return true
-	}
-
-	return false
-}
-
-// SetSystemAccount gets a reference to the given string and assigns it to the SystemAccount field.
-func (o *Operator) SetSystemAccount(v string) {
-	o.SystemAccount = &v
-}
-
-func (o Operator) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o Operator) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Version) {
-		toSerialize["version"] = o.Version
-	}
-	if !IsNil(o.AccountServerUrl) {
+	if o.AccountServerUrl != nil {
 		toSerialize["account_server_url"] = o.AccountServerUrl
 	}
-	if !IsNil(o.AssertServerVersion) {
+	if o.AssertServerVersion != nil {
 		toSerialize["assert_server_version"] = o.AssertServerVersion
 	}
-	if o.OperatorServiceUrls != nil {
-		toSerialize["operator_service_urls"] = o.OperatorServiceUrls
+	if o.OperatorServiceUrls != nil && !o.OperatorServiceUrls.IsNull() {
+		toSerialize["operator_service_urls"] = o.OperatorServiceUrls.Val
 	}
-	if o.SigningKeys != nil {
-		toSerialize["signing_keys"] = o.SigningKeys
+	if o.SigningKeys != nil && !o.SigningKeys.IsNull() {
+		toSerialize["signing_keys"] = o.SigningKeys.Val
 	}
-	if !IsNil(o.StrictSigningKeyUsage) {
+	if o.StrictSigningKeyUsage != nil {
 		toSerialize["strict_signing_key_usage"] = o.StrictSigningKeyUsage
 	}
-	if !IsNil(o.SystemAccount) {
+	if o.SystemAccount != nil {
 		toSerialize["system_account"] = o.SystemAccount
 	}
+	if o.Tags != nil && !o.Tags.IsNull() {
+		toSerialize["tags"] = o.Tags.Val
+	}
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
+	}
+	if o.Version != nil {
+		toSerialize["version"] = o.Version
+	}
 	return toSerialize, nil
-}
-
-type NullableOperator struct {
-	value *Operator
-	isSet bool
-}
-
-func (v NullableOperator) Get() *Operator {
-	return v.value
-}
-
-func (v *NullableOperator) Set(val *Operator) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOperator) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOperator) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOperator(val *Operator) *NullableOperator {
-	return &NullableOperator{value: val, isSet: true}
-}
-
-func (v NullableOperator) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableOperator) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

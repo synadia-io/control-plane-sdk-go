@@ -22,6 +22,22 @@ import (
 type AppUserAPI interface {
 
 	/*
+		AssignTeamAppUser Assign App User to Team
+
+		Assign an App User to a Team. This operation is idempotent; if an App User is already assigned to a Team the assignment will be updated with the new role
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appUserId
+		@param teamId
+		@return ApiAssignTeamAppUserRequest
+	*/
+	AssignTeamAppUser(ctx context.Context, appUserId string, teamId string) ApiAssignTeamAppUserRequest
+
+	// AssignTeamAppUserExecute executes the request
+	//  @return AppUserAssignResponse
+	AssignTeamAppUserExecute(r ApiAssignTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
+
+	/*
 		DeleteAppUser Delete App User
 
 		Delete App User
@@ -83,6 +99,122 @@ type AppUserAPI interface {
 
 // AppUserAPIService AppUserAPI service
 type AppUserAPIService service
+
+type ApiAssignTeamAppUserRequest struct {
+	ctx                  context.Context
+	ApiService           AppUserAPI
+	appUserId            string
+	teamId               string
+	appUserAssignRequest *AppUserAssignRequest
+}
+
+func (r ApiAssignTeamAppUserRequest) AppUserAssignRequest(appUserAssignRequest AppUserAssignRequest) ApiAssignTeamAppUserRequest {
+	r.appUserAssignRequest = &appUserAssignRequest
+	return r
+}
+
+func (r ApiAssignTeamAppUserRequest) Execute() (*AppUserAssignResponse, *http.Response, error) {
+	return r.ApiService.AssignTeamAppUserExecute(r)
+}
+
+/*
+AssignTeamAppUser Assign App User to Team
+
+Assign an App User to a Team. This operation is idempotent; if an App User is already assigned to a Team the assignment will be updated with the new role
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appUserId
+	@param teamId
+	@return ApiAssignTeamAppUserRequest
+*/
+func (a *AppUserAPIService) AssignTeamAppUser(ctx context.Context, appUserId string, teamId string) ApiAssignTeamAppUserRequest {
+	return ApiAssignTeamAppUserRequest{
+		ApiService: a,
+		ctx:        ctx,
+		appUserId:  appUserId,
+		teamId:     teamId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AppUserAssignResponse
+func (a *AppUserAPIService) AssignTeamAppUserExecute(r ApiAssignTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AppUserAssignResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AppUserAPIService.AssignTeamAppUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/app-users/{appUserId}/teams/{teamId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.appUserAssignRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type ApiDeleteAppUserRequest struct {
 	ctx        context.Context

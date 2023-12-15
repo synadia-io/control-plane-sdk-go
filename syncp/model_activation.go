@@ -10,20 +10,12 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-)
-
 // checks if the Activation type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Activation{}
 
-// Activation struct for Activation
+// Activation Activation defines the custom parts of an activation claim
 type Activation struct {
-	// TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments
-	Tags []string `json:"tags,omitempty"`
-	// ClaimType is used to indicate the type of JWT being stored in a Claim
-	Type    *string `json:"type,omitempty"`
-	Version *int32  `json:"version,omitempty"`
+	GenericFields
 	// IssuerAccount stores the public key for the account the issuer represents. When set, the claim was issued by a signing key.
 	IssuerAccount *string     `json:"issuer_account,omitempty"`
 	Kind          *ExportType `json:"kind,omitempty"`
@@ -31,279 +23,25 @@ type Activation struct {
 	Subject *string `json:"subject,omitempty"`
 }
 
-// NewActivation instantiates a new Activation object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewActivation() *Activation {
-	this := Activation{}
-	return &this
-}
-
-// NewActivationWithDefaults instantiates a new Activation object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewActivationWithDefaults() *Activation {
-	this := Activation{}
-	return &this
-}
-
-// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Activation) GetTags() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Activation) GetTagsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Tags) {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *Activation) HasTags() bool {
-	if o != nil && IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *Activation) SetTags(v []string) {
-	o.Tags = v
-}
-
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *Activation) GetType() string {
-	if o == nil || IsNil(o.Type) {
-		var ret string
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Activation) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *Activation) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *Activation) SetType(v string) {
-	o.Type = &v
-}
-
-// GetVersion returns the Version field value if set, zero value otherwise.
-func (o *Activation) GetVersion() int32 {
-	if o == nil || IsNil(o.Version) {
-		var ret int32
-		return ret
-	}
-	return *o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Activation) GetVersionOk() (*int32, bool) {
-	if o == nil || IsNil(o.Version) {
-		return nil, false
-	}
-	return o.Version, true
-}
-
-// HasVersion returns a boolean if a field has been set.
-func (o *Activation) HasVersion() bool {
-	if o != nil && !IsNil(o.Version) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *Activation) SetVersion(v int32) {
-	o.Version = &v
-}
-
-// GetIssuerAccount returns the IssuerAccount field value if set, zero value otherwise.
-func (o *Activation) GetIssuerAccount() string {
-	if o == nil || IsNil(o.IssuerAccount) {
-		var ret string
-		return ret
-	}
-	return *o.IssuerAccount
-}
-
-// GetIssuerAccountOk returns a tuple with the IssuerAccount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Activation) GetIssuerAccountOk() (*string, bool) {
-	if o == nil || IsNil(o.IssuerAccount) {
-		return nil, false
-	}
-	return o.IssuerAccount, true
-}
-
-// HasIssuerAccount returns a boolean if a field has been set.
-func (o *Activation) HasIssuerAccount() bool {
-	if o != nil && !IsNil(o.IssuerAccount) {
-		return true
-	}
-
-	return false
-}
-
-// SetIssuerAccount gets a reference to the given string and assigns it to the IssuerAccount field.
-func (o *Activation) SetIssuerAccount(v string) {
-	o.IssuerAccount = &v
-}
-
-// GetKind returns the Kind field value if set, zero value otherwise.
-func (o *Activation) GetKind() ExportType {
-	if o == nil || IsNil(o.Kind) {
-		var ret ExportType
-		return ret
-	}
-	return *o.Kind
-}
-
-// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Activation) GetKindOk() (*ExportType, bool) {
-	if o == nil || IsNil(o.Kind) {
-		return nil, false
-	}
-	return o.Kind, true
-}
-
-// HasKind returns a boolean if a field has been set.
-func (o *Activation) HasKind() bool {
-	if o != nil && !IsNil(o.Kind) {
-		return true
-	}
-
-	return false
-}
-
-// SetKind gets a reference to the given ExportType and assigns it to the Kind field.
-func (o *Activation) SetKind(v ExportType) {
-	o.Kind = &v
-}
-
-// GetSubject returns the Subject field value if set, zero value otherwise.
-func (o *Activation) GetSubject() string {
-	if o == nil || IsNil(o.Subject) {
-		var ret string
-		return ret
-	}
-	return *o.Subject
-}
-
-// GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Activation) GetSubjectOk() (*string, bool) {
-	if o == nil || IsNil(o.Subject) {
-		return nil, false
-	}
-	return o.Subject, true
-}
-
-// HasSubject returns a boolean if a field has been set.
-func (o *Activation) HasSubject() bool {
-	if o != nil && !IsNil(o.Subject) {
-		return true
-	}
-
-	return false
-}
-
-// SetSubject gets a reference to the given string and assigns it to the Subject field.
-func (o *Activation) SetSubject(v string) {
-	o.Subject = &v
-}
-
-func (o Activation) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o Activation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Version) {
-		toSerialize["version"] = o.Version
-	}
-	if !IsNil(o.IssuerAccount) {
+	if o.IssuerAccount != nil {
 		toSerialize["issuer_account"] = o.IssuerAccount
 	}
-	if !IsNil(o.Kind) {
+	if o.Kind != nil {
 		toSerialize["kind"] = o.Kind
 	}
-	if !IsNil(o.Subject) {
+	if o.Subject != nil {
 		toSerialize["subject"] = o.Subject
 	}
+	if o.Tags != nil && !o.Tags.IsNull() {
+		toSerialize["tags"] = o.Tags.Val
+	}
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
+	}
+	if o.Version != nil {
+		toSerialize["version"] = o.Version
+	}
 	return toSerialize, nil
-}
-
-type NullableActivation struct {
-	value *Activation
-	isSet bool
-}
-
-func (v NullableActivation) Get() *Activation {
-	return v.value
-}
-
-func (v *NullableActivation) Set(val *Activation) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableActivation) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableActivation) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableActivation(val *Activation) *NullableActivation {
-	return &NullableActivation{value: val, isSet: true}
-}
-
-func (v NullableActivation) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableActivation) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

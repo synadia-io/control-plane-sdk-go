@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the RePublish type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RePublish{}
 
@@ -25,201 +20,14 @@ type RePublish struct {
 	Src         *string `json:"src,omitempty"`
 }
 
-type _RePublish RePublish
-
-// NewRePublish instantiates a new RePublish object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewRePublish(dest string) *RePublish {
-	this := RePublish{}
-	this.Dest = dest
-	return &this
-}
-
-// NewRePublishWithDefaults instantiates a new RePublish object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewRePublishWithDefaults() *RePublish {
-	this := RePublish{}
-	return &this
-}
-
-// GetDest returns the Dest field value
-func (o *RePublish) GetDest() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Dest
-}
-
-// GetDestOk returns a tuple with the Dest field value
-// and a boolean to check if the value has been set.
-func (o *RePublish) GetDestOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Dest, true
-}
-
-// SetDest sets field value
-func (o *RePublish) SetDest(v string) {
-	o.Dest = v
-}
-
-// GetHeadersOnly returns the HeadersOnly field value if set, zero value otherwise.
-func (o *RePublish) GetHeadersOnly() bool {
-	if o == nil || IsNil(o.HeadersOnly) {
-		var ret bool
-		return ret
-	}
-	return *o.HeadersOnly
-}
-
-// GetHeadersOnlyOk returns a tuple with the HeadersOnly field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RePublish) GetHeadersOnlyOk() (*bool, bool) {
-	if o == nil || IsNil(o.HeadersOnly) {
-		return nil, false
-	}
-	return o.HeadersOnly, true
-}
-
-// HasHeadersOnly returns a boolean if a field has been set.
-func (o *RePublish) HasHeadersOnly() bool {
-	if o != nil && !IsNil(o.HeadersOnly) {
-		return true
-	}
-
-	return false
-}
-
-// SetHeadersOnly gets a reference to the given bool and assigns it to the HeadersOnly field.
-func (o *RePublish) SetHeadersOnly(v bool) {
-	o.HeadersOnly = &v
-}
-
-// GetSrc returns the Src field value if set, zero value otherwise.
-func (o *RePublish) GetSrc() string {
-	if o == nil || IsNil(o.Src) {
-		var ret string
-		return ret
-	}
-	return *o.Src
-}
-
-// GetSrcOk returns a tuple with the Src field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RePublish) GetSrcOk() (*string, bool) {
-	if o == nil || IsNil(o.Src) {
-		return nil, false
-	}
-	return o.Src, true
-}
-
-// HasSrc returns a boolean if a field has been set.
-func (o *RePublish) HasSrc() bool {
-	if o != nil && !IsNil(o.Src) {
-		return true
-	}
-
-	return false
-}
-
-// SetSrc gets a reference to the given string and assigns it to the Src field.
-func (o *RePublish) SetSrc(v string) {
-	o.Src = &v
-}
-
-func (o RePublish) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o RePublish) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["dest"] = o.Dest
-	if !IsNil(o.HeadersOnly) {
+	if o.HeadersOnly != nil {
 		toSerialize["headers_only"] = o.HeadersOnly
 	}
-	if !IsNil(o.Src) {
+	if o.Src != nil {
 		toSerialize["src"] = o.Src
 	}
 	return toSerialize, nil
-}
-
-func (o *RePublish) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"dest",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varRePublish := _RePublish{}
-
-	err = json.Unmarshal(bytes, &varRePublish)
-
-	if err != nil {
-		return err
-	}
-
-	*o = RePublish(varRePublish)
-
-	return err
-}
-
-type NullableRePublish struct {
-	value *RePublish
-	isSet bool
-}
-
-func (v NullableRePublish) Get() *RePublish {
-	return v.value
-}
-
-func (v *NullableRePublish) Set(val *RePublish) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRePublish) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRePublish) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRePublish(val *RePublish) *NullableRePublish {
-	return &NullableRePublish{value: val, isSet: true}
-}
-
-func (v NullableRePublish) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableRePublish) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

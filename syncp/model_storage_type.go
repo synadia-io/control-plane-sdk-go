@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // StorageType the model 'StorageType'
@@ -71,40 +72,4 @@ func (v StorageType) IsValid() bool {
 // Ptr returns reference to StorageType value
 func (v StorageType) Ptr() *StorageType {
 	return &v
-}
-
-type NullableStorageType struct {
-	value *StorageType
-	isSet bool
-}
-
-func (v NullableStorageType) Get() *StorageType {
-	return v.value
-}
-
-func (v *NullableStorageType) Set(val *StorageType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStorageType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStorageType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStorageType(val *StorageType) *NullableStorageType {
-	return &NullableStorageType{value: val, isSet: true}
-}
-
-func (v NullableStorageType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableStorageType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

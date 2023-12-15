@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // ReplayPolicy the model 'ReplayPolicy'
@@ -71,40 +72,4 @@ func (v ReplayPolicy) IsValid() bool {
 // Ptr returns reference to ReplayPolicy value
 func (v ReplayPolicy) Ptr() *ReplayPolicy {
 	return &v
-}
-
-type NullableReplayPolicy struct {
-	value *ReplayPolicy
-	isSet bool
-}
-
-func (v NullableReplayPolicy) Get() *ReplayPolicy {
-	return v.value
-}
-
-func (v *NullableReplayPolicy) Set(val *ReplayPolicy) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableReplayPolicy) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableReplayPolicy) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableReplayPolicy(val *ReplayPolicy) *NullableReplayPolicy {
-	return &NullableReplayPolicy{value: val, isSet: true}
-}
-
-func (v NullableReplayPolicy) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableReplayPolicy) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

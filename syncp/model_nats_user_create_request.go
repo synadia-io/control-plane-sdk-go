@@ -10,244 +10,26 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the NatsUserCreateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NatsUserCreateRequest{}
 
 // NatsUserCreateRequest struct for NatsUserCreateRequest
 type NatsUserCreateRequest struct {
-	JwtExpiresInSecs *int64                 `json:"jwt_expires_in_secs,omitempty"`
-	Name             string                 `json:"name"`
-	SkGroupId        string                 `json:"sk_group_id"`
-	UserClaims       *NatsUserClaimsRequest `json:"user_claims,omitempty"`
-}
-
-type _NatsUserCreateRequest NatsUserCreateRequest
-
-// NewNatsUserCreateRequest instantiates a new NatsUserCreateRequest object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewNatsUserCreateRequest(name string, skGroupId string) *NatsUserCreateRequest {
-	this := NatsUserCreateRequest{}
-	this.Name = name
-	this.SkGroupId = skGroupId
-	return &this
-}
-
-// NewNatsUserCreateRequestWithDefaults instantiates a new NatsUserCreateRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewNatsUserCreateRequestWithDefaults() *NatsUserCreateRequest {
-	this := NatsUserCreateRequest{}
-	return &this
-}
-
-// GetJwtExpiresInSecs returns the JwtExpiresInSecs field value if set, zero value otherwise.
-func (o *NatsUserCreateRequest) GetJwtExpiresInSecs() int64 {
-	if o == nil || IsNil(o.JwtExpiresInSecs) {
-		var ret int64
-		return ret
-	}
-	return *o.JwtExpiresInSecs
-}
-
-// GetJwtExpiresInSecsOk returns a tuple with the JwtExpiresInSecs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatsUserCreateRequest) GetJwtExpiresInSecsOk() (*int64, bool) {
-	if o == nil || IsNil(o.JwtExpiresInSecs) {
-		return nil, false
-	}
-	return o.JwtExpiresInSecs, true
-}
-
-// HasJwtExpiresInSecs returns a boolean if a field has been set.
-func (o *NatsUserCreateRequest) HasJwtExpiresInSecs() bool {
-	if o != nil && !IsNil(o.JwtExpiresInSecs) {
-		return true
-	}
-
-	return false
-}
-
-// SetJwtExpiresInSecs gets a reference to the given int64 and assigns it to the JwtExpiresInSecs field.
-func (o *NatsUserCreateRequest) SetJwtExpiresInSecs(v int64) {
-	o.JwtExpiresInSecs = &v
-}
-
-// GetName returns the Name field value
-func (o *NatsUserCreateRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *NatsUserCreateRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *NatsUserCreateRequest) SetName(v string) {
-	o.Name = v
-}
-
-// GetSkGroupId returns the SkGroupId field value
-func (o *NatsUserCreateRequest) GetSkGroupId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SkGroupId
-}
-
-// GetSkGroupIdOk returns a tuple with the SkGroupId field value
-// and a boolean to check if the value has been set.
-func (o *NatsUserCreateRequest) GetSkGroupIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SkGroupId, true
-}
-
-// SetSkGroupId sets field value
-func (o *NatsUserCreateRequest) SetSkGroupId(v string) {
-	o.SkGroupId = v
-}
-
-// GetUserClaims returns the UserClaims field value if set, zero value otherwise.
-func (o *NatsUserCreateRequest) GetUserClaims() NatsUserClaimsRequest {
-	if o == nil || IsNil(o.UserClaims) {
-		var ret NatsUserClaimsRequest
-		return ret
-	}
-	return *o.UserClaims
-}
-
-// GetUserClaimsOk returns a tuple with the UserClaims field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatsUserCreateRequest) GetUserClaimsOk() (*NatsUserClaimsRequest, bool) {
-	if o == nil || IsNil(o.UserClaims) {
-		return nil, false
-	}
-	return o.UserClaims, true
-}
-
-// HasUserClaims returns a boolean if a field has been set.
-func (o *NatsUserCreateRequest) HasUserClaims() bool {
-	if o != nil && !IsNil(o.UserClaims) {
-		return true
-	}
-
-	return false
-}
-
-// SetUserClaims gets a reference to the given NatsUserClaimsRequest and assigns it to the UserClaims field.
-func (o *NatsUserCreateRequest) SetUserClaims(v NatsUserClaimsRequest) {
-	o.UserClaims = &v
-}
-
-func (o NatsUserCreateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	JwtExpiresInSecs *int64               `json:"jwt_expires_in_secs,omitempty"`
+	JwtSettings      *NatsUserJwtSettings `json:"jwt_settings,omitempty"`
+	Name             string               `json:"name"`
+	SkGroupId        string               `json:"sk_group_id"`
 }
 
 func (o NatsUserCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.JwtExpiresInSecs) {
+	if o.JwtExpiresInSecs != nil {
 		toSerialize["jwt_expires_in_secs"] = o.JwtExpiresInSecs
+	}
+	if o.JwtSettings != nil {
+		toSerialize["jwt_settings"] = o.JwtSettings
 	}
 	toSerialize["name"] = o.Name
 	toSerialize["sk_group_id"] = o.SkGroupId
-	if !IsNil(o.UserClaims) {
-		toSerialize["user_claims"] = o.UserClaims
-	}
 	return toSerialize, nil
-}
-
-func (o *NatsUserCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"name",
-		"sk_group_id",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varNatsUserCreateRequest := _NatsUserCreateRequest{}
-
-	err = json.Unmarshal(bytes, &varNatsUserCreateRequest)
-
-	if err != nil {
-		return err
-	}
-
-	*o = NatsUserCreateRequest(varNatsUserCreateRequest)
-
-	return err
-}
-
-type NullableNatsUserCreateRequest struct {
-	value *NatsUserCreateRequest
-	isSet bool
-}
-
-func (v NullableNatsUserCreateRequest) Get() *NatsUserCreateRequest {
-	return v.value
-}
-
-func (v *NullableNatsUserCreateRequest) Set(val *NatsUserCreateRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableNatsUserCreateRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableNatsUserCreateRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableNatsUserCreateRequest(val *NatsUserCreateRequest) *NullableNatsUserCreateRequest {
-	return &NullableNatsUserCreateRequest{value: val, isSet: true}
-}
-
-func (v NullableNatsUserCreateRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableNatsUserCreateRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

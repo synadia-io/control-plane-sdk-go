@@ -78,6 +78,20 @@ type SessionAPI interface {
 	CreateTeamExecute(r ApiCreateTeamRequest) (*TeamViewResponse, *http.Response, error)
 
 	/*
+		DecideInvitation Accept or reject team invitation
+
+		Accept or reject team invitation
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param teamId
+		@return ApiDecideInvitationRequest
+	*/
+	DecideInvitation(ctx context.Context, teamId string) ApiDecideInvitationRequest
+
+	// DecideInvitationExecute executes the request
+	DecideInvitationExecute(r ApiDecideInvitationRequest) (*http.Response, error)
+
+	/*
 		GetVersion Get Version
 
 		Returns information about the Synadia Control Plane Version
@@ -118,6 +132,20 @@ type SessionAPI interface {
 	// ListAppUsersExecute executes the request
 	//  @return AppUserListResponse
 	ListAppUsersExecute(r ApiListAppUsersRequest) (*AppUserListResponse, *http.Response, error)
+
+	/*
+		ListInvitations List of pending invitations
+
+		List of pending invitations
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListInvitationsRequest
+	*/
+	ListInvitations(ctx context.Context) ApiListInvitationsRequest
+
+	// ListInvitationsExecute executes the request
+	//  @return InvitationListResponse
+	ListInvitationsExecute(r ApiListInvitationsRequest) (*InvitationListResponse, *http.Response, error)
 
 	/*
 		ListPersonalAccessTokens List Personal Access Tokens
@@ -620,6 +648,106 @@ func (a *SessionAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*TeamView
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiDecideInvitationRequest struct {
+	ctx                       context.Context
+	ApiService                SessionAPI
+	teamId                    string
+	invitationDecisionRequest *InvitationDecisionRequest
+}
+
+func (r ApiDecideInvitationRequest) InvitationDecisionRequest(invitationDecisionRequest InvitationDecisionRequest) ApiDecideInvitationRequest {
+	r.invitationDecisionRequest = &invitationDecisionRequest
+	return r
+}
+
+func (r ApiDecideInvitationRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DecideInvitationExecute(r)
+}
+
+/*
+DecideInvitation Accept or reject team invitation
+
+Accept or reject team invitation
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param teamId
+	@return ApiDecideInvitationRequest
+*/
+func (a *SessionAPIService) DecideInvitation(ctx context.Context, teamId string) ApiDecideInvitationRequest {
+	return ApiDecideInvitationRequest{
+		ApiService: a,
+		ctx:        ctx,
+		teamId:     teamId,
+	}
+}
+
+// Execute executes the request
+func (a *SessionAPIService) DecideInvitationExecute(r ApiDecideInvitationRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.DecideInvitation")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/invitations/{teamId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.invitationDecisionRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiGetVersionRequest struct {
 	ctx        context.Context
 	ApiService SessionAPI
@@ -870,6 +998,106 @@ func (a *SessionAPIService) ListAppUsersExecute(r ApiListAppUsersRequest) (*AppU
 	}
 
 	localVarPath := localBasePath + "/app-users"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListInvitationsRequest struct {
+	ctx        context.Context
+	ApiService SessionAPI
+}
+
+func (r ApiListInvitationsRequest) Execute() (*InvitationListResponse, *http.Response, error) {
+	return r.ApiService.ListInvitationsExecute(r)
+}
+
+/*
+ListInvitations List of pending invitations
+
+List of pending invitations
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListInvitationsRequest
+*/
+func (a *SessionAPIService) ListInvitations(ctx context.Context) ApiListInvitationsRequest {
+	return ApiListInvitationsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return InvitationListResponse
+func (a *SessionAPIService) ListInvitationsExecute(r ApiListInvitationsRequest) (*InvitationListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InvitationListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.ListInvitations")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/invitations"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

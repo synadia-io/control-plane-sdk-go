@@ -52,18 +52,18 @@ type KvBucketAPI interface {
 	CreateKvPushConsumerExecute(r ApiCreateKvPushConsumerRequest) (*JSPushConsumerInfoResponse, *http.Response, error)
 
 	/*
-		DeleteBucket Delete KV Bucket
+		DeleteKvBucket Delete KV Bucket
 
 		Deletes KV Bucket
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param streamId
-		@return ApiDeleteBucketRequest
+		@return ApiDeleteKvBucketRequest
 	*/
-	DeleteBucket(ctx context.Context, streamId string) ApiDeleteBucketRequest
+	DeleteKvBucket(ctx context.Context, streamId string) ApiDeleteKvBucketRequest
 
-	// DeleteBucketExecute executes the request
-	DeleteBucketExecute(r ApiDeleteBucketRequest) (*http.Response, error)
+	// DeleteKvBucketExecute executes the request
+	DeleteKvBucketExecute(r ApiDeleteKvBucketRequest) (*http.Response, error)
 
 	/*
 		GetKvBucket Get KV Bucket
@@ -96,18 +96,19 @@ type KvBucketAPI interface {
 	ListKvConsumersExecute(r ApiListKvConsumersRequest) (*JSConsumerInfoListResponse, *http.Response, error)
 
 	/*
-		UpdateJSAsset Update KV Bucket
+		UpdateKvBucket Update KV Bucket
 
-		Not supported. Added for API Consistency
+		Update KV Bucket
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param streamId
-		@return ApiUpdateJSAssetRequest
+		@return ApiUpdateKvBucketRequest
 	*/
-	UpdateJSAsset(ctx context.Context, streamId string) ApiUpdateJSAssetRequest
+	UpdateKvBucket(ctx context.Context, streamId string) ApiUpdateKvBucketRequest
 
-	// UpdateJSAssetExecute executes the request
-	UpdateJSAssetExecute(r ApiUpdateJSAssetRequest) (*http.Response, error)
+	// UpdateKvBucketExecute executes the request
+	//  @return JSKVBucketViewResponse
+	UpdateKvBucketExecute(r ApiUpdateKvBucketRequest) (*JSKVBucketViewResponse, *http.Response, error)
 }
 
 // KvBucketAPIService KvBucketAPI service
@@ -337,27 +338,27 @@ func (a *KvBucketAPIService) CreateKvPushConsumerExecute(r ApiCreateKvPushConsum
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteBucketRequest struct {
+type ApiDeleteKvBucketRequest struct {
 	ctx        context.Context
 	ApiService KvBucketAPI
 	streamId   string
 }
 
-func (r ApiDeleteBucketRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteBucketExecute(r)
+func (r ApiDeleteKvBucketRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteKvBucketExecute(r)
 }
 
 /*
-DeleteBucket Delete KV Bucket
+DeleteKvBucket Delete KV Bucket
 
 Deletes KV Bucket
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param streamId
-	@return ApiDeleteBucketRequest
+	@return ApiDeleteKvBucketRequest
 */
-func (a *KvBucketAPIService) DeleteBucket(ctx context.Context, streamId string) ApiDeleteBucketRequest {
-	return ApiDeleteBucketRequest{
+func (a *KvBucketAPIService) DeleteKvBucket(ctx context.Context, streamId string) ApiDeleteKvBucketRequest {
+	return ApiDeleteKvBucketRequest{
 		ApiService: a,
 		ctx:        ctx,
 		streamId:   streamId,
@@ -365,14 +366,14 @@ func (a *KvBucketAPIService) DeleteBucket(ctx context.Context, streamId string) 
 }
 
 // Execute executes the request
-func (a *KvBucketAPIService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*http.Response, error) {
+func (a *KvBucketAPIService) DeleteKvBucketExecute(r ApiDeleteKvBucketRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KvBucketAPIService.DeleteBucket")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KvBucketAPIService.DeleteKvBucket")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -637,27 +638,33 @@ func (a *KvBucketAPIService) ListKvConsumersExecute(r ApiListKvConsumersRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateJSAssetRequest struct {
-	ctx        context.Context
-	ApiService KvBucketAPI
-	streamId   string
+type ApiUpdateKvBucketRequest struct {
+	ctx                     context.Context
+	ApiService              KvBucketAPI
+	streamId                string
+	jSKVBucketUpdateRequest *JSKVBucketUpdateRequest
 }
 
-func (r ApiUpdateJSAssetRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UpdateJSAssetExecute(r)
+func (r ApiUpdateKvBucketRequest) JSKVBucketUpdateRequest(jSKVBucketUpdateRequest JSKVBucketUpdateRequest) ApiUpdateKvBucketRequest {
+	r.jSKVBucketUpdateRequest = &jSKVBucketUpdateRequest
+	return r
+}
+
+func (r ApiUpdateKvBucketRequest) Execute() (*JSKVBucketViewResponse, *http.Response, error) {
+	return r.ApiService.UpdateKvBucketExecute(r)
 }
 
 /*
-UpdateJSAsset Update KV Bucket
+UpdateKvBucket Update KV Bucket
 
-Not supported. Added for API Consistency
+Update KV Bucket
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param streamId
-	@return ApiUpdateJSAssetRequest
+	@return ApiUpdateKvBucketRequest
 */
-func (a *KvBucketAPIService) UpdateJSAsset(ctx context.Context, streamId string) ApiUpdateJSAssetRequest {
-	return ApiUpdateJSAssetRequest{
+func (a *KvBucketAPIService) UpdateKvBucket(ctx context.Context, streamId string) ApiUpdateKvBucketRequest {
+	return ApiUpdateKvBucketRequest{
 		ApiService: a,
 		ctx:        ctx,
 		streamId:   streamId,
@@ -665,16 +672,19 @@ func (a *KvBucketAPIService) UpdateJSAsset(ctx context.Context, streamId string)
 }
 
 // Execute executes the request
-func (a *KvBucketAPIService) UpdateJSAssetExecute(r ApiUpdateJSAssetRequest) (*http.Response, error) {
+//
+//	@return JSKVBucketViewResponse
+func (a *KvBucketAPIService) UpdateKvBucketExecute(r ApiUpdateKvBucketRequest) (*JSKVBucketViewResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPatch
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *JSKVBucketViewResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KvBucketAPIService.UpdateJSAsset")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KvBucketAPIService.UpdateKvBucket")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/jetstream/kv-bucket/{streamId}"
@@ -685,7 +695,7 @@ func (a *KvBucketAPIService) UpdateJSAssetExecute(r ApiUpdateJSAssetRequest) (*h
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -694,28 +704,30 @@ func (a *KvBucketAPIService) UpdateJSAssetExecute(r ApiUpdateJSAssetRequest) (*h
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.jSKVBucketUpdateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -723,8 +735,17 @@ func (a *KvBucketAPIService) UpdateJSAssetExecute(r ApiUpdateJSAssetRequest) (*h
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

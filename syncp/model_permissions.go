@@ -10,198 +10,26 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-)
-
 // checks if the Permissions type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Permissions{}
 
 // Permissions Permissions are used to restrict subject access, either on a user or for everyone on a server by default
 type Permissions struct {
-	Pub  *Permission             `json:"pub,omitempty"`
-	Resp NullablePermissionsResp `json:"resp,omitempty"`
-	Sub  *Permission             `json:"sub,omitempty"`
-}
-
-// NewPermissions instantiates a new Permissions object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewPermissions() *Permissions {
-	this := Permissions{}
-	return &this
-}
-
-// NewPermissionsWithDefaults instantiates a new Permissions object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewPermissionsWithDefaults() *Permissions {
-	this := Permissions{}
-	return &this
-}
-
-// GetPub returns the Pub field value if set, zero value otherwise.
-func (o *Permissions) GetPub() Permission {
-	if o == nil || IsNil(o.Pub) {
-		var ret Permission
-		return ret
-	}
-	return *o.Pub
-}
-
-// GetPubOk returns a tuple with the Pub field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Permissions) GetPubOk() (*Permission, bool) {
-	if o == nil || IsNil(o.Pub) {
-		return nil, false
-	}
-	return o.Pub, true
-}
-
-// HasPub returns a boolean if a field has been set.
-func (o *Permissions) HasPub() bool {
-	if o != nil && !IsNil(o.Pub) {
-		return true
-	}
-
-	return false
-}
-
-// SetPub gets a reference to the given Permission and assigns it to the Pub field.
-func (o *Permissions) SetPub(v Permission) {
-	o.Pub = &v
-}
-
-// GetResp returns the Resp field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Permissions) GetResp() PermissionsResp {
-	if o == nil || IsNil(o.Resp.Get()) {
-		var ret PermissionsResp
-		return ret
-	}
-	return *o.Resp.Get()
-}
-
-// GetRespOk returns a tuple with the Resp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Permissions) GetRespOk() (*PermissionsResp, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Resp.Get(), o.Resp.IsSet()
-}
-
-// HasResp returns a boolean if a field has been set.
-func (o *Permissions) HasResp() bool {
-	if o != nil && o.Resp.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetResp gets a reference to the given NullablePermissionsResp and assigns it to the Resp field.
-func (o *Permissions) SetResp(v PermissionsResp) {
-	o.Resp.Set(&v)
-}
-
-// SetRespNil sets the value for Resp to be an explicit nil
-func (o *Permissions) SetRespNil() {
-	o.Resp.Set(nil)
-}
-
-// UnsetResp ensures that no value is present for Resp, not even an explicit nil
-func (o *Permissions) UnsetResp() {
-	o.Resp.Unset()
-}
-
-// GetSub returns the Sub field value if set, zero value otherwise.
-func (o *Permissions) GetSub() Permission {
-	if o == nil || IsNil(o.Sub) {
-		var ret Permission
-		return ret
-	}
-	return *o.Sub
-}
-
-// GetSubOk returns a tuple with the Sub field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Permissions) GetSubOk() (*Permission, bool) {
-	if o == nil || IsNil(o.Sub) {
-		return nil, false
-	}
-	return o.Sub, true
-}
-
-// HasSub returns a boolean if a field has been set.
-func (o *Permissions) HasSub() bool {
-	if o != nil && !IsNil(o.Sub) {
-		return true
-	}
-
-	return false
-}
-
-// SetSub gets a reference to the given Permission and assigns it to the Sub field.
-func (o *Permissions) SetSub(v Permission) {
-	o.Sub = &v
-}
-
-func (o Permissions) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	Pub  *Permission                   `json:"pub,omitempty"`
+	Resp *Nullable[ResponsePermission] `json:"resp,omitempty"`
+	Sub  *Permission                   `json:"sub,omitempty"`
 }
 
 func (o Permissions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Pub) {
+	if o.Pub != nil {
 		toSerialize["pub"] = o.Pub
 	}
-	if o.Resp.IsSet() {
-		toSerialize["resp"] = o.Resp.Get()
+	if o.Resp != nil && !o.Resp.IsNull() {
+		toSerialize["resp"] = o.Resp.Val
 	}
-	if !IsNil(o.Sub) {
+	if o.Sub != nil {
 		toSerialize["sub"] = o.Sub
 	}
 	return toSerialize, nil
-}
-
-type NullablePermissions struct {
-	value *Permissions
-	isSet bool
-}
-
-func (v NullablePermissions) Get() *Permissions {
-	return v.value
-}
-
-func (v *NullablePermissions) Set(val *Permissions) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePermissions) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePermissions) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePermissions(val *Permissions) *NullablePermissions {
-	return &NullablePermissions{value: val, isSet: true}
-}
-
-func (v NullablePermissions) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullablePermissions) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

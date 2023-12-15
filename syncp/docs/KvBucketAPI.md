@@ -6,10 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateKvPullConsumer**](KvBucketAPI.md#CreateKvPullConsumer) | **Post** /jetstream/kv-bucket/{streamId}/consumers/pull | Create Pull Consumer
 [**CreateKvPushConsumer**](KvBucketAPI.md#CreateKvPushConsumer) | **Post** /jetstream/kv-bucket/{streamId}/consumers/push | Create Push Consumer
-[**DeleteBucket**](KvBucketAPI.md#DeleteBucket) | **Delete** /jetstream/kv-bucket/{streamId} | Delete KV Bucket
+[**DeleteKvBucket**](KvBucketAPI.md#DeleteKvBucket) | **Delete** /jetstream/kv-bucket/{streamId} | Delete KV Bucket
 [**GetKvBucket**](KvBucketAPI.md#GetKvBucket) | **Get** /jetstream/kv-bucket/{streamId} | Get KV Bucket
 [**ListKvConsumers**](KvBucketAPI.md#ListKvConsumers) | **Get** /jetstream/kv-bucket/{streamId}/consumers | List Consumers
-[**UpdateJSAsset**](KvBucketAPI.md#UpdateJSAsset) | **Patch** /jetstream/kv-bucket/{streamId} | Update KV Bucket
+[**UpdateKvBucket**](KvBucketAPI.md#UpdateKvBucket) | **Patch** /jetstream/kv-bucket/{streamId} | Update KV Bucket
 
 
 
@@ -157,9 +157,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## DeleteBucket
+## DeleteKvBucket
 
-> DeleteBucket(ctx, streamId).Execute()
+> DeleteKvBucket(ctx, streamId).Execute()
 
 Delete KV Bucket
 
@@ -182,9 +182,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.KvBucketAPI.DeleteBucket(context.Background(), streamId).Execute()
+    r, err := apiClient.KvBucketAPI.DeleteKvBucket(context.Background(), streamId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `KvBucketAPI.DeleteBucket``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `KvBucketAPI.DeleteKvBucket``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteBucketRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteKvBucketRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -365,9 +365,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## UpdateJSAsset
+## UpdateKvBucket
 
-> UpdateJSAsset(ctx, streamId).Execute()
+> JSKVBucketViewResponse UpdateKvBucket(ctx, streamId).JSKVBucketUpdateRequest(jSKVBucketUpdateRequest).Execute()
 
 Update KV Bucket
 
@@ -387,14 +387,17 @@ import (
 
 func main() {
     streamId := "streamId_example" // string | 
+    jSKVBucketUpdateRequest := *openapiclient.NewJSKVBucketUpdateRequest(*openapiclient.NewUpdatableKVBucketConfig()) // JSKVBucketUpdateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.KvBucketAPI.UpdateJSAsset(context.Background(), streamId).Execute()
+    resp, r, err := apiClient.KvBucketAPI.UpdateKvBucket(context.Background(), streamId).JSKVBucketUpdateRequest(jSKVBucketUpdateRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `KvBucketAPI.UpdateJSAsset``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `KvBucketAPI.UpdateKvBucket``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
+    // response from `UpdateKvBucket`: JSKVBucketViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `KvBucketAPI.UpdateKvBucket`: %v\n", resp)
 }
 ```
 
@@ -408,16 +411,17 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUpdateJSAssetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateKvBucketRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **jSKVBucketUpdateRequest** | [**JSKVBucketUpdateRequest**](JSKVBucketUpdateRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**JSKVBucketViewResponse**](JSKVBucketViewResponse.md)
 
 ### Authorization
 
@@ -425,8 +429,8 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

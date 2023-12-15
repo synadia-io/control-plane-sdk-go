@@ -34,18 +34,20 @@ func TestExample(t *testing.T) {
 	})
 	ctx = context.WithValue(ctx, syncp.ContextAccessToken, "test_bearer_token")
 	client.SystemAPI = &mockSystemApi{
-		accountList: syncp.NewAccountListResponse([]syncp.AccountViewResponse{
-			{
-				Id:   "testid1",
-				Name: "test account",
+		accountList: &syncp.AccountListResponse{
+			Items: []syncp.AccountViewResponse{
+				{
+					Id:   "testid1",
+					Name: "test account",
+				},
+				{
+					Id:   "testid2",
+					Name: "test account 2",
+				},
 			},
-			{
-				Id:   "testid2",
-				Name: "test account 2",
-			},
-		}),
+		},
 	}
-	accountList, _, err := client.SystemAPI.ListAccounts(ctx, "2Ui3Xj44Ly8BG13qQT0nQWzZ0ss").Execute()
+	accountList, _, err := client.SystemAPI.ListAccounts(ctx, SystemId).Execute()
 	require.NoError(t, err)
 	require.Len(t, accountList.Items, 2)
 	require.Equal(t, accountList.Items[0].Name, "test account")
