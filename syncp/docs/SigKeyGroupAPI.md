@@ -4,12 +4,85 @@ All URIs are relative to *http://localhost/api/core/beta*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CopyAccountSKGroup**](SigKeyGroupAPI.md#CopyAccountSKGroup) | **Post** /account-sk-groups/{groupId}/copy | Copy Account SK Group
 [**DeleteAccountSkGroup**](SigKeyGroupAPI.md#DeleteAccountSkGroup) | **Delete** /account-sk-groups/{groupId} | Delete Account Signing Key Group
 [**GetAccountSkGroup**](SigKeyGroupAPI.md#GetAccountSkGroup) | **Get** /account-sk-groups/{groupId} | Get Account Signing Key Group
 [**ListAccountSkGroupKeys**](SigKeyGroupAPI.md#ListAccountSkGroupKeys) | **Get** /account-sk-groups/{groupId}/account-sks | List Signing Keys
 [**RotateAccountSk**](SigKeyGroupAPI.md#RotateAccountSk) | **Post** /account-sk-groups/{groupId}/rotate-sk | Roate Active Signing Key
 [**UpdateAccountSkGroup**](SigKeyGroupAPI.md#UpdateAccountSkGroup) | **Patch** /account-sk-groups/{groupId} | Update Account Signing Key Group
 
+
+
+## CopyAccountSKGroup
+
+> SigningKeyGroupViewResponse CopyAccountSKGroup(ctx, groupId).SigningKeyGroupCopyRequest(signingKeyGroupCopyRequest).Execute()
+
+Copy Account SK Group
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    groupId := "groupId_example" // string | 
+    signingKeyGroupCopyRequest := *openapiclient.NewSigningKeyGroupCopyRequest("Name_example") // SigningKeyGroupCopyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SigKeyGroupAPI.CopyAccountSKGroup(context.Background(), groupId).SigningKeyGroupCopyRequest(signingKeyGroupCopyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SigKeyGroupAPI.CopyAccountSKGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CopyAccountSKGroup`: SigningKeyGroupViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `SigKeyGroupAPI.CopyAccountSKGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**groupId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCopyAccountSKGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **signingKeyGroupCopyRequest** | [**SigningKeyGroupCopyRequest**](SigningKeyGroupCopyRequest.md) |  | 
+
+### Return type
+
+[**SigningKeyGroupViewResponse**](SigningKeyGroupViewResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteAccountSkGroup

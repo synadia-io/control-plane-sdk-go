@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the TeamLimits type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TeamLimits{}
 
@@ -23,131 +18,8 @@ type TeamLimits struct {
 	NumUsers int32 `json:"num_users"`
 }
 
-type _TeamLimits TeamLimits
-
-// NewTeamLimits instantiates a new TeamLimits object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewTeamLimits(numUsers int32) *TeamLimits {
-	this := TeamLimits{}
-	this.NumUsers = numUsers
-	return &this
-}
-
-// NewTeamLimitsWithDefaults instantiates a new TeamLimits object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewTeamLimitsWithDefaults() *TeamLimits {
-	this := TeamLimits{}
-	return &this
-}
-
-// GetNumUsers returns the NumUsers field value
-func (o *TeamLimits) GetNumUsers() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.NumUsers
-}
-
-// GetNumUsersOk returns a tuple with the NumUsers field value
-// and a boolean to check if the value has been set.
-func (o *TeamLimits) GetNumUsersOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.NumUsers, true
-}
-
-// SetNumUsers sets field value
-func (o *TeamLimits) SetNumUsers(v int32) {
-	o.NumUsers = v
-}
-
-func (o TeamLimits) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o TeamLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["num_users"] = o.NumUsers
 	return toSerialize, nil
-}
-
-func (o *TeamLimits) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"num_users",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varTeamLimits := _TeamLimits{}
-
-	err = json.Unmarshal(bytes, &varTeamLimits)
-
-	if err != nil {
-		return err
-	}
-
-	*o = TeamLimits(varTeamLimits)
-
-	return err
-}
-
-type NullableTeamLimits struct {
-	value *TeamLimits
-	isSet bool
-}
-
-func (v NullableTeamLimits) Get() *TeamLimits {
-	return v.value
-}
-
-func (v *NullableTeamLimits) Set(val *TeamLimits) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTeamLimits) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTeamLimits) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTeamLimits(val *TeamLimits) *NullableTeamLimits {
-	return &NullableTeamLimits{value: val, isSet: true}
-}
-
-func (v NullableTeamLimits) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableTeamLimits) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

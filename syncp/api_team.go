@@ -22,22 +22,6 @@ import (
 type TeamAPI interface {
 
 	/*
-		AssignTeamAppUser Assign App User to Team
-
-		Assign an App User to a Team
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param teamId
-		@param appUserId
-		@return ApiAssignTeamAppUserRequest
-	*/
-	AssignTeamAppUser(ctx context.Context, teamId string, appUserId string) ApiAssignTeamAppUserRequest
-
-	// AssignTeamAppUserExecute executes the request
-	//  @return AppUserAssignResponse
-	AssignTeamAppUserExecute(r ApiAssignTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
-
-	/*
 		CreateSystem Create System
 
 		Create a System
@@ -51,20 +35,6 @@ type TeamAPI interface {
 	// CreateSystemExecute executes the request
 	//  @return SystemViewResponse
 	CreateSystemExecute(r ApiCreateSystemRequest) (*SystemViewResponse, *http.Response, error)
-
-	/*
-		DecideInvitation Accept or reject team invitation
-
-		Accept or reject team invitation
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param teamId
-		@return ApiDecideInvitationRequest
-	*/
-	DecideInvitation(ctx context.Context, teamId string) ApiDecideInvitationRequest
-
-	// DecideInvitationExecute executes the request
-	DecideInvitationExecute(r ApiDecideInvitationRequest) (*http.Response, error)
 
 	/*
 		DeleteTeam Delete Team
@@ -128,7 +98,7 @@ type TeamAPI interface {
 	/*
 		InviteAppUser Invite App Users
 
-		Sends invitation to the specified user
+		Invites the specified User to join the Team. This operation is idempotent, with the caveat that Roles will not be downgraded; if the User is already assigned to the Team or Associated Resources and the requested Role is more permissive than the existing Role, the Role will be updated.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param teamId
@@ -137,23 +107,22 @@ type TeamAPI interface {
 	InviteAppUser(ctx context.Context, teamId string) ApiInviteAppUserRequest
 
 	// InviteAppUserExecute executes the request
-	//  @return AppUserInviteResponse
-	InviteAppUserExecute(r ApiInviteAppUserRequest) (*AppUserInviteResponse, *http.Response, error)
+	//  @return AppUserInvitationResponse
+	InviteAppUserExecute(r ApiInviteAppUserRequest) (*AppUserInvitationResponse, *http.Response, error)
 
 	/*
-		ListInvites List of pending invites
+		LeaveTeam Leave Team
 
-		List of pending invites
+		Leave the specified team
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param teamId
-		@return ApiListInvitesRequest
+		@return ApiLeaveTeamRequest
 	*/
-	ListInvites(ctx context.Context, teamId string) ApiListInvitesRequest
+	LeaveTeam(ctx context.Context, teamId string) ApiLeaveTeamRequest
 
-	// ListInvitesExecute executes the request
-	//  @return InviteListResponse
-	ListInvitesExecute(r ApiListInvitesRequest) (*InviteListResponse, *http.Response, error)
+	// LeaveTeamExecute executes the request
+	LeaveTeamExecute(r ApiLeaveTeamRequest) (*http.Response, error)
 
 	/*
 		ListTeamAccounts List Accounts
@@ -244,126 +213,26 @@ type TeamAPI interface {
 	// UpdateTeamExecute executes the request
 	//  @return TeamViewResponse
 	UpdateTeamExecute(r ApiUpdateTeamRequest) (*TeamViewResponse, *http.Response, error)
+
+	/*
+		UpdateTeamAppUser Update App User Team Assignment
+
+		Update an App User's assignment on a Team
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param teamId
+		@param appUserId
+		@return ApiUpdateTeamAppUserRequest
+	*/
+	UpdateTeamAppUser(ctx context.Context, teamId string, appUserId string) ApiUpdateTeamAppUserRequest
+
+	// UpdateTeamAppUserExecute executes the request
+	//  @return AppUserAssignResponse
+	UpdateTeamAppUserExecute(r ApiUpdateTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
 }
 
 // TeamAPIService TeamAPI service
 type TeamAPIService service
-
-type ApiAssignTeamAppUserRequest struct {
-	ctx                  context.Context
-	ApiService           TeamAPI
-	teamId               string
-	appUserId            string
-	appUserAssignRequest *AppUserAssignRequest
-}
-
-func (r ApiAssignTeamAppUserRequest) AppUserAssignRequest(appUserAssignRequest AppUserAssignRequest) ApiAssignTeamAppUserRequest {
-	r.appUserAssignRequest = &appUserAssignRequest
-	return r
-}
-
-func (r ApiAssignTeamAppUserRequest) Execute() (*AppUserAssignResponse, *http.Response, error) {
-	return r.ApiService.AssignTeamAppUserExecute(r)
-}
-
-/*
-AssignTeamAppUser Assign App User to Team
-
-Assign an App User to a Team
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param teamId
-	@param appUserId
-	@return ApiAssignTeamAppUserRequest
-*/
-func (a *TeamAPIService) AssignTeamAppUser(ctx context.Context, teamId string, appUserId string) ApiAssignTeamAppUserRequest {
-	return ApiAssignTeamAppUserRequest{
-		ApiService: a,
-		ctx:        ctx,
-		teamId:     teamId,
-		appUserId:  appUserId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AppUserAssignResponse
-func (a *TeamAPIService) AssignTeamAppUserExecute(r ApiAssignTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AppUserAssignResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.AssignTeamAppUser")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/teams/{teamId}/app-users/{appUserId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.appUserAssignRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
 
 type ApiCreateSystemRequest struct {
 	ctx                 context.Context
@@ -475,106 +344,6 @@ func (a *TeamAPIService) CreateSystemExecute(r ApiCreateSystemRequest) (*SystemV
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiDecideInvitationRequest struct {
-	ctx                   context.Context
-	ApiService            TeamAPI
-	teamId                string
-	inviteDecisionRequest *InviteDecisionRequest
-}
-
-func (r ApiDecideInvitationRequest) InviteDecisionRequest(inviteDecisionRequest InviteDecisionRequest) ApiDecideInvitationRequest {
-	r.inviteDecisionRequest = &inviteDecisionRequest
-	return r
-}
-
-func (r ApiDecideInvitationRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DecideInvitationExecute(r)
-}
-
-/*
-DecideInvitation Accept or reject team invitation
-
-Accept or reject team invitation
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param teamId
-	@return ApiDecideInvitationRequest
-*/
-func (a *TeamAPIService) DecideInvitation(ctx context.Context, teamId string) ApiDecideInvitationRequest {
-	return ApiDecideInvitationRequest{
-		ApiService: a,
-		ctx:        ctx,
-		teamId:     teamId,
-	}
-}
-
-// Execute executes the request
-func (a *TeamAPIService) DecideInvitationExecute(r ApiDecideInvitationRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.DecideInvitation")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/invites/{teamId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.inviteDecisionRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type ApiDeleteTeamRequest struct {
@@ -990,25 +759,25 @@ func (a *TeamAPIService) ImportSystemExecute(r ApiImportSystemRequest) (*SystemV
 }
 
 type ApiInviteAppUserRequest struct {
-	ctx                  context.Context
-	ApiService           TeamAPI
-	teamId               string
-	appUserInviteRequest *AppUserInviteRequest
+	ctx                      context.Context
+	ApiService               TeamAPI
+	teamId                   string
+	appUserInvitationRequest *AppUserInvitationRequest
 }
 
-func (r ApiInviteAppUserRequest) AppUserInviteRequest(appUserInviteRequest AppUserInviteRequest) ApiInviteAppUserRequest {
-	r.appUserInviteRequest = &appUserInviteRequest
+func (r ApiInviteAppUserRequest) AppUserInvitationRequest(appUserInvitationRequest AppUserInvitationRequest) ApiInviteAppUserRequest {
+	r.appUserInvitationRequest = &appUserInvitationRequest
 	return r
 }
 
-func (r ApiInviteAppUserRequest) Execute() (*AppUserInviteResponse, *http.Response, error) {
+func (r ApiInviteAppUserRequest) Execute() (*AppUserInvitationResponse, *http.Response, error) {
 	return r.ApiService.InviteAppUserExecute(r)
 }
 
 /*
 InviteAppUser Invite App Users
 
-Sends invitation to the specified user
+Invites the specified User to join the Team. This operation is idempotent, with the caveat that Roles will not be downgraded; if the User is already assigned to the Team or Associated Resources and the requested Role is more permissive than the existing Role, the Role will be updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param teamId
@@ -1024,13 +793,13 @@ func (a *TeamAPIService) InviteAppUser(ctx context.Context, teamId string) ApiIn
 
 // Execute executes the request
 //
-//	@return AppUserInviteResponse
-func (a *TeamAPIService) InviteAppUserExecute(r ApiInviteAppUserRequest) (*AppUserInviteResponse, *http.Response, error) {
+//	@return AppUserInvitationResponse
+func (a *TeamAPIService) InviteAppUserExecute(r ApiInviteAppUserRequest) (*AppUserInvitationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AppUserInviteResponse
+		localVarReturnValue *AppUserInvitationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.InviteAppUser")
@@ -1038,7 +807,7 @@ func (a *TeamAPIService) InviteAppUserExecute(r ApiInviteAppUserRequest) (*AppUs
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/app-users/invite"
+	localVarPath := localBasePath + "/teams/{teamId}/app-users/invitations"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1063,7 +832,7 @@ func (a *TeamAPIService) InviteAppUserExecute(r ApiInviteAppUserRequest) (*AppUs
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.appUserInviteRequest
+	localVarPostBody = r.appUserInvitationRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1101,27 +870,27 @@ func (a *TeamAPIService) InviteAppUserExecute(r ApiInviteAppUserRequest) (*AppUs
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListInvitesRequest struct {
+type ApiLeaveTeamRequest struct {
 	ctx        context.Context
 	ApiService TeamAPI
 	teamId     string
 }
 
-func (r ApiListInvitesRequest) Execute() (*InviteListResponse, *http.Response, error) {
-	return r.ApiService.ListInvitesExecute(r)
+func (r ApiLeaveTeamRequest) Execute() (*http.Response, error) {
+	return r.ApiService.LeaveTeamExecute(r)
 }
 
 /*
-ListInvites List of pending invites
+LeaveTeam Leave Team
 
-List of pending invites
+Leave the specified team
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param teamId
-	@return ApiListInvitesRequest
+	@return ApiLeaveTeamRequest
 */
-func (a *TeamAPIService) ListInvites(ctx context.Context, teamId string) ApiListInvitesRequest {
-	return ApiListInvitesRequest{
+func (a *TeamAPIService) LeaveTeam(ctx context.Context, teamId string) ApiLeaveTeamRequest {
+	return ApiLeaveTeamRequest{
 		ApiService: a,
 		ctx:        ctx,
 		teamId:     teamId,
@@ -1129,22 +898,19 @@ func (a *TeamAPIService) ListInvites(ctx context.Context, teamId string) ApiList
 }
 
 // Execute executes the request
-//
-//	@return InviteListResponse
-func (a *TeamAPIService) ListInvitesExecute(r ApiListInvitesRequest) (*InviteListResponse, *http.Response, error) {
+func (a *TeamAPIService) LeaveTeamExecute(r ApiLeaveTeamRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *InviteListResponse
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.ListInvites")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.LeaveTeam")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/invites"
+	localVarPath := localBasePath + "/teams/{teamId}/app-users/leave"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1161,7 +927,7 @@ func (a *TeamAPIService) ListInvitesExecute(r ApiListInvitesRequest) (*InviteLis
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1170,19 +936,19 @@ func (a *TeamAPIService) ListInvitesExecute(r ApiListInvitesRequest) (*InviteLis
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1190,19 +956,10 @@ func (a *TeamAPIService) ListInvitesExecute(r ApiListInvitesRequest) (*InviteLis
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiListTeamAccountsRequest struct {
@@ -1792,6 +1549,122 @@ func (a *TeamAPIService) UpdateTeamExecute(r ApiUpdateTeamRequest) (*TeamViewRes
 	}
 	// body params
 	localVarPostBody = r.teamUpdateRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateTeamAppUserRequest struct {
+	ctx                  context.Context
+	ApiService           TeamAPI
+	teamId               string
+	appUserId            string
+	appUserAssignRequest *AppUserAssignRequest
+}
+
+func (r ApiUpdateTeamAppUserRequest) AppUserAssignRequest(appUserAssignRequest AppUserAssignRequest) ApiUpdateTeamAppUserRequest {
+	r.appUserAssignRequest = &appUserAssignRequest
+	return r
+}
+
+func (r ApiUpdateTeamAppUserRequest) Execute() (*AppUserAssignResponse, *http.Response, error) {
+	return r.ApiService.UpdateTeamAppUserExecute(r)
+}
+
+/*
+UpdateTeamAppUser Update App User Team Assignment
+
+Update an App User's assignment on a Team
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param teamId
+	@param appUserId
+	@return ApiUpdateTeamAppUserRequest
+*/
+func (a *TeamAPIService) UpdateTeamAppUser(ctx context.Context, teamId string, appUserId string) ApiUpdateTeamAppUserRequest {
+	return ApiUpdateTeamAppUserRequest{
+		ApiService: a,
+		ctx:        ctx,
+		teamId:     teamId,
+		appUserId:  appUserId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AppUserAssignResponse
+func (a *TeamAPIService) UpdateTeamAppUserExecute(r ApiUpdateTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AppUserAssignResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.UpdateTeamAppUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/teams/{teamId}/app-users/{appUserId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.appUserAssignRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

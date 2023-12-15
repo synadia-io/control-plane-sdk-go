@@ -10,234 +10,30 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-)
-
 // checks if the NatsUserUpdateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NatsUserUpdateRequest{}
 
 // NatsUserUpdateRequest struct for NatsUserUpdateRequest
 type NatsUserUpdateRequest struct {
-	JwtExpiresInSecs *int64                                  `json:"jwt_expires_in_secs,omitempty"`
-	Name             *string                                 `json:"name,omitempty"`
-	Revoked          *bool                                   `json:"revoked,omitempty"`
-	UserClaims       NullableNatsUserUpdateRequestUserClaims `json:"user_claims,omitempty"`
-}
-
-// NewNatsUserUpdateRequest instantiates a new NatsUserUpdateRequest object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewNatsUserUpdateRequest() *NatsUserUpdateRequest {
-	this := NatsUserUpdateRequest{}
-	return &this
-}
-
-// NewNatsUserUpdateRequestWithDefaults instantiates a new NatsUserUpdateRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewNatsUserUpdateRequestWithDefaults() *NatsUserUpdateRequest {
-	this := NatsUserUpdateRequest{}
-	return &this
-}
-
-// GetJwtExpiresInSecs returns the JwtExpiresInSecs field value if set, zero value otherwise.
-func (o *NatsUserUpdateRequest) GetJwtExpiresInSecs() int64 {
-	if o == nil || IsNil(o.JwtExpiresInSecs) {
-		var ret int64
-		return ret
-	}
-	return *o.JwtExpiresInSecs
-}
-
-// GetJwtExpiresInSecsOk returns a tuple with the JwtExpiresInSecs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatsUserUpdateRequest) GetJwtExpiresInSecsOk() (*int64, bool) {
-	if o == nil || IsNil(o.JwtExpiresInSecs) {
-		return nil, false
-	}
-	return o.JwtExpiresInSecs, true
-}
-
-// HasJwtExpiresInSecs returns a boolean if a field has been set.
-func (o *NatsUserUpdateRequest) HasJwtExpiresInSecs() bool {
-	if o != nil && !IsNil(o.JwtExpiresInSecs) {
-		return true
-	}
-
-	return false
-}
-
-// SetJwtExpiresInSecs gets a reference to the given int64 and assigns it to the JwtExpiresInSecs field.
-func (o *NatsUserUpdateRequest) SetJwtExpiresInSecs(v int64) {
-	o.JwtExpiresInSecs = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *NatsUserUpdateRequest) GetName() string {
-	if o == nil || IsNil(o.Name) {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatsUserUpdateRequest) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *NatsUserUpdateRequest) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *NatsUserUpdateRequest) SetName(v string) {
-	o.Name = &v
-}
-
-// GetRevoked returns the Revoked field value if set, zero value otherwise.
-func (o *NatsUserUpdateRequest) GetRevoked() bool {
-	if o == nil || IsNil(o.Revoked) {
-		var ret bool
-		return ret
-	}
-	return *o.Revoked
-}
-
-// GetRevokedOk returns a tuple with the Revoked field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatsUserUpdateRequest) GetRevokedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Revoked) {
-		return nil, false
-	}
-	return o.Revoked, true
-}
-
-// HasRevoked returns a boolean if a field has been set.
-func (o *NatsUserUpdateRequest) HasRevoked() bool {
-	if o != nil && !IsNil(o.Revoked) {
-		return true
-	}
-
-	return false
-}
-
-// SetRevoked gets a reference to the given bool and assigns it to the Revoked field.
-func (o *NatsUserUpdateRequest) SetRevoked(v bool) {
-	o.Revoked = &v
-}
-
-// GetUserClaims returns the UserClaims field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *NatsUserUpdateRequest) GetUserClaims() NatsUserUpdateRequestUserClaims {
-	if o == nil || IsNil(o.UserClaims.Get()) {
-		var ret NatsUserUpdateRequestUserClaims
-		return ret
-	}
-	return *o.UserClaims.Get()
-}
-
-// GetUserClaimsOk returns a tuple with the UserClaims field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NatsUserUpdateRequest) GetUserClaimsOk() (*NatsUserUpdateRequestUserClaims, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.UserClaims.Get(), o.UserClaims.IsSet()
-}
-
-// HasUserClaims returns a boolean if a field has been set.
-func (o *NatsUserUpdateRequest) HasUserClaims() bool {
-	if o != nil && o.UserClaims.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetUserClaims gets a reference to the given NullableNatsUserUpdateRequestUserClaims and assigns it to the UserClaims field.
-func (o *NatsUserUpdateRequest) SetUserClaims(v NatsUserUpdateRequestUserClaims) {
-	o.UserClaims.Set(&v)
-}
-
-// SetUserClaimsNil sets the value for UserClaims to be an explicit nil
-func (o *NatsUserUpdateRequest) SetUserClaimsNil() {
-	o.UserClaims.Set(nil)
-}
-
-// UnsetUserClaims ensures that no value is present for UserClaims, not even an explicit nil
-func (o *NatsUserUpdateRequest) UnsetUserClaims() {
-	o.UserClaims.Unset()
-}
-
-func (o NatsUserUpdateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	JwtExpiresInSecs *int64               `json:"jwt_expires_in_secs,omitempty"`
+	JwtSettings      *NatsUserJwtSettings `json:"jwt_settings,omitempty"`
+	Name             *string              `json:"name,omitempty"`
+	Revoked          *bool                `json:"revoked,omitempty"`
 }
 
 func (o NatsUserUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.JwtExpiresInSecs) {
+	if o.JwtExpiresInSecs != nil {
 		toSerialize["jwt_expires_in_secs"] = o.JwtExpiresInSecs
 	}
-	if !IsNil(o.Name) {
+	if o.JwtSettings != nil {
+		toSerialize["jwt_settings"] = o.JwtSettings
+	}
+	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if !IsNil(o.Revoked) {
+	if o.Revoked != nil {
 		toSerialize["revoked"] = o.Revoked
 	}
-	if o.UserClaims.IsSet() {
-		toSerialize["user_claims"] = o.UserClaims.Get()
-	}
 	return toSerialize, nil
-}
-
-type NullableNatsUserUpdateRequest struct {
-	value *NatsUserUpdateRequest
-	isSet bool
-}
-
-func (v NullableNatsUserUpdateRequest) Get() *NatsUserUpdateRequest {
-	return v.value
-}
-
-func (v *NullableNatsUserUpdateRequest) Set(val *NatsUserUpdateRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableNatsUserUpdateRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableNatsUserUpdateRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableNatsUserUpdateRequest(val *NatsUserUpdateRequest) *NullableNatsUserUpdateRequest {
-	return &NullableNatsUserUpdateRequest{value: val, isSet: true}
-}
-
-func (v NullableNatsUserUpdateRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableNatsUserUpdateRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

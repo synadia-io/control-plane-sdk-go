@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // AlertRuleSeverity the model 'AlertRuleSeverity'
@@ -75,40 +76,4 @@ func (v AlertRuleSeverity) IsValid() bool {
 // Ptr returns reference to AlertRuleSeverity value
 func (v AlertRuleSeverity) Ptr() *AlertRuleSeverity {
 	return &v
-}
-
-type NullableAlertRuleSeverity struct {
-	value *AlertRuleSeverity
-	isSet bool
-}
-
-func (v NullableAlertRuleSeverity) Get() *AlertRuleSeverity {
-	return v.value
-}
-
-func (v *NullableAlertRuleSeverity) Set(val *AlertRuleSeverity) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAlertRuleSeverity) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAlertRuleSeverity) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAlertRuleSeverity(val *AlertRuleSeverity) *NullableAlertRuleSeverity {
-	return &NullableAlertRuleSeverity{value: val, isSet: true}
-}
-
-func (v NullableAlertRuleSeverity) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAlertRuleSeverity) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

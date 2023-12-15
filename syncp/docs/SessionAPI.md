@@ -8,9 +8,11 @@ Method | HTTP request | Description
 [**CreateAppUser**](SessionAPI.md#CreateAppUser) | **Post** /app-users | Create App User
 [**CreatePersonalAccessToken**](SessionAPI.md#CreatePersonalAccessToken) | **Post** /personal-access-tokens | Create Personal Access Token
 [**CreateTeam**](SessionAPI.md#CreateTeam) | **Post** /teams | Create Team
+[**DecideInvitation**](SessionAPI.md#DecideInvitation) | **Post** /invitations/{teamId} | Accept or reject team invitation
 [**GetVersion**](SessionAPI.md#GetVersion) | **Get** /version | Get Version
 [**ListAlerts**](SessionAPI.md#ListAlerts) | **Get** /alerts | List Alerts
 [**ListAppUsers**](SessionAPI.md#ListAppUsers) | **Get** /app-users | List App Users
+[**ListInvitations**](SessionAPI.md#ListInvitations) | **Get** /invitations | List of pending invitations
 [**ListPersonalAccessTokens**](SessionAPI.md#ListPersonalAccessTokens) | **Get** /personal-access-tokens | List Personal Access Tokens
 [**ListTeams**](SessionAPI.md#ListTeams) | **Get** /teams | List Teams
 [**SearchSystemAccounts**](SessionAPI.md#SearchSystemAccounts) | **Get** /search/systems/{systemId}/accounts | Search System Accounts
@@ -101,7 +103,7 @@ import (
 )
 
 func main() {
-    appUserCreateRequest := *openapiclient.NewAppUserCreateRequest("Name_example", "Role_example", "Username_example") // AppUserCreateRequest |  (optional)
+    appUserCreateRequest := *openapiclient.NewAppUserCreateRequest("Identifier_example", "Name_example", "RoleId_example") // AppUserCreateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -272,6 +274,76 @@ No authorization required
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DecideInvitation
+
+> DecideInvitation(ctx, teamId).InvitationDecisionRequest(invitationDecisionRequest).Execute()
+
+Accept or reject team invitation
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    teamId := "teamId_example" // string | 
+    invitationDecisionRequest := *openapiclient.NewInvitationDecisionRequest(false) // InvitationDecisionRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.SessionAPI.DecideInvitation(context.Background(), teamId).InvitationDecisionRequest(invitationDecisionRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.DecideInvitation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**teamId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDecideInvitationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **invitationDecisionRequest** | [**InvitationDecisionRequest**](InvitationDecisionRequest.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -451,6 +523,67 @@ Other parameters are passed through a pointer to a apiListAppUsersRequest struct
 ### Return type
 
 [**AppUserListResponse**](AppUserListResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListInvitations
+
+> InvitationListResponse ListInvitations(ctx).Execute()
+
+List of pending invitations
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SessionAPI.ListInvitations(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ListInvitations``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListInvitations`: InvitationListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.ListInvitations`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListInvitationsRequest struct via the builder pattern
+
+
+### Return type
+
+[**InvitationListResponse**](InvitationListResponse.md)
 
 ### Authorization
 

@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // AppRoleScope the model 'AppRoleScope'
@@ -77,40 +78,4 @@ func (v AppRoleScope) IsValid() bool {
 // Ptr returns reference to AppRoleScope value
 func (v AppRoleScope) Ptr() *AppRoleScope {
 	return &v
-}
-
-type NullableAppRoleScope struct {
-	value *AppRoleScope
-	isSet bool
-}
-
-func (v NullableAppRoleScope) Get() *AppRoleScope {
-	return v.value
-}
-
-func (v *NullableAppRoleScope) Set(val *AppRoleScope) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAppRoleScope) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAppRoleScope) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAppRoleScope(val *AppRoleScope) *NullableAppRoleScope {
-	return &NullableAppRoleScope{value: val, isSet: true}
-}
-
-func (v NullableAppRoleScope) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAppRoleScope) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

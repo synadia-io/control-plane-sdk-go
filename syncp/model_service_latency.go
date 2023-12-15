@@ -10,177 +10,19 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the ServiceLatency type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ServiceLatency{}
 
 // ServiceLatency ServiceLatency is used when observing and exported service for latency measurements. Sampling 1-100, represents sampling rate, defaults to 100. Results is the subject where the latency metrics are published. A metric will be defined by the nats-server's ServiceLatency. Time durations are in nanoseconds. see https://github.com/nats-io/nats-server/blob/main/server/accounts.go#L524 e.g. {  \"app\": \"dlc22\",  \"start\": \"2019-09-16T21:46:23.636869585-07:00\",  \"svc\": 219732,  \"nats\": {    \"req\": 320415,    \"resp\": 228268,    \"sys\": 0  },  \"total\": 768415 }
 type ServiceLatency struct {
 	// Subject is a string that represents a NATS subject
-	Results  string      `json:"results"`
-	Sampling interface{} `json:"sampling"`
-}
-
-type _ServiceLatency ServiceLatency
-
-// NewServiceLatency instantiates a new ServiceLatency object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewServiceLatency(results string, sampling interface{}) *ServiceLatency {
-	this := ServiceLatency{}
-	this.Results = results
-	this.Sampling = sampling
-	return &this
-}
-
-// NewServiceLatencyWithDefaults instantiates a new ServiceLatency object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewServiceLatencyWithDefaults() *ServiceLatency {
-	this := ServiceLatency{}
-	return &this
-}
-
-// GetResults returns the Results field value
-func (o *ServiceLatency) GetResults() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Results
-}
-
-// GetResultsOk returns a tuple with the Results field value
-// and a boolean to check if the value has been set.
-func (o *ServiceLatency) GetResultsOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Results, true
-}
-
-// SetResults sets field value
-func (o *ServiceLatency) SetResults(v string) {
-	o.Results = v
-}
-
-// GetSampling returns the Sampling field value
-// If the value is explicit nil, the zero value for interface{} will be returned
-func (o *ServiceLatency) GetSampling() interface{} {
-	if o == nil {
-		var ret interface{}
-		return ret
-	}
-
-	return o.Sampling
-}
-
-// GetSamplingOk returns a tuple with the Sampling field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ServiceLatency) GetSamplingOk() (*interface{}, bool) {
-	if o == nil || IsNil(o.Sampling) {
-		return nil, false
-	}
-	return &o.Sampling, true
-}
-
-// SetSampling sets field value
-func (o *ServiceLatency) SetSampling(v interface{}) {
-	o.Sampling = v
-}
-
-func (o ServiceLatency) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	Results  string `json:"results"`
+	Sampling int32  `json:"sampling"`
 }
 
 func (o ServiceLatency) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["results"] = o.Results
-	if o.Sampling != nil {
-		toSerialize["sampling"] = o.Sampling
-	}
+	toSerialize["sampling"] = o.Sampling
 	return toSerialize, nil
-}
-
-func (o *ServiceLatency) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"results",
-		"sampling",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varServiceLatency := _ServiceLatency{}
-
-	err = json.Unmarshal(bytes, &varServiceLatency)
-
-	if err != nil {
-		return err
-	}
-
-	*o = ServiceLatency(varServiceLatency)
-
-	return err
-}
-
-type NullableServiceLatency struct {
-	value *ServiceLatency
-	isSet bool
-}
-
-func (v NullableServiceLatency) Get() *ServiceLatency {
-	return v.value
-}
-
-func (v *NullableServiceLatency) Set(val *ServiceLatency) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableServiceLatency) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableServiceLatency) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableServiceLatency(val *ServiceLatency) *NullableServiceLatency {
-	return &NullableServiceLatency{value: val, isSet: true}
-}
-
-func (v NullableServiceLatency) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableServiceLatency) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

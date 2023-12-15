@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // SystemState the model 'SystemState'
@@ -73,40 +74,4 @@ func (v SystemState) IsValid() bool {
 // Ptr returns reference to SystemState value
 func (v SystemState) Ptr() *SystemState {
 	return &v
-}
-
-type NullableSystemState struct {
-	value *SystemState
-	isSet bool
-}
-
-func (v NullableSystemState) Get() *SystemState {
-	return v.value
-}
-
-func (v *NullableSystemState) Set(val *SystemState) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSystemState) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSystemState) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSystemState(val *SystemState) *NullableSystemState {
-	return &NullableSystemState{value: val, isSet: true}
-}
-
-func (v NullableSystemState) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableSystemState) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

@@ -24,7 +24,7 @@ type AccountAPI interface {
 	/*
 		AssignAccountTeamAppUser Assign Team App User to Account
 
-		Assign a Team App User to an Account
+		Assign a Team App User to an Account. This operation is idempotent; if an App User is already assigned to the Account the assignemnt will be updated with the new role
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param accountId
@@ -96,6 +96,21 @@ type AccountAPI interface {
 	// CreateMirrorExecute executes the request
 	//  @return JSMirrorInfoResponse
 	CreateMirrorExecute(r ApiCreateMirrorRequest) (*JSMirrorInfoResponse, *http.Response, error)
+
+	/*
+		CreateObjectBucket Create Object Bucket
+
+		Creates Object Bucket
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId
+		@return ApiCreateObjectBucketRequest
+	*/
+	CreateObjectBucket(ctx context.Context, accountId string) ApiCreateObjectBucketRequest
+
+	// CreateObjectBucketExecute executes the request
+	//  @return JSObjectBucketViewResponse
+	CreateObjectBucketExecute(r ApiCreateObjectBucketRequest) (*JSObjectBucketViewResponse, *http.Response, error)
 
 	/*
 		CreateStream Create Stream
@@ -398,6 +413,21 @@ type AccountAPI interface {
 	ListMirrorsExecute(r ApiListMirrorsRequest) (*JSMirrorInfoListResponse, *http.Response, error)
 
 	/*
+		ListObjectBuckets List Object buckets
+
+		List Object buckets
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId
+		@return ApiListObjectBucketsRequest
+	*/
+	ListObjectBuckets(ctx context.Context, accountId string) ApiListObjectBucketsRequest
+
+	// ListObjectBucketsExecute executes the request
+	//  @return JSObjectBucketListResponse
+	ListObjectBucketsExecute(r ApiListObjectBucketsRequest) (*JSObjectBucketListResponse, *http.Response, error)
+
+	/*
 		ListStreamExports List Stream Exports
 
 		List Stream Exports
@@ -617,7 +647,7 @@ func (r ApiAssignAccountTeamAppUserRequest) Execute() (*AppUserAssignResponse, *
 /*
 AssignAccountTeamAppUser Assign Team App User to Account
 
-Assign a Team App User to an Account
+Assign a Team App User to an Account. This operation is idempotent; if an App User is already assigned to the Account the assignemnt will be updated with the new role
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param accountId
@@ -938,14 +968,14 @@ func (a *AccountAPIService) CreateAlertRuleExecute(r ApiCreateAlertRuleRequest) 
 }
 
 type ApiCreateKvBucketRequest struct {
-	ctx                     context.Context
-	ApiService              AccountAPI
-	accountId               string
-	jSKVBucketCreateRequest *JSKVBucketCreateRequest
+	ctx              context.Context
+	ApiService       AccountAPI
+	accountId        string
+	jSKVBucketConfig *JSKVBucketConfig
 }
 
-func (r ApiCreateKvBucketRequest) JSKVBucketCreateRequest(jSKVBucketCreateRequest JSKVBucketCreateRequest) ApiCreateKvBucketRequest {
-	r.jSKVBucketCreateRequest = &jSKVBucketCreateRequest
+func (r ApiCreateKvBucketRequest) JSKVBucketConfig(jSKVBucketConfig JSKVBucketConfig) ApiCreateKvBucketRequest {
+	r.jSKVBucketConfig = &jSKVBucketConfig
 	return r
 }
 
@@ -1011,7 +1041,7 @@ func (a *AccountAPIService) CreateKvBucketExecute(r ApiCreateKvBucketRequest) (*
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.jSKVBucketCreateRequest
+	localVarPostBody = r.jSKVBucketConfig
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1124,6 +1154,118 @@ func (a *AccountAPIService) CreateMirrorExecute(r ApiCreateMirrorRequest) (*JSMi
 	}
 	// body params
 	localVarPostBody = r.jSMirrorConfigRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateObjectBucketRequest struct {
+	ctx                  context.Context
+	ApiService           AccountAPI
+	accountId            string
+	jSObjectBucketConfig *JSObjectBucketConfig
+}
+
+func (r ApiCreateObjectBucketRequest) JSObjectBucketConfig(jSObjectBucketConfig JSObjectBucketConfig) ApiCreateObjectBucketRequest {
+	r.jSObjectBucketConfig = &jSObjectBucketConfig
+	return r
+}
+
+func (r ApiCreateObjectBucketRequest) Execute() (*JSObjectBucketViewResponse, *http.Response, error) {
+	return r.ApiService.CreateObjectBucketExecute(r)
+}
+
+/*
+CreateObjectBucket Create Object Bucket
+
+Creates Object Bucket
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId
+	@return ApiCreateObjectBucketRequest
+*/
+func (a *AccountAPIService) CreateObjectBucket(ctx context.Context, accountId string) ApiCreateObjectBucketRequest {
+	return ApiCreateObjectBucketRequest{
+		ApiService: a,
+		ctx:        ctx,
+		accountId:  accountId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return JSObjectBucketViewResponse
+func (a *AccountAPIService) CreateObjectBucketExecute(r ApiCreateObjectBucketRequest) (*JSObjectBucketViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *JSObjectBucketViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.CreateObjectBucket")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/object-buckets"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.jSObjectBucketConfig
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3267,6 +3409,110 @@ func (a *AccountAPIService) ListMirrorsExecute(r ApiListMirrorsRequest) (*JSMirr
 	}
 
 	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/mirrors"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListObjectBucketsRequest struct {
+	ctx        context.Context
+	ApiService AccountAPI
+	accountId  string
+}
+
+func (r ApiListObjectBucketsRequest) Execute() (*JSObjectBucketListResponse, *http.Response, error) {
+	return r.ApiService.ListObjectBucketsExecute(r)
+}
+
+/*
+ListObjectBuckets List Object buckets
+
+List Object buckets
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId
+	@return ApiListObjectBucketsRequest
+*/
+func (a *AccountAPIService) ListObjectBuckets(ctx context.Context, accountId string) ApiListObjectBucketsRequest {
+	return ApiListObjectBucketsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		accountId:  accountId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return JSObjectBucketListResponse
+func (a *AccountAPIService) ListObjectBucketsExecute(r ApiListObjectBucketsRequest) (*JSObjectBucketListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *JSObjectBucketListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.ListObjectBuckets")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/object-buckets"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

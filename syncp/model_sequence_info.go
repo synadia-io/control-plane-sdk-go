@@ -10,219 +10,22 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the SequenceInfo type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SequenceInfo{}
 
 // SequenceInfo SequenceInfo is the consumer and stream sequence that uniquely identify a message
 type SequenceInfo struct {
-	ConsumerSeq int32          `json:"consumer_seq"`
-	LastActive  NullableString `json:"last_active,omitempty"`
-	StreamSeq   int32          `json:"stream_seq"`
-}
-
-type _SequenceInfo SequenceInfo
-
-// NewSequenceInfo instantiates a new SequenceInfo object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewSequenceInfo(consumerSeq int32, streamSeq int32) *SequenceInfo {
-	this := SequenceInfo{}
-	this.ConsumerSeq = consumerSeq
-	this.StreamSeq = streamSeq
-	return &this
-}
-
-// NewSequenceInfoWithDefaults instantiates a new SequenceInfo object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewSequenceInfoWithDefaults() *SequenceInfo {
-	this := SequenceInfo{}
-	return &this
-}
-
-// GetConsumerSeq returns the ConsumerSeq field value
-func (o *SequenceInfo) GetConsumerSeq() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.ConsumerSeq
-}
-
-// GetConsumerSeqOk returns a tuple with the ConsumerSeq field value
-// and a boolean to check if the value has been set.
-func (o *SequenceInfo) GetConsumerSeqOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ConsumerSeq, true
-}
-
-// SetConsumerSeq sets field value
-func (o *SequenceInfo) SetConsumerSeq(v int32) {
-	o.ConsumerSeq = v
-}
-
-// GetLastActive returns the LastActive field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SequenceInfo) GetLastActive() string {
-	if o == nil || IsNil(o.LastActive.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.LastActive.Get()
-}
-
-// GetLastActiveOk returns a tuple with the LastActive field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SequenceInfo) GetLastActiveOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.LastActive.Get(), o.LastActive.IsSet()
-}
-
-// HasLastActive returns a boolean if a field has been set.
-func (o *SequenceInfo) HasLastActive() bool {
-	if o != nil && o.LastActive.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetLastActive gets a reference to the given NullableString and assigns it to the LastActive field.
-func (o *SequenceInfo) SetLastActive(v string) {
-	o.LastActive.Set(&v)
-}
-
-// SetLastActiveNil sets the value for LastActive to be an explicit nil
-func (o *SequenceInfo) SetLastActiveNil() {
-	o.LastActive.Set(nil)
-}
-
-// UnsetLastActive ensures that no value is present for LastActive, not even an explicit nil
-func (o *SequenceInfo) UnsetLastActive() {
-	o.LastActive.Unset()
-}
-
-// GetStreamSeq returns the StreamSeq field value
-func (o *SequenceInfo) GetStreamSeq() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.StreamSeq
-}
-
-// GetStreamSeqOk returns a tuple with the StreamSeq field value
-// and a boolean to check if the value has been set.
-func (o *SequenceInfo) GetStreamSeqOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.StreamSeq, true
-}
-
-// SetStreamSeq sets field value
-func (o *SequenceInfo) SetStreamSeq(v int32) {
-	o.StreamSeq = v
-}
-
-func (o SequenceInfo) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	ConsumerSeq int32             `json:"consumer_seq"`
+	LastActive  *Nullable[string] `json:"last_active,omitempty"`
+	StreamSeq   int32             `json:"stream_seq"`
 }
 
 func (o SequenceInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["consumer_seq"] = o.ConsumerSeq
-	if o.LastActive.IsSet() {
-		toSerialize["last_active"] = o.LastActive.Get()
+	if o.LastActive != nil && !o.LastActive.IsNull() {
+		toSerialize["last_active"] = o.LastActive.Val
 	}
 	toSerialize["stream_seq"] = o.StreamSeq
 	return toSerialize, nil
-}
-
-func (o *SequenceInfo) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"consumer_seq",
-		"stream_seq",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varSequenceInfo := _SequenceInfo{}
-
-	err = json.Unmarshal(bytes, &varSequenceInfo)
-
-	if err != nil {
-		return err
-	}
-
-	*o = SequenceInfo(varSequenceInfo)
-
-	return err
-}
-
-type NullableSequenceInfo struct {
-	value *SequenceInfo
-	isSet bool
-}
-
-func (v NullableSequenceInfo) Get() *SequenceInfo {
-	return v.value
-}
-
-func (v *NullableSequenceInfo) Set(val *SequenceInfo) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSequenceInfo) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSequenceInfo) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSequenceInfo(val *SequenceInfo) *NullableSequenceInfo {
-	return &NullableSequenceInfo{value: val, isSet: true}
-}
-
-func (v NullableSequenceInfo) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableSequenceInfo) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

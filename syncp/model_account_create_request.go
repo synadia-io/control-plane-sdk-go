@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the AccountCreateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccountCreateRequest{}
 
@@ -25,201 +20,14 @@ type AccountCreateRequest struct {
 	UserJwtExpiresInSecs *int64              `json:"user_jwt_expires_in_secs,omitempty"`
 }
 
-type _AccountCreateRequest AccountCreateRequest
-
-// NewAccountCreateRequest instantiates a new AccountCreateRequest object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewAccountCreateRequest(name string) *AccountCreateRequest {
-	this := AccountCreateRequest{}
-	this.Name = name
-	return &this
-}
-
-// NewAccountCreateRequestWithDefaults instantiates a new AccountCreateRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewAccountCreateRequestWithDefaults() *AccountCreateRequest {
-	this := AccountCreateRequest{}
-	return &this
-}
-
-// GetJwtSettings returns the JwtSettings field value if set, zero value otherwise.
-func (o *AccountCreateRequest) GetJwtSettings() AccountJWTSettings {
-	if o == nil || IsNil(o.JwtSettings) {
-		var ret AccountJWTSettings
-		return ret
-	}
-	return *o.JwtSettings
-}
-
-// GetJwtSettingsOk returns a tuple with the JwtSettings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountCreateRequest) GetJwtSettingsOk() (*AccountJWTSettings, bool) {
-	if o == nil || IsNil(o.JwtSettings) {
-		return nil, false
-	}
-	return o.JwtSettings, true
-}
-
-// HasJwtSettings returns a boolean if a field has been set.
-func (o *AccountCreateRequest) HasJwtSettings() bool {
-	if o != nil && !IsNil(o.JwtSettings) {
-		return true
-	}
-
-	return false
-}
-
-// SetJwtSettings gets a reference to the given AccountJWTSettings and assigns it to the JwtSettings field.
-func (o *AccountCreateRequest) SetJwtSettings(v AccountJWTSettings) {
-	o.JwtSettings = &v
-}
-
-// GetName returns the Name field value
-func (o *AccountCreateRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *AccountCreateRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *AccountCreateRequest) SetName(v string) {
-	o.Name = v
-}
-
-// GetUserJwtExpiresInSecs returns the UserJwtExpiresInSecs field value if set, zero value otherwise.
-func (o *AccountCreateRequest) GetUserJwtExpiresInSecs() int64 {
-	if o == nil || IsNil(o.UserJwtExpiresInSecs) {
-		var ret int64
-		return ret
-	}
-	return *o.UserJwtExpiresInSecs
-}
-
-// GetUserJwtExpiresInSecsOk returns a tuple with the UserJwtExpiresInSecs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountCreateRequest) GetUserJwtExpiresInSecsOk() (*int64, bool) {
-	if o == nil || IsNil(o.UserJwtExpiresInSecs) {
-		return nil, false
-	}
-	return o.UserJwtExpiresInSecs, true
-}
-
-// HasUserJwtExpiresInSecs returns a boolean if a field has been set.
-func (o *AccountCreateRequest) HasUserJwtExpiresInSecs() bool {
-	if o != nil && !IsNil(o.UserJwtExpiresInSecs) {
-		return true
-	}
-
-	return false
-}
-
-// SetUserJwtExpiresInSecs gets a reference to the given int64 and assigns it to the UserJwtExpiresInSecs field.
-func (o *AccountCreateRequest) SetUserJwtExpiresInSecs(v int64) {
-	o.UserJwtExpiresInSecs = &v
-}
-
-func (o AccountCreateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o AccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.JwtSettings) {
+	if o.JwtSettings != nil {
 		toSerialize["jwt_settings"] = o.JwtSettings
 	}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.UserJwtExpiresInSecs) {
+	if o.UserJwtExpiresInSecs != nil {
 		toSerialize["user_jwt_expires_in_secs"] = o.UserJwtExpiresInSecs
 	}
 	return toSerialize, nil
-}
-
-func (o *AccountCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"name",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varAccountCreateRequest := _AccountCreateRequest{}
-
-	err = json.Unmarshal(bytes, &varAccountCreateRequest)
-
-	if err != nil {
-		return err
-	}
-
-	*o = AccountCreateRequest(varAccountCreateRequest)
-
-	return err
-}
-
-type NullableAccountCreateRequest struct {
-	value *AccountCreateRequest
-	isSet bool
-}
-
-func (v NullableAccountCreateRequest) Get() *AccountCreateRequest {
-	return v.value
-}
-
-func (v *NullableAccountCreateRequest) Set(val *AccountCreateRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAccountCreateRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAccountCreateRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAccountCreateRequest(val *AccountCreateRequest) *NullableAccountCreateRequest {
-	return &NullableAccountCreateRequest{value: val, isSet: true}
-}
-
-func (v NullableAccountCreateRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAccountCreateRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

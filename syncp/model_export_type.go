@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // ExportType ExportType defines the type of import/export.
@@ -71,40 +72,4 @@ func (v ExportType) IsValid() bool {
 // Ptr returns reference to ExportType value
 func (v ExportType) Ptr() *ExportType {
 	return &v
-}
-
-type NullableExportType struct {
-	value *ExportType
-	isSet bool
-}
-
-func (v NullableExportType) Get() *ExportType {
-	return v.value
-}
-
-func (v *NullableExportType) Set(val *ExportType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableExportType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableExportType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableExportType(val *ExportType) *NullableExportType {
-	return &NullableExportType{value: val, isSet: true}
-}
-
-func (v NullableExportType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableExportType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

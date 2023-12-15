@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the StreamExportSharedListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &StreamExportSharedListResponse{}
 
@@ -23,131 +18,8 @@ type StreamExportSharedListResponse struct {
 	Items []StreamExportSharedViewResponse `json:"items"`
 }
 
-type _StreamExportSharedListResponse StreamExportSharedListResponse
-
-// NewStreamExportSharedListResponse instantiates a new StreamExportSharedListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewStreamExportSharedListResponse(items []StreamExportSharedViewResponse) *StreamExportSharedListResponse {
-	this := StreamExportSharedListResponse{}
-	this.Items = items
-	return &this
-}
-
-// NewStreamExportSharedListResponseWithDefaults instantiates a new StreamExportSharedListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewStreamExportSharedListResponseWithDefaults() *StreamExportSharedListResponse {
-	this := StreamExportSharedListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *StreamExportSharedListResponse) GetItems() []StreamExportSharedViewResponse {
-	if o == nil {
-		var ret []StreamExportSharedViewResponse
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *StreamExportSharedListResponse) GetItemsOk() ([]StreamExportSharedViewResponse, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *StreamExportSharedListResponse) SetItems(v []StreamExportSharedViewResponse) {
-	o.Items = v
-}
-
-func (o StreamExportSharedListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o StreamExportSharedListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
-}
-
-func (o *StreamExportSharedListResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varStreamExportSharedListResponse := _StreamExportSharedListResponse{}
-
-	err = json.Unmarshal(bytes, &varStreamExportSharedListResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = StreamExportSharedListResponse(varStreamExportSharedListResponse)
-
-	return err
-}
-
-type NullableStreamExportSharedListResponse struct {
-	value *StreamExportSharedListResponse
-	isSet bool
-}
-
-func (v NullableStreamExportSharedListResponse) Get() *StreamExportSharedListResponse {
-	return v.value
-}
-
-func (v *NullableStreamExportSharedListResponse) Set(val *StreamExportSharedListResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStreamExportSharedListResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStreamExportSharedListResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStreamExportSharedListResponse(val *StreamExportSharedListResponse) *NullableStreamExportSharedListResponse {
-	return &NullableStreamExportSharedListResponse{value: val, isSet: true}
-}
-
-func (v NullableStreamExportSharedListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableStreamExportSharedListResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

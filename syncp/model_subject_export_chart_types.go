@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // SubjectExportChartTypes the model 'SubjectExportChartTypes'
@@ -77,40 +78,4 @@ func (v SubjectExportChartTypes) IsValid() bool {
 // Ptr returns reference to SubjectExportChartTypes value
 func (v SubjectExportChartTypes) Ptr() *SubjectExportChartTypes {
 	return &v
-}
-
-type NullableSubjectExportChartTypes struct {
-	value *SubjectExportChartTypes
-	isSet bool
-}
-
-func (v NullableSubjectExportChartTypes) Get() *SubjectExportChartTypes {
-	return v.value
-}
-
-func (v *NullableSubjectExportChartTypes) Set(val *SubjectExportChartTypes) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSubjectExportChartTypes) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSubjectExportChartTypes) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSubjectExportChartTypes(val *SubjectExportChartTypes) *NullableSubjectExportChartTypes {
-	return &NullableSubjectExportChartTypes{value: val, isSet: true}
-}
-
-func (v NullableSubjectExportChartTypes) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableSubjectExportChartTypes) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

@@ -11,8 +11,6 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
-	"fmt"
 	"time"
 )
 
@@ -21,270 +19,25 @@ var _ MappedNullable = &JSCommonStreamInfo{}
 
 // JSCommonStreamInfo struct for JSCommonStreamInfo
 type JSCommonStreamInfo struct {
-	Alternates []StreamAlternate  `json:"alternates,omitempty"`
-	Cluster    *ClusterInfo       `json:"cluster,omitempty"`
-	Created    time.Time          `json:"created"`
-	Sources    []StreamSourceInfo `json:"sources,omitempty"`
-	State      StreamState        `json:"state"`
-}
-
-type _JSCommonStreamInfo JSCommonStreamInfo
-
-// NewJSCommonStreamInfo instantiates a new JSCommonStreamInfo object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewJSCommonStreamInfo(created time.Time, state StreamState) *JSCommonStreamInfo {
-	this := JSCommonStreamInfo{}
-	this.Created = created
-	this.State = state
-	return &this
-}
-
-// NewJSCommonStreamInfoWithDefaults instantiates a new JSCommonStreamInfo object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewJSCommonStreamInfoWithDefaults() *JSCommonStreamInfo {
-	this := JSCommonStreamInfo{}
-	return &this
-}
-
-// GetAlternates returns the Alternates field value if set, zero value otherwise.
-func (o *JSCommonStreamInfo) GetAlternates() []StreamAlternate {
-	if o == nil || IsNil(o.Alternates) {
-		var ret []StreamAlternate
-		return ret
-	}
-	return o.Alternates
-}
-
-// GetAlternatesOk returns a tuple with the Alternates field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonStreamInfo) GetAlternatesOk() ([]StreamAlternate, bool) {
-	if o == nil || IsNil(o.Alternates) {
-		return nil, false
-	}
-	return o.Alternates, true
-}
-
-// HasAlternates returns a boolean if a field has been set.
-func (o *JSCommonStreamInfo) HasAlternates() bool {
-	if o != nil && !IsNil(o.Alternates) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlternates gets a reference to the given []StreamAlternate and assigns it to the Alternates field.
-func (o *JSCommonStreamInfo) SetAlternates(v []StreamAlternate) {
-	o.Alternates = v
-}
-
-// GetCluster returns the Cluster field value if set, zero value otherwise.
-func (o *JSCommonStreamInfo) GetCluster() ClusterInfo {
-	if o == nil || IsNil(o.Cluster) {
-		var ret ClusterInfo
-		return ret
-	}
-	return *o.Cluster
-}
-
-// GetClusterOk returns a tuple with the Cluster field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonStreamInfo) GetClusterOk() (*ClusterInfo, bool) {
-	if o == nil || IsNil(o.Cluster) {
-		return nil, false
-	}
-	return o.Cluster, true
-}
-
-// HasCluster returns a boolean if a field has been set.
-func (o *JSCommonStreamInfo) HasCluster() bool {
-	if o != nil && !IsNil(o.Cluster) {
-		return true
-	}
-
-	return false
-}
-
-// SetCluster gets a reference to the given ClusterInfo and assigns it to the Cluster field.
-func (o *JSCommonStreamInfo) SetCluster(v ClusterInfo) {
-	o.Cluster = &v
-}
-
-// GetCreated returns the Created field value
-func (o *JSCommonStreamInfo) GetCreated() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.Created
-}
-
-// GetCreatedOk returns a tuple with the Created field value
-// and a boolean to check if the value has been set.
-func (o *JSCommonStreamInfo) GetCreatedOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Created, true
-}
-
-// SetCreated sets field value
-func (o *JSCommonStreamInfo) SetCreated(v time.Time) {
-	o.Created = v
-}
-
-// GetSources returns the Sources field value if set, zero value otherwise.
-func (o *JSCommonStreamInfo) GetSources() []StreamSourceInfo {
-	if o == nil || IsNil(o.Sources) {
-		var ret []StreamSourceInfo
-		return ret
-	}
-	return o.Sources
-}
-
-// GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonStreamInfo) GetSourcesOk() ([]StreamSourceInfo, bool) {
-	if o == nil || IsNil(o.Sources) {
-		return nil, false
-	}
-	return o.Sources, true
-}
-
-// HasSources returns a boolean if a field has been set.
-func (o *JSCommonStreamInfo) HasSources() bool {
-	if o != nil && !IsNil(o.Sources) {
-		return true
-	}
-
-	return false
-}
-
-// SetSources gets a reference to the given []StreamSourceInfo and assigns it to the Sources field.
-func (o *JSCommonStreamInfo) SetSources(v []StreamSourceInfo) {
-	o.Sources = v
-}
-
-// GetState returns the State field value
-func (o *JSCommonStreamInfo) GetState() StreamState {
-	if o == nil {
-		var ret StreamState
-		return ret
-	}
-
-	return o.State
-}
-
-// GetStateOk returns a tuple with the State field value
-// and a boolean to check if the value has been set.
-func (o *JSCommonStreamInfo) GetStateOk() (*StreamState, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.State, true
-}
-
-// SetState sets field value
-func (o *JSCommonStreamInfo) SetState(v StreamState) {
-	o.State = v
-}
-
-func (o JSCommonStreamInfo) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	Alternates *[]StreamAlternate  `json:"alternates,omitempty"`
+	Cluster    *ClusterInfo        `json:"cluster,omitempty"`
+	Created    time.Time           `json:"created"`
+	Sources    *[]StreamSourceInfo `json:"sources,omitempty"`
+	State      StreamState         `json:"state"`
 }
 
 func (o JSCommonStreamInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Alternates) {
+	if o.Alternates != nil {
 		toSerialize["alternates"] = o.Alternates
 	}
-	if !IsNil(o.Cluster) {
+	if o.Cluster != nil {
 		toSerialize["cluster"] = o.Cluster
 	}
 	toSerialize["created"] = o.Created
-	if !IsNil(o.Sources) {
+	if o.Sources != nil {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["state"] = o.State
 	return toSerialize, nil
-}
-
-func (o *JSCommonStreamInfo) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"created",
-		"state",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varJSCommonStreamInfo := _JSCommonStreamInfo{}
-
-	err = json.Unmarshal(bytes, &varJSCommonStreamInfo)
-
-	if err != nil {
-		return err
-	}
-
-	*o = JSCommonStreamInfo(varJSCommonStreamInfo)
-
-	return err
-}
-
-type NullableJSCommonStreamInfo struct {
-	value *JSCommonStreamInfo
-	isSet bool
-}
-
-func (v NullableJSCommonStreamInfo) Get() *JSCommonStreamInfo {
-	return v.value
-}
-
-func (v *NullableJSCommonStreamInfo) Set(val *JSCommonStreamInfo) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableJSCommonStreamInfo) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableJSCommonStreamInfo) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableJSCommonStreamInfo(val *JSCommonStreamInfo) *NullableJSCommonStreamInfo {
-	return &NullableJSCommonStreamInfo{value: val, isSet: true}
-}
-
-func (v NullableJSCommonStreamInfo) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableJSCommonStreamInfo) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

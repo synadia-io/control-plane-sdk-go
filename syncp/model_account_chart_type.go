@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // AccountChartType the model 'AccountChartType'
@@ -95,40 +96,4 @@ func (v AccountChartType) IsValid() bool {
 // Ptr returns reference to AccountChartType value
 func (v AccountChartType) Ptr() *AccountChartType {
 	return &v
-}
-
-type NullableAccountChartType struct {
-	value *AccountChartType
-	isSet bool
-}
-
-func (v NullableAccountChartType) Get() *AccountChartType {
-	return v.value
-}
-
-func (v *NullableAccountChartType) Set(val *AccountChartType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAccountChartType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAccountChartType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAccountChartType(val *AccountChartType) *NullableAccountChartType {
-	return &NullableAccountChartType{value: val, isSet: true}
-}
-
-func (v NullableAccountChartType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAccountChartType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

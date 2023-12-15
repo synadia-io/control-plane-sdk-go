@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**CreateAlertRule**](AccountAPI.md#CreateAlertRule) | **Post** /accounts/{accountId}/alert-rules | Create Account Alert Rule
 [**CreateKvBucket**](AccountAPI.md#CreateKvBucket) | **Post** /accounts/{accountId}/jetstream/kv-buckets | Create KV Bucket
 [**CreateMirror**](AccountAPI.md#CreateMirror) | **Post** /accounts/{accountId}/jetstream/mirrors | Create Mirror
+[**CreateObjectBucket**](AccountAPI.md#CreateObjectBucket) | **Post** /accounts/{accountId}/jetstream/object-buckets | Create Object Bucket
 [**CreateStream**](AccountAPI.md#CreateStream) | **Post** /accounts/{accountId}/jetstream/streams | Create Stream
 [**CreateStreamExport**](AccountAPI.md#CreateStreamExport) | **Post** /accounts/{accountId}/stream-exports | Create Stream Export
 [**CreateStreamImport**](AccountAPI.md#CreateStreamImport) | **Post** /accounts/{accountId}/stream-imports | Create Stream Import
@@ -29,6 +30,7 @@ Method | HTTP request | Description
 [**ListJetStreamAssets**](AccountAPI.md#ListJetStreamAssets) | **Get** /accounts/{accountId}/jetstream | List JetStream Assets
 [**ListKvBuckets**](AccountAPI.md#ListKvBuckets) | **Get** /accounts/{accountId}/jetstream/kv-buckets | List KV buckets
 [**ListMirrors**](AccountAPI.md#ListMirrors) | **Get** /accounts/{accountId}/jetstream/mirrors | List Mirrors
+[**ListObjectBuckets**](AccountAPI.md#ListObjectBuckets) | **Get** /accounts/{accountId}/jetstream/object-buckets | List Object buckets
 [**ListStreamExports**](AccountAPI.md#ListStreamExports) | **Get** /accounts/{accountId}/stream-exports | List Stream Exports
 [**ListStreamExportsShared**](AccountAPI.md#ListStreamExportsShared) | **Get** /accounts/{accountId}/stream-imports/shared | List Shared Stream Exports
 [**ListStreamImports**](AccountAPI.md#ListStreamImports) | **Get** /accounts/{accountId}/stream-imports | List Stream Imports
@@ -68,7 +70,7 @@ import (
 func main() {
     accountId := "accountId_example" // string | 
     teamAppUserId := "teamAppUserId_example" // string | 
-    appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("Role_example") // AppUserAssignRequest |  (optional)
+    appUserAssignRequest := *openapiclient.NewAppUserAssignRequest("RoleId_example") // AppUserAssignRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -214,7 +216,7 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    alertRuleAccountCreateRequest := *openapiclient.NewAlertRuleAccountCreateRequest(int32(123), "Message_example", "Metric_example", openapiclient.AlertRuleSeverity("Info"), openapiclient.AlertRuleOperator("Greater Than"), "RuleType_example") // AlertRuleAccountCreateRequest |  (optional)
+    alertRuleAccountCreateRequest := *openapiclient.NewAlertRuleAccountCreateRequest(int32(123), "Message_example", "Metric_example", openapiclient.AlertRuleSeverity("Info"), openapiclient.AlertRuleOperator("Greater Than")) // AlertRuleAccountCreateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -266,7 +268,7 @@ No authorization required
 
 ## CreateKvBucket
 
-> JSKVBucketViewResponse CreateKvBucket(ctx, accountId).JSKVBucketCreateRequest(jSKVBucketCreateRequest).Execute()
+> JSKVBucketViewResponse CreateKvBucket(ctx, accountId).JSKVBucketConfig(jSKVBucketConfig).Execute()
 
 Create KV Bucket
 
@@ -286,11 +288,11 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    jSKVBucketCreateRequest := *openapiclient.NewJSKVBucketCreateRequest("BucketName_example", "Description_example", int32(123), int64(123), int32(123), int32(123), openapiclient.StorageType("file"), int64(123)) // JSKVBucketCreateRequest |  (optional)
+    jSKVBucketConfig := *openapiclient.NewJSKVBucketConfig("Bucket_example", openapiclient.StorageType("file")) // JSKVBucketConfig |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountAPI.CreateKvBucket(context.Background(), accountId).JSKVBucketCreateRequest(jSKVBucketCreateRequest).Execute()
+    resp, r, err := apiClient.AccountAPI.CreateKvBucket(context.Background(), accountId).JSKVBucketConfig(jSKVBucketConfig).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.CreateKvBucket``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -316,7 +318,7 @@ Other parameters are passed through a pointer to a apiCreateKvBucketRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **jSKVBucketCreateRequest** | [**JSKVBucketCreateRequest**](JSKVBucketCreateRequest.md) |  | 
+ **jSKVBucketConfig** | [**JSKVBucketConfig**](JSKVBucketConfig.md) |  | 
 
 ### Return type
 
@@ -358,7 +360,7 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    jSMirrorConfigRequest := *openapiclient.NewJSMirrorConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int32(123), int64(123), int64(123), "Name_example", int32(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file"), *openapiclient.NewStreamSource("Name_example"), false) // JSMirrorConfigRequest |  (optional)
+    jSMirrorConfigRequest := *openapiclient.NewJSMirrorConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int32(123), int64(123), int64(123), "Name_example", int32(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file")) // JSMirrorConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -393,6 +395,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**JSMirrorInfoResponse**](JSMirrorInfoResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateObjectBucket
+
+> JSObjectBucketViewResponse CreateObjectBucket(ctx, accountId).JSObjectBucketConfig(jSObjectBucketConfig).Execute()
+
+Create Object Bucket
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+    jSObjectBucketConfig := *openapiclient.NewJSObjectBucketConfig("Bucket_example") // JSObjectBucketConfig |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountAPI.CreateObjectBucket(context.Background(), accountId).JSObjectBucketConfig(jSObjectBucketConfig).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.CreateObjectBucket``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateObjectBucket`: JSObjectBucketViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.CreateObjectBucket`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateObjectBucketRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **jSObjectBucketConfig** | [**JSObjectBucketConfig**](JSObjectBucketConfig.md) |  | 
+
+### Return type
+
+[**JSObjectBucketViewResponse**](JSObjectBucketViewResponse.md)
 
 ### Authorization
 
@@ -1819,6 +1893,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**JSMirrorInfoListResponse**](JSMirrorInfoListResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListObjectBuckets
+
+> JSObjectBucketListResponse ListObjectBuckets(ctx, accountId).Execute()
+
+List Object buckets
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountAPI.ListObjectBuckets(context.Background(), accountId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.ListObjectBuckets``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListObjectBuckets`: JSObjectBucketListResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.ListObjectBuckets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListObjectBucketsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**JSObjectBucketListResponse**](JSObjectBucketListResponse.md)
 
 ### Authorization
 

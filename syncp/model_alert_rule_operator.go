@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // AlertRuleOperator the model 'AlertRuleOperator'
@@ -79,40 +80,4 @@ func (v AlertRuleOperator) IsValid() bool {
 // Ptr returns reference to AlertRuleOperator value
 func (v AlertRuleOperator) Ptr() *AlertRuleOperator {
 	return &v
-}
-
-type NullableAlertRuleOperator struct {
-	value *AlertRuleOperator
-	isSet bool
-}
-
-func (v NullableAlertRuleOperator) Get() *AlertRuleOperator {
-	return v.value
-}
-
-func (v *NullableAlertRuleOperator) Set(val *AlertRuleOperator) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAlertRuleOperator) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAlertRuleOperator) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAlertRuleOperator(val *AlertRuleOperator) *NullableAlertRuleOperator {
-	return &NullableAlertRuleOperator{value: val, isSet: true}
-}
-
-func (v NullableAlertRuleOperator) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAlertRuleOperator) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the JSMirrorInfoListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &JSMirrorInfoListResponse{}
 
@@ -23,131 +18,8 @@ type JSMirrorInfoListResponse struct {
 	Items []JSMirrorInfoResponse `json:"items"`
 }
 
-type _JSMirrorInfoListResponse JSMirrorInfoListResponse
-
-// NewJSMirrorInfoListResponse instantiates a new JSMirrorInfoListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewJSMirrorInfoListResponse(items []JSMirrorInfoResponse) *JSMirrorInfoListResponse {
-	this := JSMirrorInfoListResponse{}
-	this.Items = items
-	return &this
-}
-
-// NewJSMirrorInfoListResponseWithDefaults instantiates a new JSMirrorInfoListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewJSMirrorInfoListResponseWithDefaults() *JSMirrorInfoListResponse {
-	this := JSMirrorInfoListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *JSMirrorInfoListResponse) GetItems() []JSMirrorInfoResponse {
-	if o == nil {
-		var ret []JSMirrorInfoResponse
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *JSMirrorInfoListResponse) GetItemsOk() ([]JSMirrorInfoResponse, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *JSMirrorInfoListResponse) SetItems(v []JSMirrorInfoResponse) {
-	o.Items = v
-}
-
-func (o JSMirrorInfoListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o JSMirrorInfoListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
-}
-
-func (o *JSMirrorInfoListResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varJSMirrorInfoListResponse := _JSMirrorInfoListResponse{}
-
-	err = json.Unmarshal(bytes, &varJSMirrorInfoListResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = JSMirrorInfoListResponse(varJSMirrorInfoListResponse)
-
-	return err
-}
-
-type NullableJSMirrorInfoListResponse struct {
-	value *JSMirrorInfoListResponse
-	isSet bool
-}
-
-func (v NullableJSMirrorInfoListResponse) Get() *JSMirrorInfoListResponse {
-	return v.value
-}
-
-func (v *NullableJSMirrorInfoListResponse) Set(val *JSMirrorInfoListResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableJSMirrorInfoListResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableJSMirrorInfoListResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableJSMirrorInfoListResponse(val *JSMirrorInfoListResponse) *NullableJSMirrorInfoListResponse {
-	return &NullableJSMirrorInfoListResponse{value: val, isSet: true}
-}
-
-func (v NullableJSMirrorInfoListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableJSMirrorInfoListResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

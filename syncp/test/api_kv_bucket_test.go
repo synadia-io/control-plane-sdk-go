@@ -47,12 +47,12 @@ func Test_syncp_KvBucketAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test KvBucketAPIService DeleteBucket", func(t *testing.T) {
+	t.Run("Test KvBucketAPIService DeleteKvBucket", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var streamId string
 
-		httpRes, err := apiClient.KvBucketAPI.DeleteBucket(context.Background(), streamId).Execute()
+		httpRes, err := apiClient.KvBucketAPI.DeleteKvBucket(context.Background(), streamId).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -82,14 +82,15 @@ func Test_syncp_KvBucketAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test KvBucketAPIService UpdateJSAsset", func(t *testing.T) {
+	t.Run("Test KvBucketAPIService UpdateKvBucket", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var streamId string
 
-		httpRes, err := apiClient.KvBucketAPI.UpdateJSAsset(context.Background(), streamId).Execute()
+		resp, httpRes, err := apiClient.KvBucketAPI.UpdateKvBucket(context.Background(), streamId).Execute()
 
 		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 }

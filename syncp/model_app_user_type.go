@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // AppUserType the model 'AppUserType'
@@ -69,40 +70,4 @@ func (v AppUserType) IsValid() bool {
 // Ptr returns reference to AppUserType value
 func (v AppUserType) Ptr() *AppUserType {
 	return &v
-}
-
-type NullableAppUserType struct {
-	value *AppUserType
-	isSet bool
-}
-
-func (v NullableAppUserType) Get() *AppUserType {
-	return v.value
-}
-
-func (v *NullableAppUserType) Set(val *AppUserType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAppUserType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAppUserType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAppUserType(val *AppUserType) *NullableAppUserType {
-	return &NullableAppUserType{value: val, isSet: true}
-}
-
-func (v NullableAppUserType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAppUserType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

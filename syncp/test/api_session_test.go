@@ -63,6 +63,17 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SessionAPIService DecideInvitation", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var teamId string
+
+		httpRes, err := apiClient.SessionAPI.DecideInvitation(context.Background(), teamId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SessionAPIService GetVersion", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -87,6 +98,16 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ListAppUsers(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SessionAPIService ListInvitations", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.SessionAPI.ListInvitations(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // JSType the model 'JSType'
@@ -20,9 +21,10 @@ type JSType string
 
 // List of JSType
 const (
-	JSTYPE_STREAM    JSType = "stream"
-	JSTYPE_MIRROR    JSType = "mirror"
-	JSTYPE_KV_BUCKET JSType = "kv-bucket"
+	JSTYPE_STREAM        JSType = "stream"
+	JSTYPE_MIRROR        JSType = "mirror"
+	JSTYPE_KV_BUCKET     JSType = "kv-bucket"
+	JSTYPE_OBJECT_BUCKET JSType = "object-bucket"
 )
 
 // All allowed values of JSType enum
@@ -30,6 +32,7 @@ var AllowedJSTypeEnumValues = []JSType{
 	"stream",
 	"mirror",
 	"kv-bucket",
+	"object-bucket",
 }
 
 func (v *JSType) UnmarshalJSON(src []byte) error {
@@ -73,40 +76,4 @@ func (v JSType) IsValid() bool {
 // Ptr returns reference to JSType value
 func (v JSType) Ptr() *JSType {
 	return &v
-}
-
-type NullableJSType struct {
-	value *JSType
-	isSet bool
-}
-
-func (v NullableJSType) Get() *JSType {
-	return v.value
-}
-
-func (v *NullableJSType) Set(val *JSType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableJSType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableJSType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableJSType(val *JSType) *NullableJSType {
-	return &NullableJSType{value: val, isSet: true}
-}
-
-func (v NullableJSType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableJSType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

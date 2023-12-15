@@ -64,6 +64,8 @@ type APIClient struct {
 
 	NatsUserAPI NatsUserAPI
 
+	ObjectBucketAPI ObjectBucketAPI
+
 	PersonalAccessTokenAPI PersonalAccessTokenAPI
 
 	PullConsumerAPI PullConsumerAPI
@@ -115,6 +117,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.KvBucketAPI = (*KvBucketAPIService)(&c.common)
 	c.MirrorAPI = (*MirrorAPIService)(&c.common)
 	c.NatsUserAPI = (*NatsUserAPIService)(&c.common)
+	c.ObjectBucketAPI = (*ObjectBucketAPIService)(&c.common)
 	c.PersonalAccessTokenAPI = (*PersonalAccessTokenAPIService)(&c.common)
 	c.PullConsumerAPI = (*PullConsumerAPIService)(&c.common)
 	c.PushConsumerAPI = (*PushConsumerAPIService)(&c.common)

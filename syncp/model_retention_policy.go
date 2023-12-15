@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // RetentionPolicy the model 'RetentionPolicy'
@@ -73,40 +74,4 @@ func (v RetentionPolicy) IsValid() bool {
 // Ptr returns reference to RetentionPolicy value
 func (v RetentionPolicy) Ptr() *RetentionPolicy {
 	return &v
-}
-
-type NullableRetentionPolicy struct {
-	value *RetentionPolicy
-	isSet bool
-}
-
-func (v NullableRetentionPolicy) Get() *RetentionPolicy {
-	return v.value
-}
-
-func (v *NullableRetentionPolicy) Set(val *RetentionPolicy) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRetentionPolicy) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRetentionPolicy) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRetentionPolicy(val *RetentionPolicy) *NullableRetentionPolicy {
-	return &NullableRetentionPolicy{value: val, isSet: true}
-}
-
-func (v NullableRetentionPolicy) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableRetentionPolicy) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

@@ -10,144 +10,16 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the AppUserAssignRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AppUserAssignRequest{}
 
 // AppUserAssignRequest struct for AppUserAssignRequest
 type AppUserAssignRequest struct {
-	Role string `json:"role"`
-}
-
-type _AppUserAssignRequest AppUserAssignRequest
-
-// NewAppUserAssignRequest instantiates a new AppUserAssignRequest object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewAppUserAssignRequest(role string) *AppUserAssignRequest {
-	this := AppUserAssignRequest{}
-	this.Role = role
-	return &this
-}
-
-// NewAppUserAssignRequestWithDefaults instantiates a new AppUserAssignRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewAppUserAssignRequestWithDefaults() *AppUserAssignRequest {
-	this := AppUserAssignRequest{}
-	return &this
-}
-
-// GetRole returns the Role field value
-func (o *AppUserAssignRequest) GetRole() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Role
-}
-
-// GetRoleOk returns a tuple with the Role field value
-// and a boolean to check if the value has been set.
-func (o *AppUserAssignRequest) GetRoleOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Role, true
-}
-
-// SetRole sets field value
-func (o *AppUserAssignRequest) SetRole(v string) {
-	o.Role = v
-}
-
-func (o AppUserAssignRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	RoleId string `json:"role_id"`
 }
 
 func (o AppUserAssignRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["role"] = o.Role
+	toSerialize["role_id"] = o.RoleId
 	return toSerialize, nil
-}
-
-func (o *AppUserAssignRequest) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"role",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varAppUserAssignRequest := _AppUserAssignRequest{}
-
-	err = json.Unmarshal(bytes, &varAppUserAssignRequest)
-
-	if err != nil {
-		return err
-	}
-
-	*o = AppUserAssignRequest(varAppUserAssignRequest)
-
-	return err
-}
-
-type NullableAppUserAssignRequest struct {
-	value *AppUserAssignRequest
-	isSet bool
-}
-
-func (v NullableAppUserAssignRequest) Get() *AppUserAssignRequest {
-	return v.value
-}
-
-func (v *NullableAppUserAssignRequest) Set(val *AppUserAssignRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAppUserAssignRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAppUserAssignRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAppUserAssignRequest(val *AppUserAssignRequest) *NullableAppUserAssignRequest {
-	return &NullableAppUserAssignRequest{value: val, isSet: true}
-}
-
-func (v NullableAppUserAssignRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAppUserAssignRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

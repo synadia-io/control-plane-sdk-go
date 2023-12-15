@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // AppRoleEffect the model 'AppRoleEffect'
@@ -71,40 +72,4 @@ func (v AppRoleEffect) IsValid() bool {
 // Ptr returns reference to AppRoleEffect value
 func (v AppRoleEffect) Ptr() *AppRoleEffect {
 	return &v
-}
-
-type NullableAppRoleEffect struct {
-	value *AppRoleEffect
-	isSet bool
-}
-
-func (v NullableAppRoleEffect) Get() *AppRoleEffect {
-	return v.value
-}
-
-func (v *NullableAppRoleEffect) Set(val *AppRoleEffect) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAppRoleEffect) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAppRoleEffect) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAppRoleEffect(val *AppRoleEffect) *NullableAppRoleEffect {
-	return &NullableAppRoleEffect{value: val, isSet: true}
-}
-
-func (v NullableAppRoleEffect) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAppRoleEffect) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

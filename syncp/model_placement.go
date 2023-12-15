@@ -10,180 +10,20 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the Placement type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Placement{}
 
 // Placement Placement describes stream placement requirements for a stream
 type Placement struct {
-	Cluster string   `json:"cluster"`
-	Tags    []string `json:"tags,omitempty"`
-}
-
-type _Placement Placement
-
-// NewPlacement instantiates a new Placement object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewPlacement(cluster string) *Placement {
-	this := Placement{}
-	this.Cluster = cluster
-	return &this
-}
-
-// NewPlacementWithDefaults instantiates a new Placement object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewPlacementWithDefaults() *Placement {
-	this := Placement{}
-	return &this
-}
-
-// GetCluster returns the Cluster field value
-func (o *Placement) GetCluster() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Cluster
-}
-
-// GetClusterOk returns a tuple with the Cluster field value
-// and a boolean to check if the value has been set.
-func (o *Placement) GetClusterOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Cluster, true
-}
-
-// SetCluster sets field value
-func (o *Placement) SetCluster(v string) {
-	o.Cluster = v
-}
-
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Placement) GetTags() []string {
-	if o == nil || IsNil(o.Tags) {
-		var ret []string
-		return ret
-	}
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Placement) GetTagsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Tags) {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *Placement) HasTags() bool {
-	if o != nil && !IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *Placement) SetTags(v []string) {
-	o.Tags = v
-}
-
-func (o Placement) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	Cluster string    `json:"cluster"`
+	Tags    *[]string `json:"tags,omitempty"`
 }
 
 func (o Placement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["cluster"] = o.Cluster
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
 	return toSerialize, nil
-}
-
-func (o *Placement) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"cluster",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varPlacement := _Placement{}
-
-	err = json.Unmarshal(bytes, &varPlacement)
-
-	if err != nil {
-		return err
-	}
-
-	*o = Placement(varPlacement)
-
-	return err
-}
-
-type NullablePlacement struct {
-	value *Placement
-	isSet bool
-}
-
-func (v NullablePlacement) Get() *Placement {
-	return v.value
-}
-
-func (v *NullablePlacement) Set(val *Placement) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePlacement) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePlacement) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePlacement(val *Placement) *NullablePlacement {
-	return &NullablePlacement{value: val, isSet: true}
-}
-
-func (v NullablePlacement) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullablePlacement) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

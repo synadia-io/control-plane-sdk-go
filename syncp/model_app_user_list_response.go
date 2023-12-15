@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the AppUserListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AppUserListResponse{}
 
@@ -23,131 +18,8 @@ type AppUserListResponse struct {
 	Items []AppUserViewResponse `json:"items"`
 }
 
-type _AppUserListResponse AppUserListResponse
-
-// NewAppUserListResponse instantiates a new AppUserListResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewAppUserListResponse(items []AppUserViewResponse) *AppUserListResponse {
-	this := AppUserListResponse{}
-	this.Items = items
-	return &this
-}
-
-// NewAppUserListResponseWithDefaults instantiates a new AppUserListResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewAppUserListResponseWithDefaults() *AppUserListResponse {
-	this := AppUserListResponse{}
-	return &this
-}
-
-// GetItems returns the Items field value
-func (o *AppUserListResponse) GetItems() []AppUserViewResponse {
-	if o == nil {
-		var ret []AppUserViewResponse
-		return ret
-	}
-
-	return o.Items
-}
-
-// GetItemsOk returns a tuple with the Items field value
-// and a boolean to check if the value has been set.
-func (o *AppUserListResponse) GetItemsOk() ([]AppUserViewResponse, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Items, true
-}
-
-// SetItems sets field value
-func (o *AppUserListResponse) SetItems(v []AppUserViewResponse) {
-	o.Items = v
-}
-
-func (o AppUserListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o AppUserListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
-}
-
-func (o *AppUserListResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"items",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varAppUserListResponse := _AppUserListResponse{}
-
-	err = json.Unmarshal(bytes, &varAppUserListResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = AppUserListResponse(varAppUserListResponse)
-
-	return err
-}
-
-type NullableAppUserListResponse struct {
-	value *AppUserListResponse
-	isSet bool
-}
-
-func (v NullableAppUserListResponse) Get() *AppUserListResponse {
-	return v.value
-}
-
-func (v *NullableAppUserListResponse) Set(val *AppUserListResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAppUserListResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAppUserListResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAppUserListResponse(val *AppUserListResponse) *NullableAppUserListResponse {
-	return &NullableAppUserListResponse{value: val, isSet: true}
-}
-
-func (v NullableAppUserListResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableAppUserListResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

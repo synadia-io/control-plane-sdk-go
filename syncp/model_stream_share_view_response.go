@@ -10,11 +10,6 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the StreamShareViewResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &StreamShareViewResponse{}
 
@@ -23,131 +18,8 @@ type StreamShareViewResponse struct {
 	TargetAccountNkeyPublic string `json:"target_account_nkey_public"`
 }
 
-type _StreamShareViewResponse StreamShareViewResponse
-
-// NewStreamShareViewResponse instantiates a new StreamShareViewResponse object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewStreamShareViewResponse(targetAccountNkeyPublic string) *StreamShareViewResponse {
-	this := StreamShareViewResponse{}
-	this.TargetAccountNkeyPublic = targetAccountNkeyPublic
-	return &this
-}
-
-// NewStreamShareViewResponseWithDefaults instantiates a new StreamShareViewResponse object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewStreamShareViewResponseWithDefaults() *StreamShareViewResponse {
-	this := StreamShareViewResponse{}
-	return &this
-}
-
-// GetTargetAccountNkeyPublic returns the TargetAccountNkeyPublic field value
-func (o *StreamShareViewResponse) GetTargetAccountNkeyPublic() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.TargetAccountNkeyPublic
-}
-
-// GetTargetAccountNkeyPublicOk returns a tuple with the TargetAccountNkeyPublic field value
-// and a boolean to check if the value has been set.
-func (o *StreamShareViewResponse) GetTargetAccountNkeyPublicOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.TargetAccountNkeyPublic, true
-}
-
-// SetTargetAccountNkeyPublic sets field value
-func (o *StreamShareViewResponse) SetTargetAccountNkeyPublic(v string) {
-	o.TargetAccountNkeyPublic = v
-}
-
-func (o StreamShareViewResponse) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
 func (o StreamShareViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["target_account_nkey_public"] = o.TargetAccountNkeyPublic
 	return toSerialize, nil
-}
-
-func (o *StreamShareViewResponse) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"target_account_nkey_public",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varStreamShareViewResponse := _StreamShareViewResponse{}
-
-	err = json.Unmarshal(bytes, &varStreamShareViewResponse)
-
-	if err != nil {
-		return err
-	}
-
-	*o = StreamShareViewResponse(varStreamShareViewResponse)
-
-	return err
-}
-
-type NullableStreamShareViewResponse struct {
-	value *StreamShareViewResponse
-	isSet bool
-}
-
-func (v NullableStreamShareViewResponse) Get() *StreamShareViewResponse {
-	return v.value
-}
-
-func (v *NullableStreamShareViewResponse) Set(val *StreamShareViewResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStreamShareViewResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStreamShareViewResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStreamShareViewResponse(val *StreamShareViewResponse) *NullableStreamShareViewResponse {
-	return &NullableStreamShareViewResponse{value: val, isSet: true}
-}
-
-func (v NullableStreamShareViewResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableStreamShareViewResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

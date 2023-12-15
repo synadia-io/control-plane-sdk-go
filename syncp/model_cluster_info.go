@@ -10,187 +10,26 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-)
-
 // checks if the ClusterInfo type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ClusterInfo{}
 
 // ClusterInfo ClusterInfo shows information about the underlying set of servers that make up the stream or consumer.
 type ClusterInfo struct {
-	Leader   *string                    `json:"leader,omitempty"`
-	Name     *string                    `json:"name,omitempty"`
-	Replicas []ClusterInfoReplicasInner `json:"replicas,omitempty"`
-}
-
-// NewClusterInfo instantiates a new ClusterInfo object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewClusterInfo() *ClusterInfo {
-	this := ClusterInfo{}
-	return &this
-}
-
-// NewClusterInfoWithDefaults instantiates a new ClusterInfo object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewClusterInfoWithDefaults() *ClusterInfo {
-	this := ClusterInfo{}
-	return &this
-}
-
-// GetLeader returns the Leader field value if set, zero value otherwise.
-func (o *ClusterInfo) GetLeader() string {
-	if o == nil || IsNil(o.Leader) {
-		var ret string
-		return ret
-	}
-	return *o.Leader
-}
-
-// GetLeaderOk returns a tuple with the Leader field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ClusterInfo) GetLeaderOk() (*string, bool) {
-	if o == nil || IsNil(o.Leader) {
-		return nil, false
-	}
-	return o.Leader, true
-}
-
-// HasLeader returns a boolean if a field has been set.
-func (o *ClusterInfo) HasLeader() bool {
-	if o != nil && !IsNil(o.Leader) {
-		return true
-	}
-
-	return false
-}
-
-// SetLeader gets a reference to the given string and assigns it to the Leader field.
-func (o *ClusterInfo) SetLeader(v string) {
-	o.Leader = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *ClusterInfo) GetName() string {
-	if o == nil || IsNil(o.Name) {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ClusterInfo) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *ClusterInfo) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *ClusterInfo) SetName(v string) {
-	o.Name = &v
-}
-
-// GetReplicas returns the Replicas field value if set, zero value otherwise.
-func (o *ClusterInfo) GetReplicas() []ClusterInfoReplicasInner {
-	if o == nil || IsNil(o.Replicas) {
-		var ret []ClusterInfoReplicasInner
-		return ret
-	}
-	return o.Replicas
-}
-
-// GetReplicasOk returns a tuple with the Replicas field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ClusterInfo) GetReplicasOk() ([]ClusterInfoReplicasInner, bool) {
-	if o == nil || IsNil(o.Replicas) {
-		return nil, false
-	}
-	return o.Replicas, true
-}
-
-// HasReplicas returns a boolean if a field has been set.
-func (o *ClusterInfo) HasReplicas() bool {
-	if o != nil && !IsNil(o.Replicas) {
-		return true
-	}
-
-	return false
-}
-
-// SetReplicas gets a reference to the given []ClusterInfoReplicasInner and assigns it to the Replicas field.
-func (o *ClusterInfo) SetReplicas(v []ClusterInfoReplicasInner) {
-	o.Replicas = v
-}
-
-func (o ClusterInfo) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	Leader   *string     `json:"leader,omitempty"`
+	Name     *string     `json:"name,omitempty"`
+	Replicas *[]PeerInfo `json:"replicas,omitempty"`
 }
 
 func (o ClusterInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Leader) {
+	if o.Leader != nil {
 		toSerialize["leader"] = o.Leader
 	}
-	if !IsNil(o.Name) {
+	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if !IsNil(o.Replicas) {
+	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}
 	return toSerialize, nil
-}
-
-type NullableClusterInfo struct {
-	value *ClusterInfo
-	isSet bool
-}
-
-func (v NullableClusterInfo) Get() *ClusterInfo {
-	return v.value
-}
-
-func (v *NullableClusterInfo) Set(val *ClusterInfo) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableClusterInfo) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableClusterInfo) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableClusterInfo(val *ClusterInfo) *NullableClusterInfo {
-	return &NullableClusterInfo{value: val, isSet: true}
-}
-
-func (v NullableClusterInfo) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableClusterInfo) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

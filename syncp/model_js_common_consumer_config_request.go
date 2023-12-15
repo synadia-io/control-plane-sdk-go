@@ -10,743 +10,78 @@ API version: beta
 
 package syncp
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // checks if the JSCommonConsumerConfigRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &JSCommonConsumerConfigRequest{}
 
 // JSCommonConsumerConfigRequest struct for JSCommonConsumerConfigRequest
 type JSCommonConsumerConfigRequest struct {
-	AckPolicy         AckPolicy      `json:"ack_policy"`
-	AckWait           *int64         `json:"ack_wait,omitempty"`
-	Backoff           []int64        `json:"backoff,omitempty"`
-	DeliverPolicy     DeliverPolicy  `json:"deliver_policy"`
-	Description       *string        `json:"description,omitempty"`
-	Direct            *bool          `json:"direct,omitempty"`
-	DurableName       *string        `json:"durable_name,omitempty"`
-	FilterSubject     *string        `json:"filter_subject,omitempty"`
-	InactiveThreshold *int64         `json:"inactive_threshold,omitempty"`
-	MaxAckPending     *int32         `json:"max_ack_pending,omitempty"`
-	MaxDeliver        *int32         `json:"max_deliver,omitempty"`
-	MemStorage        *bool          `json:"mem_storage,omitempty"`
-	Name              *string        `json:"name,omitempty"`
-	NumReplicas       int32          `json:"num_replicas"`
-	OptStartSeq       *int32         `json:"opt_start_seq,omitempty"`
-	OptStartTime      NullableString `json:"opt_start_time,omitempty"`
-	ReplayPolicy      ReplayPolicy   `json:"replay_policy"`
-	SampleFreq        *string        `json:"sample_freq,omitempty"`
-}
-
-type _JSCommonConsumerConfigRequest JSCommonConsumerConfigRequest
-
-// NewJSCommonConsumerConfigRequest instantiates a new JSCommonConsumerConfigRequest object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewJSCommonConsumerConfigRequest(ackPolicy AckPolicy, deliverPolicy DeliverPolicy, numReplicas int32, replayPolicy ReplayPolicy) *JSCommonConsumerConfigRequest {
-	this := JSCommonConsumerConfigRequest{}
-	this.AckPolicy = ackPolicy
-	this.DeliverPolicy = deliverPolicy
-	this.NumReplicas = numReplicas
-	this.ReplayPolicy = replayPolicy
-	return &this
-}
-
-// NewJSCommonConsumerConfigRequestWithDefaults instantiates a new JSCommonConsumerConfigRequest object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewJSCommonConsumerConfigRequestWithDefaults() *JSCommonConsumerConfigRequest {
-	this := JSCommonConsumerConfigRequest{}
-	return &this
-}
-
-// GetAckPolicy returns the AckPolicy field value
-func (o *JSCommonConsumerConfigRequest) GetAckPolicy() AckPolicy {
-	if o == nil {
-		var ret AckPolicy
-		return ret
-	}
-
-	return o.AckPolicy
-}
-
-// GetAckPolicyOk returns a tuple with the AckPolicy field value
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetAckPolicyOk() (*AckPolicy, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AckPolicy, true
-}
-
-// SetAckPolicy sets field value
-func (o *JSCommonConsumerConfigRequest) SetAckPolicy(v AckPolicy) {
-	o.AckPolicy = v
-}
-
-// GetAckWait returns the AckWait field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetAckWait() int64 {
-	if o == nil || IsNil(o.AckWait) {
-		var ret int64
-		return ret
-	}
-	return *o.AckWait
-}
-
-// GetAckWaitOk returns a tuple with the AckWait field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetAckWaitOk() (*int64, bool) {
-	if o == nil || IsNil(o.AckWait) {
-		return nil, false
-	}
-	return o.AckWait, true
-}
-
-// HasAckWait returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasAckWait() bool {
-	if o != nil && !IsNil(o.AckWait) {
-		return true
-	}
-
-	return false
-}
-
-// SetAckWait gets a reference to the given int64 and assigns it to the AckWait field.
-func (o *JSCommonConsumerConfigRequest) SetAckWait(v int64) {
-	o.AckWait = &v
-}
-
-// GetBackoff returns the Backoff field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetBackoff() []int64 {
-	if o == nil || IsNil(o.Backoff) {
-		var ret []int64
-		return ret
-	}
-	return o.Backoff
-}
-
-// GetBackoffOk returns a tuple with the Backoff field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetBackoffOk() ([]int64, bool) {
-	if o == nil || IsNil(o.Backoff) {
-		return nil, false
-	}
-	return o.Backoff, true
-}
-
-// HasBackoff returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasBackoff() bool {
-	if o != nil && !IsNil(o.Backoff) {
-		return true
-	}
-
-	return false
-}
-
-// SetBackoff gets a reference to the given []int64 and assigns it to the Backoff field.
-func (o *JSCommonConsumerConfigRequest) SetBackoff(v []int64) {
-	o.Backoff = v
-}
-
-// GetDeliverPolicy returns the DeliverPolicy field value
-func (o *JSCommonConsumerConfigRequest) GetDeliverPolicy() DeliverPolicy {
-	if o == nil {
-		var ret DeliverPolicy
-		return ret
-	}
-
-	return o.DeliverPolicy
-}
-
-// GetDeliverPolicyOk returns a tuple with the DeliverPolicy field value
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetDeliverPolicyOk() (*DeliverPolicy, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.DeliverPolicy, true
-}
-
-// SetDeliverPolicy sets field value
-func (o *JSCommonConsumerConfigRequest) SetDeliverPolicy(v DeliverPolicy) {
-	o.DeliverPolicy = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *JSCommonConsumerConfigRequest) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetDirect returns the Direct field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetDirect() bool {
-	if o == nil || IsNil(o.Direct) {
-		var ret bool
-		return ret
-	}
-	return *o.Direct
-}
-
-// GetDirectOk returns a tuple with the Direct field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetDirectOk() (*bool, bool) {
-	if o == nil || IsNil(o.Direct) {
-		return nil, false
-	}
-	return o.Direct, true
-}
-
-// HasDirect returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasDirect() bool {
-	if o != nil && !IsNil(o.Direct) {
-		return true
-	}
-
-	return false
-}
-
-// SetDirect gets a reference to the given bool and assigns it to the Direct field.
-func (o *JSCommonConsumerConfigRequest) SetDirect(v bool) {
-	o.Direct = &v
-}
-
-// GetDurableName returns the DurableName field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetDurableName() string {
-	if o == nil || IsNil(o.DurableName) {
-		var ret string
-		return ret
-	}
-	return *o.DurableName
-}
-
-// GetDurableNameOk returns a tuple with the DurableName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetDurableNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DurableName) {
-		return nil, false
-	}
-	return o.DurableName, true
-}
-
-// HasDurableName returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasDurableName() bool {
-	if o != nil && !IsNil(o.DurableName) {
-		return true
-	}
-
-	return false
-}
-
-// SetDurableName gets a reference to the given string and assigns it to the DurableName field.
-func (o *JSCommonConsumerConfigRequest) SetDurableName(v string) {
-	o.DurableName = &v
-}
-
-// GetFilterSubject returns the FilterSubject field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetFilterSubject() string {
-	if o == nil || IsNil(o.FilterSubject) {
-		var ret string
-		return ret
-	}
-	return *o.FilterSubject
-}
-
-// GetFilterSubjectOk returns a tuple with the FilterSubject field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetFilterSubjectOk() (*string, bool) {
-	if o == nil || IsNil(o.FilterSubject) {
-		return nil, false
-	}
-	return o.FilterSubject, true
-}
-
-// HasFilterSubject returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasFilterSubject() bool {
-	if o != nil && !IsNil(o.FilterSubject) {
-		return true
-	}
-
-	return false
-}
-
-// SetFilterSubject gets a reference to the given string and assigns it to the FilterSubject field.
-func (o *JSCommonConsumerConfigRequest) SetFilterSubject(v string) {
-	o.FilterSubject = &v
-}
-
-// GetInactiveThreshold returns the InactiveThreshold field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetInactiveThreshold() int64 {
-	if o == nil || IsNil(o.InactiveThreshold) {
-		var ret int64
-		return ret
-	}
-	return *o.InactiveThreshold
-}
-
-// GetInactiveThresholdOk returns a tuple with the InactiveThreshold field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetInactiveThresholdOk() (*int64, bool) {
-	if o == nil || IsNil(o.InactiveThreshold) {
-		return nil, false
-	}
-	return o.InactiveThreshold, true
-}
-
-// HasInactiveThreshold returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasInactiveThreshold() bool {
-	if o != nil && !IsNil(o.InactiveThreshold) {
-		return true
-	}
-
-	return false
-}
-
-// SetInactiveThreshold gets a reference to the given int64 and assigns it to the InactiveThreshold field.
-func (o *JSCommonConsumerConfigRequest) SetInactiveThreshold(v int64) {
-	o.InactiveThreshold = &v
-}
-
-// GetMaxAckPending returns the MaxAckPending field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetMaxAckPending() int32 {
-	if o == nil || IsNil(o.MaxAckPending) {
-		var ret int32
-		return ret
-	}
-	return *o.MaxAckPending
-}
-
-// GetMaxAckPendingOk returns a tuple with the MaxAckPending field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetMaxAckPendingOk() (*int32, bool) {
-	if o == nil || IsNil(o.MaxAckPending) {
-		return nil, false
-	}
-	return o.MaxAckPending, true
-}
-
-// HasMaxAckPending returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasMaxAckPending() bool {
-	if o != nil && !IsNil(o.MaxAckPending) {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxAckPending gets a reference to the given int32 and assigns it to the MaxAckPending field.
-func (o *JSCommonConsumerConfigRequest) SetMaxAckPending(v int32) {
-	o.MaxAckPending = &v
-}
-
-// GetMaxDeliver returns the MaxDeliver field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetMaxDeliver() int32 {
-	if o == nil || IsNil(o.MaxDeliver) {
-		var ret int32
-		return ret
-	}
-	return *o.MaxDeliver
-}
-
-// GetMaxDeliverOk returns a tuple with the MaxDeliver field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetMaxDeliverOk() (*int32, bool) {
-	if o == nil || IsNil(o.MaxDeliver) {
-		return nil, false
-	}
-	return o.MaxDeliver, true
-}
-
-// HasMaxDeliver returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasMaxDeliver() bool {
-	if o != nil && !IsNil(o.MaxDeliver) {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxDeliver gets a reference to the given int32 and assigns it to the MaxDeliver field.
-func (o *JSCommonConsumerConfigRequest) SetMaxDeliver(v int32) {
-	o.MaxDeliver = &v
-}
-
-// GetMemStorage returns the MemStorage field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetMemStorage() bool {
-	if o == nil || IsNil(o.MemStorage) {
-		var ret bool
-		return ret
-	}
-	return *o.MemStorage
-}
-
-// GetMemStorageOk returns a tuple with the MemStorage field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetMemStorageOk() (*bool, bool) {
-	if o == nil || IsNil(o.MemStorage) {
-		return nil, false
-	}
-	return o.MemStorage, true
-}
-
-// HasMemStorage returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasMemStorage() bool {
-	if o != nil && !IsNil(o.MemStorage) {
-		return true
-	}
-
-	return false
-}
-
-// SetMemStorage gets a reference to the given bool and assigns it to the MemStorage field.
-func (o *JSCommonConsumerConfigRequest) SetMemStorage(v bool) {
-	o.MemStorage = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetName() string {
-	if o == nil || IsNil(o.Name) {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *JSCommonConsumerConfigRequest) SetName(v string) {
-	o.Name = &v
-}
-
-// GetNumReplicas returns the NumReplicas field value
-func (o *JSCommonConsumerConfigRequest) GetNumReplicas() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.NumReplicas
-}
-
-// GetNumReplicasOk returns a tuple with the NumReplicas field value
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetNumReplicasOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.NumReplicas, true
-}
-
-// SetNumReplicas sets field value
-func (o *JSCommonConsumerConfigRequest) SetNumReplicas(v int32) {
-	o.NumReplicas = v
-}
-
-// GetOptStartSeq returns the OptStartSeq field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetOptStartSeq() int32 {
-	if o == nil || IsNil(o.OptStartSeq) {
-		var ret int32
-		return ret
-	}
-	return *o.OptStartSeq
-}
-
-// GetOptStartSeqOk returns a tuple with the OptStartSeq field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetOptStartSeqOk() (*int32, bool) {
-	if o == nil || IsNil(o.OptStartSeq) {
-		return nil, false
-	}
-	return o.OptStartSeq, true
-}
-
-// HasOptStartSeq returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasOptStartSeq() bool {
-	if o != nil && !IsNil(o.OptStartSeq) {
-		return true
-	}
-
-	return false
-}
-
-// SetOptStartSeq gets a reference to the given int32 and assigns it to the OptStartSeq field.
-func (o *JSCommonConsumerConfigRequest) SetOptStartSeq(v int32) {
-	o.OptStartSeq = &v
-}
-
-// GetOptStartTime returns the OptStartTime field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *JSCommonConsumerConfigRequest) GetOptStartTime() string {
-	if o == nil || IsNil(o.OptStartTime.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.OptStartTime.Get()
-}
-
-// GetOptStartTimeOk returns a tuple with the OptStartTime field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *JSCommonConsumerConfigRequest) GetOptStartTimeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.OptStartTime.Get(), o.OptStartTime.IsSet()
-}
-
-// HasOptStartTime returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasOptStartTime() bool {
-	if o != nil && o.OptStartTime.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetOptStartTime gets a reference to the given NullableString and assigns it to the OptStartTime field.
-func (o *JSCommonConsumerConfigRequest) SetOptStartTime(v string) {
-	o.OptStartTime.Set(&v)
-}
-
-// SetOptStartTimeNil sets the value for OptStartTime to be an explicit nil
-func (o *JSCommonConsumerConfigRequest) SetOptStartTimeNil() {
-	o.OptStartTime.Set(nil)
-}
-
-// UnsetOptStartTime ensures that no value is present for OptStartTime, not even an explicit nil
-func (o *JSCommonConsumerConfigRequest) UnsetOptStartTime() {
-	o.OptStartTime.Unset()
-}
-
-// GetReplayPolicy returns the ReplayPolicy field value
-func (o *JSCommonConsumerConfigRequest) GetReplayPolicy() ReplayPolicy {
-	if o == nil {
-		var ret ReplayPolicy
-		return ret
-	}
-
-	return o.ReplayPolicy
-}
-
-// GetReplayPolicyOk returns a tuple with the ReplayPolicy field value
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetReplayPolicyOk() (*ReplayPolicy, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ReplayPolicy, true
-}
-
-// SetReplayPolicy sets field value
-func (o *JSCommonConsumerConfigRequest) SetReplayPolicy(v ReplayPolicy) {
-	o.ReplayPolicy = v
-}
-
-// GetSampleFreq returns the SampleFreq field value if set, zero value otherwise.
-func (o *JSCommonConsumerConfigRequest) GetSampleFreq() string {
-	if o == nil || IsNil(o.SampleFreq) {
-		var ret string
-		return ret
-	}
-	return *o.SampleFreq
-}
-
-// GetSampleFreqOk returns a tuple with the SampleFreq field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *JSCommonConsumerConfigRequest) GetSampleFreqOk() (*string, bool) {
-	if o == nil || IsNil(o.SampleFreq) {
-		return nil, false
-	}
-	return o.SampleFreq, true
-}
-
-// HasSampleFreq returns a boolean if a field has been set.
-func (o *JSCommonConsumerConfigRequest) HasSampleFreq() bool {
-	if o != nil && !IsNil(o.SampleFreq) {
-		return true
-	}
-
-	return false
-}
-
-// SetSampleFreq gets a reference to the given string and assigns it to the SampleFreq field.
-func (o *JSCommonConsumerConfigRequest) SetSampleFreq(v string) {
-	o.SampleFreq = &v
-}
-
-func (o JSCommonConsumerConfigRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
+	AckPolicy         AckPolicy         `json:"ack_policy"`
+	AckWait           *int64            `json:"ack_wait,omitempty"`
+	Backoff           *[]int64          `json:"backoff,omitempty"`
+	DeliverPolicy     DeliverPolicy     `json:"deliver_policy"`
+	Description       *string           `json:"description,omitempty"`
+	Direct            *bool             `json:"direct,omitempty"`
+	DurableName       *string           `json:"durable_name,omitempty"`
+	FilterSubject     *string           `json:"filter_subject,omitempty"`
+	InactiveThreshold *int64            `json:"inactive_threshold,omitempty"`
+	MaxAckPending     *int32            `json:"max_ack_pending,omitempty"`
+	MaxDeliver        *int32            `json:"max_deliver,omitempty"`
+	MemStorage        *bool             `json:"mem_storage,omitempty"`
+	Name              *string           `json:"name,omitempty"`
+	NumReplicas       int32             `json:"num_replicas"`
+	OptStartSeq       *int32            `json:"opt_start_seq,omitempty"`
+	OptStartTime      *Nullable[string] `json:"opt_start_time,omitempty"`
+	ReplayPolicy      ReplayPolicy      `json:"replay_policy"`
+	SampleFreq        *string           `json:"sample_freq,omitempty"`
 }
 
 func (o JSCommonConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["ack_policy"] = o.AckPolicy
-	if !IsNil(o.AckWait) {
+	if o.AckWait != nil {
 		toSerialize["ack_wait"] = o.AckWait
 	}
-	if !IsNil(o.Backoff) {
+	if o.Backoff != nil {
 		toSerialize["backoff"] = o.Backoff
 	}
 	toSerialize["deliver_policy"] = o.DeliverPolicy
-	if !IsNil(o.Description) {
+	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.Direct) {
+	if o.Direct != nil {
 		toSerialize["direct"] = o.Direct
 	}
-	if !IsNil(o.DurableName) {
+	if o.DurableName != nil {
 		toSerialize["durable_name"] = o.DurableName
 	}
-	if !IsNil(o.FilterSubject) {
+	if o.FilterSubject != nil {
 		toSerialize["filter_subject"] = o.FilterSubject
 	}
-	if !IsNil(o.InactiveThreshold) {
+	if o.InactiveThreshold != nil {
 		toSerialize["inactive_threshold"] = o.InactiveThreshold
 	}
-	if !IsNil(o.MaxAckPending) {
+	if o.MaxAckPending != nil {
 		toSerialize["max_ack_pending"] = o.MaxAckPending
 	}
-	if !IsNil(o.MaxDeliver) {
+	if o.MaxDeliver != nil {
 		toSerialize["max_deliver"] = o.MaxDeliver
 	}
-	if !IsNil(o.MemStorage) {
+	if o.MemStorage != nil {
 		toSerialize["mem_storage"] = o.MemStorage
 	}
-	if !IsNil(o.Name) {
+	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
 	toSerialize["num_replicas"] = o.NumReplicas
-	if !IsNil(o.OptStartSeq) {
+	if o.OptStartSeq != nil {
 		toSerialize["opt_start_seq"] = o.OptStartSeq
 	}
-	if o.OptStartTime.IsSet() {
-		toSerialize["opt_start_time"] = o.OptStartTime.Get()
+	if o.OptStartTime != nil && !o.OptStartTime.IsNull() {
+		toSerialize["opt_start_time"] = o.OptStartTime.Val
 	}
 	toSerialize["replay_policy"] = o.ReplayPolicy
-	if !IsNil(o.SampleFreq) {
+	if o.SampleFreq != nil {
 		toSerialize["sample_freq"] = o.SampleFreq
 	}
 	return toSerialize, nil
-}
-
-func (o *JSCommonConsumerConfigRequest) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"ack_policy",
-		"deliver_policy",
-		"num_replicas",
-		"replay_policy",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varJSCommonConsumerConfigRequest := _JSCommonConsumerConfigRequest{}
-
-	err = json.Unmarshal(bytes, &varJSCommonConsumerConfigRequest)
-
-	if err != nil {
-		return err
-	}
-
-	*o = JSCommonConsumerConfigRequest(varJSCommonConsumerConfigRequest)
-
-	return err
-}
-
-type NullableJSCommonConsumerConfigRequest struct {
-	value *JSCommonConsumerConfigRequest
-	isSet bool
-}
-
-func (v NullableJSCommonConsumerConfigRequest) Get() *JSCommonConsumerConfigRequest {
-	return v.value
-}
-
-func (v *NullableJSCommonConsumerConfigRequest) Set(val *JSCommonConsumerConfigRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableJSCommonConsumerConfigRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableJSCommonConsumerConfigRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableJSCommonConsumerConfigRequest(val *JSCommonConsumerConfigRequest) *NullableJSCommonConsumerConfigRequest {
-	return &NullableJSCommonConsumerConfigRequest{value: val, isSet: true}
-}
-
-func (v NullableJSCommonConsumerConfigRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableJSCommonConsumerConfigRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

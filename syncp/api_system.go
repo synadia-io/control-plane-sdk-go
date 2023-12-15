@@ -25,7 +25,7 @@ type SystemAPI interface {
 	/*
 		AssignSystemTeamAppUser Assign Team App User to System
 
-		Assign an Team App User to a System
+		Assign a Team App User to a System. This operation is idempotent; if an App User is already assigned to the System the assignment will be updated with the new role
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param systemId
@@ -423,7 +423,7 @@ func (r ApiAssignSystemTeamAppUserRequest) Execute() (*AppUserAssignResponse, *h
 /*
 AssignSystemTeamAppUser Assign Team App User to System
 
-Assign an Team App User to a System
+Assign a Team App User to a System. This operation is idempotent; if an App User is already assigned to the System the assignment will be updated with the new role
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param systemId

@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // ClusterChartType the model 'ClusterChartType'
@@ -103,40 +104,4 @@ func (v ClusterChartType) IsValid() bool {
 // Ptr returns reference to ClusterChartType value
 func (v ClusterChartType) Ptr() *ClusterChartType {
 	return &v
-}
-
-type NullableClusterChartType struct {
-	value *ClusterChartType
-	isSet bool
-}
-
-func (v NullableClusterChartType) Get() *ClusterChartType {
-	return v.value
-}
-
-func (v *NullableClusterChartType) Set(val *ClusterChartType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableClusterChartType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableClusterChartType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableClusterChartType(val *ClusterChartType) *NullableClusterChartType {
-	return &NullableClusterChartType{value: val, isSet: true}
-}
-
-func (v NullableClusterChartType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableClusterChartType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

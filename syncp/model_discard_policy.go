@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // DiscardPolicy enums have been changed to match UnmarshalJSON in https://github.com/nats-io/jsm.go/blob/main/api/streams.go
@@ -71,40 +72,4 @@ func (v DiscardPolicy) IsValid() bool {
 // Ptr returns reference to DiscardPolicy value
 func (v DiscardPolicy) Ptr() *DiscardPolicy {
 	return &v
-}
-
-type NullableDiscardPolicy struct {
-	value *DiscardPolicy
-	isSet bool
-}
-
-func (v NullableDiscardPolicy) Get() *DiscardPolicy {
-	return v.value
-}
-
-func (v *NullableDiscardPolicy) Set(val *DiscardPolicy) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDiscardPolicy) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDiscardPolicy) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDiscardPolicy(val *DiscardPolicy) *NullableDiscardPolicy {
-	return &NullableDiscardPolicy{value: val, isSet: true}
-}
-
-func (v NullableDiscardPolicy) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableDiscardPolicy) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

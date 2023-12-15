@@ -11,8 +11,9 @@ API version: beta
 package syncp
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"encoding/json"
 )
 
 // JSConsumerType the model 'JSConsumerType'
@@ -71,40 +72,4 @@ func (v JSConsumerType) IsValid() bool {
 // Ptr returns reference to JSConsumerType value
 func (v JSConsumerType) Ptr() *JSConsumerType {
 	return &v
-}
-
-type NullableJSConsumerType struct {
-	value *JSConsumerType
-	isSet bool
-}
-
-func (v NullableJSConsumerType) Get() *JSConsumerType {
-	return v.value
-}
-
-func (v *NullableJSConsumerType) Set(val *JSConsumerType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableJSConsumerType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableJSConsumerType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableJSConsumerType(val *JSConsumerType) *NullableJSConsumerType {
-	return &NullableJSConsumerType{value: val, isSet: true}
-}
-
-func (v NullableJSConsumerType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullableJSConsumerType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
 }

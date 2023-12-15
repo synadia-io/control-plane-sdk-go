@@ -24,7 +24,7 @@ type NatsUserAPI interface {
 	/*
 		AssignNatsUserTeamAppUser Assign Team App User to NATS User
 
-		Assign a Team App User to a NATS User
+		Assign a Team App User to a NATS User. This operation is idempotent; if an App User is already assigned to a NATS User the assignment will be updated with the new role
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId
@@ -36,6 +36,21 @@ type NatsUserAPI interface {
 	// AssignNatsUserTeamAppUserExecute executes the request
 	//  @return AppUserAssignResponse
 	AssignNatsUserTeamAppUserExecute(r ApiAssignNatsUserTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
+
+	/*
+		CopyNatsUser Copy nats user
+
+		Copies the user, changing name and account SK group. Generates new user NKey
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId
+		@return ApiCopyNatsUserRequest
+	*/
+	CopyNatsUser(ctx context.Context, userId string) ApiCopyNatsUserRequest
+
+	// CopyNatsUserExecute executes the request
+	//  @return NatsUserViewResponse
+	CopyNatsUserExecute(r ApiCopyNatsUserRequest) (*NatsUserViewResponse, *http.Response, error)
 
 	/*
 		DeleteNatsUser Delete NATS User
@@ -82,6 +97,21 @@ type NatsUserAPI interface {
 	GetNatsUserExecute(r ApiGetNatsUserRequest) (*NatsUserViewResponse, *http.Response, error)
 
 	/*
+		GetNatsUserIssuance Get nats user issuance
+
+		Get a history of all downloads and imports of the given issuance
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param issuanceId
+		@return ApiGetNatsUserIssuanceRequest
+	*/
+	GetNatsUserIssuance(ctx context.Context, issuanceId string) ApiGetNatsUserIssuanceRequest
+
+	// GetNatsUserIssuanceExecute executes the request
+	//  @return NatsUserIssuanceViewResponse
+	GetNatsUserIssuanceExecute(r ApiGetNatsUserIssuanceRequest) (*NatsUserIssuanceViewResponse, *http.Response, error)
+
+	/*
 		ListNatsUserConnections List NATs User Connections
 
 		List NATs User Connections
@@ -97,6 +127,21 @@ type NatsUserAPI interface {
 	ListNatsUserConnectionsExecute(r ApiListNatsUserConnectionsRequest) (*NatsUserConnectionsListResponse, *http.Response, error)
 
 	/*
+		ListNatsUserIssuances List nats user issuances
+
+		Lists the history of user credential issuances for the user
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId
+		@return ApiListNatsUserIssuancesRequest
+	*/
+	ListNatsUserIssuances(ctx context.Context, userId string) ApiListNatsUserIssuancesRequest
+
+	// ListNatsUserIssuancesExecute executes the request
+	//  @return NatsUserIssuancesListResponse
+	ListNatsUserIssuancesExecute(r ApiListNatsUserIssuancesRequest) (*NatsUserIssuancesListResponse, *http.Response, error)
+
+	/*
 		ListNatsUserTeamAppUsers List Team App Users
 
 		Returns a list of Team App Users associated with the NATS user
@@ -110,6 +155,21 @@ type NatsUserAPI interface {
 	// ListNatsUserTeamAppUsersExecute executes the request
 	//  @return AppUserAssignListResponse
 	ListNatsUserTeamAppUsersExecute(r ApiListNatsUserTeamAppUsersRequest) (*AppUserAssignListResponse, *http.Response, error)
+
+	/*
+		RotateNatsUser Rotate nats user nkey and seed
+
+		Generates new user nkey
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId
+		@return ApiRotateNatsUserRequest
+	*/
+	RotateNatsUser(ctx context.Context, userId string) ApiRotateNatsUserRequest
+
+	// RotateNatsUserExecute executes the request
+	//  @return NatsUserViewResponse
+	RotateNatsUserExecute(r ApiRotateNatsUserRequest) (*NatsUserViewResponse, *http.Response, error)
 
 	/*
 		UnAssignNatsUserTeamAppUser Unassign Team App User from NATS User
@@ -165,7 +225,7 @@ func (r ApiAssignNatsUserTeamAppUserRequest) Execute() (*AppUserAssignResponse, 
 /*
 AssignNatsUserTeamAppUser Assign Team App User to NATS User
 
-Assign a Team App User to a NATS User
+Assign a Team App User to a NATS User. This operation is idempotent; if an App User is already assigned to a NATS User the assignment will be updated with the new role
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
@@ -224,6 +284,118 @@ func (a *NatsUserAPIService) AssignNatsUserTeamAppUserExecute(r ApiAssignNatsUse
 	}
 	// body params
 	localVarPostBody = r.appUserAssignRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCopyNatsUserRequest struct {
+	ctx                 context.Context
+	ApiService          NatsUserAPI
+	userId              string
+	natsUserCopyRequest *NatsUserCopyRequest
+}
+
+func (r ApiCopyNatsUserRequest) NatsUserCopyRequest(natsUserCopyRequest NatsUserCopyRequest) ApiCopyNatsUserRequest {
+	r.natsUserCopyRequest = &natsUserCopyRequest
+	return r
+}
+
+func (r ApiCopyNatsUserRequest) Execute() (*NatsUserViewResponse, *http.Response, error) {
+	return r.ApiService.CopyNatsUserExecute(r)
+}
+
+/*
+CopyNatsUser Copy nats user
+
+Copies the user, changing name and account SK group. Generates new user NKey
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId
+	@return ApiCopyNatsUserRequest
+*/
+func (a *NatsUserAPIService) CopyNatsUser(ctx context.Context, userId string) ApiCopyNatsUserRequest {
+	return ApiCopyNatsUserRequest{
+		ApiService: a,
+		ctx:        ctx,
+		userId:     userId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsUserViewResponse
+func (a *NatsUserAPIService) CopyNatsUserExecute(r ApiCopyNatsUserRequest) (*NatsUserViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsUserViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.CopyNatsUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/nats-users/{userId}/copy"
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.natsUserCopyRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -561,6 +733,110 @@ func (a *NatsUserAPIService) GetNatsUserExecute(r ApiGetNatsUserRequest) (*NatsU
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetNatsUserIssuanceRequest struct {
+	ctx        context.Context
+	ApiService NatsUserAPI
+	issuanceId string
+}
+
+func (r ApiGetNatsUserIssuanceRequest) Execute() (*NatsUserIssuanceViewResponse, *http.Response, error) {
+	return r.ApiService.GetNatsUserIssuanceExecute(r)
+}
+
+/*
+GetNatsUserIssuance Get nats user issuance
+
+Get a history of all downloads and imports of the given issuance
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param issuanceId
+	@return ApiGetNatsUserIssuanceRequest
+*/
+func (a *NatsUserAPIService) GetNatsUserIssuance(ctx context.Context, issuanceId string) ApiGetNatsUserIssuanceRequest {
+	return ApiGetNatsUserIssuanceRequest{
+		ApiService: a,
+		ctx:        ctx,
+		issuanceId: issuanceId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsUserIssuanceViewResponse
+func (a *NatsUserAPIService) GetNatsUserIssuanceExecute(r ApiGetNatsUserIssuanceRequest) (*NatsUserIssuanceViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsUserIssuanceViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.GetNatsUserIssuance")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/nats-user-issuances/{issuanceId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"issuanceId"+"}", url.PathEscape(parameterValueToString(r.issuanceId, "issuanceId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListNatsUserConnectionsRequest struct {
 	ctx        context.Context
 	ApiService NatsUserAPI
@@ -710,6 +986,110 @@ func (a *NatsUserAPIService) ListNatsUserConnectionsExecute(r ApiListNatsUserCon
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListNatsUserIssuancesRequest struct {
+	ctx        context.Context
+	ApiService NatsUserAPI
+	userId     string
+}
+
+func (r ApiListNatsUserIssuancesRequest) Execute() (*NatsUserIssuancesListResponse, *http.Response, error) {
+	return r.ApiService.ListNatsUserIssuancesExecute(r)
+}
+
+/*
+ListNatsUserIssuances List nats user issuances
+
+Lists the history of user credential issuances for the user
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId
+	@return ApiListNatsUserIssuancesRequest
+*/
+func (a *NatsUserAPIService) ListNatsUserIssuances(ctx context.Context, userId string) ApiListNatsUserIssuancesRequest {
+	return ApiListNatsUserIssuancesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		userId:     userId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsUserIssuancesListResponse
+func (a *NatsUserAPIService) ListNatsUserIssuancesExecute(r ApiListNatsUserIssuancesRequest) (*NatsUserIssuancesListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsUserIssuancesListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.ListNatsUserIssuances")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/nats-users/{userId}/issuances"
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListNatsUserTeamAppUsersRequest struct {
 	ctx        context.Context
 	ApiService NatsUserAPI
@@ -754,6 +1134,110 @@ func (a *NatsUserAPIService) ListNatsUserTeamAppUsersExecute(r ApiListNatsUserTe
 	}
 
 	localVarPath := localBasePath + "/nats-users/{userId}/app-users"
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiRotateNatsUserRequest struct {
+	ctx        context.Context
+	ApiService NatsUserAPI
+	userId     string
+}
+
+func (r ApiRotateNatsUserRequest) Execute() (*NatsUserViewResponse, *http.Response, error) {
+	return r.ApiService.RotateNatsUserExecute(r)
+}
+
+/*
+RotateNatsUser Rotate nats user nkey and seed
+
+Generates new user nkey
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId
+	@return ApiRotateNatsUserRequest
+*/
+func (a *NatsUserAPIService) RotateNatsUser(ctx context.Context, userId string) ApiRotateNatsUserRequest {
+	return ApiRotateNatsUserRequest{
+		ApiService: a,
+		ctx:        ctx,
+		userId:     userId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsUserViewResponse
+func (a *NatsUserAPIService) RotateNatsUserExecute(r ApiRotateNatsUserRequest) (*NatsUserViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsUserViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.RotateNatsUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/nats-users/{userId}/rotate"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
