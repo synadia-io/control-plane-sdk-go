@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Limits** | Pointer to [**OperatorLimits**](OperatorLimits.md) |  | [optional] 
 **Mappings** | Pointer to [**map[string][]WeightedMapping**](WeightedMapping.md) |  | [optional] 
 **Revocations** | Pointer to **map[string]int64** | RevocationList is used to store a mapping of public keys to unix timestamps | [optional] 
-**SigningKeys** | Pointer to []**string** | SigningKeys is a map keyed by a public account key | [optional] 
+**SigningKeys** | Pointer to [**SigningKeys**](SigningKeys.md) |  | [optional] 
 
 ## Methods
 

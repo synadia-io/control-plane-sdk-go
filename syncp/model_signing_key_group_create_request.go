@@ -15,14 +15,16 @@ var _ MappedNullable = &SigningKeyGroupCreateRequest{}
 
 // SigningKeyGroupCreateRequest struct for SigningKeyGroupCreateRequest
 type SigningKeyGroupCreateRequest struct {
-	Name  string                `json:"name"`
-	Scope *UserPermissionLimits `json:"scope,omitempty"`
-	Seed  *string               `json:"seed,omitempty"`
+	Name         string                `json:"name"`
+	Programmatic bool                  `json:"programmatic"`
+	Scope        *UserPermissionLimits `json:"scope,omitempty"`
+	Seed         *string               `json:"seed,omitempty"`
 }
 
 func (o SigningKeyGroupCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
+	toSerialize["programmatic"] = o.Programmatic
 	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}

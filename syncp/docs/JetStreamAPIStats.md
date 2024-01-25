@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Errors** | **int32** |  | 
+**Inflight** | Pointer to **int32** |  | [optional] 
 **Total** | **int32** |  | 
 
 ## Methods

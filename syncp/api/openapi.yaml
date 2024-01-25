@@ -9,6 +9,9 @@ servers:
   variables:
     baseUrl:
       default: ""
+security:
+- bearerAuth: []
+  sessionAuth: []
 tags:
 - description: Get resources related to the current user session
   name: Session
@@ -44,8 +47,6 @@ tags:
   name: Authorization
 - description: Account Signing Key Groups
   name: Signing Key Groups
-- description: Search for Control Plane resources
-  name: Search
 - description: Manage user invitations
   name: Invitations
 paths:
@@ -180,7 +181,7 @@ paths:
     post:
       description: "Copies Account SK Group. Copies all users from old SK group to\
         \ the new SK group, genering new NKeys for copied users."
-      operationId: copyAccountSKGroup
+      operationId: copyAccountSkGroup
       parameters:
       - explode: false
         in: path
@@ -231,7 +232,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SigningKeyViewResponse'
+                $ref: '#/components/schemas/SigningKeyRotateResponse'
           description: Success
         "400":
           description: Bad Request
@@ -491,7 +492,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SigningKeyGroupViewResponse'
+                $ref: '#/components/schemas/SigningKeyGroupCreateResponse'
           description: Success
         "400":
           description: Bad Request
@@ -3808,102 +3809,6 @@ paths:
       - personal-access-token
       x-doc-tags:
       - Session
-  /search/systems/{systemId}/accounts:
-    get:
-      description: Search for Accounts within a System
-      operationId: searchSystemAccounts
-      parameters:
-      - explode: false
-        in: path
-        name: systemId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccountSearchListResponse'
-          description: Success
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      summary: Search System Accounts
-      tags:
-      - session
-      x-doc-tags:
-      - Search
-  /search/systems/{systemId}/servers:
-    get:
-      description: Search for NATS Servers within a System
-      operationId: searchSystemServers
-      parameters:
-      - explode: false
-        in: path
-        name: systemId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NatsServerInfoListResponse'
-          description: Success
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      summary: Search System Servers
-      tags:
-      - session
-      x-doc-tags:
-      - Search
-  /search/teams/{teamId}/app-users:
-    get:
-      description: Search for App Users in Team
-      operationId: searchTeamAppUsers
-      parameters:
-      - explode: false
-        in: path
-        name: teamId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TeamAppUserListResponse'
-          description: Success
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      summary: Search App Users in Team
-      tags:
-      - session
-      x-doc-tags:
-      - Search
   /stream-exports/{streamExportId}:
     delete:
       description: Delete Stream Export
@@ -5200,6 +5105,71 @@ paths:
       - system
       x-doc-tags:
       - Systems
+  /systems/{systemId}/info/accounts:
+    get:
+      description: List info for Accounts within a System. Allows a user with access
+        to a single account in a system to list info for all accounts in that system
+      operationId: listSystemInfoAccounts
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountSearchListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: List System Accounts Info
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
+  /systems/{systemId}/info/servers:
+    get:
+      description: List info for NATS Servers within a System
+      operationId: listSystemInfoServers
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NatsServerInfoListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: List System Servers info
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
   /systems/{systemId}/limits:
     get:
       description: Get system total and allocated limits
@@ -5325,6 +5295,35 @@ paths:
         "404":
           description: Not Found
       summary: List Servers
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
+  /systems/{systemId}/unmanage:
+    delete:
+      description: Same as deleting a system but skips purging system and accounts
+        from NATS
+      operationId: unmanageSystem
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Unmanage System
       tags:
       - system
       x-doc-tags:
@@ -5724,6 +5723,39 @@ paths:
       - team
       x-doc-tags:
       - Teams
+  /teams/{teamId}/info/app-users:
+    get:
+      description: List info for App Users in Team.  Allows any user to list info
+        for app users within their team.
+      operationId: listTeamInfoAppUsers
+      parameters:
+      - explode: false
+        in: path
+        name: teamId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamAppUserListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: List info of App Users in Team
+      tags:
+      - team
+      x-doc-tags:
+      - Teams
   /teams/{teamId}/nats-users:
     get:
       description: Returns a list of NATS Users directly associated with the current
@@ -5967,9 +5999,7 @@ components:
         exports:
         - null
         - null
-        signing_keys:
-        - signing_keys
-        - signing_keys
+        signing_keys: null
         limits:
           tiered_limits:
             key:
@@ -6012,10 +6042,7 @@ components:
             unix timestamps
           type: object
         signing_keys:
-          description: SigningKeys is a map keyed by a public account key
-          items:
-            type: string
-          type: array
+          $ref: '#/components/schemas/SigningKeys'
       type: object
     AccountChartType:
       enum:
@@ -6080,9 +6107,7 @@ components:
           exports:
           - null
           - null
-          signing_keys:
-          - signing_keys
-          - signing_keys
+          signing_keys: null
           limits:
             tiered_limits:
               key:
@@ -6399,9 +6424,7 @@ components:
               exports:
               - null
               - null
-              signing_keys:
-              - signing_keys
-              - signing_keys
+              signing_keys: null
               limits:
                 tiered_limits:
                   key:
@@ -6515,9 +6538,7 @@ components:
               exports:
               - null
               - null
-              signing_keys:
-              - signing_keys
-              - signing_keys
+              signing_keys: null
               limits:
                 tiered_limits:
                   key:
@@ -6829,9 +6850,7 @@ components:
             exports:
             - null
             - null
-            signing_keys:
-            - signing_keys
-            - signing_keys
+            signing_keys: null
             limits:
               tiered_limits:
                 key:
@@ -10089,8 +10108,13 @@ components:
       example:
         total: 2147483647
         errors: 2147483647
+        inflight: 2147483647
       properties:
         errors:
+          maximum: 18446744073709551615
+          minimum: 0
+          type: integer
+        inflight:
           maximum: 18446744073709551615
           minimum: 0
           type: integer
@@ -10180,6 +10204,7 @@ components:
         api:
           total: 2147483647
           errors: 2147483647
+          inflight: 2147483647
       properties:
         JetStreamTier:
           $ref: '#/components/schemas/JetStreamTier'
@@ -11624,6 +11649,7 @@ components:
     SigningKeyGroupCreateRequest:
       example:
         seed: seed
+        programmatic: false
         scope:
           bearer_token: true
           allowed_connection_types:
@@ -11633,18 +11659,32 @@ components:
       properties:
         name:
           type: string
+        programmatic:
+          default: false
+          type: boolean
         scope:
           $ref: '#/components/schemas/UserPermissionLimits'
         seed:
           type: string
       required:
       - name
+      - programmatic
+      type: object
+    SigningKeyGroupCreateResponse:
+      allOf:
+      - $ref: '#/components/schemas/SigningKeyGroupViewResponse'
+      example:
+        seed: seed
+      properties:
+        seed:
+          type: string
       type: object
     SigningKeyGroupListResponse:
       example:
         items:
         - created: 2000-01-23T04:56:07.000+00:00
           disabled_at: 2000-01-23T04:56:07.000+00:00
+          programmatic: true
           scope:
             bearer_token: true
             allowed_connection_types:
@@ -11656,6 +11696,7 @@ components:
           id: id
         - created: 2000-01-23T04:56:07.000+00:00
           disabled_at: 2000-01-23T04:56:07.000+00:00
+          programmatic: true
           scope:
             bearer_token: true
             allowed_connection_types:
@@ -11694,6 +11735,7 @@ components:
       example:
         created: 2000-01-23T04:56:07.000+00:00
         disabled_at: 2000-01-23T04:56:07.000+00:00
+        programmatic: true
         scope:
           bearer_token: true
           allowed_connection_types:
@@ -11718,6 +11760,8 @@ components:
           type: boolean
         name:
           type: string
+        programmatic:
+          type: boolean
         scope:
           $ref: '#/components/schemas/UserPermissionLimits'
       required:
@@ -11726,6 +11770,7 @@ components:
       - id
       - is_scoped
       - name
+      - programmatic
       type: object
     SigningKeyListResponse:
       example:
@@ -11756,6 +11801,35 @@ components:
       required:
       - items
       type: object
+    SigningKeyRotateResponse:
+      allOf:
+      - $ref: '#/components/schemas/SigningKeyViewResponse'
+      example:
+        seed: seed
+      properties:
+        seed:
+          type: string
+      type: object
+    SigningKeyScope:
+      properties:
+        key:
+          type: string
+        kind:
+          $ref: '#/components/schemas/SigningKeyScopeType'
+        role:
+          type: string
+        template:
+          $ref: '#/components/schemas/UserPermissionLimits'
+      required:
+      - key
+      - kind
+      - role
+      - template
+      type: object
+    SigningKeyScopeType:
+      enum:
+      - user_scope
+      type: string
     SigningKeyUpdateRequest:
       example:
         seed: seed
@@ -11811,9 +11885,9 @@ components:
       - rotated
       type: object
     SigningKeys:
-      description: SigningKeys is a map keyed by a public account key
+      description: "SigningKeys an array of either String or #SigningKeyScope"
       items:
-        type: string
+        $ref: '#/components/schemas/SigningKeys_inner'
       type: array
     StorageType:
       enum:
@@ -13707,6 +13781,10 @@ components:
       - $ref: '#/components/schemas/RouteStat'
       nullable: true
       type: object
+    SigningKeys_inner:
+      oneOf:
+      - type: string
+      - $ref: '#/components/schemas/SigningKeyScope'
     StreamSource_external:
       allOf:
       - $ref: '#/components/schemas/ExternalStream'
@@ -13727,3 +13805,7 @@ components:
       bearerFormat: Personal Access Token
       scheme: bearer
       type: http
+    sessionAuth:
+      in: cookie
+      name: control_plane_session
+      type: apiKey

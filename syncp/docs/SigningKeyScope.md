@@ -1,13 +1,13 @@
-# SigningKeyGroupCreateRequest
+# SigningKeyScope
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Programmatic** | **bool** |  | [default to false]
-**Scope** | Pointer to [**UserPermissionLimits**](UserPermissionLimits.md) |  | [optional] 
-**Seed** | Pointer to **string** |  | [optional] 
+**Key** | **string** |  | 
+**Kind** | [**SigningKeyScopeType**](SigningKeyScopeType.md) |  | 
+**Role** | **string** |  | 
+**Template** | [**UserPermissionLimits**](UserPermissionLimits.md) |  | 
 
 ## Methods
 
