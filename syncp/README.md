@@ -172,13 +172,10 @@ Class | Method | HTTP request | Description
 *SessionAPI* | [**ListInvitations**](docs/SessionAPI.md#listinvitations) | **Get** /invitations | List of pending invitations
 *SessionAPI* | [**ListPersonalAccessTokens**](docs/SessionAPI.md#listpersonalaccesstokens) | **Get** /personal-access-tokens | List Personal Access Tokens
 *SessionAPI* | [**ListTeams**](docs/SessionAPI.md#listteams) | **Get** /teams | List Teams
-*SessionAPI* | [**SearchSystemAccounts**](docs/SessionAPI.md#searchsystemaccounts) | **Get** /search/systems/{systemId}/accounts | Search System Accounts
-*SessionAPI* | [**SearchSystemServers**](docs/SessionAPI.md#searchsystemservers) | **Get** /search/systems/{systemId}/servers | Search System Servers
-*SessionAPI* | [**SearchTeamAppUsers**](docs/SessionAPI.md#searchteamappusers) | **Get** /search/teams/{teamId}/app-users | Search App Users in Team
 *SigKeyAPI* | [**DeleteAccountSk**](docs/SigKeyAPI.md#deleteaccountsk) | **Delete** /account-sks/{keyId} | Delete Account Signing
 *SigKeyAPI* | [**GetAccountSk**](docs/SigKeyAPI.md#getaccountsk) | **Get** /account-sks/{keyId} | Get Account Signing
 *SigKeyAPI* | [**UpdateAccountSk**](docs/SigKeyAPI.md#updateaccountsk) | **Patch** /account-sks/{keyId} | Update Account Signing
-*SigKeyGroupAPI* | [**CopyAccountSKGroup**](docs/SigKeyGroupAPI.md#copyaccountskgroup) | **Post** /account-sk-groups/{groupId}/copy | Copy Account SK Group
+*SigKeyGroupAPI* | [**CopyAccountSkGroup**](docs/SigKeyGroupAPI.md#copyaccountskgroup) | **Post** /account-sk-groups/{groupId}/copy | Copy Account SK Group
 *SigKeyGroupAPI* | [**DeleteAccountSkGroup**](docs/SigKeyGroupAPI.md#deleteaccountskgroup) | **Delete** /account-sk-groups/{groupId} | Delete Account Signing Key Group
 *SigKeyGroupAPI* | [**GetAccountSkGroup**](docs/SigKeyGroupAPI.md#getaccountskgroup) | **Get** /account-sk-groups/{groupId} | Get Account Signing Key Group
 *SigKeyGroupAPI* | [**ListAccountSkGroupKeys**](docs/SigKeyGroupAPI.md#listaccountskgroupkeys) | **Get** /account-sk-groups/{groupId}/account-sks | List Signing Keys
@@ -225,10 +222,13 @@ Class | Method | HTTP request | Description
 *SystemAPI* | [**ListConnections**](docs/SystemAPI.md#listconnections) | **Get** /systems/{systemId}/connections | List Connections
 *SystemAPI* | [**ListServers**](docs/SystemAPI.md#listservers) | **Get** /systems/{systemId}/servers | List Servers
 *SystemAPI* | [**ListSystemAlertRules**](docs/SystemAPI.md#listsystemalertrules) | **Get** /systems/{systemId}/alert-rules | List System Alert Rules
+*SystemAPI* | [**ListSystemInfoAccounts**](docs/SystemAPI.md#listsysteminfoaccounts) | **Get** /systems/{systemId}/info/accounts | List System Accounts Info
+*SystemAPI* | [**ListSystemInfoServers**](docs/SystemAPI.md#listsysteminfoservers) | **Get** /systems/{systemId}/info/servers | List System Servers info
 *SystemAPI* | [**ListSystemTeamAppUsers**](docs/SystemAPI.md#listsystemteamappusers) | **Get** /systems/{systemId}/app-users | List System Team App Users
 *SystemAPI* | [**RotateAgentToken**](docs/SystemAPI.md#rotateagenttoken) | **Post** /systems/{systemId}/agent-tokens | Rotate Agent Token
 *SystemAPI* | [**RunSystemAlertRule**](docs/SystemAPI.md#runsystemalertrule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
 *SystemAPI* | [**UnAssignSystemTeamAppUser**](docs/SystemAPI.md#unassignsystemteamappuser) | **Delete** /systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
+*SystemAPI* | [**UnmanageSystem**](docs/SystemAPI.md#unmanagesystem) | **Delete** /systems/{systemId}/unmanage | Unmanage System
 *SystemAPI* | [**UpdateSystem**](docs/SystemAPI.md#updatesystem) | **Patch** /systems/{systemId} | Update System
 *SystemAPI* | [**UpdateSystemAlertRule**](docs/SystemAPI.md#updatesystemalertrule) | **Patch** /systems/{systemId}/alert-rules/{alertRuleId} | Update System Alert Rules
 *TeamAPI* | [**CreateSystem**](docs/TeamAPI.md#createsystem) | **Post** /teams/{teamId}/systems | Create System
@@ -240,6 +240,7 @@ Class | Method | HTTP request | Description
 *TeamAPI* | [**LeaveTeam**](docs/TeamAPI.md#leaveteam) | **Post** /teams/{teamId}/app-users/leave | Leave Team
 *TeamAPI* | [**ListTeamAccounts**](docs/TeamAPI.md#listteamaccounts) | **Get** /teams/{teamId}/accounts | List Accounts
 *TeamAPI* | [**ListTeamAppUsers**](docs/TeamAPI.md#listteamappusers) | **Get** /teams/{teamId}/app-users | List App Users
+*TeamAPI* | [**ListTeamInfoAppUsers**](docs/TeamAPI.md#listteaminfoappusers) | **Get** /teams/{teamId}/info/app-users | List info of App Users in Team
 *TeamAPI* | [**ListTeamNatsUsers**](docs/TeamAPI.md#listteamnatsusers) | **Get** /teams/{teamId}/nats-users | List NATS Users
 *TeamAPI* | [**ListTeamSystems**](docs/TeamAPI.md#listteamsystems) | **Get** /teams/{teamId}/systems | List Systems
 *TeamAPI* | [**UnAssignTeamAppUser**](docs/TeamAPI.md#unassignteamappuser) | **Delete** /teams/{teamId}/app-users/{appUserId} | Unassign App User from Team
@@ -419,10 +420,14 @@ Class | Method | HTTP request | Description
  - [ServiceLatency](docs/ServiceLatency.md)
  - [SigningKeyGroupCopyRequest](docs/SigningKeyGroupCopyRequest.md)
  - [SigningKeyGroupCreateRequest](docs/SigningKeyGroupCreateRequest.md)
+ - [SigningKeyGroupCreateResponse](docs/SigningKeyGroupCreateResponse.md)
  - [SigningKeyGroupListResponse](docs/SigningKeyGroupListResponse.md)
  - [SigningKeyGroupUpdateRequest](docs/SigningKeyGroupUpdateRequest.md)
  - [SigningKeyGroupViewResponse](docs/SigningKeyGroupViewResponse.md)
  - [SigningKeyListResponse](docs/SigningKeyListResponse.md)
+ - [SigningKeyRotateResponse](docs/SigningKeyRotateResponse.md)
+ - [SigningKeyScope](docs/SigningKeyScope.md)
+ - [SigningKeyScopeType](docs/SigningKeyScopeType.md)
  - [SigningKeyUpdateRequest](docs/SigningKeyUpdateRequest.md)
  - [SigningKeyViewResponse](docs/SigningKeyViewResponse.md)
  - [StorageType](docs/StorageType.md)
@@ -505,6 +510,27 @@ Example
 
 ```golang
 auth := context.WithValue(context.Background(), syncp.ContextAccessToken, "BEARER_TOKEN_STRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+### sessionAuth
+
+- **Type**: API key
+- **API key parameter name**: control_plane_session
+- **Location**: 
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: control_plane_session and passed in as the auth context for each request.
+
+Example
+
+```golang
+auth := context.WithValue(
+		context.Background(),
+		syncp.ContextAPIKeys,
+		map[string]syncp.APIKey{
+			"control_plane_session": {Key: "API_KEY_STRING"},
+		},
+	)
 r, err := client.Service.Operation(auth, args)
 ```
 

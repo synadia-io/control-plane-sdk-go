@@ -23,10 +23,13 @@ Method | HTTP request | Description
 [**ListConnections**](SystemAPI.md#ListConnections) | **Get** /systems/{systemId}/connections | List Connections
 [**ListServers**](SystemAPI.md#ListServers) | **Get** /systems/{systemId}/servers | List Servers
 [**ListSystemAlertRules**](SystemAPI.md#ListSystemAlertRules) | **Get** /systems/{systemId}/alert-rules | List System Alert Rules
+[**ListSystemInfoAccounts**](SystemAPI.md#ListSystemInfoAccounts) | **Get** /systems/{systemId}/info/accounts | List System Accounts Info
+[**ListSystemInfoServers**](SystemAPI.md#ListSystemInfoServers) | **Get** /systems/{systemId}/info/servers | List System Servers info
 [**ListSystemTeamAppUsers**](SystemAPI.md#ListSystemTeamAppUsers) | **Get** /systems/{systemId}/app-users | List System Team App Users
 [**RotateAgentToken**](SystemAPI.md#RotateAgentToken) | **Post** /systems/{systemId}/agent-tokens | Rotate Agent Token
 [**RunSystemAlertRule**](SystemAPI.md#RunSystemAlertRule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
 [**UnAssignSystemTeamAppUser**](SystemAPI.md#UnAssignSystemTeamAppUser) | **Delete** /systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
+[**UnmanageSystem**](SystemAPI.md#UnmanageSystem) | **Delete** /systems/{systemId}/unmanage | Unmanage System
 [**UpdateSystem**](SystemAPI.md#UpdateSystem) | **Patch** /systems/{systemId} | Update System
 [**UpdateSystemAlertRule**](SystemAPI.md#UpdateSystemAlertRule) | **Patch** /systems/{systemId}/alert-rules/{alertRuleId} | Update System Alert Rules
 
@@ -95,7 +98,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -167,7 +170,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -239,7 +242,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -307,7 +310,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -378,7 +381,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -448,7 +451,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -518,7 +521,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -588,7 +591,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -661,7 +664,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -731,7 +734,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -801,7 +804,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -873,7 +876,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -943,7 +946,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1013,7 +1016,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1083,7 +1086,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1153,7 +1156,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1237,7 +1240,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1307,7 +1310,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1377,7 +1380,147 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListSystemInfoAccounts
+
+> AccountSearchListResponse ListSystemInfoAccounts(ctx, systemId).Execute()
+
+List System Accounts Info
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.ListSystemInfoAccounts(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListSystemInfoAccounts``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListSystemInfoAccounts`: AccountSearchListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListSystemInfoAccounts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListSystemInfoAccountsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AccountSearchListResponse**](AccountSearchListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListSystemInfoServers
+
+> NatsServerInfoListResponse ListSystemInfoServers(ctx, systemId).Execute()
+
+List System Servers info
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.ListSystemInfoServers(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListSystemInfoServers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListSystemInfoServers`: NatsServerInfoListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListSystemInfoServers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListSystemInfoServersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**NatsServerInfoListResponse**](NatsServerInfoListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1447,7 +1590,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1519,7 +1662,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1592,7 +1735,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1663,7 +1806,75 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UnmanageSystem
+
+> UnmanageSystem(ctx, systemId).Execute()
+
+Unmanage System
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.SystemAPI.UnmanageSystem(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.UnmanageSystem``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUnmanageSystemRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1735,7 +1946,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -1810,7 +2021,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 

@@ -15,9 +15,6 @@ Method | HTTP request | Description
 [**ListInvitations**](SessionAPI.md#ListInvitations) | **Get** /invitations | List of pending invitations
 [**ListPersonalAccessTokens**](SessionAPI.md#ListPersonalAccessTokens) | **Get** /personal-access-tokens | List Personal Access Tokens
 [**ListTeams**](SessionAPI.md#ListTeams) | **Get** /teams | List Teams
-[**SearchSystemAccounts**](SessionAPI.md#SearchSystemAccounts) | **Get** /search/systems/{systemId}/accounts | Search System Accounts
-[**SearchSystemServers**](SessionAPI.md#SearchSystemServers) | **Get** /search/systems/{systemId}/servers | Search System Servers
-[**SearchTeamAppUsers**](SessionAPI.md#SearchTeamAppUsers) | **Get** /search/teams/{teamId}/app-users | Search App Users in Team
 
 
 
@@ -70,7 +67,7 @@ Other parameters are passed through a pointer to a apiAcceptTermsRequest struct 
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -136,7 +133,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -202,7 +199,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -268,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -338,7 +335,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -399,7 +396,7 @@ Other parameters are passed through a pointer to a apiGetVersionRequest struct v
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -465,7 +462,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -526,7 +523,7 @@ Other parameters are passed through a pointer to a apiListAppUsersRequest struct
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -587,7 +584,7 @@ Other parameters are passed through a pointer to a apiListInvitationsRequest str
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -648,7 +645,7 @@ Other parameters are passed through a pointer to a apiListPersonalAccessTokensRe
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -709,217 +706,7 @@ Other parameters are passed through a pointer to a apiListTeamsRequest struct vi
 
 ### Authorization
 
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchSystemAccounts
-
-> AccountSearchListResponse SearchSystemAccounts(ctx, systemId).Execute()
-
-Search System Accounts
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    systemId := "systemId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.SearchSystemAccounts(context.Background(), systemId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.SearchSystemAccounts``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SearchSystemAccounts`: AccountSearchListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.SearchSystemAccounts`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**systemId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchSystemAccountsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**AccountSearchListResponse**](AccountSearchListResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchSystemServers
-
-> NatsServerInfoListResponse SearchSystemServers(ctx, systemId).Execute()
-
-Search System Servers
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    systemId := "systemId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.SearchSystemServers(context.Background(), systemId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.SearchSystemServers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SearchSystemServers`: NatsServerInfoListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.SearchSystemServers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**systemId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchSystemServersRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**NatsServerInfoListResponse**](NatsServerInfoListResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchTeamAppUsers
-
-> TeamAppUserListResponse SearchTeamAppUsers(ctx, teamId).Execute()
-
-Search App Users in Team
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    teamId := "teamId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.SearchTeamAppUsers(context.Background(), teamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.SearchTeamAppUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SearchTeamAppUsers`: TeamAppUserListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.SearchTeamAppUsers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**teamId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchTeamAppUsersRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**TeamAppUserListResponse**](TeamAppUserListResponse.md)
-
-### Authorization
-
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 

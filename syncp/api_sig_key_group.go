@@ -22,19 +22,19 @@ import (
 type SigKeyGroupAPI interface {
 
 	/*
-		CopyAccountSKGroup Copy Account SK Group
+		CopyAccountSkGroup Copy Account SK Group
 
 		Copies Account SK Group. Copies all users from old SK group to the new SK group, genering new NKeys for copied users.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param groupId
-		@return ApiCopyAccountSKGroupRequest
+		@return ApiCopyAccountSkGroupRequest
 	*/
-	CopyAccountSKGroup(ctx context.Context, groupId string) ApiCopyAccountSKGroupRequest
+	CopyAccountSkGroup(ctx context.Context, groupId string) ApiCopyAccountSkGroupRequest
 
-	// CopyAccountSKGroupExecute executes the request
+	// CopyAccountSkGroupExecute executes the request
 	//  @return SigningKeyGroupViewResponse
-	CopyAccountSKGroupExecute(r ApiCopyAccountSKGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error)
+	CopyAccountSkGroupExecute(r ApiCopyAccountSkGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error)
 
 	/*
 		DeleteAccountSkGroup Delete Account Signing Key Group
@@ -92,8 +92,8 @@ type SigKeyGroupAPI interface {
 	RotateAccountSk(ctx context.Context, groupId string) ApiRotateAccountSkRequest
 
 	// RotateAccountSkExecute executes the request
-	//  @return SigningKeyViewResponse
-	RotateAccountSkExecute(r ApiRotateAccountSkRequest) (*SigningKeyViewResponse, *http.Response, error)
+	//  @return SigningKeyRotateResponse
+	RotateAccountSkExecute(r ApiRotateAccountSkRequest) (*SigningKeyRotateResponse, *http.Response, error)
 
 	/*
 		UpdateAccountSkGroup Update Account Signing Key Group
@@ -114,33 +114,33 @@ type SigKeyGroupAPI interface {
 // SigKeyGroupAPIService SigKeyGroupAPI service
 type SigKeyGroupAPIService service
 
-type ApiCopyAccountSKGroupRequest struct {
+type ApiCopyAccountSkGroupRequest struct {
 	ctx                        context.Context
 	ApiService                 SigKeyGroupAPI
 	groupId                    string
 	signingKeyGroupCopyRequest *SigningKeyGroupCopyRequest
 }
 
-func (r ApiCopyAccountSKGroupRequest) SigningKeyGroupCopyRequest(signingKeyGroupCopyRequest SigningKeyGroupCopyRequest) ApiCopyAccountSKGroupRequest {
+func (r ApiCopyAccountSkGroupRequest) SigningKeyGroupCopyRequest(signingKeyGroupCopyRequest SigningKeyGroupCopyRequest) ApiCopyAccountSkGroupRequest {
 	r.signingKeyGroupCopyRequest = &signingKeyGroupCopyRequest
 	return r
 }
 
-func (r ApiCopyAccountSKGroupRequest) Execute() (*SigningKeyGroupViewResponse, *http.Response, error) {
-	return r.ApiService.CopyAccountSKGroupExecute(r)
+func (r ApiCopyAccountSkGroupRequest) Execute() (*SigningKeyGroupViewResponse, *http.Response, error) {
+	return r.ApiService.CopyAccountSkGroupExecute(r)
 }
 
 /*
-CopyAccountSKGroup Copy Account SK Group
+CopyAccountSkGroup Copy Account SK Group
 
 Copies Account SK Group. Copies all users from old SK group to the new SK group, genering new NKeys for copied users.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
-	@return ApiCopyAccountSKGroupRequest
+	@return ApiCopyAccountSkGroupRequest
 */
-func (a *SigKeyGroupAPIService) CopyAccountSKGroup(ctx context.Context, groupId string) ApiCopyAccountSKGroupRequest {
-	return ApiCopyAccountSKGroupRequest{
+func (a *SigKeyGroupAPIService) CopyAccountSkGroup(ctx context.Context, groupId string) ApiCopyAccountSkGroupRequest {
+	return ApiCopyAccountSkGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
@@ -150,7 +150,7 @@ func (a *SigKeyGroupAPIService) CopyAccountSKGroup(ctx context.Context, groupId 
 // Execute executes the request
 //
 //	@return SigningKeyGroupViewResponse
-func (a *SigKeyGroupAPIService) CopyAccountSKGroupExecute(r ApiCopyAccountSKGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error) {
+func (a *SigKeyGroupAPIService) CopyAccountSkGroupExecute(r ApiCopyAccountSkGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -158,7 +158,7 @@ func (a *SigKeyGroupAPIService) CopyAccountSKGroupExecute(r ApiCopyAccountSKGrou
 		localVarReturnValue *SigningKeyGroupViewResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SigKeyGroupAPIService.CopyAccountSKGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SigKeyGroupAPIService.CopyAccountSkGroup")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -532,7 +532,7 @@ type ApiRotateAccountSkRequest struct {
 	groupId    string
 }
 
-func (r ApiRotateAccountSkRequest) Execute() (*SigningKeyViewResponse, *http.Response, error) {
+func (r ApiRotateAccountSkRequest) Execute() (*SigningKeyRotateResponse, *http.Response, error) {
 	return r.ApiService.RotateAccountSkExecute(r)
 }
 
@@ -555,13 +555,13 @@ func (a *SigKeyGroupAPIService) RotateAccountSk(ctx context.Context, groupId str
 
 // Execute executes the request
 //
-//	@return SigningKeyViewResponse
-func (a *SigKeyGroupAPIService) RotateAccountSkExecute(r ApiRotateAccountSkRequest) (*SigningKeyViewResponse, *http.Response, error) {
+//	@return SigningKeyRotateResponse
+func (a *SigKeyGroupAPIService) RotateAccountSkExecute(r ApiRotateAccountSkRequest) (*SigningKeyRotateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SigningKeyViewResponse
+		localVarReturnValue *SigningKeyRotateResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SigKeyGroupAPIService.RotateAccountSk")

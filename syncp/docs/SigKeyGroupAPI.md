@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost/api/core/beta*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CopyAccountSKGroup**](SigKeyGroupAPI.md#CopyAccountSKGroup) | **Post** /account-sk-groups/{groupId}/copy | Copy Account SK Group
+[**CopyAccountSkGroup**](SigKeyGroupAPI.md#CopyAccountSkGroup) | **Post** /account-sk-groups/{groupId}/copy | Copy Account SK Group
 [**DeleteAccountSkGroup**](SigKeyGroupAPI.md#DeleteAccountSkGroup) | **Delete** /account-sk-groups/{groupId} | Delete Account Signing Key Group
 [**GetAccountSkGroup**](SigKeyGroupAPI.md#GetAccountSkGroup) | **Get** /account-sk-groups/{groupId} | Get Account Signing Key Group
 [**ListAccountSkGroupKeys**](SigKeyGroupAPI.md#ListAccountSkGroupKeys) | **Get** /account-sk-groups/{groupId}/account-sks | List Signing Keys
@@ -13,9 +13,9 @@ Method | HTTP request | Description
 
 
 
-## CopyAccountSKGroup
+## CopyAccountSkGroup
 
-> SigningKeyGroupViewResponse CopyAccountSKGroup(ctx, groupId).SigningKeyGroupCopyRequest(signingKeyGroupCopyRequest).Execute()
+> SigningKeyGroupViewResponse CopyAccountSkGroup(ctx, groupId).SigningKeyGroupCopyRequest(signingKeyGroupCopyRequest).Execute()
 
 Copy Account SK Group
 
@@ -39,13 +39,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SigKeyGroupAPI.CopyAccountSKGroup(context.Background(), groupId).SigningKeyGroupCopyRequest(signingKeyGroupCopyRequest).Execute()
+    resp, r, err := apiClient.SigKeyGroupAPI.CopyAccountSkGroup(context.Background(), groupId).SigningKeyGroupCopyRequest(signingKeyGroupCopyRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SigKeyGroupAPI.CopyAccountSKGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SigKeyGroupAPI.CopyAccountSkGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CopyAccountSKGroup`: SigningKeyGroupViewResponse
-    fmt.Fprintf(os.Stdout, "Response from `SigKeyGroupAPI.CopyAccountSKGroup`: %v\n", resp)
+    // response from `CopyAccountSkGroup`: SigningKeyGroupViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `SigKeyGroupAPI.CopyAccountSkGroup`: %v\n", resp)
 }
 ```
 
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCopyAccountSKGroupRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCopyAccountSkGroupRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -295,7 +295,7 @@ No authorization required
 
 ## RotateAccountSk
 
-> SigningKeyViewResponse RotateAccountSk(ctx, groupId).Execute()
+> SigningKeyRotateResponse RotateAccountSk(ctx, groupId).Execute()
 
 Roate Active Signing Key
 
@@ -323,7 +323,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SigKeyGroupAPI.RotateAccountSk``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `RotateAccountSk`: SigningKeyViewResponse
+    // response from `RotateAccountSk`: SigningKeyRotateResponse
     fmt.Fprintf(os.Stdout, "Response from `SigKeyGroupAPI.RotateAccountSk`: %v\n", resp)
 }
 ```
@@ -347,11 +347,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SigningKeyViewResponse**](SigningKeyViewResponse.md)
+[**SigningKeyRotateResponse**](SigningKeyRotateResponse.md)
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -423,7 +423,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 

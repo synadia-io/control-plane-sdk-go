@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **IsScoped** | **bool** |  | 
 **Name** | **string** |  | 
+**Programmatic** | **bool** |  | 
 **Scope** | Pointer to [**UserPermissionLimits**](UserPermissionLimits.md) |  | [optional] 
 
 ## Methods

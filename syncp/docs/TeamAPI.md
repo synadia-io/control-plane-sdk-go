@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**LeaveTeam**](TeamAPI.md#LeaveTeam) | **Post** /teams/{teamId}/app-users/leave | Leave Team
 [**ListTeamAccounts**](TeamAPI.md#ListTeamAccounts) | **Get** /teams/{teamId}/accounts | List Accounts
 [**ListTeamAppUsers**](TeamAPI.md#ListTeamAppUsers) | **Get** /teams/{teamId}/app-users | List App Users
+[**ListTeamInfoAppUsers**](TeamAPI.md#ListTeamInfoAppUsers) | **Get** /teams/{teamId}/info/app-users | List info of App Users in Team
 [**ListTeamNatsUsers**](TeamAPI.md#ListTeamNatsUsers) | **Get** /teams/{teamId}/nats-users | List NATS Users
 [**ListTeamSystems**](TeamAPI.md#ListTeamSystems) | **Get** /teams/{teamId}/systems | List Systems
 [**UnAssignTeamAppUser**](TeamAPI.md#UnAssignTeamAppUser) | **Delete** /teams/{teamId}/app-users/{appUserId} | Unassign App User from Team
@@ -81,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -149,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -219,7 +220,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -289,7 +290,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -361,7 +362,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -433,7 +434,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -501,7 +502,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -571,7 +572,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -641,7 +642,77 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListTeamInfoAppUsers
+
+> TeamAppUserListResponse ListTeamInfoAppUsers(ctx, teamId).Execute()
+
+List info of App Users in Team
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    teamId := "teamId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TeamAPI.ListTeamInfoAppUsers(context.Background(), teamId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.ListTeamInfoAppUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListTeamInfoAppUsers`: TeamAppUserListResponse
+    fmt.Fprintf(os.Stdout, "Response from `TeamAPI.ListTeamInfoAppUsers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**teamId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListTeamInfoAppUsersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**TeamAppUserListResponse**](TeamAppUserListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -711,7 +782,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -781,7 +852,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -852,7 +923,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -924,7 +995,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -999,7 +1070,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 

@@ -251,6 +251,30 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SystemAPIService ListSystemInfoAccounts", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.ListSystemInfoAccounts(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService ListSystemInfoServers", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.ListSystemInfoServers(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SystemAPIService ListSystemTeamAppUsers", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -295,6 +319,17 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		var teamAppUserId string
 
 		httpRes, err := apiClient.SystemAPI.UnAssignSystemTeamAppUser(context.Background(), systemId, teamAppUserId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService UnmanageSystem", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		httpRes, err := apiClient.SystemAPI.UnmanageSystem(context.Background(), systemId).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

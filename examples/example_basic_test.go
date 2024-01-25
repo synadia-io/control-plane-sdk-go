@@ -47,7 +47,7 @@ func TestExample(t *testing.T) {
 			},
 		},
 	}
-	accountList, _, err := client.SystemAPI.ListAccounts(ctx, SystemId).Execute()
+	accountList, _, err := client.SystemAPI.ListAccounts(ctx, systemId).Execute()
 	require.NoError(t, err)
 	require.Len(t, accountList.Items, 2)
 	require.Equal(t, accountList.Items[0].Name, "test account")

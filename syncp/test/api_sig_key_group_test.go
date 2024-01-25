@@ -23,12 +23,12 @@ func Test_syncp_SigKeyGroupAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test SigKeyGroupAPIService CopyAccountSKGroup", func(t *testing.T) {
+	t.Run("Test SigKeyGroupAPIService CopyAccountSkGroup", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var groupId string
 
-		resp, httpRes, err := apiClient.SigKeyGroupAPI.CopyAccountSKGroup(context.Background(), groupId).Execute()
+		resp, httpRes, err := apiClient.SigKeyGroupAPI.CopyAccountSkGroup(context.Background(), groupId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

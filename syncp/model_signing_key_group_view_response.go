@@ -19,13 +19,14 @@ var _ MappedNullable = &SigningKeyGroupViewResponse{}
 
 // SigningKeyGroupViewResponse struct for SigningKeyGroupViewResponse
 type SigningKeyGroupViewResponse struct {
-	Created    time.Time             `json:"created"`
-	Disabled   bool                  `json:"disabled"`
-	DisabledAt *time.Time            `json:"disabled_at,omitempty"`
-	Id         string                `json:"id"`
-	IsScoped   bool                  `json:"is_scoped"`
-	Name       string                `json:"name"`
-	Scope      *UserPermissionLimits `json:"scope,omitempty"`
+	Created      time.Time             `json:"created"`
+	Disabled     bool                  `json:"disabled"`
+	DisabledAt   *time.Time            `json:"disabled_at,omitempty"`
+	Id           string                `json:"id"`
+	IsScoped     bool                  `json:"is_scoped"`
+	Name         string                `json:"name"`
+	Programmatic bool                  `json:"programmatic"`
+	Scope        *UserPermissionLimits `json:"scope,omitempty"`
 }
 
 func (o SigningKeyGroupViewResponse) ToMap() (map[string]interface{}, error) {
@@ -38,6 +39,7 @@ func (o SigningKeyGroupViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["is_scoped"] = o.IsScoped
 	toSerialize["name"] = o.Name
+	toSerialize["programmatic"] = o.Programmatic
 	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}

@@ -1,12 +1,10 @@
-# SigningKeyGroupCreateRequest
+# SigningKeyGroupCreateResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Programmatic** | **bool** |  | [default to false]
-**Scope** | Pointer to [**UserPermissionLimits**](UserPermissionLimits.md) |  | [optional] 
+ | [**SigningKeyGroupViewResponse**](SigningKeyGroupViewResponse.md) |   | Embedded Struct
 **Seed** | Pointer to **string** |  | [optional] 
 
 ## Methods

@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -125,7 +125,7 @@ Other parameters are passed through a pointer to a apiListPoliciesRequest struct
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 
@@ -186,7 +186,7 @@ Other parameters are passed through a pointer to a apiListRolesRequest struct vi
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
 
 ### HTTP request headers
 

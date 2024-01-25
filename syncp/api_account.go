@@ -49,8 +49,8 @@ type AccountAPI interface {
 	CreateAccountSkGroup(ctx context.Context, accountId string) ApiCreateAccountSkGroupRequest
 
 	// CreateAccountSkGroupExecute executes the request
-	//  @return SigningKeyGroupViewResponse
-	CreateAccountSkGroupExecute(r ApiCreateAccountSkGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error)
+	//  @return SigningKeyGroupCreateResponse
+	CreateAccountSkGroupExecute(r ApiCreateAccountSkGroupRequest) (*SigningKeyGroupCreateResponse, *http.Response, error)
 
 	/*
 		CreateAlertRule Create Account Alert Rule
@@ -755,7 +755,7 @@ func (r ApiCreateAccountSkGroupRequest) SigningKeyGroupCreateRequest(signingKeyG
 	return r
 }
 
-func (r ApiCreateAccountSkGroupRequest) Execute() (*SigningKeyGroupViewResponse, *http.Response, error) {
+func (r ApiCreateAccountSkGroupRequest) Execute() (*SigningKeyGroupCreateResponse, *http.Response, error) {
 	return r.ApiService.CreateAccountSkGroupExecute(r)
 }
 
@@ -778,13 +778,13 @@ func (a *AccountAPIService) CreateAccountSkGroup(ctx context.Context, accountId 
 
 // Execute executes the request
 //
-//	@return SigningKeyGroupViewResponse
-func (a *AccountAPIService) CreateAccountSkGroupExecute(r ApiCreateAccountSkGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error) {
+//	@return SigningKeyGroupCreateResponse
+func (a *AccountAPIService) CreateAccountSkGroupExecute(r ApiCreateAccountSkGroupRequest) (*SigningKeyGroupCreateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SigningKeyGroupViewResponse
+		localVarReturnValue *SigningKeyGroupCreateResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.CreateAccountSkGroup")

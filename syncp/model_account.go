@@ -27,8 +27,7 @@ type Account struct {
 	Mappings *map[string][]WeightedMapping `json:"mappings,omitempty"`
 	// RevocationList is used to store a mapping of public keys to unix timestamps
 	Revocations *map[string]int64 `json:"revocations,omitempty"`
-	// SigningKeys is a map keyed by a public account key
-	SigningKeys *[]string `json:"signing_keys,omitempty"`
+	SigningKeys *SigningKeys      `json:"signing_keys,omitempty"`
 }
 
 func (o Account) ToMap() (map[string]interface{}, error) {

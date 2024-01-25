@@ -308,6 +308,36 @@ type SystemAPI interface {
 	ListSystemAlertRulesExecute(r ApiListSystemAlertRulesRequest) (*AlertRuleListResponse, *http.Response, error)
 
 	/*
+		ListSystemInfoAccounts List System Accounts Info
+
+		List info for Accounts within a System. Allows a user with access to a single account in a system to list info for all accounts in that system
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiListSystemInfoAccountsRequest
+	*/
+	ListSystemInfoAccounts(ctx context.Context, systemId string) ApiListSystemInfoAccountsRequest
+
+	// ListSystemInfoAccountsExecute executes the request
+	//  @return AccountSearchListResponse
+	ListSystemInfoAccountsExecute(r ApiListSystemInfoAccountsRequest) (*AccountSearchListResponse, *http.Response, error)
+
+	/*
+		ListSystemInfoServers List System Servers info
+
+		List info for NATS Servers within a System
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiListSystemInfoServersRequest
+	*/
+	ListSystemInfoServers(ctx context.Context, systemId string) ApiListSystemInfoServersRequest
+
+	// ListSystemInfoServersExecute executes the request
+	//  @return NatsServerInfoListResponse
+	ListSystemInfoServersExecute(r ApiListSystemInfoServersRequest) (*NatsServerInfoListResponse, *http.Response, error)
+
+	/*
 		ListSystemTeamAppUsers List System Team App Users
 
 		Returns a list of Team App Users associated with the System
@@ -367,6 +397,20 @@ type SystemAPI interface {
 
 	// UnAssignSystemTeamAppUserExecute executes the request
 	UnAssignSystemTeamAppUserExecute(r ApiUnAssignSystemTeamAppUserRequest) (*http.Response, error)
+
+	/*
+		UnmanageSystem Unmanage System
+
+		Same as deleting a system but skips purging system and accounts from NATS
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiUnmanageSystemRequest
+	*/
+	UnmanageSystem(ctx context.Context, systemId string) ApiUnmanageSystemRequest
+
+	// UnmanageSystemExecute executes the request
+	UnmanageSystemExecute(r ApiUnmanageSystemRequest) (*http.Response, error)
 
 	/*
 		UpdateSystem Update System
@@ -2458,6 +2502,214 @@ func (a *SystemAPIService) ListSystemAlertRulesExecute(r ApiListSystemAlertRules
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListSystemInfoAccountsRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiListSystemInfoAccountsRequest) Execute() (*AccountSearchListResponse, *http.Response, error) {
+	return r.ApiService.ListSystemInfoAccountsExecute(r)
+}
+
+/*
+ListSystemInfoAccounts List System Accounts Info
+
+List info for Accounts within a System. Allows a user with access to a single account in a system to list info for all accounts in that system
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiListSystemInfoAccountsRequest
+*/
+func (a *SystemAPIService) ListSystemInfoAccounts(ctx context.Context, systemId string) ApiListSystemInfoAccountsRequest {
+	return ApiListSystemInfoAccountsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AccountSearchListResponse
+func (a *SystemAPIService) ListSystemInfoAccountsExecute(r ApiListSystemInfoAccountsRequest) (*AccountSearchListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountSearchListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListSystemInfoAccounts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/systems/{systemId}/info/accounts"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListSystemInfoServersRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiListSystemInfoServersRequest) Execute() (*NatsServerInfoListResponse, *http.Response, error) {
+	return r.ApiService.ListSystemInfoServersExecute(r)
+}
+
+/*
+ListSystemInfoServers List System Servers info
+
+List info for NATS Servers within a System
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiListSystemInfoServersRequest
+*/
+func (a *SystemAPIService) ListSystemInfoServers(ctx context.Context, systemId string) ApiListSystemInfoServersRequest {
+	return ApiListSystemInfoServersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsServerInfoListResponse
+func (a *SystemAPIService) ListSystemInfoServersExecute(r ApiListSystemInfoServersRequest) (*NatsServerInfoListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsServerInfoListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListSystemInfoServers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/systems/{systemId}/info/servers"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListSystemTeamAppUsersRequest struct {
 	ctx        context.Context
 	ApiService SystemAPI
@@ -2828,6 +3080,98 @@ func (a *SystemAPIService) UnAssignSystemTeamAppUserExecute(r ApiUnAssignSystemT
 	localVarPath := localBasePath + "/systems/{systemId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiUnmanageSystemRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiUnmanageSystemRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UnmanageSystemExecute(r)
+}
+
+/*
+UnmanageSystem Unmanage System
+
+Same as deleting a system but skips purging system and accounts from NATS
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiUnmanageSystemRequest
+*/
+func (a *SystemAPIService) UnmanageSystem(ctx context.Context, systemId string) ApiUnmanageSystemRequest {
+	return ApiUnmanageSystemRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+func (a *SystemAPIService) UnmanageSystemExecute(r ApiUnmanageSystemRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.UnmanageSystem")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/systems/{systemId}/unmanage"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
