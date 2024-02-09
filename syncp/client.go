@@ -58,6 +58,8 @@ type APIClient struct {
 
 	AuthzAPI AuthzAPI
 
+	IssuanceAPI IssuanceAPI
+
 	KvBucketAPI KvBucketAPI
 
 	MirrorAPI MirrorAPI
@@ -114,6 +116,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AlertAPI = (*AlertAPIService)(&c.common)
 	c.AppUserAPI = (*AppUserAPIService)(&c.common)
 	c.AuthzAPI = (*AuthzAPIService)(&c.common)
+	c.IssuanceAPI = (*IssuanceAPIService)(&c.common)
 	c.KvBucketAPI = (*KvBucketAPIService)(&c.common)
 	c.MirrorAPI = (*MirrorAPIService)(&c.common)
 	c.NatsUserAPI = (*NatsUserAPIService)(&c.common)
@@ -686,6 +689,7 @@ func strlen(s string) int {
 
 // GenericOpenAPIError Provides access to the body, error and model on returned errors.
 type GenericOpenAPIError struct {
+	code  int
 	body  []byte
 	error string
 	model interface{}
@@ -694,6 +698,11 @@ type GenericOpenAPIError struct {
 // Error returns non-empty string if there was an error.
 func (e GenericOpenAPIError) Error() string {
 	return e.error
+}
+
+// Code returns the api http response code
+func (e GenericOpenAPIError) Code() int {
+	return e.code
 }
 
 // Body returns the raw bytes of the response

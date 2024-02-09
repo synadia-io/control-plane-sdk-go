@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **DisabledAt** | Pointer to **time.Time** |  | [optional] 
 **GroupId** | **string** |  | 
 **Id** | **string** |  | 
+**MissingSeed** | **bool** |  | 
 **PublicKey** | **string** |  | 
 **Rotated** | **bool** |  | 
 **RotatedAt** | Pointer to **time.Time** |  | [optional] 

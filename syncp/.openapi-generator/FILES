@@ -7,6 +7,7 @@ api_agent_token.go
 api_alert.go
 api_app_user.go
 api_authz.go
+api_issuance.go
 api_kv_bucket.go
 api_mirror.go
 api_nats_user.go
@@ -116,6 +117,7 @@ docs/Import.md
 docs/Info.md
 docs/InvitationDecisionRequest.md
 docs/InvitationListResponse.md
+docs/IssuanceAPI.md
 docs/JSApiError.md
 docs/JSAssetInfoListResponse.md
 docs/JSAssetInfoResponse.md
@@ -173,10 +175,13 @@ docs/NatsUserInfo.md
 docs/NatsUserIssuanceEvent.md
 docs/NatsUserIssuanceEventType.md
 docs/NatsUserIssuanceInfo.md
+docs/NatsUserIssuanceStatus.md
 docs/NatsUserIssuanceViewResponse.md
 docs/NatsUserIssuancesListResponse.md
 docs/NatsUserJwtSettings.md
 docs/NatsUserListResponse.md
+docs/NatsUserRevocationRequest.md
+docs/NatsUserRevocationViewResponse.md
 docs/NatsUserUpdateRequest.md
 docs/NatsUserViewResponse.md
 docs/ObjectBucketAPI.md
@@ -436,10 +441,13 @@ model_nats_user_info.go
 model_nats_user_issuance_event.go
 model_nats_user_issuance_event_type.go
 model_nats_user_issuance_info.go
+model_nats_user_issuance_status.go
 model_nats_user_issuance_view_response.go
 model_nats_user_issuances_list_response.go
 model_nats_user_jwt_settings.go
 model_nats_user_list_response.go
+model_nats_user_revocation_request.go
+model_nats_user_revocation_view_response.go
 model_nats_user_update_request.go
 model_nats_user_view_response.go
 model_object_store_config.go
@@ -550,6 +558,7 @@ test/api_agent_token_test.go
 test/api_alert_test.go
 test/api_app_user_test.go
 test/api_authz_test.go
+test/api_issuance_test.go
 test/api_kv_bucket_test.go
 test/api_mirror_test.go
 test/api_nats_user_test.go

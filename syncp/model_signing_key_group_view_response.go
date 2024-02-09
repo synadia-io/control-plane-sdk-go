@@ -24,6 +24,7 @@ type SigningKeyGroupViewResponse struct {
 	DisabledAt   *time.Time            `json:"disabled_at,omitempty"`
 	Id           string                `json:"id"`
 	IsScoped     bool                  `json:"is_scoped"`
+	MissingSeed  bool                  `json:"missing_seed"`
 	Name         string                `json:"name"`
 	Programmatic bool                  `json:"programmatic"`
 	Scope        *UserPermissionLimits `json:"scope,omitempty"`
@@ -38,6 +39,7 @@ func (o SigningKeyGroupViewResponse) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["id"] = o.Id
 	toSerialize["is_scoped"] = o.IsScoped
+	toSerialize["missing_seed"] = o.MissingSeed
 	toSerialize["name"] = o.Name
 	toSerialize["programmatic"] = o.Programmatic
 	if o.Scope != nil {

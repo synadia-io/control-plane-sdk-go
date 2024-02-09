@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **DisabledAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | **string** |  | 
 **IsScoped** | **bool** |  | 
+**MissingSeed** | **bool** |  | 
 **Name** | **string** |  | 
 **Programmatic** | **bool** |  | 
 **Scope** | Pointer to [**UserPermissionLimits**](UserPermissionLimits.md) |  | [optional] 

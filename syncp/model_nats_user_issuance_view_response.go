@@ -19,16 +19,25 @@ var _ MappedNullable = &NatsUserIssuanceViewResponse{}
 
 // NatsUserIssuanceViewResponse struct for NatsUserIssuanceViewResponse
 type NatsUserIssuanceViewResponse struct {
-	Checksum string                  `json:"checksum"`
-	Created  time.Time               `json:"created"`
-	Events   []NatsUserIssuanceEvent `json:"events"`
-	ExpMax   *int64                  `json:"exp_max,omitempty"`
-	IatMax   int64                   `json:"iat_max"`
-	Id       string                  `json:"id"`
-	Iss      string                  `json:"iss"`
-	Name     string                  `json:"name"`
-	Nats     User                    `json:"nats"`
-	Sub      string                  `json:"sub"`
+	// sha256 sum of (NatsUserId,Iss,Sub,Name,json_encode(Nats)) If a credential is downloaded and results in a unique checksum then a new issuance record is created. If a credential's checksum matches an existing record, a new event is appended to the existing record.
+	Checksum string    `json:"checksum"`
+	Created  time.Time `json:"created"`
+	// trail of download events
+	Events []NatsUserIssuanceEvent `json:"events"`
+	// highest expiry time, undefined means Unlimited (exp not set)
+	ExpMax *int64 `json:"exp_max,omitempty"`
+	// most recent time this was issued
+	IatMax int64 `json:"iat_max"`
+	// first time this was issued
+	IatMin int64  `json:"iat_min"`
+	Id     string `json:"id"`
+	// issuer account public nkey
+	Iss    string                 `json:"iss"`
+	Name   string                 `json:"name"`
+	Nats   User                   `json:"nats"`
+	Status NatsUserIssuanceStatus `json:"status"`
+	// nats user public nkey
+	Sub string `json:"sub"`
 }
 
 func (o NatsUserIssuanceViewResponse) ToMap() (map[string]interface{}, error) {
@@ -40,10 +49,12 @@ func (o NatsUserIssuanceViewResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["exp_max"] = o.ExpMax
 	}
 	toSerialize["iat_max"] = o.IatMax
+	toSerialize["iat_min"] = o.IatMin
 	toSerialize["id"] = o.Id
 	toSerialize["iss"] = o.Iss
 	toSerialize["name"] = o.Name
 	toSerialize["nats"] = o.Nats
+	toSerialize["status"] = o.Status
 	toSerialize["sub"] = o.Sub
 	return toSerialize, nil
 }

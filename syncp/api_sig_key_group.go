@@ -208,6 +208,7 @@ func (a *SigKeyGroupAPIService) CopyAccountSkGroupExecute(r ApiCopyAccountSkGrou
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -217,6 +218,7 @@ func (a *SigKeyGroupAPIService) CopyAccountSkGroupExecute(r ApiCopyAccountSkGrou
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -309,6 +311,7 @@ func (a *SigKeyGroupAPIService) DeleteAccountSkGroupExecute(r ApiDeleteAccountSk
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -404,6 +407,7 @@ func (a *SigKeyGroupAPIService) GetAccountSkGroupExecute(r ApiGetAccountSkGroupR
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -413,6 +417,7 @@ func (a *SigKeyGroupAPIService) GetAccountSkGroupExecute(r ApiGetAccountSkGroupR
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -508,6 +513,7 @@ func (a *SigKeyGroupAPIService) ListAccountSkGroupKeysExecute(r ApiListAccountSk
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -517,6 +523,7 @@ func (a *SigKeyGroupAPIService) ListAccountSkGroupKeysExecute(r ApiListAccountSk
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -612,6 +619,7 @@ func (a *SigKeyGroupAPIService) RotateAccountSkExecute(r ApiRotateAccountSkReque
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -621,6 +629,7 @@ func (a *SigKeyGroupAPIService) RotateAccountSkExecute(r ApiRotateAccountSkReque
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -724,6 +733,7 @@ func (a *SigKeyGroupAPIService) UpdateAccountSkGroupExecute(r ApiUpdateAccountSk
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -733,6 +743,7 @@ func (a *SigKeyGroupAPIService) UpdateAccountSkGroupExecute(r ApiUpdateAccountSk
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

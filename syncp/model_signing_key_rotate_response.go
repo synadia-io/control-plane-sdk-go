@@ -32,6 +32,7 @@ func (o SigningKeyRotateResponse) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["group_id"] = o.GroupId
 	toSerialize["id"] = o.Id
+	toSerialize["missing_seed"] = o.MissingSeed
 	toSerialize["public_key"] = o.PublicKey
 	toSerialize["rotated"] = o.Rotated
 	if o.RotatedAt != nil {

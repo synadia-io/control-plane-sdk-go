@@ -83,18 +83,6 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test NatsUserAPIService GetNatsUserIssuance", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		var issuanceId string
-
-		resp, httpRes, err := apiClient.NatsUserAPI.GetNatsUserIssuance(context.Background(), issuanceId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
 	t.Run("Test NatsUserAPIService ListNatsUserConnections", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 

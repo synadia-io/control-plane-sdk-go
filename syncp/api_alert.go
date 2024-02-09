@@ -137,6 +137,7 @@ func (a *AlertAPIService) AcknowledgeAlertExecute(r ApiAcknowledgeAlertRequest) 
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -232,6 +233,7 @@ func (a *AlertAPIService) GetAlertExecute(r ApiGetAlertRequest) (*AlertViewRespo
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -241,6 +243,7 @@ func (a *AlertAPIService) GetAlertExecute(r ApiGetAlertRequest) (*AlertViewRespo
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

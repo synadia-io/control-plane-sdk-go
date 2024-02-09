@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Exp** | Pointer to **int64** |  | [optional] 
 **Iat** | **int64** |  | 
 **Jti** | **string** |  | 
+**Status** | [**NatsUserIssuanceStatus**](NatsUserIssuanceStatus.md) |  | 
 **Type** | [**NatsUserIssuanceEventType**](NatsUserIssuanceEventType.md) |  | 
 
 ## Methods

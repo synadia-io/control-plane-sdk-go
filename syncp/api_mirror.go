@@ -208,6 +208,7 @@ func (a *MirrorAPIService) CreateMirrorPullConsumerExecute(r ApiCreateMirrorPull
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -217,6 +218,7 @@ func (a *MirrorAPIService) CreateMirrorPullConsumerExecute(r ApiCreateMirrorPull
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -320,6 +322,7 @@ func (a *MirrorAPIService) CreateMirrorPushConsumerExecute(r ApiCreateMirrorPush
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -329,6 +332,7 @@ func (a *MirrorAPIService) CreateMirrorPushConsumerExecute(r ApiCreateMirrorPush
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -421,6 +425,7 @@ func (a *MirrorAPIService) DeleteMirrorExecute(r ApiDeleteMirrorRequest) (*http.
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -516,6 +521,7 @@ func (a *MirrorAPIService) GetMirrorExecute(r ApiGetMirrorRequest) (*JSMirrorInf
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -525,6 +531,7 @@ func (a *MirrorAPIService) GetMirrorExecute(r ApiGetMirrorRequest) (*JSMirrorInf
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -620,6 +627,7 @@ func (a *MirrorAPIService) ListMirrorConsumersExecute(r ApiListMirrorConsumersRe
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -629,6 +637,7 @@ func (a *MirrorAPIService) ListMirrorConsumersExecute(r ApiListMirrorConsumersRe
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -732,6 +741,7 @@ func (a *MirrorAPIService) UpdateMirrorExecute(r ApiUpdateMirrorRequest) (*JSMir
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -741,6 +751,7 @@ func (a *MirrorAPIService) UpdateMirrorExecute(r ApiUpdateMirrorRequest) (*JSMir
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

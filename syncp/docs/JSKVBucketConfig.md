@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bucket** | **string** |  | 
+**Compression** | Pointer to **bool** |  | [optional] [default to false]
 **Description** | Pointer to **string** |  | [optional] 
 **History** | Pointer to **int32** |  | [optional] [default to 1]
 **MaxAge** | Pointer to **int64** |  | [optional] 

@@ -19,6 +19,7 @@ type NatsUserIssuanceEvent struct {
 	Exp     *int64                    `json:"exp,omitempty"`
 	Iat     int64                     `json:"iat"`
 	Jti     string                    `json:"jti"`
+	Status  NatsUserIssuanceStatus    `json:"status"`
 	Type    NatsUserIssuanceEventType `json:"type"`
 }
 
@@ -30,6 +31,7 @@ func (o NatsUserIssuanceEvent) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["iat"] = o.Iat
 	toSerialize["jti"] = o.Jti
+	toSerialize["status"] = o.Status
 	toSerialize["type"] = o.Type
 	return toSerialize, nil
 }

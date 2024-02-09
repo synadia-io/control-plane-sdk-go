@@ -77,6 +77,7 @@ Class | Method | HTTP request | Description
 *AccountAPI* | [**CreateKvBucket**](docs/AccountAPI.md#createkvbucket) | **Post** /accounts/{accountId}/jetstream/kv-buckets | Create KV Bucket
 *AccountAPI* | [**CreateMirror**](docs/AccountAPI.md#createmirror) | **Post** /accounts/{accountId}/jetstream/mirrors | Create Mirror
 *AccountAPI* | [**CreateObjectBucket**](docs/AccountAPI.md#createobjectbucket) | **Post** /accounts/{accountId}/jetstream/object-buckets | Create Object Bucket
+*AccountAPI* | [**CreateOrUpdateNatsUserRevocation**](docs/AccountAPI.md#createorupdatenatsuserrevocation) | **Put** /accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Create or Update Revocation for a NATS User NKey
 *AccountAPI* | [**CreateStream**](docs/AccountAPI.md#createstream) | **Post** /accounts/{accountId}/jetstream/streams | Create Stream
 *AccountAPI* | [**CreateStreamExport**](docs/AccountAPI.md#createstreamexport) | **Post** /accounts/{accountId}/stream-exports | Create Stream Export
 *AccountAPI* | [**CreateStreamImport**](docs/AccountAPI.md#createstreamimport) | **Post** /accounts/{accountId}/stream-imports | Create Stream Import
@@ -85,11 +86,13 @@ Class | Method | HTTP request | Description
 *AccountAPI* | [**CreateUser**](docs/AccountAPI.md#createuser) | **Post** /accounts/{accountId}/nats-users | Create NATS User
 *AccountAPI* | [**DeleteAccount**](docs/AccountAPI.md#deleteaccount) | **Delete** /accounts/{accountId} | Delete Account
 *AccountAPI* | [**DeleteAlertRule**](docs/AccountAPI.md#deletealertrule) | **Delete** /accounts/{accountId}/alert-rules/{alertRuleId} | Delete Account Alert Rule
+*AccountAPI* | [**DeleteNatsUserRevocation**](docs/AccountAPI.md#deletenatsuserrevocation) | **Delete** /accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Delete a for a NATS User NKey
 *AccountAPI* | [**GetAccount**](docs/AccountAPI.md#getaccount) | **Get** /accounts/{accountId} | Get Account
 *AccountAPI* | [**GetAccountInfo**](docs/AccountAPI.md#getaccountinfo) | **Get** /accounts/{accountId}/info | Get Account Info
 *AccountAPI* | [**GetAccountMetrics**](docs/AccountAPI.md#getaccountmetrics) | **Get** /accounts/{accountId}/metrics | Get Account Metrics
 *AccountAPI* | [**GetAlertRule**](docs/AccountAPI.md#getalertrule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId} | Get Account Alert Rule
 *AccountAPI* | [**GetJetStreamPlacementOptions**](docs/AccountAPI.md#getjetstreamplacementoptions) | **Get** /accounts/{accountId}/jetstream/placement-options | Get JetStream Placement Options
+*AccountAPI* | [**GetNatsUserRevocation**](docs/AccountAPI.md#getnatsuserrevocation) | **Get** /accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Get Revocation for a NATS User NKey
 *AccountAPI* | [**ListAccountConnections**](docs/AccountAPI.md#listaccountconnections) | **Get** /accounts/{accountId}/connections | List Account Connections
 *AccountAPI* | [**ListAccountSkGroup**](docs/AccountAPI.md#listaccountskgroup) | **Get** /accounts/{accountId}/account-sk-groups | List Account Signing Key Groups
 *AccountAPI* | [**ListAccountTeamAppUsers**](docs/AccountAPI.md#listaccountteamappusers) | **Get** /accounts/{accountId}/app-users | List Account Team App Users
@@ -122,6 +125,7 @@ Class | Method | HTTP request | Description
 *AuthzAPI* | [**Check**](docs/AuthzAPI.md#check) | **Post** /authz/check | Check Authz Decisions
 *AuthzAPI* | [**ListPolicies**](docs/AuthzAPI.md#listpolicies) | **Get** /authz/policies | Get Policy List
 *AuthzAPI* | [**ListRoles**](docs/AuthzAPI.md#listroles) | **Get** /authz/roles | Get Authz roles List
+*IssuanceAPI* | [**GetNatsUserIssuance**](docs/IssuanceAPI.md#getnatsuserissuance) | **Get** /nats-user-issuances/{issuanceId} | Get nats user issuance
 *KvBucketAPI* | [**CreateKvPullConsumer**](docs/KvBucketAPI.md#createkvpullconsumer) | **Post** /jetstream/kv-bucket/{streamId}/consumers/pull | Create Pull Consumer
 *KvBucketAPI* | [**CreateKvPushConsumer**](docs/KvBucketAPI.md#createkvpushconsumer) | **Post** /jetstream/kv-bucket/{streamId}/consumers/push | Create Push Consumer
 *KvBucketAPI* | [**DeleteKvBucket**](docs/KvBucketAPI.md#deletekvbucket) | **Delete** /jetstream/kv-bucket/{streamId} | Delete KV Bucket
@@ -139,7 +143,6 @@ Class | Method | HTTP request | Description
 *NatsUserAPI* | [**DeleteNatsUser**](docs/NatsUserAPI.md#deletenatsuser) | **Delete** /nats-users/{userId} | Delete NATS User
 *NatsUserAPI* | [**DownloadNatsUserCreds**](docs/NatsUserAPI.md#downloadnatsusercreds) | **Post** /nats-users/{userId}/creds | Get Creds
 *NatsUserAPI* | [**GetNatsUser**](docs/NatsUserAPI.md#getnatsuser) | **Get** /nats-users/{userId} | Get NATS User
-*NatsUserAPI* | [**GetNatsUserIssuance**](docs/NatsUserAPI.md#getnatsuserissuance) | **Get** /nats-user-issuances/{issuanceId} | Get nats user issuance
 *NatsUserAPI* | [**ListNatsUserConnections**](docs/NatsUserAPI.md#listnatsuserconnections) | **Get** /nats-users/{userId}/connections | List NATs User Connections
 *NatsUserAPI* | [**ListNatsUserIssuances**](docs/NatsUserAPI.md#listnatsuserissuances) | **Get** /nats-users/{userId}/issuances | List nats user issuances
 *NatsUserAPI* | [**ListNatsUserTeamAppUsers**](docs/NatsUserAPI.md#listnatsuserteamappusers) | **Get** /nats-users/{userId}/app-users | List Team App Users
@@ -389,10 +392,13 @@ Class | Method | HTTP request | Description
  - [NatsUserIssuanceEvent](docs/NatsUserIssuanceEvent.md)
  - [NatsUserIssuanceEventType](docs/NatsUserIssuanceEventType.md)
  - [NatsUserIssuanceInfo](docs/NatsUserIssuanceInfo.md)
+ - [NatsUserIssuanceStatus](docs/NatsUserIssuanceStatus.md)
  - [NatsUserIssuanceViewResponse](docs/NatsUserIssuanceViewResponse.md)
  - [NatsUserIssuancesListResponse](docs/NatsUserIssuancesListResponse.md)
  - [NatsUserJwtSettings](docs/NatsUserJwtSettings.md)
  - [NatsUserListResponse](docs/NatsUserListResponse.md)
+ - [NatsUserRevocationRequest](docs/NatsUserRevocationRequest.md)
+ - [NatsUserRevocationViewResponse](docs/NatsUserRevocationViewResponse.md)
  - [NatsUserUpdateRequest](docs/NatsUserUpdateRequest.md)
  - [NatsUserViewResponse](docs/NatsUserViewResponse.md)
  - [ObjectStoreConfig](docs/ObjectStoreConfig.md)

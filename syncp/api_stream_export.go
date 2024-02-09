@@ -193,6 +193,7 @@ func (a *StreamExportAPIService) CreateStreamSharesExecute(r ApiCreateStreamShar
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -202,6 +203,7 @@ func (a *StreamExportAPIService) CreateStreamSharesExecute(r ApiCreateStreamShar
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -294,6 +296,7 @@ func (a *StreamExportAPIService) DeleteStreamExportExecute(r ApiDeleteStreamExpo
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -390,6 +393,7 @@ func (a *StreamExportAPIService) DeleteStreamShareExecute(r ApiDeleteStreamShare
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -485,6 +489,7 @@ func (a *StreamExportAPIService) GetStreamExportExecute(r ApiGetStreamExportRequ
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -494,6 +499,7 @@ func (a *StreamExportAPIService) GetStreamExportExecute(r ApiGetStreamExportRequ
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -589,6 +595,7 @@ func (a *StreamExportAPIService) ListStreamSharesExecute(r ApiListStreamSharesRe
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -598,6 +605,7 @@ func (a *StreamExportAPIService) ListStreamSharesExecute(r ApiListStreamSharesRe
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

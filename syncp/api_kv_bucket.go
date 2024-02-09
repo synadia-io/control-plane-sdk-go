@@ -208,6 +208,7 @@ func (a *KvBucketAPIService) CreateKvPullConsumerExecute(r ApiCreateKvPullConsum
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -217,6 +218,7 @@ func (a *KvBucketAPIService) CreateKvPullConsumerExecute(r ApiCreateKvPullConsum
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -320,6 +322,7 @@ func (a *KvBucketAPIService) CreateKvPushConsumerExecute(r ApiCreateKvPushConsum
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -329,6 +332,7 @@ func (a *KvBucketAPIService) CreateKvPushConsumerExecute(r ApiCreateKvPushConsum
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -421,6 +425,7 @@ func (a *KvBucketAPIService) DeleteKvBucketExecute(r ApiDeleteKvBucketRequest) (
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -516,6 +521,7 @@ func (a *KvBucketAPIService) GetKvBucketExecute(r ApiGetKvBucketRequest) (*JSKVB
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -525,6 +531,7 @@ func (a *KvBucketAPIService) GetKvBucketExecute(r ApiGetKvBucketRequest) (*JSKVB
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -620,6 +627,7 @@ func (a *KvBucketAPIService) ListKvConsumersExecute(r ApiListKvConsumersRequest)
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -629,6 +637,7 @@ func (a *KvBucketAPIService) ListKvConsumersExecute(r ApiListKvConsumersRequest)
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -732,6 +741,7 @@ func (a *KvBucketAPIService) UpdateKvBucketExecute(r ApiUpdateKvBucketRequest) (
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -741,6 +751,7 @@ func (a *KvBucketAPIService) UpdateKvBucketExecute(r ApiUpdateKvBucketRequest) (
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

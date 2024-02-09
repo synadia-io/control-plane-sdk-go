@@ -18,7 +18,6 @@ type NatsUserUpdateRequest struct {
 	JwtExpiresInSecs *int64               `json:"jwt_expires_in_secs,omitempty"`
 	JwtSettings      *NatsUserJwtSettings `json:"jwt_settings,omitempty"`
 	Name             *string              `json:"name,omitempty"`
-	Revoked          *bool                `json:"revoked,omitempty"`
 }
 
 func (o NatsUserUpdateRequest) ToMap() (map[string]interface{}, error) {
@@ -31,9 +30,6 @@ func (o NatsUserUpdateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
-	}
-	if o.Revoked != nil {
-		toSerialize["revoked"] = o.Revoked
 	}
 	return toSerialize, nil
 }

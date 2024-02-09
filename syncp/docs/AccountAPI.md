@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**CreateKvBucket**](AccountAPI.md#CreateKvBucket) | **Post** /accounts/{accountId}/jetstream/kv-buckets | Create KV Bucket
 [**CreateMirror**](AccountAPI.md#CreateMirror) | **Post** /accounts/{accountId}/jetstream/mirrors | Create Mirror
 [**CreateObjectBucket**](AccountAPI.md#CreateObjectBucket) | **Post** /accounts/{accountId}/jetstream/object-buckets | Create Object Bucket
+[**CreateOrUpdateNatsUserRevocation**](AccountAPI.md#CreateOrUpdateNatsUserRevocation) | **Put** /accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Create or Update Revocation for a NATS User NKey
 [**CreateStream**](AccountAPI.md#CreateStream) | **Post** /accounts/{accountId}/jetstream/streams | Create Stream
 [**CreateStreamExport**](AccountAPI.md#CreateStreamExport) | **Post** /accounts/{accountId}/stream-exports | Create Stream Export
 [**CreateStreamImport**](AccountAPI.md#CreateStreamImport) | **Post** /accounts/{accountId}/stream-imports | Create Stream Import
@@ -18,11 +19,13 @@ Method | HTTP request | Description
 [**CreateUser**](AccountAPI.md#CreateUser) | **Post** /accounts/{accountId}/nats-users | Create NATS User
 [**DeleteAccount**](AccountAPI.md#DeleteAccount) | **Delete** /accounts/{accountId} | Delete Account
 [**DeleteAlertRule**](AccountAPI.md#DeleteAlertRule) | **Delete** /accounts/{accountId}/alert-rules/{alertRuleId} | Delete Account Alert Rule
+[**DeleteNatsUserRevocation**](AccountAPI.md#DeleteNatsUserRevocation) | **Delete** /accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Delete a for a NATS User NKey
 [**GetAccount**](AccountAPI.md#GetAccount) | **Get** /accounts/{accountId} | Get Account
 [**GetAccountInfo**](AccountAPI.md#GetAccountInfo) | **Get** /accounts/{accountId}/info | Get Account Info
 [**GetAccountMetrics**](AccountAPI.md#GetAccountMetrics) | **Get** /accounts/{accountId}/metrics | Get Account Metrics
 [**GetAlertRule**](AccountAPI.md#GetAlertRule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId} | Get Account Alert Rule
 [**GetJetStreamPlacementOptions**](AccountAPI.md#GetJetStreamPlacementOptions) | **Get** /accounts/{accountId}/jetstream/placement-options | Get JetStream Placement Options
+[**GetNatsUserRevocation**](AccountAPI.md#GetNatsUserRevocation) | **Get** /accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Get Revocation for a NATS User NKey
 [**ListAccountConnections**](AccountAPI.md#ListAccountConnections) | **Get** /accounts/{accountId}/connections | List Account Connections
 [**ListAccountSkGroup**](AccountAPI.md#ListAccountSkGroup) | **Get** /accounts/{accountId}/account-sk-groups | List Account Signing Key Groups
 [**ListAccountTeamAppUsers**](AccountAPI.md#ListAccountTeamAppUsers) | **Get** /accounts/{accountId}/app-users | List Account Team App Users
@@ -467,6 +470,81 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**JSObjectBucketViewResponse**](JSObjectBucketViewResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateOrUpdateNatsUserRevocation
+
+> NatsUserRevocationViewResponse CreateOrUpdateNatsUserRevocation(ctx, accountId, userNkeyPublic).NatsUserRevocationRequest(natsUserRevocationRequest).Execute()
+
+Create or Update Revocation for a NATS User NKey
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+    userNkeyPublic := "userNkeyPublic_example" // string | 
+    natsUserRevocationRequest := *openapiclient.NewNatsUserRevocationRequest(int64(123)) // NatsUserRevocationRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountAPI.CreateOrUpdateNatsUserRevocation(context.Background(), accountId, userNkeyPublic).NatsUserRevocationRequest(natsUserRevocationRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.CreateOrUpdateNatsUserRevocation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateOrUpdateNatsUserRevocation`: NatsUserRevocationViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.CreateOrUpdateNatsUserRevocation`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+**userNkeyPublic** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateOrUpdateNatsUserRevocationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **natsUserRevocationRequest** | [**NatsUserRevocationRequest**](NatsUserRevocationRequest.md) |  | 
+
+### Return type
+
+[**NatsUserRevocationViewResponse**](NatsUserRevocationViewResponse.md)
 
 ### Authorization
 
@@ -1053,6 +1131,77 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DeleteNatsUserRevocation
+
+> DeleteNatsUserRevocation(ctx, accountId, userNkeyPublic).Execute()
+
+Delete a for a NATS User NKey
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+    userNkeyPublic := "userNkeyPublic_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.AccountAPI.DeleteNatsUserRevocation(context.Background(), accountId, userNkeyPublic).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.DeleteNatsUserRevocation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+**userNkeyPublic** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteNatsUserRevocationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetAccount
 
 > AccountViewResponse GetAccount(ctx, accountId).Execute()
@@ -1391,6 +1540,79 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**JSPlacementOptionsResponse**](JSPlacementOptionsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetNatsUserRevocation
+
+> NatsUserRevocationViewResponse GetNatsUserRevocation(ctx, accountId, userNkeyPublic).Execute()
+
+Get Revocation for a NATS User NKey
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+    userNkeyPublic := "userNkeyPublic_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountAPI.GetNatsUserRevocation(context.Background(), accountId, userNkeyPublic).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.GetNatsUserRevocation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetNatsUserRevocation`: NatsUserRevocationViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.GetNatsUserRevocation`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+**userNkeyPublic** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetNatsUserRevocationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**NatsUserRevocationViewResponse**](NatsUserRevocationViewResponse.md)
 
 ### Authorization
 

@@ -31,6 +31,7 @@ func (o SigningKeyGroupCreateResponse) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["id"] = o.Id
 	toSerialize["is_scoped"] = o.IsScoped
+	toSerialize["missing_seed"] = o.MissingSeed
 	toSerialize["name"] = o.Name
 	toSerialize["programmatic"] = o.Programmatic
 	if o.Scope != nil {

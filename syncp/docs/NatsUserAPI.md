@@ -9,7 +9,6 @@ Method | HTTP request | Description
 [**DeleteNatsUser**](NatsUserAPI.md#DeleteNatsUser) | **Delete** /nats-users/{userId} | Delete NATS User
 [**DownloadNatsUserCreds**](NatsUserAPI.md#DownloadNatsUserCreds) | **Post** /nats-users/{userId}/creds | Get Creds
 [**GetNatsUser**](NatsUserAPI.md#GetNatsUser) | **Get** /nats-users/{userId} | Get NATS User
-[**GetNatsUserIssuance**](NatsUserAPI.md#GetNatsUserIssuance) | **Get** /nats-user-issuances/{issuanceId} | Get nats user issuance
 [**ListNatsUserConnections**](NatsUserAPI.md#ListNatsUserConnections) | **Get** /nats-users/{userId}/connections | List NATs User Connections
 [**ListNatsUserIssuances**](NatsUserAPI.md#ListNatsUserIssuances) | **Get** /nats-users/{userId}/issuances | List nats user issuances
 [**ListNatsUserTeamAppUsers**](NatsUserAPI.md#ListNatsUserTeamAppUsers) | **Get** /nats-users/{userId}/app-users | List Team App Users
@@ -359,76 +358,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**NatsUserViewResponse**](NatsUserViewResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetNatsUserIssuance
-
-> NatsUserIssuanceViewResponse GetNatsUserIssuance(ctx, issuanceId).Execute()
-
-Get nats user issuance
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    issuanceId := "issuanceId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NatsUserAPI.GetNatsUserIssuance(context.Background(), issuanceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.GetNatsUserIssuance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetNatsUserIssuance`: NatsUserIssuanceViewResponse
-    fmt.Fprintf(os.Stdout, "Response from `NatsUserAPI.GetNatsUserIssuance`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**issuanceId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetNatsUserIssuanceRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**NatsUserIssuanceViewResponse**](NatsUserIssuanceViewResponse.md)
 
 ### Authorization
 
