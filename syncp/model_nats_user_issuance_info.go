@@ -19,14 +19,22 @@ var _ MappedNullable = &NatsUserIssuanceInfo{}
 
 // NatsUserIssuanceInfo struct for NatsUserIssuanceInfo
 type NatsUserIssuanceInfo struct {
-	Created     time.Time `json:"created"`
-	EventsCount int32     `json:"events_count"`
-	ExpMax      *int64    `json:"exp_max,omitempty"`
-	IatMax      int64     `json:"iat_max"`
-	Id          string    `json:"id"`
-	Iss         string    `json:"iss"`
-	Name        string    `json:"name"`
-	Sub         string    `json:"sub"`
+	Created time.Time `json:"created"`
+	// total download events for this issuance
+	EventsCount int32 `json:"events_count"`
+	// highest expiry time, undefined means Unlimited (exp not set)
+	ExpMax *int64 `json:"exp_max,omitempty"`
+	// most recent time this was issued
+	IatMax int64 `json:"iat_max"`
+	// first time this was issued
+	IatMin int64  `json:"iat_min"`
+	Id     string `json:"id"`
+	// issuer account public nkey
+	Iss    string                 `json:"iss"`
+	Name   string                 `json:"name"`
+	Status NatsUserIssuanceStatus `json:"status"`
+	// nats user public nkey
+	Sub string `json:"sub"`
 }
 
 func (o NatsUserIssuanceInfo) ToMap() (map[string]interface{}, error) {
@@ -37,9 +45,11 @@ func (o NatsUserIssuanceInfo) ToMap() (map[string]interface{}, error) {
 		toSerialize["exp_max"] = o.ExpMax
 	}
 	toSerialize["iat_max"] = o.IatMax
+	toSerialize["iat_min"] = o.IatMin
 	toSerialize["id"] = o.Id
 	toSerialize["iss"] = o.Iss
 	toSerialize["name"] = o.Name
+	toSerialize["status"] = o.Status
 	toSerialize["sub"] = o.Sub
 	return toSerialize, nil
 }

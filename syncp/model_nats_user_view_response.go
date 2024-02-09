@@ -28,7 +28,6 @@ type NatsUserViewResponse struct {
 	JwtExpiresInSecs int64               `json:"jwt_expires_in_secs"`
 	JwtSettings      NatsUserJwtSettings `json:"jwt_settings"`
 	Name             string              `json:"name"`
-	Revoked          bool                `json:"revoked"`
 	SkGroupId        *string             `json:"sk_group_id,omitempty"`
 	System           SystemInfo          `json:"system"`
 	Team             TeamInfo            `json:"team"`
@@ -46,7 +45,6 @@ func (o NatsUserViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["jwt_expires_in_secs"] = o.JwtExpiresInSecs
 	toSerialize["jwt_settings"] = o.JwtSettings
 	toSerialize["name"] = o.Name
-	toSerialize["revoked"] = o.Revoked
 	if o.SkGroupId != nil {
 		toSerialize["sk_group_id"] = o.SkGroupId
 	}

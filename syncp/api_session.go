@@ -261,6 +261,7 @@ func (a *SessionAPIService) AcceptTermsExecute(r ApiAcceptTermsRequest) (*Accept
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -270,6 +271,7 @@ func (a *SessionAPIService) AcceptTermsExecute(r ApiAcceptTermsRequest) (*Accept
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -369,6 +371,7 @@ func (a *SessionAPIService) CreateAppUserExecute(r ApiCreateAppUserRequest) (*Ap
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -378,6 +381,7 @@ func (a *SessionAPIService) CreateAppUserExecute(r ApiCreateAppUserRequest) (*Ap
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -477,6 +481,7 @@ func (a *SessionAPIService) CreatePersonalAccessTokenExecute(r ApiCreatePersonal
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -486,6 +491,7 @@ func (a *SessionAPIService) CreatePersonalAccessTokenExecute(r ApiCreatePersonal
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -585,6 +591,7 @@ func (a *SessionAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*TeamView
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -594,6 +601,7 @@ func (a *SessionAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*TeamView
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -694,6 +702,7 @@ func (a *SessionAPIService) DecideInvitationExecute(r ApiDecideInvitationRequest
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -785,6 +794,7 @@ func (a *SessionAPIService) GetVersionExecute(r ApiGetVersionRequest) (*VersionR
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -794,6 +804,7 @@ func (a *SessionAPIService) GetVersionExecute(r ApiGetVersionRequest) (*VersionR
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -894,6 +905,7 @@ func (a *SessionAPIService) ListAlertsExecute(r ApiListAlertsRequest) (*AlertLis
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -903,6 +915,7 @@ func (a *SessionAPIService) ListAlertsExecute(r ApiListAlertsRequest) (*AlertLis
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -994,6 +1007,7 @@ func (a *SessionAPIService) ListAppUsersExecute(r ApiListAppUsersRequest) (*AppU
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1003,6 +1017,7 @@ func (a *SessionAPIService) ListAppUsersExecute(r ApiListAppUsersRequest) (*AppU
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1094,6 +1109,7 @@ func (a *SessionAPIService) ListInvitationsExecute(r ApiListInvitationsRequest) 
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1103,6 +1119,7 @@ func (a *SessionAPIService) ListInvitationsExecute(r ApiListInvitationsRequest) 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1194,6 +1211,7 @@ func (a *SessionAPIService) ListPersonalAccessTokensExecute(r ApiListPersonalAcc
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1203,6 +1221,7 @@ func (a *SessionAPIService) ListPersonalAccessTokensExecute(r ApiListPersonalAcc
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1294,6 +1313,7 @@ func (a *SessionAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*TeamListRe
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1303,6 +1323,7 @@ func (a *SessionAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*TeamListRe
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

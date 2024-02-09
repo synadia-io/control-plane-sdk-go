@@ -545,6 +545,7 @@ func (a *SystemAPIService) AssignSystemTeamAppUserExecute(r ApiAssignSystemTeamA
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -554,6 +555,7 @@ func (a *SystemAPIService) AssignSystemTeamAppUserExecute(r ApiAssignSystemTeamA
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -657,6 +659,7 @@ func (a *SystemAPIService) CreateAccountExecute(r ApiCreateAccountRequest) (*Acc
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -666,6 +669,7 @@ func (a *SystemAPIService) CreateAccountExecute(r ApiCreateAccountRequest) (*Acc
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -769,6 +773,7 @@ func (a *SystemAPIService) CreateSystemAlertRuleExecute(r ApiCreateSystemAlertRu
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -778,6 +783,7 @@ func (a *SystemAPIService) CreateSystemAlertRuleExecute(r ApiCreateSystemAlertRu
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -870,6 +876,7 @@ func (a *SystemAPIService) DeleteSystemExecute(r ApiDeleteSystemRequest) (*http.
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -966,6 +973,7 @@ func (a *SystemAPIService) DeleteSystemAlertRuleExecute(r ApiDeleteSystemAlertRu
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1061,6 +1069,7 @@ func (a *SystemAPIService) DownloadSystemLogsExecute(r ApiDownloadSystemLogsRequ
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1070,6 +1079,7 @@ func (a *SystemAPIService) DownloadSystemLogsExecute(r ApiDownloadSystemLogsRequ
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1165,6 +1175,7 @@ func (a *SystemAPIService) GetCurrentAgentTokenExecute(r ApiGetCurrentAgentToken
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1174,6 +1185,7 @@ func (a *SystemAPIService) GetCurrentAgentTokenExecute(r ApiGetCurrentAgentToken
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1269,6 +1281,7 @@ func (a *SystemAPIService) GetSystemExecute(r ApiGetSystemRequest) (*SystemViewR
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1278,6 +1291,7 @@ func (a *SystemAPIService) GetSystemExecute(r ApiGetSystemRequest) (*SystemViewR
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1377,6 +1391,7 @@ func (a *SystemAPIService) GetSystemAlertRuleExecute(r ApiGetSystemAlertRuleRequ
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1386,6 +1401,7 @@ func (a *SystemAPIService) GetSystemAlertRuleExecute(r ApiGetSystemAlertRuleRequ
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1481,6 +1497,7 @@ func (a *SystemAPIService) GetSystemLimitsExecute(r ApiGetSystemLimitsRequest) (
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1490,6 +1507,7 @@ func (a *SystemAPIService) GetSystemLimitsExecute(r ApiGetSystemLimitsRequest) (
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1590,6 +1608,7 @@ func (a *SystemAPIService) ImportAccountExecute(r ApiImportAccountRequest) (*htt
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1693,6 +1712,7 @@ func (a *SystemAPIService) ImportUserExecute(r ApiImportUserRequest) (*NatsUserV
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1702,6 +1722,7 @@ func (a *SystemAPIService) ImportUserExecute(r ApiImportUserRequest) (*NatsUserV
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1797,6 +1818,7 @@ func (a *SystemAPIService) ListAccountsExecute(r ApiListAccountsRequest) (*Accou
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1806,6 +1828,7 @@ func (a *SystemAPIService) ListAccountsExecute(r ApiListAccountsRequest) (*Accou
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1901,6 +1924,7 @@ func (a *SystemAPIService) ListAccountsOverviewMetricsExecute(r ApiListAccountsO
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1910,6 +1934,7 @@ func (a *SystemAPIService) ListAccountsOverviewMetricsExecute(r ApiListAccountsO
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2005,6 +2030,7 @@ func (a *SystemAPIService) ListAgentTokensExecute(r ApiListAgentTokensRequest) (
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2014,6 +2040,7 @@ func (a *SystemAPIService) ListAgentTokensExecute(r ApiListAgentTokensRequest) (
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2109,6 +2136,7 @@ func (a *SystemAPIService) ListClustersExecute(r ApiListClustersRequest) (*NatsC
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2118,6 +2146,7 @@ func (a *SystemAPIService) ListClustersExecute(r ApiListClustersRequest) (*NatsC
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2276,6 +2305,7 @@ func (a *SystemAPIService) ListConnectionsExecute(r ApiListConnectionsRequest) (
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2285,6 +2315,7 @@ func (a *SystemAPIService) ListConnectionsExecute(r ApiListConnectionsRequest) (
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2380,6 +2411,7 @@ func (a *SystemAPIService) ListServersExecute(r ApiListServersRequest) (*NatsSer
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2389,6 +2421,7 @@ func (a *SystemAPIService) ListServersExecute(r ApiListServersRequest) (*NatsSer
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2484,6 +2517,7 @@ func (a *SystemAPIService) ListSystemAlertRulesExecute(r ApiListSystemAlertRules
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2493,6 +2527,7 @@ func (a *SystemAPIService) ListSystemAlertRulesExecute(r ApiListSystemAlertRules
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2588,6 +2623,7 @@ func (a *SystemAPIService) ListSystemInfoAccountsExecute(r ApiListSystemInfoAcco
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2597,6 +2633,7 @@ func (a *SystemAPIService) ListSystemInfoAccountsExecute(r ApiListSystemInfoAcco
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2692,6 +2729,7 @@ func (a *SystemAPIService) ListSystemInfoServersExecute(r ApiListSystemInfoServe
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2701,6 +2739,7 @@ func (a *SystemAPIService) ListSystemInfoServersExecute(r ApiListSystemInfoServe
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2796,6 +2835,7 @@ func (a *SystemAPIService) ListSystemTeamAppUsersExecute(r ApiListSystemTeamAppU
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2805,6 +2845,7 @@ func (a *SystemAPIService) ListSystemTeamAppUsersExecute(r ApiListSystemTeamAppU
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2908,6 +2949,7 @@ func (a *SystemAPIService) RotateAgentTokenExecute(r ApiRotateAgentTokenRequest)
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2917,6 +2959,7 @@ func (a *SystemAPIService) RotateAgentTokenExecute(r ApiRotateAgentTokenRequest)
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3016,6 +3059,7 @@ func (a *SystemAPIService) RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequ
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3025,6 +3069,7 @@ func (a *SystemAPIService) RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequ
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3121,6 +3166,7 @@ func (a *SystemAPIService) UnAssignSystemTeamAppUserExecute(r ApiUnAssignSystemT
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3213,6 +3259,7 @@ func (a *SystemAPIService) UnmanageSystemExecute(r ApiUnmanageSystemRequest) (*h
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3316,6 +3363,7 @@ func (a *SystemAPIService) UpdateSystemExecute(r ApiUpdateSystemRequest) (*Syste
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3325,6 +3373,7 @@ func (a *SystemAPIService) UpdateSystemExecute(r ApiUpdateSystemRequest) (*Syste
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3432,6 +3481,7 @@ func (a *SystemAPIService) UpdateSystemAlertRuleExecute(r ApiUpdateSystemAlertRu
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3441,6 +3491,7 @@ func (a *SystemAPIService) UpdateSystemAlertRuleExecute(r ApiUpdateSystemAlertRu
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

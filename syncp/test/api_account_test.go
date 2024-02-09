@@ -96,6 +96,19 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test AccountAPIService CreateOrUpdateNatsUserRevocation", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var accountId string
+		var userNkeyPublic string
+
+		resp, httpRes, err := apiClient.AccountAPI.CreateOrUpdateNatsUserRevocation(context.Background(), accountId, userNkeyPublic).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test AccountAPIService CreateStream", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -191,6 +204,18 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test AccountAPIService DeleteNatsUserRevocation", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var accountId string
+		var userNkeyPublic string
+
+		httpRes, err := apiClient.AccountAPI.DeleteNatsUserRevocation(context.Background(), accountId, userNkeyPublic).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test AccountAPIService GetAccount", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -246,6 +271,19 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		var accountId string
 
 		resp, httpRes, err := apiClient.AccountAPI.GetJetStreamPlacementOptions(context.Background(), accountId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test AccountAPIService GetNatsUserRevocation", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var accountId string
+		var userNkeyPublic string
+
+		resp, httpRes, err := apiClient.AccountAPI.GetNatsUserRevocation(context.Background(), accountId, userNkeyPublic).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

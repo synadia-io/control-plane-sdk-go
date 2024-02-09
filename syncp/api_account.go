@@ -113,6 +113,22 @@ type AccountAPI interface {
 	CreateObjectBucketExecute(r ApiCreateObjectBucketRequest) (*JSObjectBucketViewResponse, *http.Response, error)
 
 	/*
+		CreateOrUpdateNatsUserRevocation Create or Update Revocation for a NATS User NKey
+
+		Creates or Updates a Revocation for the given NATS User NKey. All users issued prior to 'before' will be revoked. If 'before' is set to 0, the current timestamp will be used.
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId
+		@param userNkeyPublic
+		@return ApiCreateOrUpdateNatsUserRevocationRequest
+	*/
+	CreateOrUpdateNatsUserRevocation(ctx context.Context, accountId string, userNkeyPublic string) ApiCreateOrUpdateNatsUserRevocationRequest
+
+	// CreateOrUpdateNatsUserRevocationExecute executes the request
+	//  @return NatsUserRevocationViewResponse
+	CreateOrUpdateNatsUserRevocationExecute(r ApiCreateOrUpdateNatsUserRevocationRequest) (*NatsUserRevocationViewResponse, *http.Response, error)
+
+	/*
 		CreateStream Create Stream
 
 		Create Stream
@@ -232,6 +248,21 @@ type AccountAPI interface {
 	DeleteAlertRuleExecute(r ApiDeleteAlertRuleRequest) (*http.Response, error)
 
 	/*
+		DeleteNatsUserRevocation Delete a for a NATS User NKey
+
+		Deletes a Revocation for the given NATS User NKey
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId
+		@param userNkeyPublic
+		@return ApiDeleteNatsUserRevocationRequest
+	*/
+	DeleteNatsUserRevocation(ctx context.Context, accountId string, userNkeyPublic string) ApiDeleteNatsUserRevocationRequest
+
+	// DeleteNatsUserRevocationExecute executes the request
+	DeleteNatsUserRevocationExecute(r ApiDeleteNatsUserRevocationRequest) (*http.Response, error)
+
+	/*
 		GetAccount Get Account
 
 		Returns a Account by ID
@@ -306,6 +337,22 @@ type AccountAPI interface {
 	// GetJetStreamPlacementOptionsExecute executes the request
 	//  @return JSPlacementOptionsResponse
 	GetJetStreamPlacementOptionsExecute(r ApiGetJetStreamPlacementOptionsRequest) (*JSPlacementOptionsResponse, *http.Response, error)
+
+	/*
+		GetNatsUserRevocation Get Revocation for a NATS User NKey
+
+		Get Revocation for the given NATS User NKey
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId
+		@param userNkeyPublic
+		@return ApiGetNatsUserRevocationRequest
+	*/
+	GetNatsUserRevocation(ctx context.Context, accountId string, userNkeyPublic string) ApiGetNatsUserRevocationRequest
+
+	// GetNatsUserRevocationExecute executes the request
+	//  @return NatsUserRevocationViewResponse
+	GetNatsUserRevocationExecute(r ApiGetNatsUserRevocationRequest) (*NatsUserRevocationViewResponse, *http.Response, error)
 
 	/*
 		ListAccountConnections List Account Connections
@@ -725,6 +772,7 @@ func (a *AccountAPIService) AssignAccountTeamAppUserExecute(r ApiAssignAccountTe
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -734,6 +782,7 @@ func (a *AccountAPIService) AssignAccountTeamAppUserExecute(r ApiAssignAccountTe
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -837,6 +886,7 @@ func (a *AccountAPIService) CreateAccountSkGroupExecute(r ApiCreateAccountSkGrou
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -846,6 +896,7 @@ func (a *AccountAPIService) CreateAccountSkGroupExecute(r ApiCreateAccountSkGrou
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -949,6 +1000,7 @@ func (a *AccountAPIService) CreateAlertRuleExecute(r ApiCreateAlertRuleRequest) 
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -958,6 +1010,7 @@ func (a *AccountAPIService) CreateAlertRuleExecute(r ApiCreateAlertRuleRequest) 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1061,6 +1114,7 @@ func (a *AccountAPIService) CreateKvBucketExecute(r ApiCreateKvBucketRequest) (*
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1070,6 +1124,7 @@ func (a *AccountAPIService) CreateKvBucketExecute(r ApiCreateKvBucketRequest) (*
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1173,6 +1228,7 @@ func (a *AccountAPIService) CreateMirrorExecute(r ApiCreateMirrorRequest) (*JSMi
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1182,6 +1238,7 @@ func (a *AccountAPIService) CreateMirrorExecute(r ApiCreateMirrorRequest) (*JSMi
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1285,6 +1342,7 @@ func (a *AccountAPIService) CreateObjectBucketExecute(r ApiCreateObjectBucketReq
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1294,6 +1352,125 @@ func (a *AccountAPIService) CreateObjectBucketExecute(r ApiCreateObjectBucketReq
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateOrUpdateNatsUserRevocationRequest struct {
+	ctx                       context.Context
+	ApiService                AccountAPI
+	accountId                 string
+	userNkeyPublic            string
+	natsUserRevocationRequest *NatsUserRevocationRequest
+}
+
+func (r ApiCreateOrUpdateNatsUserRevocationRequest) NatsUserRevocationRequest(natsUserRevocationRequest NatsUserRevocationRequest) ApiCreateOrUpdateNatsUserRevocationRequest {
+	r.natsUserRevocationRequest = &natsUserRevocationRequest
+	return r
+}
+
+func (r ApiCreateOrUpdateNatsUserRevocationRequest) Execute() (*NatsUserRevocationViewResponse, *http.Response, error) {
+	return r.ApiService.CreateOrUpdateNatsUserRevocationExecute(r)
+}
+
+/*
+CreateOrUpdateNatsUserRevocation Create or Update Revocation for a NATS User NKey
+
+Creates or Updates a Revocation for the given NATS User NKey. All users issued prior to 'before' will be revoked. If 'before' is set to 0, the current timestamp will be used.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId
+	@param userNkeyPublic
+	@return ApiCreateOrUpdateNatsUserRevocationRequest
+*/
+func (a *AccountAPIService) CreateOrUpdateNatsUserRevocation(ctx context.Context, accountId string, userNkeyPublic string) ApiCreateOrUpdateNatsUserRevocationRequest {
+	return ApiCreateOrUpdateNatsUserRevocationRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		accountId:      accountId,
+		userNkeyPublic: userNkeyPublic,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsUserRevocationViewResponse
+func (a *AccountAPIService) CreateOrUpdateNatsUserRevocationExecute(r ApiCreateOrUpdateNatsUserRevocationRequest) (*NatsUserRevocationViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsUserRevocationViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.CreateOrUpdateNatsUserRevocation")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userNkeyPublic"+"}", url.PathEscape(parameterValueToString(r.userNkeyPublic, "userNkeyPublic")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.natsUserRevocationRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1397,6 +1574,7 @@ func (a *AccountAPIService) CreateStreamExecute(r ApiCreateStreamRequest) (*JSSt
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1406,6 +1584,7 @@ func (a *AccountAPIService) CreateStreamExecute(r ApiCreateStreamRequest) (*JSSt
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1509,6 +1688,7 @@ func (a *AccountAPIService) CreateStreamExportExecute(r ApiCreateStreamExportReq
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1518,6 +1698,7 @@ func (a *AccountAPIService) CreateStreamExportExecute(r ApiCreateStreamExportReq
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1621,6 +1802,7 @@ func (a *AccountAPIService) CreateStreamImportExecute(r ApiCreateStreamImportReq
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1630,6 +1812,7 @@ func (a *AccountAPIService) CreateStreamImportExecute(r ApiCreateStreamImportReq
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1733,6 +1916,7 @@ func (a *AccountAPIService) CreateSubjectExportExecute(r ApiCreateSubjectExportR
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1742,6 +1926,7 @@ func (a *AccountAPIService) CreateSubjectExportExecute(r ApiCreateSubjectExportR
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1845,6 +2030,7 @@ func (a *AccountAPIService) CreateSubjectImportExecute(r ApiCreateSubjectImportR
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1854,6 +2040,7 @@ func (a *AccountAPIService) CreateSubjectImportExecute(r ApiCreateSubjectImportR
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1957,6 +2144,7 @@ func (a *AccountAPIService) CreateUserExecute(r ApiCreateUserRequest) (*NatsUser
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1966,6 +2154,7 @@ func (a *AccountAPIService) CreateUserExecute(r ApiCreateUserRequest) (*NatsUser
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2058,6 +2247,7 @@ func (a *AccountAPIService) DeleteAccountExecute(r ApiDeleteAccountRequest) (*ht
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2154,6 +2344,104 @@ func (a *AccountAPIService) DeleteAlertRuleExecute(r ApiDeleteAlertRuleRequest) 
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeleteNatsUserRevocationRequest struct {
+	ctx            context.Context
+	ApiService     AccountAPI
+	accountId      string
+	userNkeyPublic string
+}
+
+func (r ApiDeleteNatsUserRevocationRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteNatsUserRevocationExecute(r)
+}
+
+/*
+DeleteNatsUserRevocation Delete a for a NATS User NKey
+
+Deletes a Revocation for the given NATS User NKey
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId
+	@param userNkeyPublic
+	@return ApiDeleteNatsUserRevocationRequest
+*/
+func (a *AccountAPIService) DeleteNatsUserRevocation(ctx context.Context, accountId string, userNkeyPublic string) ApiDeleteNatsUserRevocationRequest {
+	return ApiDeleteNatsUserRevocationRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		accountId:      accountId,
+		userNkeyPublic: userNkeyPublic,
+	}
+}
+
+// Execute executes the request
+func (a *AccountAPIService) DeleteNatsUserRevocationExecute(r ApiDeleteNatsUserRevocationRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.DeleteNatsUserRevocation")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userNkeyPublic"+"}", url.PathEscape(parameterValueToString(r.userNkeyPublic, "userNkeyPublic")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2249,6 +2537,7 @@ func (a *AccountAPIService) GetAccountExecute(r ApiGetAccountRequest) (*AccountV
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2258,6 +2547,7 @@ func (a *AccountAPIService) GetAccountExecute(r ApiGetAccountRequest) (*AccountV
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2353,6 +2643,7 @@ func (a *AccountAPIService) GetAccountInfoExecute(r ApiGetAccountInfoRequest) (*
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2362,6 +2653,7 @@ func (a *AccountAPIService) GetAccountInfoExecute(r ApiGetAccountInfoRequest) (*
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2457,6 +2749,7 @@ func (a *AccountAPIService) GetAccountMetricsExecute(r ApiGetAccountMetricsReque
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2466,6 +2759,7 @@ func (a *AccountAPIService) GetAccountMetricsExecute(r ApiGetAccountMetricsReque
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2565,6 +2859,7 @@ func (a *AccountAPIService) GetAlertRuleExecute(r ApiGetAlertRuleRequest) (*Aler
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2574,6 +2869,7 @@ func (a *AccountAPIService) GetAlertRuleExecute(r ApiGetAlertRuleRequest) (*Aler
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2669,6 +2965,7 @@ func (a *AccountAPIService) GetJetStreamPlacementOptionsExecute(r ApiGetJetStrea
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2678,6 +2975,117 @@ func (a *AccountAPIService) GetJetStreamPlacementOptionsExecute(r ApiGetJetStrea
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetNatsUserRevocationRequest struct {
+	ctx            context.Context
+	ApiService     AccountAPI
+	accountId      string
+	userNkeyPublic string
+}
+
+func (r ApiGetNatsUserRevocationRequest) Execute() (*NatsUserRevocationViewResponse, *http.Response, error) {
+	return r.ApiService.GetNatsUserRevocationExecute(r)
+}
+
+/*
+GetNatsUserRevocation Get Revocation for a NATS User NKey
+
+Get Revocation for the given NATS User NKey
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId
+	@param userNkeyPublic
+	@return ApiGetNatsUserRevocationRequest
+*/
+func (a *AccountAPIService) GetNatsUserRevocation(ctx context.Context, accountId string, userNkeyPublic string) ApiGetNatsUserRevocationRequest {
+	return ApiGetNatsUserRevocationRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		accountId:      accountId,
+		userNkeyPublic: userNkeyPublic,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsUserRevocationViewResponse
+func (a *AccountAPIService) GetNatsUserRevocationExecute(r ApiGetNatsUserRevocationRequest) (*NatsUserRevocationViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsUserRevocationViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.GetNatsUserRevocation")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userNkeyPublic"+"}", url.PathEscape(parameterValueToString(r.userNkeyPublic, "userNkeyPublic")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2827,6 +3235,7 @@ func (a *AccountAPIService) ListAccountConnectionsExecute(r ApiListAccountConnec
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2836,6 +3245,7 @@ func (a *AccountAPIService) ListAccountConnectionsExecute(r ApiListAccountConnec
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2931,6 +3341,7 @@ func (a *AccountAPIService) ListAccountSkGroupExecute(r ApiListAccountSkGroupReq
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2940,6 +3351,7 @@ func (a *AccountAPIService) ListAccountSkGroupExecute(r ApiListAccountSkGroupReq
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3035,6 +3447,7 @@ func (a *AccountAPIService) ListAccountTeamAppUsersExecute(r ApiListAccountTeamA
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3044,6 +3457,7 @@ func (a *AccountAPIService) ListAccountTeamAppUsersExecute(r ApiListAccountTeamA
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3139,6 +3553,7 @@ func (a *AccountAPIService) ListAlertRulesExecute(r ApiListAlertRulesRequest) (*
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3148,6 +3563,7 @@ func (a *AccountAPIService) ListAlertRulesExecute(r ApiListAlertRulesRequest) (*
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3243,6 +3659,7 @@ func (a *AccountAPIService) ListJetStreamAssetsExecute(r ApiListJetStreamAssetsR
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3252,6 +3669,7 @@ func (a *AccountAPIService) ListJetStreamAssetsExecute(r ApiListJetStreamAssetsR
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3347,6 +3765,7 @@ func (a *AccountAPIService) ListKvBucketsExecute(r ApiListKvBucketsRequest) (*JS
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3356,6 +3775,7 @@ func (a *AccountAPIService) ListKvBucketsExecute(r ApiListKvBucketsRequest) (*JS
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3451,6 +3871,7 @@ func (a *AccountAPIService) ListMirrorsExecute(r ApiListMirrorsRequest) (*JSMirr
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3460,6 +3881,7 @@ func (a *AccountAPIService) ListMirrorsExecute(r ApiListMirrorsRequest) (*JSMirr
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3555,6 +3977,7 @@ func (a *AccountAPIService) ListObjectBucketsExecute(r ApiListObjectBucketsReque
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3564,6 +3987,7 @@ func (a *AccountAPIService) ListObjectBucketsExecute(r ApiListObjectBucketsReque
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3659,6 +4083,7 @@ func (a *AccountAPIService) ListStreamExportsExecute(r ApiListStreamExportsReque
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3668,6 +4093,7 @@ func (a *AccountAPIService) ListStreamExportsExecute(r ApiListStreamExportsReque
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3763,6 +4189,7 @@ func (a *AccountAPIService) ListStreamExportsSharedExecute(r ApiListStreamExport
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3772,6 +4199,7 @@ func (a *AccountAPIService) ListStreamExportsSharedExecute(r ApiListStreamExport
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3867,6 +4295,7 @@ func (a *AccountAPIService) ListStreamImportsExecute(r ApiListStreamImportsReque
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3876,6 +4305,7 @@ func (a *AccountAPIService) ListStreamImportsExecute(r ApiListStreamImportsReque
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3971,6 +4401,7 @@ func (a *AccountAPIService) ListStreamsExecute(r ApiListStreamsRequest) (*JSStre
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3980,6 +4411,7 @@ func (a *AccountAPIService) ListStreamsExecute(r ApiListStreamsRequest) (*JSStre
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4075,6 +4507,7 @@ func (a *AccountAPIService) ListSubjectExportsExecute(r ApiListSubjectExportsReq
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4084,6 +4517,7 @@ func (a *AccountAPIService) ListSubjectExportsExecute(r ApiListSubjectExportsReq
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4179,6 +4613,7 @@ func (a *AccountAPIService) ListSubjectExportsSharedExecute(r ApiListSubjectExpo
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4188,6 +4623,7 @@ func (a *AccountAPIService) ListSubjectExportsSharedExecute(r ApiListSubjectExpo
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4283,6 +4719,7 @@ func (a *AccountAPIService) ListSubjectImportsExecute(r ApiListSubjectImportsReq
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4292,6 +4729,7 @@ func (a *AccountAPIService) ListSubjectImportsExecute(r ApiListSubjectImportsReq
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4387,6 +4825,7 @@ func (a *AccountAPIService) ListUsersExecute(r ApiListUsersRequest) (*NatsUserLi
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4396,6 +4835,7 @@ func (a *AccountAPIService) ListUsersExecute(r ApiListUsersRequest) (*NatsUserLi
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4495,6 +4935,7 @@ func (a *AccountAPIService) RunAlertRuleExecute(r ApiRunAlertRuleRequest) (*Aler
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4504,6 +4945,7 @@ func (a *AccountAPIService) RunAlertRuleExecute(r ApiRunAlertRuleRequest) (*Aler
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4600,6 +5042,7 @@ func (a *AccountAPIService) UnAssignAccountTeamAppUserExecute(r ApiUnAssignAccou
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4692,6 +5135,7 @@ func (a *AccountAPIService) UnmanageAccountExecute(r ApiUnmanageAccountRequest) 
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4795,6 +5239,7 @@ func (a *AccountAPIService) UpdateAccountExecute(r ApiUpdateAccountRequest) (*Ac
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4804,6 +5249,7 @@ func (a *AccountAPIService) UpdateAccountExecute(r ApiUpdateAccountRequest) (*Ac
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4911,6 +5357,7 @@ func (a *AccountAPIService) UpdateAlertRuleExecute(r ApiUpdateAlertRuleRequest) 
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4920,6 +5367,7 @@ func (a *AccountAPIService) UpdateAlertRuleExecute(r ApiUpdateAlertRuleRequest) 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

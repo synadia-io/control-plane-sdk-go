@@ -208,6 +208,7 @@ func (a *SubjectExportAPIService) CreateSubjectSharesExecute(r ApiCreateSubjectS
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -217,6 +218,7 @@ func (a *SubjectExportAPIService) CreateSubjectSharesExecute(r ApiCreateSubjectS
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -309,6 +311,7 @@ func (a *SubjectExportAPIService) DeleteSubjectExportExecute(r ApiDeleteSubjectE
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -405,6 +408,7 @@ func (a *SubjectExportAPIService) DeleteSubjectShareExecute(r ApiDeleteSubjectSh
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -500,6 +504,7 @@ func (a *SubjectExportAPIService) GetSubjectExportExecute(r ApiGetSubjectExportR
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -509,6 +514,7 @@ func (a *SubjectExportAPIService) GetSubjectExportExecute(r ApiGetSubjectExportR
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -604,6 +610,7 @@ func (a *SubjectExportAPIService) ListSubjectSharesExecute(r ApiListSubjectShare
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -613,6 +620,7 @@ func (a *SubjectExportAPIService) ListSubjectSharesExecute(r ApiListSubjectShare
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -716,6 +724,7 @@ func (a *SubjectExportAPIService) UpdateSubjectExportExecute(r ApiUpdateSubjectE
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -725,6 +734,7 @@ func (a *SubjectExportAPIService) UpdateSubjectExportExecute(r ApiUpdateSubjectE
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

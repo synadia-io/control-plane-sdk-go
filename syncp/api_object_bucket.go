@@ -208,6 +208,7 @@ func (a *ObjectBucketAPIService) CreateObjPullConsumerExecute(r ApiCreateObjPull
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -217,6 +218,7 @@ func (a *ObjectBucketAPIService) CreateObjPullConsumerExecute(r ApiCreateObjPull
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -320,6 +322,7 @@ func (a *ObjectBucketAPIService) CreateObjPushConsumerExecute(r ApiCreateObjPush
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -329,6 +332,7 @@ func (a *ObjectBucketAPIService) CreateObjPushConsumerExecute(r ApiCreateObjPush
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -421,6 +425,7 @@ func (a *ObjectBucketAPIService) DeleteObjectBucketExecute(r ApiDeleteObjectBuck
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -516,6 +521,7 @@ func (a *ObjectBucketAPIService) GetObjectBucketExecute(r ApiGetObjectBucketRequ
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -525,6 +531,7 @@ func (a *ObjectBucketAPIService) GetObjectBucketExecute(r ApiGetObjectBucketRequ
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -620,6 +627,7 @@ func (a *ObjectBucketAPIService) ListObjConsumersExecute(r ApiListObjConsumersRe
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -629,6 +637,7 @@ func (a *ObjectBucketAPIService) ListObjConsumersExecute(r ApiListObjConsumersRe
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -732,6 +741,7 @@ func (a *ObjectBucketAPIService) UpdateObjectBucketExecute(r ApiUpdateObjectBuck
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -741,6 +751,7 @@ func (a *ObjectBucketAPIService) UpdateObjectBucketExecute(r ApiUpdateObjectBuck
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

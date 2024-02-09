@@ -156,6 +156,7 @@ func (a *AuthzAPIService) CheckExecute(r ApiCheckRequest) ([]AuthzResponse, *htt
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -165,6 +166,7 @@ func (a *AuthzAPIService) CheckExecute(r ApiCheckRequest) ([]AuthzResponse, *htt
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -256,6 +258,7 @@ func (a *AuthzAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*Policy
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -265,6 +268,7 @@ func (a *AuthzAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*Policy
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -356,6 +360,7 @@ func (a *AuthzAPIService) ListRolesExecute(r ApiListRolesRequest) (*RoleListResp
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -365,6 +370,7 @@ func (a *AuthzAPIService) ListRolesExecute(r ApiListRolesRequest) (*RoleListResp
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

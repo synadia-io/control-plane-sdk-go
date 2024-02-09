@@ -152,6 +152,7 @@ func (a *PersonalAccessTokenAPIService) DeletePersonalAccessTokenExecute(r ApiDe
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -247,6 +248,7 @@ func (a *PersonalAccessTokenAPIService) GetPersonalAccessTokenExecute(r ApiGetPe
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -256,6 +258,7 @@ func (a *PersonalAccessTokenAPIService) GetPersonalAccessTokenExecute(r ApiGetPe
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -359,6 +362,7 @@ func (a *PersonalAccessTokenAPIService) UpdatePersonalAccessTokenExecute(r ApiUp
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -368,6 +372,7 @@ func (a *PersonalAccessTokenAPIService) UpdatePersonalAccessTokenExecute(r ApiUp
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

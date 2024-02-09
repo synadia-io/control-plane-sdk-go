@@ -1,12 +1,14 @@
-# NatsUserUpdateRequest
+# NatsUserRevocationViewResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**JwtExpiresInSecs** | Pointer to **int64** |  | [optional] 
-**JwtSettings** | Pointer to [**NatsUserJwtSettings**](NatsUserJwtSettings.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**AccountId** | **string** |  | 
+**AccountSkId** | Pointer to **string** |  | [optional] 
+**Before** | **int64** |  | 
+**Created** | **time.Time** |  | 
+**UserNkeyPublic** | **string** |  | 
 
 ## Methods
 

@@ -122,6 +122,7 @@ func (a *AgentTokenAPIService) DeleteAgentTokenExecute(r ApiDeleteAgentTokenRequ
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}

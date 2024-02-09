@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Jwt** | **string** |  | 
 **Seed** | **string** |  | 
-**SigningKeys** | Pointer to []**string** |  | [optional] 
+**SigningKeys** | Pointer to Nullable[[]**string**] |  | [optional] 
 
 ## Methods
 

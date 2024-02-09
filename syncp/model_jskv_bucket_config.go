@@ -16,6 +16,7 @@ var _ MappedNullable = &JSKVBucketConfig{}
 // JSKVBucketConfig struct for JSKVBucketConfig
 type JSKVBucketConfig struct {
 	Bucket       string          `json:"bucket"`
+	Compression  *bool           `json:"compression,omitempty"`
 	Description  *string         `json:"description,omitempty"`
 	History      *int32          `json:"history,omitempty"`
 	MaxAge       *int64          `json:"max_age,omitempty"`
@@ -32,6 +33,9 @@ type JSKVBucketConfig struct {
 func (o JSKVBucketConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["bucket"] = o.Bucket
+	if o.Compression != nil {
+		toSerialize["compression"] = o.Compression
+	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}

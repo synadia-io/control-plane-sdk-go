@@ -152,6 +152,7 @@ func (a *PushConsumerAPIService) DeletePushConsumerExecute(r ApiDeletePushConsum
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -247,6 +248,7 @@ func (a *PushConsumerAPIService) GetPushConsumerInfoExecute(r ApiGetPushConsumer
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -256,6 +258,7 @@ func (a *PushConsumerAPIService) GetPushConsumerInfoExecute(r ApiGetPushConsumer
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -359,6 +362,7 @@ func (a *PushConsumerAPIService) UpdatePushConsumerExecute(r ApiUpdatePushConsum
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -368,6 +372,7 @@ func (a *PushConsumerAPIService) UpdatePushConsumerExecute(r ApiUpdatePushConsum
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}

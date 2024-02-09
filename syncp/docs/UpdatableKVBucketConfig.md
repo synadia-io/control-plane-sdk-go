@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Compression** | Pointer to **bool** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **History** | Pointer to **int32** |  | [optional] 
 **MaxAge** | Pointer to **int64** |  | [optional] 

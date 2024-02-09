@@ -15,6 +15,7 @@ var _ MappedNullable = &UpdatableKVBucketConfig{}
 
 // UpdatableKVBucketConfig struct for UpdatableKVBucketConfig
 type UpdatableKVBucketConfig struct {
+	Compression  *bool           `json:"compression,omitempty"`
 	Description  *string         `json:"description,omitempty"`
 	History      *int32          `json:"history,omitempty"`
 	MaxAge       *int64          `json:"max_age,omitempty"`
@@ -29,6 +30,9 @@ type UpdatableKVBucketConfig struct {
 
 func (o UpdatableKVBucketConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Compression != nil {
+		toSerialize["compression"] = o.Compression
+	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}

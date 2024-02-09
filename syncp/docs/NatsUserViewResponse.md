@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **JwtExpiresInSecs** | **int64** |  | 
 **JwtSettings** | [**NatsUserJwtSettings**](NatsUserJwtSettings.md) |  | 
 **Name** | **string** |  | 
-**Revoked** | **bool** |  | 
 **SkGroupId** | Pointer to **string** |  | [optional] 
 **System** | [**SystemInfo**](SystemInfo.md) |  | 
 **Team** | [**TeamInfo**](TeamInfo.md) |  | 

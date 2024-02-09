@@ -137,6 +137,7 @@ func (a *StreamImportAPIService) DeleteStreamImportExecute(r ApiDeleteStreamImpo
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -232,6 +233,7 @@ func (a *StreamImportAPIService) GetStreamImportExecute(r ApiGetStreamImportRequ
 
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -241,6 +243,7 @@ func (a *StreamImportAPIService) GetStreamImportExecute(r ApiGetStreamImportRequ
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
 			body:  localVarBody,
 			error: err.Error(),
 		}
