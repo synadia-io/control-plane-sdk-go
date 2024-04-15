@@ -19,22 +19,22 @@ var _ MappedNullable = &AppUserViewResponse{}
 
 // AppUserViewResponse struct for AppUserViewResponse
 type AppUserViewResponse struct {
-	Created         time.Time        `json:"created"`
-	Id              string           `json:"id"`
-	Identifier      Nullable[string] `json:"identifier"`
-	Name            string           `json:"name"`
-	PendingCreation bool             `json:"pending_creation"`
-	RoleId          string           `json:"role_id"`
-	RoleName        string           `json:"role_name"`
-	Type            AppUserType      `json:"type"`
+	Created         time.Time   `json:"created"`
+	Id              string      `json:"id"`
+	Identifier      *string     `json:"identifier,omitempty"`
+	Name            string      `json:"name"`
+	PendingCreation bool        `json:"pending_creation"`
+	RoleId          string      `json:"role_id"`
+	RoleName        string      `json:"role_name"`
+	Type            AppUserType `json:"type"`
 }
 
 func (o AppUserViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["created"] = o.Created
 	toSerialize["id"] = o.Id
-	if !o.Identifier.IsNull() {
-		toSerialize["identifier"] = o.Identifier.Val
+	if o.Identifier != nil {
+		toSerialize["identifier"] = o.Identifier
 	}
 	toSerialize["name"] = o.Name
 	toSerialize["pending_creation"] = o.PendingCreation

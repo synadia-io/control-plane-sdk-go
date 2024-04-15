@@ -20,7 +20,7 @@ type StreamSource struct {
 	Name              string                    `json:"name"`
 	OptStartSeq       *int32                    `json:"opt_start_seq,omitempty"`
 	OptStartTime      *Nullable[string]         `json:"opt_start_time,omitempty"`
-	SubjectTransforms *[]SubjectTransformConfig `json:"subject_transforms,omitempty"`
+	SubjectTransforms []SubjectTransformConfig  `json:"subject_transforms,omitempty"`
 }
 
 func (o StreamSource) ToMap() (map[string]interface{}, error) {
@@ -38,7 +38,7 @@ func (o StreamSource) ToMap() (map[string]interface{}, error) {
 	if o.OptStartTime != nil && !o.OptStartTime.IsNull() {
 		toSerialize["opt_start_time"] = o.OptStartTime.Val
 	}
-	if o.SubjectTransforms != nil {
+	if len(o.SubjectTransforms) != 0 {
 		toSerialize["subject_transforms"] = o.SubjectTransforms
 	}
 	return toSerialize, nil

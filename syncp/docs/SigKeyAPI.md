@@ -170,7 +170,7 @@ import (
 
 func main() {
     keyId := "keyId_example" // string | 
-    signingKeyUpdateRequest := *openapiclient.NewSigningKeyUpdateRequest(false) // SigningKeyUpdateRequest |  (optional)
+    signingKeyUpdateRequest := *openapiclient.NewSigningKeyUpdateRequest() // SigningKeyUpdateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

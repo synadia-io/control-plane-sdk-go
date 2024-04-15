@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to Nullable[**string**] |  | [optional] 
-**ConsumerName** | Pointer to Nullable[**string**] |  | [optional] 
+**AccountId** | Pointer to **string** |  | [optional] 
+**ConsumerName** | Pointer to **string** |  | [optional] 
 **Created** | **time.Time** |  | 
 **DurationInSecs** | **int32** |  | 
 **Id** | **string** |  | 
 **IsEnabled** | **bool** |  | 
 **Message** | **string** |  | 
 **Metric** | **string** |  | 
-**ParentRuleId** | Pointer to Nullable[**string**] |  | [optional] 
 **RuleType** | [**AlertRuleType**](AlertRuleType.md) |  | 
 **Severity** | [**AlertRuleSeverity**](AlertRuleSeverity.md) |  | 
-**StreamName** | Pointer to Nullable[**string**] |  | [optional] 
-**SystemId** | Pointer to Nullable[**string**] |  | [optional] 
-**ThresholdExpression** | Pointer to Nullable[**string**] |  | [optional] 
-**ThresholdFixedValue** | Pointer to Nullable[**float32**] |  | [optional] 
+**StreamName** | Pointer to **string** |  | [optional] 
+**SystemId** | Pointer to **string** |  | [optional] 
+**ThresholdExpressionMetric** | Pointer to **string** |  | [optional] 
+**ThresholdExpressionMultiplier** | Pointer to **float32** |  | [optional] 
+**ThresholdFixedValue** | Pointer to **float32** |  | [optional] 
 **ThresholdOperator** | **string** |  | 
 
 ## Methods

@@ -10,29 +10,33 @@ API version: beta
 
 package syncp
 
+import (
+	"time"
+)
+
 // checks if the JSCommonConsumerConfigRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &JSCommonConsumerConfigRequest{}
 
 // JSCommonConsumerConfigRequest struct for JSCommonConsumerConfigRequest
 type JSCommonConsumerConfigRequest struct {
-	AckPolicy         AckPolicy         `json:"ack_policy"`
-	AckWait           *int64            `json:"ack_wait,omitempty"`
-	Backoff           *[]int64          `json:"backoff,omitempty"`
-	DeliverPolicy     DeliverPolicy     `json:"deliver_policy"`
-	Description       *string           `json:"description,omitempty"`
-	Direct            *bool             `json:"direct,omitempty"`
-	DurableName       *string           `json:"durable_name,omitempty"`
-	FilterSubject     *string           `json:"filter_subject,omitempty"`
-	InactiveThreshold *int64            `json:"inactive_threshold,omitempty"`
-	MaxAckPending     *int32            `json:"max_ack_pending,omitempty"`
-	MaxDeliver        *int32            `json:"max_deliver,omitempty"`
-	MemStorage        *bool             `json:"mem_storage,omitempty"`
-	Name              *string           `json:"name,omitempty"`
-	NumReplicas       int32             `json:"num_replicas"`
-	OptStartSeq       *int32            `json:"opt_start_seq,omitempty"`
-	OptStartTime      *Nullable[string] `json:"opt_start_time,omitempty"`
-	ReplayPolicy      ReplayPolicy      `json:"replay_policy"`
-	SampleFreq        *string           `json:"sample_freq,omitempty"`
+	AckPolicy         AckPolicy     `json:"ack_policy"`
+	AckWait           *int64        `json:"ack_wait,omitempty"`
+	Backoff           []int64       `json:"backoff,omitempty"`
+	DeliverPolicy     DeliverPolicy `json:"deliver_policy"`
+	Description       *string       `json:"description,omitempty"`
+	Direct            *bool         `json:"direct,omitempty"`
+	DurableName       *string       `json:"durable_name,omitempty"`
+	FilterSubject     *string       `json:"filter_subject,omitempty"`
+	InactiveThreshold *int64        `json:"inactive_threshold,omitempty"`
+	MaxAckPending     *int32        `json:"max_ack_pending,omitempty"`
+	MaxDeliver        *int32        `json:"max_deliver,omitempty"`
+	MemStorage        *bool         `json:"mem_storage,omitempty"`
+	Name              *string       `json:"name,omitempty"`
+	NumReplicas       int32         `json:"num_replicas"`
+	OptStartSeq       *int32        `json:"opt_start_seq,omitempty"`
+	OptStartTime      *time.Time    `json:"opt_start_time,omitempty"`
+	ReplayPolicy      ReplayPolicy  `json:"replay_policy"`
+	SampleFreq        *string       `json:"sample_freq,omitempty"`
 }
 
 func (o JSCommonConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
@@ -41,7 +45,7 @@ func (o JSCommonConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if o.AckWait != nil {
 		toSerialize["ack_wait"] = o.AckWait
 	}
-	if o.Backoff != nil {
+	if len(o.Backoff) != 0 {
 		toSerialize["backoff"] = o.Backoff
 	}
 	toSerialize["deliver_policy"] = o.DeliverPolicy
@@ -76,8 +80,8 @@ func (o JSCommonConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if o.OptStartSeq != nil {
 		toSerialize["opt_start_seq"] = o.OptStartSeq
 	}
-	if o.OptStartTime != nil && !o.OptStartTime.IsNull() {
-		toSerialize["opt_start_time"] = o.OptStartTime.Val
+	if o.OptStartTime != nil {
+		toSerialize["opt_start_time"] = o.OptStartTime
 	}
 	toSerialize["replay_policy"] = o.ReplayPolicy
 	if o.SampleFreq != nil {

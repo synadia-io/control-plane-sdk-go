@@ -49,7 +49,7 @@ func (o JSPushConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if o.AckWait != nil {
 		toSerialize["ack_wait"] = o.AckWait
 	}
-	if o.Backoff != nil {
+	if len(o.Backoff) != 0 {
 		toSerialize["backoff"] = o.Backoff
 	}
 	toSerialize["deliver_policy"] = o.DeliverPolicy
@@ -84,8 +84,8 @@ func (o JSPushConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if o.OptStartSeq != nil {
 		toSerialize["opt_start_seq"] = o.OptStartSeq
 	}
-	if o.OptStartTime != nil && !o.OptStartTime.IsNull() {
-		toSerialize["opt_start_time"] = o.OptStartTime.Val
+	if o.OptStartTime != nil {
+		toSerialize["opt_start_time"] = o.OptStartTime
 	}
 	toSerialize["replay_policy"] = o.ReplayPolicy
 	if o.SampleFreq != nil {

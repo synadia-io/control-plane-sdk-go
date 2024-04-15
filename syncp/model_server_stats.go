@@ -24,11 +24,11 @@ type ServerStats struct {
 	Connections      int32                    `json:"connections"`
 	Cores            int32                    `json:"cores"`
 	Cpu              float64                  `json:"cpu"`
-	Gateways         *[]GatewayStat           `json:"gateways,omitempty"`
+	Gateways         []GatewayStat            `json:"gateways,omitempty"`
 	Jetstream        *Nullable[JetStreamVarz] `json:"jetstream,omitempty"`
 	Mem              int64                    `json:"mem"`
 	Received         DataStats                `json:"received"`
-	Routes           *[]RouteStat             `json:"routes,omitempty"`
+	Routes           []RouteStat              `json:"routes,omitempty"`
 	Sent             DataStats                `json:"sent"`
 	SlowConsumers    int64                    `json:"slow_consumers"`
 	Start            time.Time                `json:"start"`
@@ -45,7 +45,7 @@ func (o ServerStats) ToMap() (map[string]interface{}, error) {
 	toSerialize["connections"] = o.Connections
 	toSerialize["cores"] = o.Cores
 	toSerialize["cpu"] = o.Cpu
-	if o.Gateways != nil {
+	if len(o.Gateways) != 0 {
 		toSerialize["gateways"] = o.Gateways
 	}
 	if o.Jetstream != nil && !o.Jetstream.IsNull() {
@@ -53,7 +53,7 @@ func (o ServerStats) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["mem"] = o.Mem
 	toSerialize["received"] = o.Received
-	if o.Routes != nil {
+	if len(o.Routes) != 0 {
 		toSerialize["routes"] = o.Routes
 	}
 	toSerialize["sent"] = o.Sent

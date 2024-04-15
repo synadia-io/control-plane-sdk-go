@@ -4,13 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**JetstreamDomain** | Pointer to Nullable[**string**] |  | [optional] 
+**JetstreamDomain** | Pointer to **string** |  | [optional] 
 **JetstreamEnabled** | Pointer to **bool** |  | [optional] [default to true]
 **OperatorJwt** | **string** |  | 
 **OperatorKey** | **string** |  | 
 **SystemJwt** | **string** |  | 
 **SystemKey** | **string** |  | 
-**TeamId** | **string** |  | 
 
 ## Methods
 

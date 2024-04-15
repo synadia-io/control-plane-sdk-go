@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **ResponseThreshold** | Pointer to **int64** |  | [optional] 
 **ResponseType** | Pointer to [**ResponseType**](ResponseType.md) |  | [optional] 
 **Revocations** | Pointer to **map[string]int64** | RevocationList is used to store a mapping of public keys to unix timestamps | [optional] 
-**ServiceLatency** | Pointer to Nullable[[**ServiceLatency**](ServiceLatency.md)] |  | [optional] 
-**Subject** | Pointer to **string** | Subject is a string that represents a NATS subject | [optional] 
+**ServiceLatency** | Pointer to [**ServiceLatency**](ServiceLatency.md) |  | [optional] 
+**Subject** | Pointer to **string** |  | [optional] 
 **TokenReq** | Pointer to **bool** |  | [optional] 
 **Type** | Pointer to [**ExportType**](ExportType.md) |  | [optional] 
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Src** | Pointer to Nullable[[]**string**] |  | [optional] 
+**Src** | Pointer to []**string** |  | [optional] 
 **Times** | Pointer to [][**TimeRange**](TimeRange.md) |  | [optional] 
 **TimesLocation** | Pointer to **string** |  | [optional] 
 

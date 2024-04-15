@@ -15,9 +15,9 @@ var _ MappedNullable = &Permissions{}
 
 // Permissions Permissions are used to restrict subject access, either on a user or for everyone on a server by default
 type Permissions struct {
-	Pub  *Permission                   `json:"pub,omitempty"`
-	Resp *Nullable[ResponsePermission] `json:"resp,omitempty"`
-	Sub  *Permission                   `json:"sub,omitempty"`
+	Pub  *Permission         `json:"pub,omitempty"`
+	Resp *ResponsePermission `json:"resp,omitempty"`
+	Sub  *Permission         `json:"sub,omitempty"`
 }
 
 func (o Permissions) ToMap() (map[string]interface{}, error) {
@@ -25,8 +25,8 @@ func (o Permissions) ToMap() (map[string]interface{}, error) {
 	if o.Pub != nil {
 		toSerialize["pub"] = o.Pub
 	}
-	if o.Resp != nil && !o.Resp.IsNull() {
-		toSerialize["resp"] = o.Resp.Val
+	if o.Resp != nil {
+		toSerialize["resp"] = o.Resp
 	}
 	if o.Sub != nil {
 		toSerialize["sub"] = o.Sub

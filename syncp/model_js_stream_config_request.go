@@ -16,12 +16,12 @@ var _ MappedNullable = &JSStreamConfigRequest{}
 // JSStreamConfigRequest struct for JSStreamConfigRequest
 type JSStreamConfigRequest struct {
 	JSCommonStreamConfig
-	Subjects *[]string `json:"subjects,omitempty"`
+	Subjects []string `json:"subjects,omitempty"`
 }
 
 func (o JSStreamConfigRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Subjects != nil {
+	if len(o.Subjects) != 0 {
 		toSerialize["subjects"] = o.Subjects
 	}
 	toSerialize["allow_direct"] = o.AllowDirect
@@ -57,16 +57,16 @@ func (o JSStreamConfigRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["no_ack"] = o.NoAck
 	}
 	toSerialize["num_replicas"] = o.NumReplicas
-	if o.Placement != nil && !o.Placement.IsNull() {
-		toSerialize["placement"] = o.Placement.Val
+	if o.Placement != nil {
+		toSerialize["placement"] = o.Placement
 	}
-	if o.Republish != nil && !o.Republish.IsNull() {
-		toSerialize["republish"] = o.Republish.Val
+	if o.Republish != nil {
+		toSerialize["republish"] = o.Republish
 	}
 	toSerialize["retention"] = o.Retention
 	toSerialize["sealed"] = o.Sealed
-	if o.Sources != nil && !o.Sources.IsNull() {
-		toSerialize["sources"] = o.Sources.Val
+	if len(o.Sources) != 0 {
+		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["storage"] = o.Storage
 	if o.SubjectTransform != nil {

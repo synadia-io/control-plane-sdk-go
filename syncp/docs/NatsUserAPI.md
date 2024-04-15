@@ -7,7 +7,9 @@ Method | HTTP request | Description
 [**AssignNatsUserTeamAppUser**](NatsUserAPI.md#AssignNatsUserTeamAppUser) | **Post** /nats-users/{userId}/app-users/{teamAppUserId} | Assign Team App User to NATS User
 [**CopyNatsUser**](NatsUserAPI.md#CopyNatsUser) | **Post** /nats-users/{userId}/copy | Copy nats user
 [**DeleteNatsUser**](NatsUserAPI.md#DeleteNatsUser) | **Delete** /nats-users/{userId} | Delete NATS User
+[**DownloadNatsUserBearerJwt**](NatsUserAPI.md#DownloadNatsUserBearerJwt) | **Post** /nats-users/{userId}/bearer-jwt | Get Bearer JWT
 [**DownloadNatsUserCreds**](NatsUserAPI.md#DownloadNatsUserCreds) | **Post** /nats-users/{userId}/creds | Get Creds
+[**DownloadNatsUserHttpGwToken**](NatsUserAPI.md#DownloadNatsUserHttpGwToken) | **Post** /nats-users/{userId}/http-gw-token | Get HTTP Gateway Token
 [**GetNatsUser**](NatsUserAPI.md#GetNatsUser) | **Get** /nats-users/{userId} | Get NATS User
 [**ListNatsUserConnections**](NatsUserAPI.md#ListNatsUserConnections) | **Get** /nats-users/{userId}/connections | List NATs User Connections
 [**ListNatsUserIssuances**](NatsUserAPI.md#ListNatsUserIssuances) | **Get** /nats-users/{userId}/issuances | List nats user issuances
@@ -233,6 +235,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DownloadNatsUserBearerJwt
+
+> string DownloadNatsUserBearerJwt(ctx, userId).Execute()
+
+Get Bearer JWT
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    userId := "userId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.NatsUserAPI.DownloadNatsUserBearerJwt(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.DownloadNatsUserBearerJwt``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DownloadNatsUserBearerJwt`: string
+    fmt.Fprintf(os.Stdout, "Response from `NatsUserAPI.DownloadNatsUserBearerJwt`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**userId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDownloadNatsUserBearerJwtRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## DownloadNatsUserCreds
 
 > string DownloadNatsUserCreds(ctx, userId).Execute()
@@ -297,6 +369,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DownloadNatsUserHttpGwToken
+
+> NatsUserHTTPGWTokenCreateReply DownloadNatsUserHttpGwToken(ctx, userId).Execute()
+
+Get HTTP Gateway Token
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    userId := "userId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.NatsUserAPI.DownloadNatsUserHttpGwToken(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.DownloadNatsUserHttpGwToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DownloadNatsUserHttpGwToken`: NatsUserHTTPGWTokenCreateReply
+    fmt.Fprintf(os.Stdout, "Response from `NatsUserAPI.DownloadNatsUserHttpGwToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**userId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDownloadNatsUserHttpGwTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**NatsUserHTTPGWTokenCreateReply**](NatsUserHTTPGWTokenCreateReply.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -20,10 +20,10 @@ type Operator struct {
 	AccountServerUrl *string `json:"account_server_url,omitempty"`
 	// Min Server version
 	AssertServerVersion *string `json:"assert_server_version,omitempty"`
-	// StringList is a wrapper for an array of strings
-	OperatorServiceUrls *Nullable[[]string] `json:"operator_service_urls,omitempty"`
-	// StringList is a wrapper for an array of strings
-	SigningKeys *Nullable[[]string] `json:"signing_keys,omitempty"`
+	// A list of NATS urls (tls://host:port) where tools can connect to the server using proper credentials.
+	OperatorServiceUrls []string `json:"operator_service_urls,omitempty"`
+	// Slice of other operator NKeys that can be used to sign on behalf of the main operator identity.
+	SigningKeys []string `json:"signing_keys,omitempty"`
 	// Signing of subordinate objects will require signing keys
 	StrictSigningKeyUsage *bool `json:"strict_signing_key_usage,omitempty"`
 	// Identity of the system account
@@ -38,11 +38,11 @@ func (o Operator) ToMap() (map[string]interface{}, error) {
 	if o.AssertServerVersion != nil {
 		toSerialize["assert_server_version"] = o.AssertServerVersion
 	}
-	if o.OperatorServiceUrls != nil && !o.OperatorServiceUrls.IsNull() {
-		toSerialize["operator_service_urls"] = o.OperatorServiceUrls.Val
+	if len(o.OperatorServiceUrls) != 0 {
+		toSerialize["operator_service_urls"] = o.OperatorServiceUrls
 	}
-	if o.SigningKeys != nil && !o.SigningKeys.IsNull() {
-		toSerialize["signing_keys"] = o.SigningKeys.Val
+	if len(o.SigningKeys) != 0 {
+		toSerialize["signing_keys"] = o.SigningKeys
 	}
 	if o.StrictSigningKeyUsage != nil {
 		toSerialize["strict_signing_key_usage"] = o.StrictSigningKeyUsage
@@ -50,8 +50,8 @@ func (o Operator) ToMap() (map[string]interface{}, error) {
 	if o.SystemAccount != nil {
 		toSerialize["system_account"] = o.SystemAccount
 	}
-	if o.Tags != nil && !o.Tags.IsNull() {
-		toSerialize["tags"] = o.Tags.Val
+	if len(o.Tags) != 0 {
+		toSerialize["tags"] = o.Tags
 	}
 	if o.Type != nil {
 		toSerialize["type"] = o.Type

@@ -21,14 +21,18 @@ type NatsUserIssuanceEventType string
 
 // List of NatsUserIssuanceEventType
 const (
-	NATSUSERISSUANCEEVENTTYPE_IMPORT   NatsUserIssuanceEventType = "Import"
-	NATSUSERISSUANCEEVENTTYPE_DOWNLOAD NatsUserIssuanceEventType = "Download"
+	NATSUSERISSUANCEEVENTTYPE_IMPORT        NatsUserIssuanceEventType = "Import"
+	NATSUSERISSUANCEEVENTTYPE_DOWNLOAD      NatsUserIssuanceEventType = "Download"
+	NATSUSERISSUANCEEVENTTYPE_BEARER_JWT    NatsUserIssuanceEventType = "BearerJwt"
+	NATSUSERISSUANCEEVENTTYPE_HTTP_GW_TOKEN NatsUserIssuanceEventType = "HttpGwToken"
 )
 
 // All allowed values of NatsUserIssuanceEventType enum
 var AllowedNatsUserIssuanceEventTypeEnumValues = []NatsUserIssuanceEventType{
 	"Import",
 	"Download",
+	"BearerJwt",
+	"HttpGwToken",
 }
 
 func (v *NatsUserIssuanceEventType) UnmarshalJSON(src []byte) error {

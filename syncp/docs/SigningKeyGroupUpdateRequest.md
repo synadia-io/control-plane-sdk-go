@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Disabled** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Scope** | Pointer to [**UserPermissionLimits**](UserPermissionLimits.md) |  | [optional] 
+**Scope** | Pointer to [**UserPermissionLimitsPatch**](UserPermissionLimitsPatch.md) |  | [optional] 
 
 ## Methods
 

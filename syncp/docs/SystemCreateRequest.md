@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**JetstreamDomain** | Pointer to Nullable[**string**] |  | [optional] 
+**ConnectionType** | Pointer to [**SystemConnectionType**](SystemConnectionType.md) |  | [optional] [default to SYSTEMCONNECTIONTYPE_AGENT]
+**DirectConnectionOpts** | Pointer to [**SystemDirectConnectionOpts**](SystemDirectConnectionOpts.md) |  | [optional] 
+**JetstreamDomain** | Pointer to **string** |  | [optional] 
 **JetstreamEnabled** | Pointer to **bool** |  | [optional] [default to true]
 **Name** | **string** |  | 
-**TeamId** | **string** |  | 
-**Url** | Pointer to Nullable[**string**] |  | [optional] 
+**Url** | **string** |  | 
 
 ## Methods
 

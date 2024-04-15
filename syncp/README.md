@@ -117,6 +117,14 @@ Class | Method | HTTP request | Description
 *AgentTokenAPI* | [**DeleteAgentToken**](docs/AgentTokenAPI.md#deleteagenttoken) | **Delete** /agent-tokens/{tokenId} | Delete Agent Token
 *AlertAPI* | [**AcknowledgeAlert**](docs/AlertAPI.md#acknowledgealert) | **Patch** /alerts/{alertId}/acknowledge | Acknowledge Alert
 *AlertAPI* | [**GetAlert**](docs/AlertAPI.md#getalert) | **Get** /alerts/{alertId} | Get Alert
+*AppServiceAccountAPI* | [**CreateAppServiceAccountToken**](docs/AppServiceAccountAPI.md#createappserviceaccounttoken) | **Post** /service-accounts/app/{serviceAccountId}/tokens | Create Acess Token for App Service Account
+*AppServiceAccountAPI* | [**DeleteAppServiceAccount**](docs/AppServiceAccountAPI.md#deleteappserviceaccount) | **Delete** /service-accounts/app/{serviceAccountId} | Delete App Service Account
+*AppServiceAccountAPI* | [**GetAppServiceAccount**](docs/AppServiceAccountAPI.md#getappserviceaccount) | **Get** /service-accounts/app/{serviceAccountId} | Get App Service Account
+*AppServiceAccountAPI* | [**ListAppServiceAccountTokens**](docs/AppServiceAccountAPI.md#listappserviceaccounttokens) | **Get** /service-accounts/app/{serviceAccountId}/tokens | List Access Tokens for App Service Account
+*AppServiceAccountAPI* | [**UpdateAppServiceAccount**](docs/AppServiceAccountAPI.md#updateappserviceaccount) | **Patch** /service-accounts/app/{serviceAccountId} | Update App Service Account
+*AppServiceAccountTokensAPI* | [**DeleteAppServiceAccountToken**](docs/AppServiceAccountTokensAPI.md#deleteappserviceaccounttoken) | **Delete** /service-account-tokens/app/{tokenId} | Delete App Service Account Token
+*AppServiceAccountTokensAPI* | [**GetAppServiceAccountToken**](docs/AppServiceAccountTokensAPI.md#getappserviceaccounttoken) | **Get** /service-account-tokens/app/{tokenId} | Get App Service Account Token
+*AppServiceAccountTokensAPI* | [**UpdateAppServiceAccountToken**](docs/AppServiceAccountTokensAPI.md#updateappserviceaccounttoken) | **Patch** /service-account-tokens/app/{tokenId} | Update App Service Account Token
 *AppUserAPI* | [**AssignTeamAppUser**](docs/AppUserAPI.md#assignteamappuser) | **Post** /app-users/{appUserId}/teams/{teamId} | Assign App User to Team
 *AppUserAPI* | [**DeleteAppUser**](docs/AppUserAPI.md#deleteappuser) | **Delete** /app-users/{appUserId} | Delete App User
 *AppUserAPI* | [**GetAppUser**](docs/AppUserAPI.md#getappuser) | **Get** /app-users/{appUserId} | Get App User
@@ -141,7 +149,9 @@ Class | Method | HTTP request | Description
 *NatsUserAPI* | [**AssignNatsUserTeamAppUser**](docs/NatsUserAPI.md#assignnatsuserteamappuser) | **Post** /nats-users/{userId}/app-users/{teamAppUserId} | Assign Team App User to NATS User
 *NatsUserAPI* | [**CopyNatsUser**](docs/NatsUserAPI.md#copynatsuser) | **Post** /nats-users/{userId}/copy | Copy nats user
 *NatsUserAPI* | [**DeleteNatsUser**](docs/NatsUserAPI.md#deletenatsuser) | **Delete** /nats-users/{userId} | Delete NATS User
+*NatsUserAPI* | [**DownloadNatsUserBearerJwt**](docs/NatsUserAPI.md#downloadnatsuserbearerjwt) | **Post** /nats-users/{userId}/bearer-jwt | Get Bearer JWT
 *NatsUserAPI* | [**DownloadNatsUserCreds**](docs/NatsUserAPI.md#downloadnatsusercreds) | **Post** /nats-users/{userId}/creds | Get Creds
+*NatsUserAPI* | [**DownloadNatsUserHttpGwToken**](docs/NatsUserAPI.md#downloadnatsuserhttpgwtoken) | **Post** /nats-users/{userId}/http-gw-token | Get HTTP Gateway Token
 *NatsUserAPI* | [**GetNatsUser**](docs/NatsUserAPI.md#getnatsuser) | **Get** /nats-users/{userId} | Get NATS User
 *NatsUserAPI* | [**ListNatsUserConnections**](docs/NatsUserAPI.md#listnatsuserconnections) | **Get** /nats-users/{userId}/connections | List NATs User Connections
 *NatsUserAPI* | [**ListNatsUserIssuances**](docs/NatsUserAPI.md#listnatsuserissuances) | **Get** /nats-users/{userId}/issuances | List nats user issuances
@@ -165,12 +175,14 @@ Class | Method | HTTP request | Description
 *PushConsumerAPI* | [**GetPushConsumerInfo**](docs/PushConsumerAPI.md#getpushconsumerinfo) | **Get** /consumers/push/{consumerId} | Get Push Consumer
 *PushConsumerAPI* | [**UpdatePushConsumer**](docs/PushConsumerAPI.md#updatepushconsumer) | **Patch** /consumers/push/{consumerId} | Update Push Consumer
 *SessionAPI* | [**AcceptTerms**](docs/SessionAPI.md#acceptterms) | **Post** /terms/accept | Accept terms
+*SessionAPI* | [**CreateAppServiceAccount**](docs/SessionAPI.md#createappserviceaccount) | **Post** /service-accounts/app | Create App Service Account
 *SessionAPI* | [**CreateAppUser**](docs/SessionAPI.md#createappuser) | **Post** /app-users | Create App User
 *SessionAPI* | [**CreatePersonalAccessToken**](docs/SessionAPI.md#createpersonalaccesstoken) | **Post** /personal-access-tokens | Create Personal Access Token
 *SessionAPI* | [**CreateTeam**](docs/SessionAPI.md#createteam) | **Post** /teams | Create Team
 *SessionAPI* | [**DecideInvitation**](docs/SessionAPI.md#decideinvitation) | **Post** /invitations/{teamId} | Accept or reject team invitation
 *SessionAPI* | [**GetVersion**](docs/SessionAPI.md#getversion) | **Get** /version | Get Version
 *SessionAPI* | [**ListAlerts**](docs/SessionAPI.md#listalerts) | **Get** /alerts | List Alerts
+*SessionAPI* | [**ListAppServiceAccounts**](docs/SessionAPI.md#listappserviceaccounts) | **Get** /service-accounts/app | List App Service Accounts
 *SessionAPI* | [**ListAppUsers**](docs/SessionAPI.md#listappusers) | **Get** /app-users | List App Users
 *SessionAPI* | [**ListInvitations**](docs/SessionAPI.md#listinvitations) | **Get** /invitations | List of pending invitations
 *SessionAPI* | [**ListPersonalAccessTokens**](docs/SessionAPI.md#listpersonalaccesstokens) | **Get** /personal-access-tokens | List Personal Access Tokens
@@ -230,11 +242,13 @@ Class | Method | HTTP request | Description
 *SystemAPI* | [**ListSystemTeamAppUsers**](docs/SystemAPI.md#listsystemteamappusers) | **Get** /systems/{systemId}/app-users | List System Team App Users
 *SystemAPI* | [**RotateAgentToken**](docs/SystemAPI.md#rotateagenttoken) | **Post** /systems/{systemId}/agent-tokens | Rotate Agent Token
 *SystemAPI* | [**RunSystemAlertRule**](docs/SystemAPI.md#runsystemalertrule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
+*SystemAPI* | [**SystemJWTSync**](docs/SystemAPI.md#systemjwtsync) | **Post** /systems/{systemId}/jwt-sync | Re-sync JWTs of all accounts in this system
 *SystemAPI* | [**UnAssignSystemTeamAppUser**](docs/SystemAPI.md#unassignsystemteamappuser) | **Delete** /systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
 *SystemAPI* | [**UnmanageSystem**](docs/SystemAPI.md#unmanagesystem) | **Delete** /systems/{systemId}/unmanage | Unmanage System
 *SystemAPI* | [**UpdateSystem**](docs/SystemAPI.md#updatesystem) | **Patch** /systems/{systemId} | Update System
 *SystemAPI* | [**UpdateSystemAlertRule**](docs/SystemAPI.md#updatesystemalertrule) | **Patch** /systems/{systemId}/alert-rules/{alertRuleId} | Update System Alert Rules
 *TeamAPI* | [**CreateSystem**](docs/TeamAPI.md#createsystem) | **Post** /teams/{teamId}/systems | Create System
+*TeamAPI* | [**CreateTeamServiceAccount**](docs/TeamAPI.md#createteamserviceaccount) | **Post** /teams/{teamId}/service-accounts | Create Team Service Account
 *TeamAPI* | [**DeleteTeam**](docs/TeamAPI.md#deleteteam) | **Delete** /teams/{teamId} | Delete Team
 *TeamAPI* | [**GetTeam**](docs/TeamAPI.md#getteam) | **Get** /teams/{teamId} | Get Team
 *TeamAPI* | [**GetTeamLimits**](docs/TeamAPI.md#getteamlimits) | **Get** /teams/{teamId}/team-limits | Get Team Limits
@@ -245,10 +259,19 @@ Class | Method | HTTP request | Description
 *TeamAPI* | [**ListTeamAppUsers**](docs/TeamAPI.md#listteamappusers) | **Get** /teams/{teamId}/app-users | List App Users
 *TeamAPI* | [**ListTeamInfoAppUsers**](docs/TeamAPI.md#listteaminfoappusers) | **Get** /teams/{teamId}/info/app-users | List info of App Users in Team
 *TeamAPI* | [**ListTeamNatsUsers**](docs/TeamAPI.md#listteamnatsusers) | **Get** /teams/{teamId}/nats-users | List NATS Users
+*TeamAPI* | [**ListTeamServiceAccounts**](docs/TeamAPI.md#listteamserviceaccounts) | **Get** /teams/{teamId}/service-accounts | List Team Service Accounts
 *TeamAPI* | [**ListTeamSystems**](docs/TeamAPI.md#listteamsystems) | **Get** /teams/{teamId}/systems | List Systems
 *TeamAPI* | [**UnAssignTeamAppUser**](docs/TeamAPI.md#unassignteamappuser) | **Delete** /teams/{teamId}/app-users/{appUserId} | Unassign App User from Team
 *TeamAPI* | [**UpdateTeam**](docs/TeamAPI.md#updateteam) | **Patch** /teams/{teamId} | Update Team
 *TeamAPI* | [**UpdateTeamAppUser**](docs/TeamAPI.md#updateteamappuser) | **Patch** /teams/{teamId}/app-users/{appUserId} | Update App User Team Assignment
+*TeamServiceAccountAPI* | [**CreateTeamServiceAccountToken**](docs/TeamServiceAccountAPI.md#createteamserviceaccounttoken) | **Post** /service-accounts/team/{serviceAccountId}/tokens | Create Acess Token for Team Service Account
+*TeamServiceAccountAPI* | [**DeleteTeamServiceAccount**](docs/TeamServiceAccountAPI.md#deleteteamserviceaccount) | **Delete** /service-accounts/team/{serviceAccountId} | Delete Team Service Account
+*TeamServiceAccountAPI* | [**GetTeamServiceAccount**](docs/TeamServiceAccountAPI.md#getteamserviceaccount) | **Get** /service-accounts/team/{serviceAccountId} | Get Team Service Account
+*TeamServiceAccountAPI* | [**ListTeamServiceAccountTokens**](docs/TeamServiceAccountAPI.md#listteamserviceaccounttokens) | **Get** /service-accounts/team/{serviceAccountId}/tokens | List Access Tokens for Team Service Account
+*TeamServiceAccountAPI* | [**UpdateTeamServiceAccount**](docs/TeamServiceAccountAPI.md#updateteamserviceaccount) | **Patch** /service-accounts/team/{serviceAccountId} | Update Team Service Account
+*TeamServiceAccountTokensAPI* | [**DeleteTeamServiceAccountToken**](docs/TeamServiceAccountTokensAPI.md#deleteteamserviceaccounttoken) | **Delete** /service-account-tokens/team/{tokenId} | Delete Team Service Account Token
+*TeamServiceAccountTokensAPI* | [**GetTeamServiceAccountToken**](docs/TeamServiceAccountTokensAPI.md#getteamserviceaccounttoken) | **Get** /service-account-tokens/team/{tokenId} | Get Team Service Account Token
+*TeamServiceAccountTokensAPI* | [**UpdateTeamServiceAccountToken**](docs/TeamServiceAccountTokensAPI.md#updateteamserviceaccounttoken) | **Patch** /service-account-tokens/team/{tokenId} | Update Team Service Account Token
 
 
 ## Documentation For Models
@@ -262,6 +285,7 @@ Class | Method | HTTP request | Description
  - [AccountCreateRequest](docs/AccountCreateRequest.md)
  - [AccountInfo](docs/AccountInfo.md)
  - [AccountJWTSettings](docs/AccountJWTSettings.md)
+ - [AccountJWTSettingsPatch](docs/AccountJWTSettingsPatch.md)
  - [AccountLimits](docs/AccountLimits.md)
  - [AccountListResponse](docs/AccountListResponse.md)
  - [AccountMetrics](docs/AccountMetrics.md)
@@ -285,6 +309,7 @@ Class | Method | HTTP request | Description
  - [AlertRuleListResponse](docs/AlertRuleListResponse.md)
  - [AlertRuleOperator](docs/AlertRuleOperator.md)
  - [AlertRuleSeverity](docs/AlertRuleSeverity.md)
+ - [AlertRuleThresholdMetric](docs/AlertRuleThresholdMetric.md)
  - [AlertRuleType](docs/AlertRuleType.md)
  - [AlertRuleUpdateRequest](docs/AlertRuleUpdateRequest.md)
  - [AlertRuleViewResponse](docs/AlertRuleViewResponse.md)
@@ -329,12 +354,17 @@ Class | Method | HTTP request | Description
  - [DeliverPolicy](docs/DeliverPolicy.md)
  - [DiscardPolicy](docs/DiscardPolicy.md)
  - [Export](docs/Export.md)
+ - [ExportPatch](docs/ExportPatch.md)
  - [ExportType](docs/ExportType.md)
  - [ExternalAuthorization](docs/ExternalAuthorization.md)
+ - [ExternalAuthorizationPatch](docs/ExternalAuthorizationPatch.md)
  - [ExternalStream](docs/ExternalStream.md)
  - [GatewayStat](docs/GatewayStat.md)
  - [GenericFields](docs/GenericFields.md)
+ - [HTTPGatewayConfig](docs/HTTPGatewayConfig.md)
+ - [HTTPGatewayConfigPatch](docs/HTTPGatewayConfigPatch.md)
  - [Import](docs/Import.md)
+ - [ImportPatch](docs/ImportPatch.md)
  - [Info](docs/Info.md)
  - [InvitationDecisionRequest](docs/InvitationDecisionRequest.md)
  - [InvitationListResponse](docs/InvitationListResponse.md)
@@ -377,17 +407,21 @@ Class | Method | HTTP request | Description
  - [JetStreamStats](docs/JetStreamStats.md)
  - [JetStreamTier](docs/JetStreamTier.md)
  - [JetStreamVarz](docs/JetStreamVarz.md)
- - [JwtGenericFieldsEditable](docs/JwtGenericFieldsEditable.md)
+ - [JwtSyncStatus](docs/JwtSyncStatus.md)
+ - [LeafInfo](docs/LeafInfo.md)
+ - [Leafz](docs/Leafz.md)
  - [LostStreamData](docs/LostStreamData.md)
  - [MetaClusterInfo](docs/MetaClusterInfo.md)
  - [NatsCluster](docs/NatsCluster.md)
  - [NatsClusterListResponse](docs/NatsClusterListResponse.md)
  - [NatsLimits](docs/NatsLimits.md)
+ - [NatsServer](docs/NatsServer.md)
  - [NatsServerInfoListResponse](docs/NatsServerInfoListResponse.md)
  - [NatsServerListResponse](docs/NatsServerListResponse.md)
  - [NatsUserConnectionsListResponse](docs/NatsUserConnectionsListResponse.md)
  - [NatsUserCopyRequest](docs/NatsUserCopyRequest.md)
  - [NatsUserCreateRequest](docs/NatsUserCreateRequest.md)
+ - [NatsUserHTTPGWTokenCreateReply](docs/NatsUserHTTPGWTokenCreateReply.md)
  - [NatsUserInfo](docs/NatsUserInfo.md)
  - [NatsUserIssuanceEvent](docs/NatsUserIssuanceEvent.md)
  - [NatsUserIssuanceEventType](docs/NatsUserIssuanceEventType.md)
@@ -396,6 +430,7 @@ Class | Method | HTTP request | Description
  - [NatsUserIssuanceViewResponse](docs/NatsUserIssuanceViewResponse.md)
  - [NatsUserIssuancesListResponse](docs/NatsUserIssuancesListResponse.md)
  - [NatsUserJwtSettings](docs/NatsUserJwtSettings.md)
+ - [NatsUserJwtSettingsPatch](docs/NatsUserJwtSettingsPatch.md)
  - [NatsUserListResponse](docs/NatsUserListResponse.md)
  - [NatsUserRevocationRequest](docs/NatsUserRevocationRequest.md)
  - [NatsUserRevocationViewResponse](docs/NatsUserRevocationViewResponse.md)
@@ -405,8 +440,10 @@ Class | Method | HTTP request | Description
  - [Operator](docs/Operator.md)
  - [OperatorClaims](docs/OperatorClaims.md)
  - [OperatorLimits](docs/OperatorLimits.md)
+ - [OperatorLimitsPatch](docs/OperatorLimitsPatch.md)
  - [PeerInfo](docs/PeerInfo.md)
  - [Permission](docs/Permission.md)
+ - [PermissionPatch](docs/PermissionPatch.md)
  - [Permissions](docs/Permissions.md)
  - [Placement](docs/Placement.md)
  - [PolicyListResponse](docs/PolicyListResponse.md)
@@ -414,6 +451,7 @@ Class | Method | HTTP request | Description
  - [RePublish](docs/RePublish.md)
  - [ReplayPolicy](docs/ReplayPolicy.md)
  - [ResponsePermission](docs/ResponsePermission.md)
+ - [ResponsePermissionPatch](docs/ResponsePermissionPatch.md)
  - [ResponseType](docs/ResponseType.md)
  - [RetentionPolicy](docs/RetentionPolicy.md)
  - [RoleListResponse](docs/RoleListResponse.md)
@@ -423,7 +461,14 @@ Class | Method | HTTP request | Description
  - [ServerInfo](docs/ServerInfo.md)
  - [ServerStats](docs/ServerStats.md)
  - [ServerStatsMsg](docs/ServerStatsMsg.md)
+ - [ServiceAccountCreateRequest](docs/ServiceAccountCreateRequest.md)
+ - [ServiceAccountListResponse](docs/ServiceAccountListResponse.md)
+ - [ServiceAccountResourceScope](docs/ServiceAccountResourceScope.md)
+ - [ServiceAccountScope](docs/ServiceAccountScope.md)
+ - [ServiceAccountUpdateRequest](docs/ServiceAccountUpdateRequest.md)
+ - [ServiceAccountViewResponse](docs/ServiceAccountViewResponse.md)
  - [ServiceLatency](docs/ServiceLatency.md)
+ - [ServiceLatencyPatch](docs/ServiceLatencyPatch.md)
  - [SigningKeyGroupCopyRequest](docs/SigningKeyGroupCopyRequest.md)
  - [SigningKeyGroupCreateRequest](docs/SigningKeyGroupCreateRequest.md)
  - [SigningKeyGroupCreateResponse](docs/SigningKeyGroupCreateResponse.md)
@@ -469,8 +514,11 @@ Class | Method | HTTP request | Description
  - [SubjectShareViewResponse](docs/SubjectShareViewResponse.md)
  - [SubjectTransformConfig](docs/SubjectTransformConfig.md)
  - [SystemAccountImportRequest](docs/SystemAccountImportRequest.md)
+ - [SystemConnectionType](docs/SystemConnectionType.md)
  - [SystemConnectionsListResponse](docs/SystemConnectionsListResponse.md)
  - [SystemCreateRequest](docs/SystemCreateRequest.md)
+ - [SystemDirectConnectionOpts](docs/SystemDirectConnectionOpts.md)
+ - [SystemDirectConnectionOptsPatch](docs/SystemDirectConnectionOptsPatch.md)
  - [SystemImportRequest](docs/SystemImportRequest.md)
  - [SystemInfo](docs/SystemInfo.md)
  - [SystemLimitsResponse](docs/SystemLimitsResponse.md)
@@ -479,6 +527,7 @@ Class | Method | HTTP request | Description
  - [SystemUpdateRequest](docs/SystemUpdateRequest.md)
  - [SystemUserImportRequest](docs/SystemUserImportRequest.md)
  - [SystemViewResponse](docs/SystemViewResponse.md)
+ - [TLSMode](docs/TLSMode.md)
  - [TLSPeerCert](docs/TLSPeerCert.md)
  - [TeamAppUserAssociation](docs/TeamAppUserAssociation.md)
  - [TeamAppUserInfo](docs/TeamAppUserInfo.md)
@@ -500,6 +549,7 @@ Class | Method | HTTP request | Description
  - [UserClaims](docs/UserClaims.md)
  - [UserLimits](docs/UserLimits.md)
  - [UserPermissionLimits](docs/UserPermissionLimits.md)
+ - [UserPermissionLimitsPatch](docs/UserPermissionLimitsPatch.md)
  - [VersionResponse](docs/VersionResponse.md)
  - [WeightedMapping](docs/WeightedMapping.md)
 

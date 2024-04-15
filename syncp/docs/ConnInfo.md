@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 **Subscriptions** | **int32** |  | 
 **SubscriptionsList** | Pointer to []**string** |  | [optional] 
 **SubscriptionsListDetail** | Pointer to [][**SubDetail**](SubDetail.md) |  | [optional] 
-**Tags** | Pointer to Nullable[[]**string**] | TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments | [optional] 
+**Tags** | Pointer to []**string** |  | [optional] 
 **TlsCipherSuite** | Pointer to **string** |  | [optional] 
 **TlsPeerCerts** | Pointer to Nullable[[][**TLSPeerCert**](TLSPeerCert.md)] |  | [optional] 
 **TlsVersion** | Pointer to **string** |  | [optional] 

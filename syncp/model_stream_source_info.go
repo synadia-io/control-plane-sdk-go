@@ -22,7 +22,7 @@ type StreamSourceInfo struct {
 	Lag                  int32                     `json:"lag"`
 	Name                 string                    `json:"name"`
 	SubjectTransformDest *string                   `json:"subject_transform_dest,omitempty"`
-	SubjectTransforms    *[]SubjectTransformConfig `json:"subject_transforms,omitempty"`
+	SubjectTransforms    []SubjectTransformConfig  `json:"subject_transforms,omitempty"`
 }
 
 func (o StreamSourceInfo) ToMap() (map[string]interface{}, error) {
@@ -42,7 +42,7 @@ func (o StreamSourceInfo) ToMap() (map[string]interface{}, error) {
 	if o.SubjectTransformDest != nil {
 		toSerialize["subject_transform_dest"] = o.SubjectTransformDest
 	}
-	if o.SubjectTransforms != nil {
+	if len(o.SubjectTransforms) != 0 {
 		toSerialize["subject_transforms"] = o.SubjectTransforms
 	}
 	return toSerialize, nil

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Expires** | Nullable[**string**] |  | 
+**Expires** | Pointer to **time.Time** |  | [optional] 
 **Name** | **string** |  | 
 
 ## Methods

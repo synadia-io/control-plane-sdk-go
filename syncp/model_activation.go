@@ -19,8 +19,7 @@ type Activation struct {
 	// IssuerAccount stores the public key for the account the issuer represents. When set, the claim was issued by a signing key.
 	IssuerAccount *string     `json:"issuer_account,omitempty"`
 	Kind          *ExportType `json:"kind,omitempty"`
-	// Subject is a string that represents a NATS subject
-	Subject *string `json:"subject,omitempty"`
+	Subject       *string     `json:"subject,omitempty"`
 }
 
 func (o Activation) ToMap() (map[string]interface{}, error) {
@@ -34,8 +33,8 @@ func (o Activation) ToMap() (map[string]interface{}, error) {
 	if o.Subject != nil {
 		toSerialize["subject"] = o.Subject
 	}
-	if o.Tags != nil && !o.Tags.IsNull() {
-		toSerialize["tags"] = o.Tags.Val
+	if len(o.Tags) != 0 {
+		toSerialize["tags"] = o.Tags
 	}
 	if o.Type != nil {
 		toSerialize["type"] = o.Type

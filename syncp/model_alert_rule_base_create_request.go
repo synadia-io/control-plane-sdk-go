@@ -15,13 +15,14 @@ var _ MappedNullable = &AlertRuleBaseCreateRequest{}
 
 // AlertRuleBaseCreateRequest struct for AlertRuleBaseCreateRequest
 type AlertRuleBaseCreateRequest struct {
-	DurationInSecs      int32              `json:"duration_in_secs"`
-	Message             string             `json:"message"`
-	Metric              string             `json:"metric"`
-	Severity            AlertRuleSeverity  `json:"severity"`
-	ThresholdExpression *Nullable[string]  `json:"threshold_expression,omitempty"`
-	ThresholdFixedValue *Nullable[float32] `json:"threshold_fixed_value,omitempty"`
-	ThresholdOperator   AlertRuleOperator  `json:"threshold_operator"`
+	DurationInSecs                int32                     `json:"duration_in_secs"`
+	Message                       string                    `json:"message"`
+	Metric                        string                    `json:"metric"`
+	Severity                      AlertRuleSeverity         `json:"severity"`
+	ThresholdExpressionMetric     *AlertRuleThresholdMetric `json:"threshold_expression_metric,omitempty"`
+	ThresholdExpressionMultiplier *float32                  `json:"threshold_expression_multiplier,omitempty"`
+	ThresholdFixedValue           *float32                  `json:"threshold_fixed_value,omitempty"`
+	ThresholdOperator             AlertRuleOperator         `json:"threshold_operator"`
 }
 
 func (o AlertRuleBaseCreateRequest) ToMap() (map[string]interface{}, error) {
@@ -30,11 +31,14 @@ func (o AlertRuleBaseCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["message"] = o.Message
 	toSerialize["metric"] = o.Metric
 	toSerialize["severity"] = o.Severity
-	if o.ThresholdExpression != nil && !o.ThresholdExpression.IsNull() {
-		toSerialize["threshold_expression"] = o.ThresholdExpression.Val
+	if o.ThresholdExpressionMetric != nil {
+		toSerialize["threshold_expression_metric"] = o.ThresholdExpressionMetric
 	}
-	if o.ThresholdFixedValue != nil && !o.ThresholdFixedValue.IsNull() {
-		toSerialize["threshold_fixed_value"] = o.ThresholdFixedValue.Val
+	if o.ThresholdExpressionMultiplier != nil {
+		toSerialize["threshold_expression_multiplier"] = o.ThresholdExpressionMultiplier
+	}
+	if o.ThresholdFixedValue != nil {
+		toSerialize["threshold_fixed_value"] = o.ThresholdFixedValue
 	}
 	toSerialize["threshold_operator"] = o.ThresholdOperator
 	return toSerialize, nil

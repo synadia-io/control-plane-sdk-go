@@ -15,15 +15,15 @@ var _ MappedNullable = &AppUserInvitationRequest{}
 
 // AppUserInvitationRequest struct for AppUserInvitationRequest
 type AppUserInvitationRequest struct {
-	Associations *[]TeamAppUserAssociation `json:"associations,omitempty"`
-	Identifier   string                    `json:"identifier"`
-	Name         string                    `json:"name"`
-	RoleId       string                    `json:"role_id"`
+	Associations []TeamAppUserAssociation `json:"associations,omitempty"`
+	Identifier   string                   `json:"identifier"`
+	Name         string                   `json:"name"`
+	RoleId       string                   `json:"role_id"`
 }
 
 func (o AppUserInvitationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Associations != nil {
+	if len(o.Associations) != 0 {
 		toSerialize["associations"] = o.Associations
 	}
 	toSerialize["identifier"] = o.Identifier

@@ -384,6 +384,22 @@ type SystemAPI interface {
 	RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequest) (*AlertViewResponse, *http.Response, error)
 
 	/*
+			SystemJWTSync Re-sync JWTs of all accounts in this system
+
+			Re-sync JWTs of all accounts in this system
+
+		Use this endpoint to re-issue all JWTs. This endpoint just marks all account JWTs for renewal. The actual renewal takes place asynchronously and may take a while depending on the number of accounts.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param systemId
+			@return ApiSystemJWTSyncRequest
+	*/
+	SystemJWTSync(ctx context.Context, systemId string) ApiSystemJWTSyncRequest
+
+	// SystemJWTSyncExecute executes the request
+	SystemJWTSyncExecute(r ApiSystemJWTSyncRequest) (*http.Response, error)
+
+	/*
 		UnAssignSystemTeamAppUser Unassign Team App User from System
 
 		Unassign a Team App User from a System
@@ -413,13 +429,15 @@ type SystemAPI interface {
 	UnmanageSystemExecute(r ApiUnmanageSystemRequest) (*http.Response, error)
 
 	/*
-		UpdateSystem Update System
+			UpdateSystem Update System
 
-		Updates a System
+			Updates a System
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param systemId
-		@return ApiUpdateSystemRequest
+		To test the backend connection without updating the system, pass test_connection=true in query parameter.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param systemId
+			@return ApiUpdateSystemRequest
 	*/
 	UpdateSystem(ctx context.Context, systemId string) ApiUpdateSystemRequest
 
@@ -3079,6 +3097,101 @@ func (a *SystemAPIService) RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiSystemJWTSyncRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiSystemJWTSyncRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SystemJWTSyncExecute(r)
+}
+
+/*
+SystemJWTSync Re-sync JWTs of all accounts in this system
+
+# Re-sync JWTs of all accounts in this system
+
+Use this endpoint to re-issue all JWTs. This endpoint just marks all account JWTs for renewal. The actual renewal takes place asynchronously and may take a while depending on the number of accounts.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiSystemJWTSyncRequest
+*/
+func (a *SystemAPIService) SystemJWTSync(ctx context.Context, systemId string) ApiSystemJWTSyncRequest {
+	return ApiSystemJWTSyncRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+func (a *SystemAPIService) SystemJWTSyncExecute(r ApiSystemJWTSyncRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.SystemJWTSync")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/systems/{systemId}/jwt-sync"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiUnAssignSystemTeamAppUserRequest struct {
 	ctx           context.Context
 	ApiService    SystemAPI
@@ -3273,7 +3386,13 @@ type ApiUpdateSystemRequest struct {
 	ctx                 context.Context
 	ApiService          SystemAPI
 	systemId            string
+	testConnection      *bool
 	systemUpdateRequest *SystemUpdateRequest
+}
+
+func (r ApiUpdateSystemRequest) TestConnection(testConnection bool) ApiUpdateSystemRequest {
+	r.testConnection = &testConnection
+	return r
 }
 
 func (r ApiUpdateSystemRequest) SystemUpdateRequest(systemUpdateRequest SystemUpdateRequest) ApiUpdateSystemRequest {
@@ -3288,7 +3407,9 @@ func (r ApiUpdateSystemRequest) Execute() (*SystemViewResponse, *http.Response, 
 /*
 UpdateSystem Update System
 
-Updates a System
+# Updates a System
+
+To test the backend connection without updating the system, pass test_connection=true in query parameter.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param systemId
@@ -3325,6 +3446,9 @@ func (a *SystemAPIService) UpdateSystemExecute(r ApiUpdateSystemRequest) (*Syste
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.testConnection != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "test_connection", r.testConnection, "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

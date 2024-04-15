@@ -15,9 +15,9 @@ var _ MappedNullable = &ClusterInfo{}
 
 // ClusterInfo ClusterInfo shows information about the underlying set of servers that make up the stream or consumer.
 type ClusterInfo struct {
-	Leader   *string     `json:"leader,omitempty"`
-	Name     *string     `json:"name,omitempty"`
-	Replicas *[]PeerInfo `json:"replicas,omitempty"`
+	Leader   *string    `json:"leader,omitempty"`
+	Name     *string    `json:"name,omitempty"`
+	Replicas []PeerInfo `json:"replicas,omitempty"`
 }
 
 func (o ClusterInfo) ToMap() (map[string]interface{}, error) {
@@ -28,7 +28,7 @@ func (o ClusterInfo) ToMap() (map[string]interface{}, error) {
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if o.Replicas != nil {
+	if len(o.Replicas) != 0 {
 		toSerialize["replicas"] = o.Replicas
 	}
 	return toSerialize, nil

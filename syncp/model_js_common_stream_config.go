@@ -15,33 +15,33 @@ var _ MappedNullable = &JSCommonStreamConfig{}
 
 // JSCommonStreamConfig struct for JSCommonStreamConfig
 type JSCommonStreamConfig struct {
-	AllowDirect          bool                      `json:"allow_direct"`
-	AllowRollupHdrs      bool                      `json:"allow_rollup_hdrs"`
-	Compression          *S2Compression            `json:"compression,omitempty"`
-	DenyDelete           bool                      `json:"deny_delete"`
-	DenyPurge            bool                      `json:"deny_purge"`
-	Description          *string                   `json:"description,omitempty"`
-	Discard              DiscardPolicy             `json:"discard"`
-	DiscardNewPerSubject *bool                     `json:"discard_new_per_subject,omitempty"`
-	DuplicateWindow      *int64                    `json:"duplicate_window,omitempty"`
-	FirstSeq             *int32                    `json:"first_seq,omitempty"`
-	MaxAge               int64                     `json:"max_age"`
-	MaxBytes             int64                     `json:"max_bytes"`
-	MaxConsumers         int32                     `json:"max_consumers"`
-	MaxMsgSize           *int32                    `json:"max_msg_size,omitempty"`
-	MaxMsgs              int64                     `json:"max_msgs"`
-	MaxMsgsPerSubject    int64                     `json:"max_msgs_per_subject"`
-	Name                 string                    `json:"name"`
-	NoAck                *bool                     `json:"no_ack,omitempty"`
-	NumReplicas          int32                     `json:"num_replicas"`
-	Placement            *Nullable[Placement]      `json:"placement,omitempty"`
-	Republish            *Nullable[RePublish]      `json:"republish,omitempty"`
-	Retention            RetentionPolicy           `json:"retention"`
-	Sealed               bool                      `json:"sealed"`
-	Sources              *Nullable[[]StreamSource] `json:"sources,omitempty"`
-	Storage              StorageType               `json:"storage"`
-	SubjectTransform     *SubjectTransformConfig   `json:"subject_transform,omitempty"`
-	TemplateOwner        *string                   `json:"template_owner,omitempty"`
+	AllowDirect          bool                    `json:"allow_direct"`
+	AllowRollupHdrs      bool                    `json:"allow_rollup_hdrs"`
+	Compression          *S2Compression          `json:"compression,omitempty"`
+	DenyDelete           bool                    `json:"deny_delete"`
+	DenyPurge            bool                    `json:"deny_purge"`
+	Description          *string                 `json:"description,omitempty"`
+	Discard              DiscardPolicy           `json:"discard"`
+	DiscardNewPerSubject *bool                   `json:"discard_new_per_subject,omitempty"`
+	DuplicateWindow      *int64                  `json:"duplicate_window,omitempty"`
+	FirstSeq             *int32                  `json:"first_seq,omitempty"`
+	MaxAge               int64                   `json:"max_age"`
+	MaxBytes             int64                   `json:"max_bytes"`
+	MaxConsumers         int32                   `json:"max_consumers"`
+	MaxMsgSize           *int32                  `json:"max_msg_size,omitempty"`
+	MaxMsgs              int64                   `json:"max_msgs"`
+	MaxMsgsPerSubject    int64                   `json:"max_msgs_per_subject"`
+	Name                 string                  `json:"name"`
+	NoAck                *bool                   `json:"no_ack,omitempty"`
+	NumReplicas          int32                   `json:"num_replicas"`
+	Placement            *Placement              `json:"placement,omitempty"`
+	Republish            *RePublish              `json:"republish,omitempty"`
+	Retention            RetentionPolicy         `json:"retention"`
+	Sealed               bool                    `json:"sealed"`
+	Sources              []StreamSource          `json:"sources,omitempty"`
+	Storage              StorageType             `json:"storage"`
+	SubjectTransform     *SubjectTransformConfig `json:"subject_transform,omitempty"`
+	TemplateOwner        *string                 `json:"template_owner,omitempty"`
 }
 
 func (o JSCommonStreamConfig) ToMap() (map[string]interface{}, error) {
@@ -79,16 +79,16 @@ func (o JSCommonStreamConfig) ToMap() (map[string]interface{}, error) {
 		toSerialize["no_ack"] = o.NoAck
 	}
 	toSerialize["num_replicas"] = o.NumReplicas
-	if o.Placement != nil && !o.Placement.IsNull() {
-		toSerialize["placement"] = o.Placement.Val
+	if o.Placement != nil {
+		toSerialize["placement"] = o.Placement
 	}
-	if o.Republish != nil && !o.Republish.IsNull() {
-		toSerialize["republish"] = o.Republish.Val
+	if o.Republish != nil {
+		toSerialize["republish"] = o.Republish
 	}
 	toSerialize["retention"] = o.Retention
 	toSerialize["sealed"] = o.Sealed
-	if o.Sources != nil && !o.Sources.IsNull() {
-		toSerialize["sources"] = o.Sources.Val
+	if len(o.Sources) != 0 {
+		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["storage"] = o.Storage
 	if o.SubjectTransform != nil {

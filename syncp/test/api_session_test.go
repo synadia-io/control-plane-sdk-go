@@ -33,6 +33,16 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SessionAPIService CreateAppServiceAccount", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.SessionAPI.CreateAppServiceAccount(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SessionAPIService CreateAppUser", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -88,6 +98,16 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ListAlerts(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SessionAPIService ListAppServiceAccounts", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.SessionAPI.ListAppServiceAccounts(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

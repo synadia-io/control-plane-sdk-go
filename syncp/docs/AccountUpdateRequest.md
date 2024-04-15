@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**JwtSettings** | Pointer to [**AccountJWTSettings**](AccountJWTSettings.md) |  | [optional] 
+**JwtSettings** | Pointer to [**AccountJWTSettingsPatch**](AccountJWTSettingsPatch.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **UserJwtExpiresInSecs** | Pointer to **int64** |  | [optional] 
 

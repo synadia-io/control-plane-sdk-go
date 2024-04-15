@@ -15,11 +15,13 @@ var _ MappedNullable = &TeamUpdateRequest{}
 
 // TeamUpdateRequest struct for TeamUpdateRequest
 type TeamUpdateRequest struct {
-	Name string `json:"name"`
+	Name *string `json:"name,omitempty"`
 }
 
 func (o TeamUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["name"] = o.Name
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
 	return toSerialize, nil
 }

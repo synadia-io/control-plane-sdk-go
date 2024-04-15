@@ -18,12 +18,12 @@ type OperatorLimits struct {
 	NatsLimits
 	AccountLimits
 	JetStreamLimits
-	TieredLimits *map[string]JetStreamLimits `json:"tiered_limits,omitempty"`
+	TieredLimits map[string]JetStreamLimits `json:"tiered_limits,omitempty"`
 }
 
 func (o OperatorLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.TieredLimits != nil {
+	if len(o.TieredLimits) != 0 {
 		toSerialize["tiered_limits"] = o.TieredLimits
 	}
 	if o.Data != nil {

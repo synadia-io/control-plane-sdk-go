@@ -19,50 +19,50 @@ var _ MappedNullable = &AlertViewResponse{}
 
 // AlertViewResponse struct for AlertViewResponse
 type AlertViewResponse struct {
-	AcknowledgedByAppUserID *Nullable[string]      `json:"AcknowledgedByAppUserID,omitempty"`
-	Account                 *Nullable[AccountInfo] `json:"account,omitempty"`
-	AccountId               *Nullable[string]      `json:"account_id,omitempty"`
-	AcknowledgedAt          *Nullable[string]      `json:"acknowledged_at,omitempty"`
-	AlertRule               AlertRuleViewResponse  `json:"alert_rule"`
-	AlertRuleId             string                 `json:"alert_rule_id"`
-	ClosedAt                *Nullable[string]      `json:"closed_at,omitempty"`
-	ConsumerName            *Nullable[string]      `json:"consumer_name,omitempty"`
-	Created                 time.Time              `json:"created"`
-	Id                      string                 `json:"id"`
-	IsAcknowledged          bool                   `json:"is_acknowledged"`
-	IsClosed                bool                   `json:"is_closed"`
-	IsFiring                bool                   `json:"is_firing"`
-	Message                 string                 `json:"message"`
-	MetricValue             float64                `json:"metric_value"`
-	SampleValues            []PromSampleValue      `json:"sample_values"`
-	Severity                AlertRuleSeverity      `json:"severity"`
-	StreamName              *Nullable[string]      `json:"stream_name,omitempty"`
-	System                  *Nullable[SystemInfo]  `json:"system,omitempty"`
-	SystemId                *Nullable[string]      `json:"system_id,omitempty"`
-	ThresholdValue          float64                `json:"threshold_value"`
+	AcknowledgedByAppUserID *string               `json:"AcknowledgedByAppUserID,omitempty"`
+	Account                 *AccountInfo          `json:"account,omitempty"`
+	AccountId               *string               `json:"account_id,omitempty"`
+	AcknowledgedAt          *time.Time            `json:"acknowledged_at,omitempty"`
+	AlertRule               AlertRuleViewResponse `json:"alert_rule"`
+	AlertRuleId             string                `json:"alert_rule_id"`
+	ClosedAt                *time.Time            `json:"closed_at,omitempty"`
+	ConsumerName            *string               `json:"consumer_name,omitempty"`
+	Created                 time.Time             `json:"created"`
+	Id                      string                `json:"id"`
+	IsAcknowledged          bool                  `json:"is_acknowledged"`
+	IsClosed                bool                  `json:"is_closed"`
+	IsFiring                bool                  `json:"is_firing"`
+	Message                 string                `json:"message"`
+	MetricValue             float64               `json:"metric_value"`
+	SampleValues            []PromSampleValue     `json:"sample_values"`
+	Severity                AlertRuleSeverity     `json:"severity"`
+	StreamName              *string               `json:"stream_name,omitempty"`
+	System                  *SystemInfo           `json:"system,omitempty"`
+	SystemId                *string               `json:"system_id,omitempty"`
+	ThresholdValue          float64               `json:"threshold_value"`
 }
 
 func (o AlertViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AcknowledgedByAppUserID != nil && !o.AcknowledgedByAppUserID.IsNull() {
-		toSerialize["AcknowledgedByAppUserID"] = o.AcknowledgedByAppUserID.Val
+	if o.AcknowledgedByAppUserID != nil {
+		toSerialize["AcknowledgedByAppUserID"] = o.AcknowledgedByAppUserID
 	}
-	if o.Account != nil && !o.Account.IsNull() {
-		toSerialize["account"] = o.Account.Val
+	if o.Account != nil {
+		toSerialize["account"] = o.Account
 	}
-	if o.AccountId != nil && !o.AccountId.IsNull() {
-		toSerialize["account_id"] = o.AccountId.Val
+	if o.AccountId != nil {
+		toSerialize["account_id"] = o.AccountId
 	}
-	if o.AcknowledgedAt != nil && !o.AcknowledgedAt.IsNull() {
-		toSerialize["acknowledged_at"] = o.AcknowledgedAt.Val
+	if o.AcknowledgedAt != nil {
+		toSerialize["acknowledged_at"] = o.AcknowledgedAt
 	}
 	toSerialize["alert_rule"] = o.AlertRule
 	toSerialize["alert_rule_id"] = o.AlertRuleId
-	if o.ClosedAt != nil && !o.ClosedAt.IsNull() {
-		toSerialize["closed_at"] = o.ClosedAt.Val
+	if o.ClosedAt != nil {
+		toSerialize["closed_at"] = o.ClosedAt
 	}
-	if o.ConsumerName != nil && !o.ConsumerName.IsNull() {
-		toSerialize["consumer_name"] = o.ConsumerName.Val
+	if o.ConsumerName != nil {
+		toSerialize["consumer_name"] = o.ConsumerName
 	}
 	toSerialize["created"] = o.Created
 	toSerialize["id"] = o.Id
@@ -73,14 +73,14 @@ func (o AlertViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["metric_value"] = o.MetricValue
 	toSerialize["sample_values"] = o.SampleValues
 	toSerialize["severity"] = o.Severity
-	if o.StreamName != nil && !o.StreamName.IsNull() {
-		toSerialize["stream_name"] = o.StreamName.Val
+	if o.StreamName != nil {
+		toSerialize["stream_name"] = o.StreamName
 	}
-	if o.System != nil && !o.System.IsNull() {
-		toSerialize["system"] = o.System.Val
+	if o.System != nil {
+		toSerialize["system"] = o.System
 	}
-	if o.SystemId != nil && !o.SystemId.IsNull() {
-		toSerialize["system_id"] = o.SystemId.Val
+	if o.SystemId != nil {
+		toSerialize["system_id"] = o.SystemId
 	}
 	toSerialize["threshold_value"] = o.ThresholdValue
 	return toSerialize, nil

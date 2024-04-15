@@ -7,7 +7,7 @@ Name | Type | Description | Notes
  | [**Permissions**](Permissions.md) |   | Embedded Struct
  | [**UserLimits**](UserLimits.md) |   | Embedded Struct
  | [**NatsLimits**](NatsLimits.md) |   | Embedded Struct
-**AllowedConnectionTypes** | Pointer to Nullable[[]**string**] | StringList is a wrapper for an array of strings | [optional] 
+**AllowedConnectionTypes** | Pointer to []**string** |  | [optional] 
 **BearerToken** | Pointer to **bool** |  | [optional] 
 
 ## Methods

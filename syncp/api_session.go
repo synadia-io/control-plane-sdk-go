@@ -36,6 +36,20 @@ type SessionAPI interface {
 	AcceptTermsExecute(r ApiAcceptTermsRequest) (*AcceptTermsResponse, *http.Response, error)
 
 	/*
+		CreateAppServiceAccount Create App Service Account
+
+		Create App Service Account
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateAppServiceAccountRequest
+	*/
+	CreateAppServiceAccount(ctx context.Context) ApiCreateAppServiceAccountRequest
+
+	// CreateAppServiceAccountExecute executes the request
+	//  @return ServiceAccountViewResponse
+	CreateAppServiceAccountExecute(r ApiCreateAppServiceAccountRequest) (*ServiceAccountViewResponse, *http.Response, error)
+
+	/*
 		CreateAppUser Create App User
 
 		Create a User to invite to the Application
@@ -118,6 +132,20 @@ type SessionAPI interface {
 	// ListAlertsExecute executes the request
 	//  @return AlertListResponse
 	ListAlertsExecute(r ApiListAlertsRequest) (*AlertListResponse, *http.Response, error)
+
+	/*
+		ListAppServiceAccounts List App Service Accounts
+
+		List App Service Accounts
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListAppServiceAccountsRequest
+	*/
+	ListAppServiceAccounts(ctx context.Context) ApiListAppServiceAccountsRequest
+
+	// ListAppServiceAccountsExecute executes the request
+	//  @return ServiceAccountListResponse
+	ListAppServiceAccountsExecute(r ApiListAppServiceAccountsRequest) (*ServiceAccountListResponse, *http.Response, error)
 
 	/*
 		ListAppUsers List App Users
@@ -242,6 +270,116 @@ func (a *SessionAPIService) AcceptTermsExecute(r ApiAcceptTermsRequest) (*Accept
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateAppServiceAccountRequest struct {
+	ctx                         context.Context
+	ApiService                  SessionAPI
+	serviceAccountCreateRequest *ServiceAccountCreateRequest
+}
+
+func (r ApiCreateAppServiceAccountRequest) ServiceAccountCreateRequest(serviceAccountCreateRequest ServiceAccountCreateRequest) ApiCreateAppServiceAccountRequest {
+	r.serviceAccountCreateRequest = &serviceAccountCreateRequest
+	return r
+}
+
+func (r ApiCreateAppServiceAccountRequest) Execute() (*ServiceAccountViewResponse, *http.Response, error) {
+	return r.ApiService.CreateAppServiceAccountExecute(r)
+}
+
+/*
+CreateAppServiceAccount Create App Service Account
+
+Create App Service Account
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateAppServiceAccountRequest
+*/
+func (a *SessionAPIService) CreateAppServiceAccount(ctx context.Context) ApiCreateAppServiceAccountRequest {
+	return ApiCreateAppServiceAccountRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ServiceAccountViewResponse
+func (a *SessionAPIService) CreateAppServiceAccountExecute(r ApiCreateAppServiceAccountRequest) (*ServiceAccountViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServiceAccountViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.CreateAppServiceAccount")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/service-accounts/app"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.serviceAccountCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -869,6 +1007,108 @@ func (a *SessionAPIService) ListAlertsExecute(r ApiListAlertsRequest) (*AlertLis
 	if r.status != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "")
 	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListAppServiceAccountsRequest struct {
+	ctx        context.Context
+	ApiService SessionAPI
+}
+
+func (r ApiListAppServiceAccountsRequest) Execute() (*ServiceAccountListResponse, *http.Response, error) {
+	return r.ApiService.ListAppServiceAccountsExecute(r)
+}
+
+/*
+ListAppServiceAccounts List App Service Accounts
+
+List App Service Accounts
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAppServiceAccountsRequest
+*/
+func (a *SessionAPIService) ListAppServiceAccounts(ctx context.Context) ApiListAppServiceAccountsRequest {
+	return ApiListAppServiceAccountsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ServiceAccountListResponse
+func (a *SessionAPIService) ListAppServiceAccountsExecute(r ApiListAppServiceAccountsRequest) (*ServiceAccountListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServiceAccountListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.ListAppServiceAccounts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/service-accounts/app"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

@@ -15,28 +15,28 @@ var _ MappedNullable = &NatsUserJwtSettings{}
 
 // NatsUserJwtSettings filter jwt.User to editable fields only
 type NatsUserJwtSettings struct {
-	JwtGenericFieldsEditable
 	UserPermissionLimits
+	Tags []string `json:"tags,omitempty"`
 }
 
 func (o NatsUserJwtSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Tags != nil && !o.Tags.IsNull() {
-		toSerialize["tags"] = o.Tags.Val
+	if len(o.Tags) != 0 {
+		toSerialize["tags"] = o.Tags
 	}
 	if o.Pub != nil {
 		toSerialize["pub"] = o.Pub
 	}
-	if o.Resp != nil && !o.Resp.IsNull() {
-		toSerialize["resp"] = o.Resp.Val
+	if o.Resp != nil {
+		toSerialize["resp"] = o.Resp
 	}
 	if o.Sub != nil {
 		toSerialize["sub"] = o.Sub
 	}
-	if o.Src != nil && !o.Src.IsNull() {
-		toSerialize["src"] = o.Src.Val
+	if len(o.Src) != 0 {
+		toSerialize["src"] = o.Src
 	}
-	if o.Times != nil {
+	if len(o.Times) != 0 {
 		toSerialize["times"] = o.Times
 	}
 	if o.TimesLocation != nil {

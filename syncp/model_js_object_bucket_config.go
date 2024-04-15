@@ -25,6 +25,9 @@ func (o JSObjectBucketConfig) ToMap() (map[string]interface{}, error) {
 		toSerialize["storage"] = o.Storage
 	}
 	toSerialize["bucket"] = o.Bucket
+	if o.Compression != nil {
+		toSerialize["compression"] = o.Compression
+	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
@@ -34,7 +37,7 @@ func (o JSObjectBucketConfig) ToMap() (map[string]interface{}, error) {
 	if o.MaxBytes != nil {
 		toSerialize["max_bytes"] = o.MaxBytes
 	}
-	if o.Metadata != nil {
+	if len(o.Metadata) != 0 {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if o.NumReplicas != nil {

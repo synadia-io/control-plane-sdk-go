@@ -15,9 +15,9 @@ var _ MappedNullable = &SubjectExportUpdateRequest{}
 
 // SubjectExportUpdateRequest struct for SubjectExportUpdateRequest
 type SubjectExportUpdateRequest struct {
-	JwtSettings               *Export `json:"jwt_settings,omitempty"`
-	MetricsEnabled            *bool   `json:"metrics_enabled,omitempty"`
-	MetricsSamplingPercentage *int64  `json:"metrics_sampling_percentage,omitempty"`
+	JwtSettings               *ExportPatch `json:"jwt_settings,omitempty"`
+	MetricsEnabled            *bool        `json:"metrics_enabled,omitempty"`
+	MetricsSamplingPercentage *int64       `json:"metrics_sampling_percentage,omitempty"`
 }
 
 func (o SubjectExportUpdateRequest) ToMap() (map[string]interface{}, error) {

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
- | [**JwtGenericFieldsEditable**](JwtGenericFieldsEditable.md) |   | Embedded Struct
  | [**UserPermissionLimits**](UserPermissionLimits.md) |   | Embedded Struct
+**Tags** | Pointer to []**string** |  | [optional] 
 
 ## Methods
 

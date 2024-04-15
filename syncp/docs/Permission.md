@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Allow** | Pointer to Nullable[[]**string**] | StringList is a wrapper for an array of strings | [optional] 
-**Deny** | Pointer to Nullable[[]**string**] | StringList is a wrapper for an array of strings | [optional] 
+**Allow** | Pointer to []**string** |  | [optional] 
+**Deny** | Pointer to []**string** |  | [optional] 
 
 ## Methods
 

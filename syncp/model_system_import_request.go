@@ -15,19 +15,18 @@ var _ MappedNullable = &SystemImportRequest{}
 
 // SystemImportRequest struct for SystemImportRequest
 type SystemImportRequest struct {
-	JetstreamDomain  *Nullable[string] `json:"jetstream_domain,omitempty"`
-	JetstreamEnabled *bool             `json:"jetstream_enabled,omitempty"`
-	OperatorJwt      string            `json:"operator_jwt"`
-	OperatorKey      string            `json:"operator_key"`
-	SystemJwt        string            `json:"system_jwt"`
-	SystemKey        string            `json:"system_key"`
-	TeamId           string            `json:"team_id"`
+	JetstreamDomain  *string `json:"jetstream_domain,omitempty"`
+	JetstreamEnabled *bool   `json:"jetstream_enabled,omitempty"`
+	OperatorJwt      string  `json:"operator_jwt"`
+	OperatorKey      string  `json:"operator_key"`
+	SystemJwt        string  `json:"system_jwt"`
+	SystemKey        string  `json:"system_key"`
 }
 
 func (o SystemImportRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.JetstreamDomain != nil && !o.JetstreamDomain.IsNull() {
-		toSerialize["jetstream_domain"] = o.JetstreamDomain.Val
+	if o.JetstreamDomain != nil {
+		toSerialize["jetstream_domain"] = o.JetstreamDomain
 	}
 	if o.JetstreamEnabled != nil {
 		toSerialize["jetstream_enabled"] = o.JetstreamEnabled
@@ -36,6 +35,5 @@ func (o SystemImportRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["operator_key"] = o.OperatorKey
 	toSerialize["system_jwt"] = o.SystemJwt
 	toSerialize["system_key"] = o.SystemKey
-	toSerialize["team_id"] = o.TeamId
 	return toSerialize, nil
 }

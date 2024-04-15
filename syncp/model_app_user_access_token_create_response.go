@@ -19,18 +19,18 @@ var _ MappedNullable = &AppUserAccessTokenCreateResponse{}
 
 // AppUserAccessTokenCreateResponse struct for AppUserAccessTokenCreateResponse
 type AppUserAccessTokenCreateResponse struct {
-	Created time.Time        `json:"created"`
-	Expires Nullable[string] `json:"expires"`
-	Id      string           `json:"id"`
-	Name    string           `json:"name"`
-	Token   string           `json:"token"`
+	Created time.Time  `json:"created"`
+	Expires *time.Time `json:"expires,omitempty"`
+	Id      string     `json:"id"`
+	Name    string     `json:"name"`
+	Token   string     `json:"token"`
 }
 
 func (o AppUserAccessTokenCreateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["created"] = o.Created
-	if !o.Expires.IsNull() {
-		toSerialize["expires"] = o.Expires.Val
+	if o.Expires != nil {
+		toSerialize["expires"] = o.Expires
 	}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name

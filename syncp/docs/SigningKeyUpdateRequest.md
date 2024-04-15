@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Disabled** | **bool** |  | 
+**Disabled** | Pointer to **bool** |  | [optional] 
 **Seed** | Pointer to **string** |  | [optional] 
 
 ## Methods

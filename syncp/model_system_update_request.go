@@ -15,14 +15,26 @@ var _ MappedNullable = &SystemUpdateRequest{}
 
 // SystemUpdateRequest struct for SystemUpdateRequest
 type SystemUpdateRequest struct {
-	JetstreamDomain  *Nullable[string] `json:"jetstream_domain,omitempty"`
-	JetstreamEnabled *bool             `json:"jetstream_enabled,omitempty"`
-	Name             *string           `json:"name,omitempty"`
-	Url              *Nullable[string] `json:"url,omitempty"`
+	ConnectionType       *SystemConnectionType                      `json:"connection_type,omitempty"`
+	DirectConnectionOpts *Nullable[SystemDirectConnectionOptsPatch] `json:"direct_connection_opts,omitempty"`
+	HttpGatewayConfig    *Nullable[HTTPGatewayConfigPatch]          `json:"http_gateway_config,omitempty"`
+	JetstreamDomain      *Nullable[string]                          `json:"jetstream_domain,omitempty"`
+	JetstreamEnabled     *bool                                      `json:"jetstream_enabled,omitempty"`
+	Name                 *string                                    `json:"name,omitempty"`
+	Url                  *string                                    `json:"url,omitempty"`
 }
 
 func (o SystemUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.ConnectionType != nil {
+		toSerialize["connection_type"] = o.ConnectionType
+	}
+	if o.DirectConnectionOpts != nil && !o.DirectConnectionOpts.IsNull() {
+		toSerialize["direct_connection_opts"] = o.DirectConnectionOpts.Val
+	}
+	if o.HttpGatewayConfig != nil && !o.HttpGatewayConfig.IsNull() {
+		toSerialize["http_gateway_config"] = o.HttpGatewayConfig.Val
+	}
 	if o.JetstreamDomain != nil && !o.JetstreamDomain.IsNull() {
 		toSerialize["jetstream_domain"] = o.JetstreamDomain.Val
 	}
@@ -32,8 +44,8 @@ func (o SystemUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if o.Url != nil && !o.Url.IsNull() {
-		toSerialize["url"] = o.Url.Val
+	if o.Url != nil {
+		toSerialize["url"] = o.Url
 	}
 	return toSerialize, nil
 }

@@ -15,16 +15,16 @@ var _ MappedNullable = &AppUserInfo{}
 
 // AppUserInfo struct for AppUserInfo
 type AppUserInfo struct {
-	Id         string           `json:"id"`
-	Identifier Nullable[string] `json:"identifier"`
-	Name       string           `json:"name"`
+	Id         string  `json:"id"`
+	Identifier *string `json:"identifier,omitempty"`
+	Name       string  `json:"name"`
 }
 
 func (o AppUserInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	if !o.Identifier.IsNull() {
-		toSerialize["identifier"] = o.Identifier.Val
+	if o.Identifier != nil {
+		toSerialize["identifier"] = o.Identifier
 	}
 	toSerialize["name"] = o.Name
 	return toSerialize, nil

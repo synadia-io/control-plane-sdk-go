@@ -26,7 +26,7 @@ type ServerInfo struct {
 	Jetstream bool      `json:"jetstream"`
 	Name      string    `json:"name"`
 	Seq       int32     `json:"seq"`
-	Tags      *[]string `json:"tags,omitempty"`
+	Tags      []string  `json:"tags,omitempty"`
 	Time      time.Time `json:"time"`
 	Ver       string    `json:"ver"`
 }
@@ -44,7 +44,7 @@ func (o ServerInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["jetstream"] = o.Jetstream
 	toSerialize["name"] = o.Name
 	toSerialize["seq"] = o.Seq
-	if o.Tags != nil {
+	if len(o.Tags) != 0 {
 		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["time"] = o.Time

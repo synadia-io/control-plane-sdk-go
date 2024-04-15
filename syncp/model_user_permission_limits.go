@@ -18,15 +18,14 @@ type UserPermissionLimits struct {
 	Permissions
 	UserLimits
 	NatsLimits
-	// StringList is a wrapper for an array of strings
-	AllowedConnectionTypes *Nullable[[]string] `json:"allowed_connection_types,omitempty"`
-	BearerToken            *bool               `json:"bearer_token,omitempty"`
+	AllowedConnectionTypes []string `json:"allowed_connection_types,omitempty"`
+	BearerToken            *bool    `json:"bearer_token,omitempty"`
 }
 
 func (o UserPermissionLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AllowedConnectionTypes != nil && !o.AllowedConnectionTypes.IsNull() {
-		toSerialize["allowed_connection_types"] = o.AllowedConnectionTypes.Val
+	if len(o.AllowedConnectionTypes) != 0 {
+		toSerialize["allowed_connection_types"] = o.AllowedConnectionTypes
 	}
 	if o.BearerToken != nil {
 		toSerialize["bearer_token"] = o.BearerToken
@@ -34,16 +33,16 @@ func (o UserPermissionLimits) ToMap() (map[string]interface{}, error) {
 	if o.Pub != nil {
 		toSerialize["pub"] = o.Pub
 	}
-	if o.Resp != nil && !o.Resp.IsNull() {
-		toSerialize["resp"] = o.Resp.Val
+	if o.Resp != nil {
+		toSerialize["resp"] = o.Resp
 	}
 	if o.Sub != nil {
 		toSerialize["sub"] = o.Sub
 	}
-	if o.Src != nil && !o.Src.IsNull() {
-		toSerialize["src"] = o.Src.Val
+	if len(o.Src) != 0 {
+		toSerialize["src"] = o.Src
 	}
-	if o.Times != nil {
+	if len(o.Times) != 0 {
 		toSerialize["times"] = o.Times
 	}
 	if o.TimesLocation != nil {

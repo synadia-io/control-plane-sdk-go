@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **JwtExpiresInSecs** | Pointer to **int64** |  | [optional] 
-**JwtSettings** | Pointer to [**NatsUserJwtSettings**](NatsUserJwtSettings.md) |  | [optional] 
+**JwtSettings** | Pointer to [**NatsUserJwtSettingsPatch**](NatsUserJwtSettingsPatch.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 
 ## Methods

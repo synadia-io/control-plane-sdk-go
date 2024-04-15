@@ -15,25 +15,29 @@ var _ MappedNullable = &SystemCreateRequest{}
 
 // SystemCreateRequest struct for SystemCreateRequest
 type SystemCreateRequest struct {
-	JetstreamDomain  *Nullable[string] `json:"jetstream_domain,omitempty"`
-	JetstreamEnabled *bool             `json:"jetstream_enabled,omitempty"`
-	Name             string            `json:"name"`
-	TeamId           string            `json:"team_id"`
-	Url              *Nullable[string] `json:"url,omitempty"`
+	ConnectionType       *SystemConnectionType       `json:"connection_type,omitempty"`
+	DirectConnectionOpts *SystemDirectConnectionOpts `json:"direct_connection_opts,omitempty"`
+	JetstreamDomain      *string                     `json:"jetstream_domain,omitempty"`
+	JetstreamEnabled     *bool                       `json:"jetstream_enabled,omitempty"`
+	Name                 string                      `json:"name"`
+	Url                  string                      `json:"url"`
 }
 
 func (o SystemCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.JetstreamDomain != nil && !o.JetstreamDomain.IsNull() {
-		toSerialize["jetstream_domain"] = o.JetstreamDomain.Val
+	if o.ConnectionType != nil {
+		toSerialize["connection_type"] = o.ConnectionType
+	}
+	if o.DirectConnectionOpts != nil {
+		toSerialize["direct_connection_opts"] = o.DirectConnectionOpts
+	}
+	if o.JetstreamDomain != nil {
+		toSerialize["jetstream_domain"] = o.JetstreamDomain
 	}
 	if o.JetstreamEnabled != nil {
 		toSerialize["jetstream_enabled"] = o.JetstreamEnabled
 	}
 	toSerialize["name"] = o.Name
-	toSerialize["team_id"] = o.TeamId
-	if o.Url != nil && !o.Url.IsNull() {
-		toSerialize["url"] = o.Url.Val
-	}
+	toSerialize["url"] = o.Url
 	return toSerialize, nil
 }

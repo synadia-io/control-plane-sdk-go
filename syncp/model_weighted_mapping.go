@@ -16,9 +16,8 @@ var _ MappedNullable = &WeightedMapping{}
 // WeightedMapping Mapping for publishes
 type WeightedMapping struct {
 	Cluster *string `json:"cluster,omitempty"`
-	// Subject is a string that represents a NATS subject
-	Subject string `json:"subject"`
-	Weight  *int32 `json:"weight,omitempty"`
+	Subject string  `json:"subject"`
+	Weight  *int32  `json:"weight,omitempty"`
 }
 
 func (o WeightedMapping) ToMap() (map[string]interface{}, error) {

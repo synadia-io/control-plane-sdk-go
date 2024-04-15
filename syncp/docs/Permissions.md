@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Pub** | Pointer to [**Permission**](Permission.md) |  | [optional] 
-**Resp** | Pointer to Nullable[[**ResponsePermission**](ResponsePermission.md)] |  | [optional] 
+**Resp** | Pointer to [**ResponsePermission**](ResponsePermission.md) |  | [optional] 
 **Sub** | Pointer to [**Permission**](Permission.md) |  | [optional] 
 
 ## Methods

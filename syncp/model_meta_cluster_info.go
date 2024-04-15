@@ -15,10 +15,10 @@ var _ MappedNullable = &MetaClusterInfo{}
 
 // MetaClusterInfo MetaClusterInfo shows information about the meta group.
 type MetaClusterInfo struct {
-	ClusterSize int32       `json:"cluster_size"`
-	Leader      *string     `json:"leader,omitempty"`
-	Name        *string     `json:"name,omitempty"`
-	Replicas    *[]PeerInfo `json:"replicas,omitempty"`
+	ClusterSize int32      `json:"cluster_size"`
+	Leader      *string    `json:"leader,omitempty"`
+	Name        *string    `json:"name,omitempty"`
+	Replicas    []PeerInfo `json:"replicas,omitempty"`
 }
 
 func (o MetaClusterInfo) ToMap() (map[string]interface{}, error) {
@@ -30,7 +30,7 @@ func (o MetaClusterInfo) ToMap() (map[string]interface{}, error) {
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if o.Replicas != nil {
+	if len(o.Replicas) != 0 {
 		toSerialize["replicas"] = o.Replicas
 	}
 	return toSerialize, nil
