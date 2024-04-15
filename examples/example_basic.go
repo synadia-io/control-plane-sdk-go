@@ -33,9 +33,9 @@ func main() {
 	}
 	log.Printf("Accounts in System: %s\n", strings.Join(accountNames, ", "))
 	// to make a ptr to nullable (optional nullable):
-	// urls := syncp.Ptr(syncp.NewNullable([]string{"server.url.1", "server.url.2"}))
+	// url := syncp.Ptr(syncp.NewNullable("hello"))
 	// to make a required nullable:
-	// urls := syncp.NewNullable("hello")
+	// url := syncp.NewNullable("hello")
 	accountViewResponse, _, err := client.SystemAPI.CreateAccount(ctx, systemId).
 		AccountCreateRequest(
 			syncp.AccountCreateRequest{
