@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **NumReplicas** | **int32** |  | 
 **OptStartSeq** | Pointer to **int32** |  | [optional] 
-**OptStartTime** | Pointer to Nullable[**string**] |  | [optional] 
+**OptStartTime** | Pointer to **time.Time** |  | [optional] 
 **ReplayPolicy** | [**ReplayPolicy**](ReplayPolicy.md) |  | 
 **SampleFreq** | Pointer to **string** |  | [optional] 
 

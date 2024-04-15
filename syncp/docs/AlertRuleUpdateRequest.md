@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DurationInSecs** | **int32** |  | 
-**IsEnabled** | **bool** |  | 
-**Message** | **string** |  | 
-**Metric** | **string** |  | 
-**Severity** | [**AlertRuleSeverity**](AlertRuleSeverity.md) |  | 
-**ThresholdExpression** | Pointer to Nullable[**string**] |  | [optional] 
-**ThresholdFixedValue** | Pointer to Nullable[**float32**] |  | [optional] 
-**ThresholdOperator** | [**AlertRuleOperator**](AlertRuleOperator.md) |  | 
+**DurationInSecs** | Pointer to **int32** |  | [optional] 
+**IsEnabled** | Pointer to **bool** |  | [optional] 
+**Message** | Pointer to **string** |  | [optional] 
+**Severity** | Pointer to [**AlertRuleSeverity**](AlertRuleSeverity.md) |  | [optional] 
+**ThresholdExpressionMetric** | Pointer to [**AlertRuleThresholdMetric**](AlertRuleThresholdMetric.md) |  | [optional] 
+**ThresholdExpressionMultiplier** | Pointer to **float32** |  | [optional] 
+**ThresholdFixedValue** | Pointer to **float32** |  | [optional] 
+**ThresholdOperator** | Pointer to [**AlertRuleOperator**](AlertRuleOperator.md) |  | [optional] 
 
 ## Methods
 

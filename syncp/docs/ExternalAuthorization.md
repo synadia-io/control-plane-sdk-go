@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AllowedAccounts** | Pointer to Nullable[[]**string**] | StringList is a wrapper for an array of strings | [optional] 
-**AuthUsers** | Nullable[[]**string**] | StringList is a wrapper for an array of strings | 
+**AllowedAccounts** | Pointer to []**string** |  | [optional] 
+**AuthUsers** | Nullable[[]**string**] |  | 
 **Xkey** | Pointer to **string** |  | [optional] 
 
 ## Methods

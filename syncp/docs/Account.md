@@ -8,8 +8,8 @@ Name | Type | Description | Notes
  | [**GenericFields**](GenericFields.md) |   | Embedded Struct
 **Authorization** | Pointer to [**ExternalAuthorization**](ExternalAuthorization.md) |  | [optional] 
 **DefaultPermissions** | Pointer to [**Permissions**](Permissions.md) |  | [optional] 
-**Exports** | Pointer to Nullable[[][**Export**](Export.md)] | Exports is a slice of exports | [optional] 
-**Imports** | Pointer to Nullable[[][**Import**](Import.md)] | Imports is a list of import structs | [optional] 
+**Exports** | Pointer to [][**Export**](Export.md) | Exports is a slice of exports | [optional] 
+**Imports** | Pointer to [][**Import**](Import.md) | Imports is a list of import structs | [optional] 
 **Limits** | Pointer to [**OperatorLimits**](OperatorLimits.md) |  | [optional] 
 **Mappings** | Pointer to [**map[string][]WeightedMapping**](WeightedMapping.md) |  | [optional] 
 **Revocations** | Pointer to **map[string]int64** | RevocationList is used to store a mapping of public keys to unix timestamps | [optional] 

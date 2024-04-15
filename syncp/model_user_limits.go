@@ -15,17 +15,17 @@ var _ MappedNullable = &UserLimits{}
 
 // UserLimits Src is a comma separated list of CIDR specifications
 type UserLimits struct {
-	Src           *Nullable[[]string] `json:"src,omitempty"`
-	Times         *[]TimeRange        `json:"times,omitempty"`
-	TimesLocation *string             `json:"times_location,omitempty"`
+	Src           []string    `json:"src,omitempty"`
+	Times         []TimeRange `json:"times,omitempty"`
+	TimesLocation *string     `json:"times_location,omitempty"`
 }
 
 func (o UserLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Src != nil && !o.Src.IsNull() {
-		toSerialize["src"] = o.Src.Val
+	if len(o.Src) != 0 {
+		toSerialize["src"] = o.Src
 	}
-	if o.Times != nil {
+	if len(o.Times) != 0 {
 		toSerialize["times"] = o.Times
 	}
 	if o.TimesLocation != nil {

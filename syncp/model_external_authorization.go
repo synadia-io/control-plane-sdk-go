@@ -15,20 +15,18 @@ var _ MappedNullable = &ExternalAuthorization{}
 
 // ExternalAuthorization struct for ExternalAuthorization
 type ExternalAuthorization struct {
-	// StringList is a wrapper for an array of strings
-	AllowedAccounts *Nullable[[]string] `json:"allowed_accounts,omitempty"`
-	// StringList is a wrapper for an array of strings
-	AuthUsers Nullable[[]string] `json:"auth_users"`
-	Xkey      *string            `json:"xkey,omitempty"`
+	AllowedAccounts []string `json:"allowed_accounts,omitempty"`
+	AuthUsers       []string `json:"auth_users"`
+	Xkey            *string  `json:"xkey,omitempty"`
 }
 
 func (o ExternalAuthorization) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AllowedAccounts != nil && !o.AllowedAccounts.IsNull() {
-		toSerialize["allowed_accounts"] = o.AllowedAccounts.Val
+	if len(o.AllowedAccounts) != 0 {
+		toSerialize["allowed_accounts"] = o.AllowedAccounts
 	}
-	if !o.AuthUsers.IsNull() {
-		toSerialize["auth_users"] = o.AuthUsers.Val
+	if o.AuthUsers != nil {
+		toSerialize["auth_users"] = o.AuthUsers
 	}
 	if o.Xkey != nil {
 		toSerialize["xkey"] = o.Xkey

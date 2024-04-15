@@ -15,28 +15,32 @@ var _ MappedNullable = &SystemInfo{}
 
 // SystemInfo struct for SystemInfo
 type SystemInfo struct {
-	AgentType            string            `json:"agent_type"`
-	Id                   string            `json:"id"`
-	IsTenant             bool              `json:"is_tenant"`
-	JetstreamDomain      *Nullable[string] `json:"jetstream_domain,omitempty"`
-	JetstreamEnabled     bool              `json:"jetstream_enabled"`
-	JetstreamTiers       *[]string         `json:"jetstream_tiers,omitempty"`
-	Name                 string            `json:"name"`
-	ServerUrls           *string           `json:"server_urls,omitempty"`
-	State                SystemState       `json:"state"`
-	UserJwtExpiresInSecs int64             `json:"user_jwt_expires_in_secs"`
+	ConnectionType       SystemConnectionType `json:"connection_type"`
+	HttpGatewayUrl       *string              `json:"http_gateway_url,omitempty"`
+	Id                   string               `json:"id"`
+	IsTenant             bool                 `json:"is_tenant"`
+	JetstreamDomain      *string              `json:"jetstream_domain,omitempty"`
+	JetstreamEnabled     bool                 `json:"jetstream_enabled"`
+	JetstreamTiers       []string             `json:"jetstream_tiers,omitempty"`
+	Name                 string               `json:"name"`
+	ServerUrls           *string              `json:"server_urls,omitempty"`
+	State                SystemState          `json:"state"`
+	UserJwtExpiresInSecs int64                `json:"user_jwt_expires_in_secs"`
 }
 
 func (o SystemInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["agent_type"] = o.AgentType
+	toSerialize["connection_type"] = o.ConnectionType
+	if o.HttpGatewayUrl != nil {
+		toSerialize["http_gateway_url"] = o.HttpGatewayUrl
+	}
 	toSerialize["id"] = o.Id
 	toSerialize["is_tenant"] = o.IsTenant
-	if o.JetstreamDomain != nil && !o.JetstreamDomain.IsNull() {
-		toSerialize["jetstream_domain"] = o.JetstreamDomain.Val
+	if o.JetstreamDomain != nil {
+		toSerialize["jetstream_domain"] = o.JetstreamDomain
 	}
 	toSerialize["jetstream_enabled"] = o.JetstreamEnabled
-	if o.JetstreamTiers != nil {
+	if len(o.JetstreamTiers) != 0 {
 		toSerialize["jetstream_tiers"] = o.JetstreamTiers
 	}
 	toSerialize["name"] = o.Name

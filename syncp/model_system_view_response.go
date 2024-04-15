@@ -10,44 +10,58 @@ API version: beta
 
 package syncp
 
+import (
+	"time"
+)
+
 // checks if the SystemViewResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SystemViewResponse{}
 
 // SystemViewResponse struct for SystemViewResponse
 type SystemViewResponse struct {
-	AgentType               string            `json:"agent_type"`
-	HasManagedOperator      bool              `json:"has_managed_operator"`
-	HasManagedSystemAccount bool              `json:"has_managed_system_account"`
-	HostSystemId            *Nullable[string] `json:"host_system_id,omitempty"`
-	Id                      string            `json:"id"`
-	IsTenant                bool              `json:"is_tenant"`
-	JetstreamDomain         *Nullable[string] `json:"jetstream_domain,omitempty"`
-	JetstreamEnabled        bool              `json:"jetstream_enabled"`
-	JetstreamTiers          *[]string         `json:"jetstream_tiers,omitempty"`
-	Name                    string            `json:"name"`
-	OperatorClaims          *OperatorClaims   `json:"operator_claims,omitempty"`
-	OperatorJwt             *string           `json:"operator_jwt,omitempty"`
-	State                   SystemState       `json:"state"`
-	SystemAccountJwt        *string           `json:"system_account_jwt,omitempty"`
-	Team                    TeamInfo          `json:"team"`
-	UserJwtExpiresInSecs    int64             `json:"user_jwt_expires_in_secs"`
+	ConnectionType          SystemConnectionType        `json:"connection_type"`
+	Created                 time.Time                   `json:"created"`
+	DirectConnectionOpts    *SystemDirectConnectionOpts `json:"direct_connection_opts,omitempty"`
+	HasManagedOperator      bool                        `json:"has_managed_operator"`
+	HasManagedSystemAccount bool                        `json:"has_managed_system_account"`
+	HostSystemId            *string                     `json:"host_system_id,omitempty"`
+	HttpGatewayConfig       *HTTPGatewayConfig          `json:"http_gateway_config,omitempty"`
+	Id                      string                      `json:"id"`
+	IsTenant                bool                        `json:"is_tenant"`
+	JetstreamDomain         *string                     `json:"jetstream_domain,omitempty"`
+	JetstreamEnabled        bool                        `json:"jetstream_enabled"`
+	JetstreamTiers          []string                    `json:"jetstream_tiers,omitempty"`
+	Name                    string                      `json:"name"`
+	OperatorClaims          *OperatorClaims             `json:"operator_claims,omitempty"`
+	OperatorJwt             *string                     `json:"operator_jwt,omitempty"`
+	State                   SystemState                 `json:"state"`
+	SystemAccountJwt        *string                     `json:"system_account_jwt,omitempty"`
+	Team                    TeamInfo                    `json:"team"`
+	UserJwtExpiresInSecs    int64                       `json:"user_jwt_expires_in_secs"`
 }
 
 func (o SystemViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["agent_type"] = o.AgentType
+	toSerialize["connection_type"] = o.ConnectionType
+	toSerialize["created"] = o.Created
+	if o.DirectConnectionOpts != nil {
+		toSerialize["direct_connection_opts"] = o.DirectConnectionOpts
+	}
 	toSerialize["has_managed_operator"] = o.HasManagedOperator
 	toSerialize["has_managed_system_account"] = o.HasManagedSystemAccount
-	if o.HostSystemId != nil && !o.HostSystemId.IsNull() {
-		toSerialize["host_system_id"] = o.HostSystemId.Val
+	if o.HostSystemId != nil {
+		toSerialize["host_system_id"] = o.HostSystemId
+	}
+	if o.HttpGatewayConfig != nil {
+		toSerialize["http_gateway_config"] = o.HttpGatewayConfig
 	}
 	toSerialize["id"] = o.Id
 	toSerialize["is_tenant"] = o.IsTenant
-	if o.JetstreamDomain != nil && !o.JetstreamDomain.IsNull() {
-		toSerialize["jetstream_domain"] = o.JetstreamDomain.Val
+	if o.JetstreamDomain != nil {
+		toSerialize["jetstream_domain"] = o.JetstreamDomain
 	}
 	toSerialize["jetstream_enabled"] = o.JetstreamEnabled
-	if o.JetstreamTiers != nil {
+	if len(o.JetstreamTiers) != 0 {
 		toSerialize["jetstream_tiers"] = o.JetstreamTiers
 	}
 	toSerialize["name"] = o.Name

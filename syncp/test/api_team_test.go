@@ -35,6 +35,18 @@ func Test_syncp_TeamAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test TeamAPIService CreateTeamServiceAccount", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var teamId string
+
+		resp, httpRes, err := apiClient.TeamAPI.CreateTeamServiceAccount(context.Background(), teamId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test TeamAPIService DeleteTeam", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -147,6 +159,18 @@ func Test_syncp_TeamAPIService(t *testing.T) {
 		var teamId string
 
 		resp, httpRes, err := apiClient.TeamAPI.ListTeamNatsUsers(context.Background(), teamId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test TeamAPIService ListTeamServiceAccounts", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var teamId string
+
+		resp, httpRes, err := apiClient.TeamAPI.ListTeamServiceAccounts(context.Background(), teamId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

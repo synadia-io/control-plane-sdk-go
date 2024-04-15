@@ -15,17 +15,17 @@ var _ MappedNullable = &SystemAccountImportRequest{}
 
 // SystemAccountImportRequest struct for SystemAccountImportRequest
 type SystemAccountImportRequest struct {
-	Jwt         string              `json:"jwt"`
-	Seed        string              `json:"seed"`
-	SigningKeys *Nullable[[]string] `json:"signing_keys,omitempty"`
+	Jwt         string   `json:"jwt"`
+	Seed        string   `json:"seed"`
+	SigningKeys []string `json:"signing_keys,omitempty"`
 }
 
 func (o SystemAccountImportRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["jwt"] = o.Jwt
 	toSerialize["seed"] = o.Seed
-	if o.SigningKeys != nil && !o.SigningKeys.IsNull() {
-		toSerialize["signing_keys"] = o.SigningKeys.Val
+	if len(o.SigningKeys) != 0 {
+		toSerialize["signing_keys"] = o.SigningKeys
 	}
 	return toSerialize, nil
 }

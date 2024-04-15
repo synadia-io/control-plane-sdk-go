@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
  | [**AlertRuleBaseCreateRequest**](AlertRuleBaseCreateRequest.md) |   | Embedded Struct
-**ConsumerName** | Pointer to Nullable[**string**] |  | [optional] 
+**ConsumerName** | Pointer to **string** |  | [optional] 
 **RuleType** | **string** |  | 
-**StreamName** | Pointer to Nullable[**string**] |  | [optional] 
+**StreamName** | Pointer to **string** |  | [optional] 
 
 ## Methods
 

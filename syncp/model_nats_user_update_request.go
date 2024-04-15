@@ -15,9 +15,9 @@ var _ MappedNullable = &NatsUserUpdateRequest{}
 
 // NatsUserUpdateRequest struct for NatsUserUpdateRequest
 type NatsUserUpdateRequest struct {
-	JwtExpiresInSecs *int64               `json:"jwt_expires_in_secs,omitempty"`
-	JwtSettings      *NatsUserJwtSettings `json:"jwt_settings,omitempty"`
-	Name             *string              `json:"name,omitempty"`
+	JwtExpiresInSecs *int64                    `json:"jwt_expires_in_secs,omitempty"`
+	JwtSettings      *NatsUserJwtSettingsPatch `json:"jwt_settings,omitempty"`
+	Name             *string                   `json:"name,omitempty"`
 }
 
 func (o NatsUserUpdateRequest) ToMap() (map[string]interface{}, error) {

@@ -17,36 +17,36 @@ var _ MappedNullable = &ConsumerConfig{}
 type ConsumerConfig struct {
 	AckPolicy      AckPolicy     `json:"ack_policy"`
 	AckWait        *int64        `json:"ack_wait,omitempty"`
-	Backoff        *[]int64      `json:"backoff,omitempty"`
+	Backoff        []int64       `json:"backoff,omitempty"`
 	DeliverGroup   *string       `json:"deliver_group,omitempty"`
 	DeliverPolicy  DeliverPolicy `json:"deliver_policy"`
 	DeliverSubject *string       `json:"deliver_subject,omitempty"`
 	Description    *string       `json:"description,omitempty"`
 	// Don't add to general clients.
-	Direct            *bool     `json:"direct,omitempty"`
-	DurableName       *string   `json:"durable_name,omitempty"`
-	FilterSubject     *string   `json:"filter_subject,omitempty"`
-	FilterSubjects    *[]string `json:"filter_subjects,omitempty"`
-	FlowControl       *bool     `json:"flow_control,omitempty"`
-	HeadersOnly       *bool     `json:"headers_only,omitempty"`
-	IdleHeartbeat     *int64    `json:"idle_heartbeat,omitempty"`
-	InactiveThreshold *int64    `json:"inactive_threshold,omitempty"`
-	MaxAckPending     *int32    `json:"max_ack_pending,omitempty"`
-	MaxBatch          *int32    `json:"max_batch,omitempty"`
-	MaxBytes          *int32    `json:"max_bytes,omitempty"`
-	MaxDeliver        *int32    `json:"max_deliver,omitempty"`
-	MaxExpires        *int64    `json:"max_expires,omitempty"`
-	MaxWaiting        *int32    `json:"max_waiting,omitempty"`
-	MemStorage        *bool     `json:"mem_storage,omitempty"`
+	Direct            *bool    `json:"direct,omitempty"`
+	DurableName       *string  `json:"durable_name,omitempty"`
+	FilterSubject     *string  `json:"filter_subject,omitempty"`
+	FilterSubjects    []string `json:"filter_subjects,omitempty"`
+	FlowControl       *bool    `json:"flow_control,omitempty"`
+	HeadersOnly       *bool    `json:"headers_only,omitempty"`
+	IdleHeartbeat     *int64   `json:"idle_heartbeat,omitempty"`
+	InactiveThreshold *int64   `json:"inactive_threshold,omitempty"`
+	MaxAckPending     *int32   `json:"max_ack_pending,omitempty"`
+	MaxBatch          *int32   `json:"max_batch,omitempty"`
+	MaxBytes          *int32   `json:"max_bytes,omitempty"`
+	MaxDeliver        *int32   `json:"max_deliver,omitempty"`
+	MaxExpires        *int64   `json:"max_expires,omitempty"`
+	MaxWaiting        *int32   `json:"max_waiting,omitempty"`
+	MemStorage        *bool    `json:"mem_storage,omitempty"`
 	// Metadata is additional metadata for the Consumer.
-	Metadata     *map[string]string `json:"metadata,omitempty"`
-	Name         *string            `json:"name,omitempty"`
-	NumReplicas  int32              `json:"num_replicas"`
-	OptStartSeq  *int32             `json:"opt_start_seq,omitempty"`
-	OptStartTime *Nullable[string]  `json:"opt_start_time,omitempty"`
-	RateLimitBps *int32             `json:"rate_limit_bps,omitempty"`
-	ReplayPolicy ReplayPolicy       `json:"replay_policy"`
-	SampleFreq   *string            `json:"sample_freq,omitempty"`
+	Metadata     map[string]string `json:"metadata,omitempty"`
+	Name         *string           `json:"name,omitempty"`
+	NumReplicas  int32             `json:"num_replicas"`
+	OptStartSeq  *int32            `json:"opt_start_seq,omitempty"`
+	OptStartTime *Nullable[string] `json:"opt_start_time,omitempty"`
+	RateLimitBps *int32            `json:"rate_limit_bps,omitempty"`
+	ReplayPolicy ReplayPolicy      `json:"replay_policy"`
+	SampleFreq   *string           `json:"sample_freq,omitempty"`
 }
 
 func (o ConsumerConfig) ToMap() (map[string]interface{}, error) {
@@ -55,7 +55,7 @@ func (o ConsumerConfig) ToMap() (map[string]interface{}, error) {
 	if o.AckWait != nil {
 		toSerialize["ack_wait"] = o.AckWait
 	}
-	if o.Backoff != nil {
+	if len(o.Backoff) != 0 {
 		toSerialize["backoff"] = o.Backoff
 	}
 	if o.DeliverGroup != nil {
@@ -77,7 +77,7 @@ func (o ConsumerConfig) ToMap() (map[string]interface{}, error) {
 	if o.FilterSubject != nil {
 		toSerialize["filter_subject"] = o.FilterSubject
 	}
-	if o.FilterSubjects != nil {
+	if len(o.FilterSubjects) != 0 {
 		toSerialize["filter_subjects"] = o.FilterSubjects
 	}
 	if o.FlowControl != nil {
@@ -113,7 +113,7 @@ func (o ConsumerConfig) ToMap() (map[string]interface{}, error) {
 	if o.MemStorage != nil {
 		toSerialize["mem_storage"] = o.MemStorage
 	}
-	if o.Metadata != nil {
+	if len(o.Metadata) != 0 {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if o.Name != nil {

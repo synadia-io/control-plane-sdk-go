@@ -312,6 +312,17 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SystemAPIService SystemJWTSync", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		httpRes, err := apiClient.SystemAPI.SystemJWTSync(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SystemAPIService UnAssignSystemTeamAppUser", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 

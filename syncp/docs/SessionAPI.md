@@ -5,12 +5,14 @@ All URIs are relative to *http://localhost/api/core/beta*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AcceptTerms**](SessionAPI.md#AcceptTerms) | **Post** /terms/accept | Accept terms
+[**CreateAppServiceAccount**](SessionAPI.md#CreateAppServiceAccount) | **Post** /service-accounts/app | Create App Service Account
 [**CreateAppUser**](SessionAPI.md#CreateAppUser) | **Post** /app-users | Create App User
 [**CreatePersonalAccessToken**](SessionAPI.md#CreatePersonalAccessToken) | **Post** /personal-access-tokens | Create Personal Access Token
 [**CreateTeam**](SessionAPI.md#CreateTeam) | **Post** /teams | Create Team
 [**DecideInvitation**](SessionAPI.md#DecideInvitation) | **Post** /invitations/{teamId} | Accept or reject team invitation
 [**GetVersion**](SessionAPI.md#GetVersion) | **Get** /version | Get Version
 [**ListAlerts**](SessionAPI.md#ListAlerts) | **Get** /alerts | List Alerts
+[**ListAppServiceAccounts**](SessionAPI.md#ListAppServiceAccounts) | **Get** /service-accounts/app | List App Service Accounts
 [**ListAppUsers**](SessionAPI.md#ListAppUsers) | **Get** /app-users | List App Users
 [**ListInvitations**](SessionAPI.md#ListInvitations) | **Get** /invitations | List of pending invitations
 [**ListPersonalAccessTokens**](SessionAPI.md#ListPersonalAccessTokens) | **Get** /personal-access-tokens | List Personal Access Tokens
@@ -72,6 +74,72 @@ Other parameters are passed through a pointer to a apiAcceptTermsRequest struct 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateAppServiceAccount
+
+> ServiceAccountViewResponse CreateAppServiceAccount(ctx).ServiceAccountCreateRequest(serviceAccountCreateRequest).Execute()
+
+Create App Service Account
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    serviceAccountCreateRequest := *openapiclient.NewServiceAccountCreateRequest("Name_example", map[string]AppUserAssignRequest{"key": *openapiclient.NewAppUserAssignRequest("RoleId_example")}, "RoleId_example") // ServiceAccountCreateRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SessionAPI.CreateAppServiceAccount(context.Background()).ServiceAccountCreateRequest(serviceAccountCreateRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.CreateAppServiceAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateAppServiceAccount`: ServiceAccountViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.CreateAppServiceAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateAppServiceAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **serviceAccountCreateRequest** | [**ServiceAccountCreateRequest**](ServiceAccountCreateRequest.md) |  | 
+
+### Return type
+
+[**ServiceAccountViewResponse**](ServiceAccountViewResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -166,7 +234,7 @@ import (
 )
 
 func main() {
-    appUserAccessTokenCreateRequest := *openapiclient.NewAppUserAccessTokenCreateRequest("Expires_example", "Name_example") // AppUserAccessTokenCreateRequest |  (optional)
+    appUserAccessTokenCreateRequest := *openapiclient.NewAppUserAccessTokenCreateRequest("Name_example") // AppUserAccessTokenCreateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -459,6 +527,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AlertListResponse**](AlertListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAppServiceAccounts
+
+> ServiceAccountListResponse ListAppServiceAccounts(ctx).Execute()
+
+List App Service Accounts
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SessionAPI.ListAppServiceAccounts(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ListAppServiceAccounts``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAppServiceAccounts`: ServiceAccountListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.ListAppServiceAccounts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAppServiceAccountsRequest struct via the builder pattern
+
+
+### Return type
+
+[**ServiceAccountListResponse**](ServiceAccountListResponse.md)
 
 ### Authorization
 

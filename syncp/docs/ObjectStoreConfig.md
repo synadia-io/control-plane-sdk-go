@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bucket** | **string** |  | 
+**Compression** | Pointer to **bool** | Enable underlying stream compression. NOTE: Compression is supported for nats-server 2.10.0+ | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **MaxAge** | Pointer to **int64** |  | [optional] 
 **MaxBytes** | Pointer to **int64** |  | [optional] 

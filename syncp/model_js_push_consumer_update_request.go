@@ -15,14 +15,14 @@ var _ MappedNullable = &JSPushConsumerUpdateRequest{}
 
 // JSPushConsumerUpdateRequest struct for JSPushConsumerUpdateRequest
 type JSPushConsumerUpdateRequest struct {
-	AckWait       *int64   `json:"ack_wait,omitempty"`
-	Backoff       *[]int64 `json:"backoff,omitempty"`
-	Description   *string  `json:"description,omitempty"`
-	FilterSubject *string  `json:"filter_subject,omitempty"`
-	HeadersOnly   *bool    `json:"headers_only,omitempty"`
-	MaxAckPending *int32   `json:"max_ack_pending,omitempty"`
-	MaxDeliver    *int32   `json:"max_deliver,omitempty"`
-	SampleFreq    *string  `json:"sample_freq,omitempty"`
+	AckWait       *int64  `json:"ack_wait,omitempty"`
+	Backoff       []int64 `json:"backoff,omitempty"`
+	Description   *string `json:"description,omitempty"`
+	FilterSubject *string `json:"filter_subject,omitempty"`
+	HeadersOnly   *bool   `json:"headers_only,omitempty"`
+	MaxAckPending *int32  `json:"max_ack_pending,omitempty"`
+	MaxDeliver    *int32  `json:"max_deliver,omitempty"`
+	SampleFreq    *string `json:"sample_freq,omitempty"`
 }
 
 func (o JSPushConsumerUpdateRequest) ToMap() (map[string]interface{}, error) {
@@ -30,7 +30,7 @@ func (o JSPushConsumerUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if o.AckWait != nil {
 		toSerialize["ack_wait"] = o.AckWait
 	}
-	if o.Backoff != nil {
+	if len(o.Backoff) != 0 {
 		toSerialize["backoff"] = o.Backoff
 	}
 	if o.Description != nil {

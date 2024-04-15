@@ -28,6 +28,7 @@ Method | HTTP request | Description
 [**ListSystemTeamAppUsers**](SystemAPI.md#ListSystemTeamAppUsers) | **Get** /systems/{systemId}/app-users | List System Team App Users
 [**RotateAgentToken**](SystemAPI.md#RotateAgentToken) | **Post** /systems/{systemId}/agent-tokens | Rotate Agent Token
 [**RunSystemAlertRule**](SystemAPI.md#RunSystemAlertRule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
+[**SystemJWTSync**](SystemAPI.md#SystemJWTSync) | **Post** /systems/{systemId}/jwt-sync | Re-sync JWTs of all accounts in this system
 [**UnAssignSystemTeamAppUser**](SystemAPI.md#UnAssignSystemTeamAppUser) | **Delete** /systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
 [**UnmanageSystem**](SystemAPI.md#UnmanageSystem) | **Delete** /systems/{systemId}/unmanage | Unmanage System
 [**UpdateSystem**](SystemAPI.md#UpdateSystem) | **Patch** /systems/{systemId} | Update System
@@ -1747,6 +1748,74 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## SystemJWTSync
+
+> SystemJWTSync(ctx, systemId).Execute()
+
+Re-sync JWTs of all accounts in this system
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.SystemAPI.SystemJWTSync(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.SystemJWTSync``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSystemJWTSyncRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UnAssignSystemTeamAppUser
 
 > UnAssignSystemTeamAppUser(ctx, systemId, teamAppUserId).Execute()
@@ -1888,7 +1957,7 @@ Name | Type | Description  | Notes
 
 ## UpdateSystem
 
-> SystemViewResponse UpdateSystem(ctx, systemId).SystemUpdateRequest(systemUpdateRequest).Execute()
+> SystemViewResponse UpdateSystem(ctx, systemId).TestConnection(testConnection).SystemUpdateRequest(systemUpdateRequest).Execute()
 
 Update System
 
@@ -1908,11 +1977,12 @@ import (
 
 func main() {
     systemId := "systemId_example" // string | 
+    testConnection := true // bool |  (optional)
     systemUpdateRequest := *openapiclient.NewSystemUpdateRequest() // SystemUpdateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemAPI.UpdateSystem(context.Background(), systemId).SystemUpdateRequest(systemUpdateRequest).Execute()
+    resp, r, err := apiClient.SystemAPI.UpdateSystem(context.Background(), systemId).TestConnection(testConnection).SystemUpdateRequest(systemUpdateRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.UpdateSystem``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1938,6 +2008,7 @@ Other parameters are passed through a pointer to a apiUpdateSystemRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **testConnection** | **bool** |  | 
  **systemUpdateRequest** | [**SystemUpdateRequest**](SystemUpdateRequest.md) |  | 
 
 ### Return type
@@ -1981,7 +2052,7 @@ import (
 func main() {
     systemId := "systemId_example" // string | 
     alertRuleId := "alertRuleId_example" // string | 
-    alertRuleUpdateRequest := *openapiclient.NewAlertRuleUpdateRequest(int32(123), false, "Message_example", "Metric_example", openapiclient.AlertRuleSeverity("Info"), openapiclient.AlertRuleOperator("Greater Than")) // AlertRuleUpdateRequest |  (optional)
+    alertRuleUpdateRequest := *openapiclient.NewAlertRuleUpdateRequest() // AlertRuleUpdateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

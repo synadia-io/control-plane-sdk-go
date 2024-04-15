@@ -15,13 +15,15 @@ var _ MappedNullable = &SigningKeyUpdateRequest{}
 
 // SigningKeyUpdateRequest struct for SigningKeyUpdateRequest
 type SigningKeyUpdateRequest struct {
-	Disabled bool    `json:"disabled"`
+	Disabled *bool   `json:"disabled,omitempty"`
 	Seed     *string `json:"seed,omitempty"`
 }
 
 func (o SigningKeyUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["disabled"] = o.Disabled
+	if o.Disabled != nil {
+		toSerialize["disabled"] = o.Disabled
+	}
 	if o.Seed != nil {
 		toSerialize["seed"] = o.Seed
 	}

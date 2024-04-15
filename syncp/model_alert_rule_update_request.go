@@ -15,29 +15,41 @@ var _ MappedNullable = &AlertRuleUpdateRequest{}
 
 // AlertRuleUpdateRequest struct for AlertRuleUpdateRequest
 type AlertRuleUpdateRequest struct {
-	DurationInSecs      int32              `json:"duration_in_secs"`
-	IsEnabled           bool               `json:"is_enabled"`
-	Message             string             `json:"message"`
-	Metric              string             `json:"metric"`
-	Severity            AlertRuleSeverity  `json:"severity"`
-	ThresholdExpression *Nullable[string]  `json:"threshold_expression,omitempty"`
-	ThresholdFixedValue *Nullable[float32] `json:"threshold_fixed_value,omitempty"`
-	ThresholdOperator   AlertRuleOperator  `json:"threshold_operator"`
+	DurationInSecs                *int32                    `json:"duration_in_secs,omitempty"`
+	IsEnabled                     *bool                     `json:"is_enabled,omitempty"`
+	Message                       *string                   `json:"message,omitempty"`
+	Severity                      *AlertRuleSeverity        `json:"severity,omitempty"`
+	ThresholdExpressionMetric     *AlertRuleThresholdMetric `json:"threshold_expression_metric,omitempty"`
+	ThresholdExpressionMultiplier *float32                  `json:"threshold_expression_multiplier,omitempty"`
+	ThresholdFixedValue           *float32                  `json:"threshold_fixed_value,omitempty"`
+	ThresholdOperator             *AlertRuleOperator        `json:"threshold_operator,omitempty"`
 }
 
 func (o AlertRuleUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["duration_in_secs"] = o.DurationInSecs
-	toSerialize["is_enabled"] = o.IsEnabled
-	toSerialize["message"] = o.Message
-	toSerialize["metric"] = o.Metric
-	toSerialize["severity"] = o.Severity
-	if o.ThresholdExpression != nil && !o.ThresholdExpression.IsNull() {
-		toSerialize["threshold_expression"] = o.ThresholdExpression.Val
+	if o.DurationInSecs != nil {
+		toSerialize["duration_in_secs"] = o.DurationInSecs
 	}
-	if o.ThresholdFixedValue != nil && !o.ThresholdFixedValue.IsNull() {
-		toSerialize["threshold_fixed_value"] = o.ThresholdFixedValue.Val
+	if o.IsEnabled != nil {
+		toSerialize["is_enabled"] = o.IsEnabled
 	}
-	toSerialize["threshold_operator"] = o.ThresholdOperator
+	if o.Message != nil {
+		toSerialize["message"] = o.Message
+	}
+	if o.Severity != nil {
+		toSerialize["severity"] = o.Severity
+	}
+	if o.ThresholdExpressionMetric != nil {
+		toSerialize["threshold_expression_metric"] = o.ThresholdExpressionMetric
+	}
+	if o.ThresholdExpressionMultiplier != nil {
+		toSerialize["threshold_expression_multiplier"] = o.ThresholdExpressionMultiplier
+	}
+	if o.ThresholdFixedValue != nil {
+		toSerialize["threshold_fixed_value"] = o.ThresholdFixedValue
+	}
+	if o.ThresholdOperator != nil {
+		toSerialize["threshold_operator"] = o.ThresholdOperator
+	}
 	return toSerialize, nil
 }

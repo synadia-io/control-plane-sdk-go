@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Results** | **string** | Subject is a string that represents a NATS subject | 
+**Results** | **string** |  | 
 **Sampling** | **int32** |  | 
 
 ## Methods

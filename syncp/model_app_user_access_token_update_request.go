@@ -10,19 +10,23 @@ API version: beta
 
 package syncp
 
+import (
+	"time"
+)
+
 // checks if the AppUserAccessTokenUpdateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AppUserAccessTokenUpdateRequest{}
 
 // AppUserAccessTokenUpdateRequest struct for AppUserAccessTokenUpdateRequest
 type AppUserAccessTokenUpdateRequest struct {
-	Expires *Nullable[string] `json:"expires,omitempty"`
-	Name    *string           `json:"name,omitempty"`
+	Expires *time.Time `json:"expires,omitempty"`
+	Name    *string    `json:"name,omitempty"`
 }
 
 func (o AppUserAccessTokenUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Expires != nil && !o.Expires.IsNull() {
-		toSerialize["expires"] = o.Expires.Val
+	if o.Expires != nil {
+		toSerialize["expires"] = o.Expires
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name

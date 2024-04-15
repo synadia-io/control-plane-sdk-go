@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AcknowledgedByAppUserID** | Pointer to Nullable[**string**] |  | [optional] 
-**Account** | Pointer to Nullable[[**AccountInfo**](AccountInfo.md)] |  | [optional] 
-**AccountId** | Pointer to Nullable[**string**] |  | [optional] 
-**AcknowledgedAt** | Pointer to Nullable[**string**] |  | [optional] 
+**AcknowledgedByAppUserID** | Pointer to **string** |  | [optional] 
+**Account** | Pointer to [**AccountInfo**](AccountInfo.md) |  | [optional] 
+**AccountId** | Pointer to **string** |  | [optional] 
+**AcknowledgedAt** | Pointer to **time.Time** |  | [optional] 
 **AlertRule** | [**AlertRuleViewResponse**](AlertRuleViewResponse.md) |  | 
 **AlertRuleId** | **string** |  | 
-**ClosedAt** | Pointer to Nullable[**string**] |  | [optional] 
-**ConsumerName** | Pointer to Nullable[**string**] |  | [optional] 
+**ClosedAt** | Pointer to **time.Time** |  | [optional] 
+**ConsumerName** | Pointer to **string** |  | [optional] 
 **Created** | **time.Time** |  | 
 **Id** | **string** |  | 
 **IsAcknowledged** | **bool** |  | 
@@ -21,9 +21,9 @@ Name | Type | Description | Notes
 **MetricValue** | **float64** |  | 
 **SampleValues** | [][**PromSampleValue**](PromSampleValue.md) |  | 
 **Severity** | [**AlertRuleSeverity**](AlertRuleSeverity.md) |  | 
-**StreamName** | Pointer to Nullable[**string**] |  | [optional] 
-**System** | Pointer to Nullable[[**SystemInfo**](SystemInfo.md)] |  | [optional] 
-**SystemId** | Pointer to Nullable[**string**] |  | [optional] 
+**StreamName** | Pointer to **string** |  | [optional] 
+**System** | Pointer to [**SystemInfo**](SystemInfo.md) |  | [optional] 
+**SystemId** | Pointer to **string** |  | [optional] 
 **ThresholdValue** | **float64** |  | 
 
 ## Methods

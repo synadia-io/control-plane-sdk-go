@@ -20,14 +20,14 @@ type Account struct {
 	Authorization      *ExternalAuthorization `json:"authorization,omitempty"`
 	DefaultPermissions *Permissions           `json:"default_permissions,omitempty"`
 	// Exports is a slice of exports
-	Exports *[]Export `json:"exports,omitempty"`
+	Exports []Export `json:"exports,omitempty"`
 	// Imports is a list of import structs
-	Imports  *[]Import                     `json:"imports,omitempty"`
-	Limits   *OperatorLimits               `json:"limits,omitempty"`
-	Mappings *map[string][]WeightedMapping `json:"mappings,omitempty"`
+	Imports  []Import                     `json:"imports,omitempty"`
+	Limits   *OperatorLimits              `json:"limits,omitempty"`
+	Mappings map[string][]WeightedMapping `json:"mappings,omitempty"`
 	// RevocationList is used to store a mapping of public keys to unix timestamps
-	Revocations *map[string]int64 `json:"revocations,omitempty"`
-	SigningKeys *SigningKeys      `json:"signing_keys,omitempty"`
+	Revocations map[string]int64 `json:"revocations,omitempty"`
+	SigningKeys *SigningKeys     `json:"signing_keys,omitempty"`
 }
 
 func (o Account) ToMap() (map[string]interface{}, error) {
@@ -38,19 +38,19 @@ func (o Account) ToMap() (map[string]interface{}, error) {
 	if o.DefaultPermissions != nil {
 		toSerialize["default_permissions"] = o.DefaultPermissions
 	}
-	if o.Exports != nil {
+	if len(o.Exports) != 0 {
 		toSerialize["exports"] = o.Exports
 	}
-	if o.Imports != nil {
+	if len(o.Imports) != 0 {
 		toSerialize["imports"] = o.Imports
 	}
 	if o.Limits != nil {
 		toSerialize["limits"] = o.Limits
 	}
-	if o.Mappings != nil {
+	if len(o.Mappings) != 0 {
 		toSerialize["mappings"] = o.Mappings
 	}
-	if o.Revocations != nil {
+	if len(o.Revocations) != 0 {
 		toSerialize["revocations"] = o.Revocations
 	}
 	if o.SigningKeys != nil {
@@ -62,8 +62,8 @@ func (o Account) ToMap() (map[string]interface{}, error) {
 	if o.InfoUrl != nil {
 		toSerialize["info_url"] = o.InfoUrl
 	}
-	if o.Tags != nil && !o.Tags.IsNull() {
-		toSerialize["tags"] = o.Tags.Val
+	if len(o.Tags) != 0 {
+		toSerialize["tags"] = o.Tags
 	}
 	if o.Type != nil {
 		toSerialize["type"] = o.Type

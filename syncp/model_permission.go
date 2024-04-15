@@ -15,19 +15,17 @@ var _ MappedNullable = &Permission{}
 
 // Permission Permission defines allow/deny subjects
 type Permission struct {
-	// StringList is a wrapper for an array of strings
-	Allow *Nullable[[]string] `json:"allow,omitempty"`
-	// StringList is a wrapper for an array of strings
-	Deny *Nullable[[]string] `json:"deny,omitempty"`
+	Allow []string `json:"allow,omitempty"`
+	Deny  []string `json:"deny,omitempty"`
 }
 
 func (o Permission) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Allow != nil && !o.Allow.IsNull() {
-		toSerialize["allow"] = o.Allow.Val
+	if len(o.Allow) != 0 {
+		toSerialize["allow"] = o.Allow
 	}
-	if o.Deny != nil && !o.Deny.IsNull() {
-		toSerialize["deny"] = o.Deny.Val
+	if len(o.Deny) != 0 {
+		toSerialize["deny"] = o.Deny
 	}
 	return toSerialize, nil
 }

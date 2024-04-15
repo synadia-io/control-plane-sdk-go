@@ -8,8 +8,9 @@ Name | Type | Description | Notes
 **Message** | **string** |  | 
 **Metric** | **string** |  | 
 **Severity** | [**AlertRuleSeverity**](AlertRuleSeverity.md) |  | 
-**ThresholdExpression** | Pointer to Nullable[**string**] |  | [optional] 
-**ThresholdFixedValue** | Pointer to Nullable[**float32**] |  | [optional] 
+**ThresholdExpressionMetric** | Pointer to [**AlertRuleThresholdMetric**](AlertRuleThresholdMetric.md) |  | [optional] 
+**ThresholdExpressionMultiplier** | Pointer to **float32** |  | [optional] 
+**ThresholdFixedValue** | Pointer to **float32** |  | [optional] 
 **ThresholdOperator** | [**AlertRuleOperator**](AlertRuleOperator.md) |  | 
 
 ## Methods

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Cluster** | Pointer to **string** |  | [optional] 
-**Subject** | **string** | Subject is a string that represents a NATS subject | 
+**Subject** | **string** |  | 
 **Weight** | Pointer to **int32** |  | [optional] 
 
 ## Methods

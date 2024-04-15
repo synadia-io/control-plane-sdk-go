@@ -30,14 +30,14 @@ func (o JSMirrorInfoResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["mirror"] = o.Mirror
 	}
 	toSerialize["shared"] = o.Shared
-	if o.Alternates != nil {
+	if len(o.Alternates) != 0 {
 		toSerialize["alternates"] = o.Alternates
 	}
 	if o.Cluster != nil {
 		toSerialize["cluster"] = o.Cluster
 	}
 	toSerialize["created"] = o.Created
-	if o.Sources != nil {
+	if len(o.Sources) != 0 {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["state"] = o.State

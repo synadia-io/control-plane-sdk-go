@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**JwtSettings** | Pointer to [**Import**](Import.md) |  | [optional] 
+**JwtSettings** | Pointer to [**ImportPatch**](ImportPatch.md) |  | [optional] 
 
 ## Methods
 

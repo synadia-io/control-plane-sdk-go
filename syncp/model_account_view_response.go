@@ -28,6 +28,8 @@ type AccountViewResponse struct {
 	IsSystemAccount      bool               `json:"is_system_account"`
 	Jwt                  string             `json:"jwt"`
 	JwtSettings          AccountJWTSettings `json:"jwt_settings"`
+	JwtSyncError         string             `json:"jwt_sync_error"`
+	JwtSyncStatus        JwtSyncStatus      `json:"jwt_sync_status"`
 	Name                 string             `json:"name"`
 	NscManaged           bool               `json:"nsc_managed"`
 	System               SystemInfo         `json:"system"`
@@ -46,6 +48,8 @@ func (o AccountViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["is_system_account"] = o.IsSystemAccount
 	toSerialize["jwt"] = o.Jwt
 	toSerialize["jwt_settings"] = o.JwtSettings
+	toSerialize["jwt_sync_error"] = o.JwtSyncError
+	toSerialize["jwt_sync_status"] = o.JwtSyncStatus
 	toSerialize["name"] = o.Name
 	toSerialize["nsc_managed"] = o.NscManaged
 	toSerialize["system"] = o.System

@@ -15,19 +15,21 @@ var _ MappedNullable = &NatsCluster{}
 
 // NatsCluster struct for NatsCluster
 type NatsCluster struct {
-	Connections      int32  `json:"connections"`
-	IncomingGateways int32  `json:"incomingGateways"`
-	Name             string `json:"name"`
-	NodeCount        int32  `json:"nodeCount"`
-	OutgoingGateways int32  `json:"outgoingGateways"`
+	Connections      int32        `json:"connections"`
+	IncomingGateways int32        `json:"incoming_gateways"`
+	Name             string       `json:"name"`
+	NodeCount        int32        `json:"node_count"`
+	OutgoingGateways int32        `json:"outgoing_gateways"`
+	Servers          []NatsServer `json:"servers"`
 }
 
 func (o NatsCluster) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["connections"] = o.Connections
-	toSerialize["incomingGateways"] = o.IncomingGateways
+	toSerialize["incoming_gateways"] = o.IncomingGateways
 	toSerialize["name"] = o.Name
-	toSerialize["nodeCount"] = o.NodeCount
-	toSerialize["outgoingGateways"] = o.OutgoingGateways
+	toSerialize["node_count"] = o.NodeCount
+	toSerialize["outgoing_gateways"] = o.OutgoingGateways
+	toSerialize["servers"] = o.Servers
 	return toSerialize, nil
 }

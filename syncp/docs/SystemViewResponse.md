@@ -4,13 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AgentType** | **string** |  | 
+**ConnectionType** | [**SystemConnectionType**](SystemConnectionType.md) |  | [default to SYSTEMCONNECTIONTYPE_AGENT]
+**Created** | **time.Time** |  | 
+**DirectConnectionOpts** | Pointer to [**SystemDirectConnectionOpts**](SystemDirectConnectionOpts.md) |  | [optional] 
 **HasManagedOperator** | **bool** |  | 
 **HasManagedSystemAccount** | **bool** |  | 
-**HostSystemId** | Pointer to Nullable[**string**] |  | [optional] 
+**HostSystemId** | Pointer to **string** |  | [optional] 
+**HttpGatewayConfig** | Pointer to [**HTTPGatewayConfig**](HTTPGatewayConfig.md) |  | [optional] 
 **Id** | **string** |  | 
 **IsTenant** | **bool** |  | 
-**JetstreamDomain** | Pointer to Nullable[**string**] |  | [optional] 
+**JetstreamDomain** | Pointer to **string** |  | [optional] 
 **JetstreamEnabled** | **bool** |  | 
 **JetstreamTiers** | Pointer to []**string** |  | [optional] 
 **Name** | **string** |  | 

@@ -15,7 +15,7 @@ var _ MappedNullable = &SubjectImportUpdateRequest{}
 
 // SubjectImportUpdateRequest struct for SubjectImportUpdateRequest
 type SubjectImportUpdateRequest struct {
-	JwtSettings *Import `json:"jwt_settings,omitempty"`
+	JwtSettings *ImportPatch `json:"jwt_settings,omitempty"`
 }
 
 func (o SubjectImportUpdateRequest) ToMap() (map[string]interface{}, error) {

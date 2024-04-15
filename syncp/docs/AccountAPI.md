@@ -3067,7 +3067,7 @@ import (
 func main() {
     accountId := "accountId_example" // string | 
     alertRuleId := "alertRuleId_example" // string | 
-    alertRuleUpdateRequest := *openapiclient.NewAlertRuleUpdateRequest(int32(123), false, "Message_example", "Metric_example", openapiclient.AlertRuleSeverity("Info"), openapiclient.AlertRuleOperator("Greater Than")) // AlertRuleUpdateRequest |  (optional)
+    alertRuleUpdateRequest := *openapiclient.NewAlertRuleUpdateRequest() // AlertRuleUpdateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

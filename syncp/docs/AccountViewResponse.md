@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **IsSystemAccount** | **bool** |  | 
 **Jwt** | **string** |  | 
 **JwtSettings** | [**AccountJWTSettings**](AccountJWTSettings.md) |  | 
+**JwtSyncError** | **string** |  | 
+**JwtSyncStatus** | [**JwtSyncStatus**](JwtSyncStatus.md) |  | 
 **Name** | **string** |  | 
 **NscManaged** | **bool** |  | 
 **System** | [**SystemInfo**](SystemInfo.md) |  | 

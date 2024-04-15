@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**Identifier** | Nullable[**string**] |  | 
+**Identifier** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
 
 ## Methods

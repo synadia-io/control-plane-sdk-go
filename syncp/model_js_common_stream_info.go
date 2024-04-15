@@ -19,23 +19,23 @@ var _ MappedNullable = &JSCommonStreamInfo{}
 
 // JSCommonStreamInfo struct for JSCommonStreamInfo
 type JSCommonStreamInfo struct {
-	Alternates *[]StreamAlternate  `json:"alternates,omitempty"`
-	Cluster    *ClusterInfo        `json:"cluster,omitempty"`
-	Created    time.Time           `json:"created"`
-	Sources    *[]StreamSourceInfo `json:"sources,omitempty"`
-	State      StreamState         `json:"state"`
+	Alternates []StreamAlternate  `json:"alternates,omitempty"`
+	Cluster    *ClusterInfo       `json:"cluster,omitempty"`
+	Created    time.Time          `json:"created"`
+	Sources    []StreamSourceInfo `json:"sources,omitempty"`
+	State      StreamState        `json:"state"`
 }
 
 func (o JSCommonStreamInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Alternates != nil {
+	if len(o.Alternates) != 0 {
 		toSerialize["alternates"] = o.Alternates
 	}
 	if o.Cluster != nil {
 		toSerialize["cluster"] = o.Cluster
 	}
 	toSerialize["created"] = o.Created
-	if o.Sources != nil {
+	if len(o.Sources) != 0 {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["state"] = o.State

@@ -16,29 +16,32 @@ var _ MappedNullable = &AlertRuleAccountCreateRequest{}
 // AlertRuleAccountCreateRequest struct for AlertRuleAccountCreateRequest
 type AlertRuleAccountCreateRequest struct {
 	AlertRuleBaseCreateRequest
-	ConsumerName *Nullable[string] `json:"consumer_name,omitempty"`
-	RuleType     string            `json:"rule_type"`
-	StreamName   *Nullable[string] `json:"stream_name,omitempty"`
+	ConsumerName *string `json:"consumer_name,omitempty"`
+	RuleType     string  `json:"rule_type"`
+	StreamName   *string `json:"stream_name,omitempty"`
 }
 
 func (o AlertRuleAccountCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ConsumerName != nil && !o.ConsumerName.IsNull() {
-		toSerialize["consumer_name"] = o.ConsumerName.Val
+	if o.ConsumerName != nil {
+		toSerialize["consumer_name"] = o.ConsumerName
 	}
 	toSerialize["rule_type"] = o.RuleType
-	if o.StreamName != nil && !o.StreamName.IsNull() {
-		toSerialize["stream_name"] = o.StreamName.Val
+	if o.StreamName != nil {
+		toSerialize["stream_name"] = o.StreamName
 	}
 	toSerialize["duration_in_secs"] = o.DurationInSecs
 	toSerialize["message"] = o.Message
 	toSerialize["metric"] = o.Metric
 	toSerialize["severity"] = o.Severity
-	if o.ThresholdExpression != nil && !o.ThresholdExpression.IsNull() {
-		toSerialize["threshold_expression"] = o.ThresholdExpression.Val
+	if o.ThresholdExpressionMetric != nil {
+		toSerialize["threshold_expression_metric"] = o.ThresholdExpressionMetric
 	}
-	if o.ThresholdFixedValue != nil && !o.ThresholdFixedValue.IsNull() {
-		toSerialize["threshold_fixed_value"] = o.ThresholdFixedValue.Val
+	if o.ThresholdExpressionMultiplier != nil {
+		toSerialize["threshold_expression_multiplier"] = o.ThresholdExpressionMultiplier
+	}
+	if o.ThresholdFixedValue != nil {
+		toSerialize["threshold_fixed_value"] = o.ThresholdFixedValue
 	}
 	toSerialize["threshold_operator"] = o.ThresholdOperator
 	return toSerialize, nil

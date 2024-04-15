@@ -23,11 +23,11 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **NoAck** | Pointer to **bool** |  | [optional] 
 **NumReplicas** | **int32** |  | 
-**Placement** | Pointer to Nullable[[**Placement**](Placement.md)] |  | [optional] 
-**Republish** | Pointer to Nullable[[**RePublish**](RePublish.md)] |  | [optional] 
+**Placement** | Pointer to [**Placement**](Placement.md) |  | [optional] 
+**Republish** | Pointer to [**RePublish**](RePublish.md) |  | [optional] 
 **Retention** | [**RetentionPolicy**](RetentionPolicy.md) |  | 
 **Sealed** | **bool** |  | 
-**Sources** | Pointer to Nullable[[][**StreamSource**](StreamSource.md)] |  | [optional] 
+**Sources** | Pointer to [][**StreamSource**](StreamSource.md) |  | [optional] 
 **Storage** | [**StorageType**](StorageType.md) |  | 
 **SubjectTransform** | Pointer to [**SubjectTransformConfig**](SubjectTransformConfig.md) |  | [optional] 
 **TemplateOwner** | Pointer to **string** |  | [optional] 

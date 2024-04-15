@@ -4,10 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AgentType** | **string** |  | 
+**ConnectionType** | [**SystemConnectionType**](SystemConnectionType.md) |  | [default to SYSTEMCONNECTIONTYPE_AGENT]
+**HttpGatewayUrl** | Pointer to **string** |  | [optional] 
 **Id** | **string** |  | 
 **IsTenant** | **bool** |  | 
-**JetstreamDomain** | Pointer to Nullable[**string**] |  | [optional] 
+**JetstreamDomain** | Pointer to **string** |  | [optional] 
 **JetstreamEnabled** | **bool** |  | 
 **JetstreamTiers** | Pointer to []**string** |  | [optional] 
 **Name** | **string** |  | 

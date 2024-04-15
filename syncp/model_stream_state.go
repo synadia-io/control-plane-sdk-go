@@ -21,7 +21,7 @@ var _ MappedNullable = &StreamState{}
 type StreamState struct {
 	Bytes         int32                     `json:"bytes"`
 	ConsumerCount int32                     `json:"consumer_count"`
-	Deleted       *[]int32                  `json:"deleted,omitempty"`
+	Deleted       []int32                   `json:"deleted,omitempty"`
 	FirstSeq      int32                     `json:"first_seq"`
 	FirstTs       time.Time                 `json:"first_ts"`
 	LastSeq       int32                     `json:"last_seq"`
@@ -30,14 +30,14 @@ type StreamState struct {
 	Messages      int32                     `json:"messages"`
 	NumDeleted    *int32                    `json:"num_deleted,omitempty"`
 	NumSubjects   *int32                    `json:"num_subjects,omitempty"`
-	Subjects      *map[string]int32         `json:"subjects,omitempty"`
+	Subjects      map[string]int32          `json:"subjects,omitempty"`
 }
 
 func (o StreamState) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["bytes"] = o.Bytes
 	toSerialize["consumer_count"] = o.ConsumerCount
-	if o.Deleted != nil {
+	if len(o.Deleted) != 0 {
 		toSerialize["deleted"] = o.Deleted
 	}
 	toSerialize["first_seq"] = o.FirstSeq
@@ -54,7 +54,7 @@ func (o StreamState) ToMap() (map[string]interface{}, error) {
 	if o.NumSubjects != nil {
 		toSerialize["num_subjects"] = o.NumSubjects
 	}
-	if o.Subjects != nil {
+	if len(o.Subjects) != 0 {
 		toSerialize["subjects"] = o.Subjects
 	}
 	return toSerialize, nil

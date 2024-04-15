@@ -59,12 +59,36 @@ func Test_syncp_NatsUserAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test NatsUserAPIService DownloadNatsUserBearerJwt", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var userId string
+
+		resp, httpRes, err := apiClient.NatsUserAPI.DownloadNatsUserBearerJwt(context.Background(), userId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test NatsUserAPIService DownloadNatsUserCreds", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var userId string
 
 		resp, httpRes, err := apiClient.NatsUserAPI.DownloadNatsUserCreds(context.Background(), userId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test NatsUserAPIService DownloadNatsUserHttpGwToken", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var userId string
+
+		resp, httpRes, err := apiClient.NatsUserAPI.DownloadNatsUserHttpGwToken(context.Background(), userId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

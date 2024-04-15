@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost/api/core/beta*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateSystem**](TeamAPI.md#CreateSystem) | **Post** /teams/{teamId}/systems | Create System
+[**CreateTeamServiceAccount**](TeamAPI.md#CreateTeamServiceAccount) | **Post** /teams/{teamId}/service-accounts | Create Team Service Account
 [**DeleteTeam**](TeamAPI.md#DeleteTeam) | **Delete** /teams/{teamId} | Delete Team
 [**GetTeam**](TeamAPI.md#GetTeam) | **Get** /teams/{teamId} | Get Team
 [**GetTeamLimits**](TeamAPI.md#GetTeamLimits) | **Get** /teams/{teamId}/team-limits | Get Team Limits
@@ -15,6 +16,7 @@ Method | HTTP request | Description
 [**ListTeamAppUsers**](TeamAPI.md#ListTeamAppUsers) | **Get** /teams/{teamId}/app-users | List App Users
 [**ListTeamInfoAppUsers**](TeamAPI.md#ListTeamInfoAppUsers) | **Get** /teams/{teamId}/info/app-users | List info of App Users in Team
 [**ListTeamNatsUsers**](TeamAPI.md#ListTeamNatsUsers) | **Get** /teams/{teamId}/nats-users | List NATS Users
+[**ListTeamServiceAccounts**](TeamAPI.md#ListTeamServiceAccounts) | **Get** /teams/{teamId}/service-accounts | List Team Service Accounts
 [**ListTeamSystems**](TeamAPI.md#ListTeamSystems) | **Get** /teams/{teamId}/systems | List Systems
 [**UnAssignTeamAppUser**](TeamAPI.md#UnAssignTeamAppUser) | **Delete** /teams/{teamId}/app-users/{appUserId} | Unassign App User from Team
 [**UpdateTeam**](TeamAPI.md#UpdateTeam) | **Patch** /teams/{teamId} | Update Team
@@ -44,7 +46,7 @@ import (
 
 func main() {
     teamId := "teamId_example" // string | 
-    systemCreateRequest := *openapiclient.NewSystemCreateRequest("Name_example", "TeamId_example") // SystemCreateRequest |  (optional)
+    systemCreateRequest := *openapiclient.NewSystemCreateRequest("Name_example", "Url_example") // SystemCreateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -79,6 +81,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SystemViewResponse**](SystemViewResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateTeamServiceAccount
+
+> ServiceAccountViewResponse CreateTeamServiceAccount(ctx, teamId).ServiceAccountCreateRequest(serviceAccountCreateRequest).Execute()
+
+Create Team Service Account
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    teamId := "teamId_example" // string | 
+    serviceAccountCreateRequest := *openapiclient.NewServiceAccountCreateRequest("Name_example", map[string]AppUserAssignRequest{"key": *openapiclient.NewAppUserAssignRequest("RoleId_example")}, "RoleId_example") // ServiceAccountCreateRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TeamAPI.CreateTeamServiceAccount(context.Background(), teamId).ServiceAccountCreateRequest(serviceAccountCreateRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.CreateTeamServiceAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateTeamServiceAccount`: ServiceAccountViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `TeamAPI.CreateTeamServiceAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**teamId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateTeamServiceAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **serviceAccountCreateRequest** | [**ServiceAccountCreateRequest**](ServiceAccountCreateRequest.md) |  | 
+
+### Return type
+
+[**ServiceAccountViewResponse**](ServiceAccountViewResponse.md)
 
 ### Authorization
 
@@ -324,7 +398,7 @@ import (
 
 func main() {
     teamId := "teamId_example" // string | 
-    systemImportRequest := *openapiclient.NewSystemImportRequest("OperatorJwt_example", "OperatorKey_example", "SystemJwt_example", "SystemKey_example", "TeamId_example") // SystemImportRequest |  (optional)
+    systemImportRequest := *openapiclient.NewSystemImportRequest("OperatorJwt_example", "OperatorKey_example", "SystemJwt_example", "SystemKey_example") // SystemImportRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -794,6 +868,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListTeamServiceAccounts
+
+> ServiceAccountListResponse ListTeamServiceAccounts(ctx, teamId).Execute()
+
+List Team Service Accounts
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    teamId := "teamId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TeamAPI.ListTeamServiceAccounts(context.Background(), teamId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.ListTeamServiceAccounts``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListTeamServiceAccounts`: ServiceAccountListResponse
+    fmt.Fprintf(os.Stdout, "Response from `TeamAPI.ListTeamServiceAccounts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**teamId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListTeamServiceAccountsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ServiceAccountListResponse**](ServiceAccountListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListTeamSystems
 
 > SystemListResponse ListTeamSystems(ctx, teamId).Execute()
@@ -957,7 +1101,7 @@ import (
 
 func main() {
     teamId := "teamId_example" // string | 
-    teamUpdateRequest := *openapiclient.NewTeamUpdateRequest("Name_example") // TeamUpdateRequest |  (optional)
+    teamUpdateRequest := *openapiclient.NewTeamUpdateRequest() // TeamUpdateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

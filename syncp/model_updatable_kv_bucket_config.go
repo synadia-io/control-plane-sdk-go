@@ -15,17 +15,17 @@ var _ MappedNullable = &UpdatableKVBucketConfig{}
 
 // UpdatableKVBucketConfig struct for UpdatableKVBucketConfig
 type UpdatableKVBucketConfig struct {
-	Compression  *bool           `json:"compression,omitempty"`
-	Description  *string         `json:"description,omitempty"`
-	History      *int32          `json:"history,omitempty"`
-	MaxAge       *int64          `json:"max_age,omitempty"`
-	MaxBytes     *int64          `json:"max_bytes,omitempty"`
-	MaxValueSize *int32          `json:"max_value_size,omitempty"`
-	Mirror       *StreamSource   `json:"mirror,omitempty"`
-	NumReplicas  *int32          `json:"num_replicas,omitempty"`
-	Placement    *Placement      `json:"placement,omitempty"`
-	Republish    *RePublish      `json:"republish,omitempty"`
-	Sources      *[]StreamSource `json:"sources,omitempty"`
+	Compression  *bool          `json:"compression,omitempty"`
+	Description  *string        `json:"description,omitempty"`
+	History      *int32         `json:"history,omitempty"`
+	MaxAge       *int64         `json:"max_age,omitempty"`
+	MaxBytes     *int64         `json:"max_bytes,omitempty"`
+	MaxValueSize *int32         `json:"max_value_size,omitempty"`
+	Mirror       *StreamSource  `json:"mirror,omitempty"`
+	NumReplicas  *int32         `json:"num_replicas,omitempty"`
+	Placement    *Placement     `json:"placement,omitempty"`
+	Republish    *RePublish     `json:"republish,omitempty"`
+	Sources      []StreamSource `json:"sources,omitempty"`
 }
 
 func (o UpdatableKVBucketConfig) ToMap() (map[string]interface{}, error) {
@@ -60,7 +60,7 @@ func (o UpdatableKVBucketConfig) ToMap() (map[string]interface{}, error) {
 	if o.Republish != nil {
 		toSerialize["republish"] = o.Republish
 	}
-	if o.Sources != nil {
+	if len(o.Sources) != 0 {
 		toSerialize["sources"] = o.Sources
 	}
 	return toSerialize, nil

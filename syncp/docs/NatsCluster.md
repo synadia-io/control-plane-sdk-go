@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **NodeCount** | **int32** |  | 
 **OutgoingGateways** | **int32** |  | 
+**Servers** | [][**NatsServer**](NatsServer.md) |  | 
 
 ## Methods
 

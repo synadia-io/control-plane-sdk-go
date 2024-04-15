@@ -67,6 +67,21 @@ type NatsUserAPI interface {
 	DeleteNatsUserExecute(r ApiDeleteNatsUserRequest) (*http.Response, error)
 
 	/*
+		DownloadNatsUserBearerJwt Get Bearer JWT
+
+		Returns a bearer token a NATS user assigned to the account
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId
+		@return ApiDownloadNatsUserBearerJwtRequest
+	*/
+	DownloadNatsUserBearerJwt(ctx context.Context, userId string) ApiDownloadNatsUserBearerJwtRequest
+
+	// DownloadNatsUserBearerJwtExecute executes the request
+	//  @return string
+	DownloadNatsUserBearerJwtExecute(r ApiDownloadNatsUserBearerJwtRequest) (string, *http.Response, error)
+
+	/*
 		DownloadNatsUserCreds Get Creds
 
 		Returns a creds file for a NATS user assigned to the account
@@ -80,6 +95,21 @@ type NatsUserAPI interface {
 	// DownloadNatsUserCredsExecute executes the request
 	//  @return string
 	DownloadNatsUserCredsExecute(r ApiDownloadNatsUserCredsRequest) (string, *http.Response, error)
+
+	/*
+		DownloadNatsUserHttpGwToken Get HTTP Gateway Token
+
+		Returns a NATS HTTP Gateway token
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId
+		@return ApiDownloadNatsUserHttpGwTokenRequest
+	*/
+	DownloadNatsUserHttpGwToken(ctx context.Context, userId string) ApiDownloadNatsUserHttpGwTokenRequest
+
+	// DownloadNatsUserHttpGwTokenExecute executes the request
+	//  @return NatsUserHTTPGWTokenCreateReply
+	DownloadNatsUserHttpGwTokenExecute(r ApiDownloadNatsUserHttpGwTokenRequest) (*NatsUserHTTPGWTokenCreateReply, *http.Response, error)
 
 	/*
 		GetNatsUser Get NATS User
@@ -515,6 +545,112 @@ func (a *NatsUserAPIService) DeleteNatsUserExecute(r ApiDeleteNatsUserRequest) (
 	return localVarHTTPResponse, nil
 }
 
+type ApiDownloadNatsUserBearerJwtRequest struct {
+	ctx        context.Context
+	ApiService NatsUserAPI
+	userId     string
+}
+
+func (r ApiDownloadNatsUserBearerJwtRequest) Execute() (string, *http.Response, error) {
+	return r.ApiService.DownloadNatsUserBearerJwtExecute(r)
+}
+
+/*
+DownloadNatsUserBearerJwt Get Bearer JWT
+
+Returns a bearer token a NATS user assigned to the account
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId
+	@return ApiDownloadNatsUserBearerJwtRequest
+*/
+func (a *NatsUserAPIService) DownloadNatsUserBearerJwt(ctx context.Context, userId string) ApiDownloadNatsUserBearerJwtRequest {
+	return ApiDownloadNatsUserBearerJwtRequest{
+		ApiService: a,
+		ctx:        ctx,
+		userId:     userId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return string
+func (a *NatsUserAPIService) DownloadNatsUserBearerJwtExecute(r ApiDownloadNatsUserBearerJwtRequest) (string, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.DownloadNatsUserBearerJwt")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/nats-users/{userId}/bearer-jwt"
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/plain"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiDownloadNatsUserCredsRequest struct {
 	ctx        context.Context
 	ApiService NatsUserAPI
@@ -576,6 +712,112 @@ func (a *NatsUserAPIService) DownloadNatsUserCredsExecute(r ApiDownloadNatsUserC
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"text/plain"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiDownloadNatsUserHttpGwTokenRequest struct {
+	ctx        context.Context
+	ApiService NatsUserAPI
+	userId     string
+}
+
+func (r ApiDownloadNatsUserHttpGwTokenRequest) Execute() (*NatsUserHTTPGWTokenCreateReply, *http.Response, error) {
+	return r.ApiService.DownloadNatsUserHttpGwTokenExecute(r)
+}
+
+/*
+DownloadNatsUserHttpGwToken Get HTTP Gateway Token
+
+Returns a NATS HTTP Gateway token
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId
+	@return ApiDownloadNatsUserHttpGwTokenRequest
+*/
+func (a *NatsUserAPIService) DownloadNatsUserHttpGwToken(ctx context.Context, userId string) ApiDownloadNatsUserHttpGwTokenRequest {
+	return ApiDownloadNatsUserHttpGwTokenRequest{
+		ApiService: a,
+		ctx:        ctx,
+		userId:     userId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsUserHTTPGWTokenCreateReply
+func (a *NatsUserAPIService) DownloadNatsUserHttpGwTokenExecute(r ApiDownloadNatsUserHttpGwTokenRequest) (*NatsUserHTTPGWTokenCreateReply, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsUserHTTPGWTokenCreateReply
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NatsUserAPIService.DownloadNatsUserHttpGwToken")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/nats-users/{userId}/http-gw-token"
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

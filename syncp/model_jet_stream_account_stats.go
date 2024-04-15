@@ -15,10 +15,10 @@ var _ MappedNullable = &JetStreamAccountStats{}
 
 // JetStreamAccountStats JetStreamAccountStats returns current statistics about the account's JetStream usage.
 type JetStreamAccountStats struct {
-	JetStreamTier JetStreamTier             `json:"JetStreamTier"`
-	Api           JetStreamAPIStats         `json:"api"`
-	Domain        *string                   `json:"domain,omitempty"`
-	Tiers         *map[string]JetStreamTier `json:"tiers,omitempty"`
+	JetStreamTier JetStreamTier            `json:"JetStreamTier"`
+	Api           JetStreamAPIStats        `json:"api"`
+	Domain        *string                  `json:"domain,omitempty"`
+	Tiers         map[string]JetStreamTier `json:"tiers,omitempty"`
 }
 
 func (o JetStreamAccountStats) ToMap() (map[string]interface{}, error) {
@@ -28,7 +28,7 @@ func (o JetStreamAccountStats) ToMap() (map[string]interface{}, error) {
 	if o.Domain != nil {
 		toSerialize["domain"] = o.Domain
 	}
-	if o.Tiers != nil {
+	if len(o.Tiers) != 0 {
 		toSerialize["tiers"] = o.Tiers
 	}
 	return toSerialize, nil

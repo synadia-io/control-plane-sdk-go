@@ -43,16 +43,15 @@ type ConnInfo struct {
 	Start                   time.Time         `json:"start"`
 	Stop                    *Nullable[string] `json:"stop,omitempty"`
 	Subscriptions           int32             `json:"subscriptions"`
-	SubscriptionsList       *[]string         `json:"subscriptions_list,omitempty"`
-	SubscriptionsListDetail *[]SubDetail      `json:"subscriptions_list_detail,omitempty"`
-	// TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments
-	Tags           *Nullable[[]string] `json:"tags,omitempty"`
-	TlsCipherSuite *string             `json:"tls_cipher_suite,omitempty"`
-	TlsPeerCerts   *[]TLSPeerCert      `json:"tls_peer_certs,omitempty"`
-	TlsVersion     *string             `json:"tls_version,omitempty"`
-	Type           *string             `json:"type,omitempty"`
-	Uptime         string              `json:"uptime"`
-	Version        *string             `json:"version,omitempty"`
+	SubscriptionsList       []string          `json:"subscriptions_list,omitempty"`
+	SubscriptionsListDetail []SubDetail       `json:"subscriptions_list_detail,omitempty"`
+	Tags                    []string          `json:"tags,omitempty"`
+	TlsCipherSuite          *string           `json:"tls_cipher_suite,omitempty"`
+	TlsPeerCerts            []TLSPeerCert     `json:"tls_peer_certs,omitempty"`
+	TlsVersion              *string           `json:"tls_version,omitempty"`
+	Type                    *string           `json:"type,omitempty"`
+	Uptime                  string            `json:"uptime"`
+	Version                 *string           `json:"version,omitempty"`
 }
 
 func (o ConnInfo) ToMap() (map[string]interface{}, error) {
@@ -105,19 +104,19 @@ func (o ConnInfo) ToMap() (map[string]interface{}, error) {
 		toSerialize["stop"] = o.Stop.Val
 	}
 	toSerialize["subscriptions"] = o.Subscriptions
-	if o.SubscriptionsList != nil {
+	if len(o.SubscriptionsList) != 0 {
 		toSerialize["subscriptions_list"] = o.SubscriptionsList
 	}
-	if o.SubscriptionsListDetail != nil {
+	if len(o.SubscriptionsListDetail) != 0 {
 		toSerialize["subscriptions_list_detail"] = o.SubscriptionsListDetail
 	}
-	if o.Tags != nil && !o.Tags.IsNull() {
-		toSerialize["tags"] = o.Tags.Val
+	if len(o.Tags) != 0 {
+		toSerialize["tags"] = o.Tags
 	}
 	if o.TlsCipherSuite != nil {
 		toSerialize["tls_cipher_suite"] = o.TlsCipherSuite
 	}
-	if o.TlsPeerCerts != nil {
+	if len(o.TlsPeerCerts) != 0 {
 		toSerialize["tls_peer_certs"] = o.TlsPeerCerts
 	}
 	if o.TlsVersion != nil {

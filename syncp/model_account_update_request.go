@@ -15,9 +15,9 @@ var _ MappedNullable = &AccountUpdateRequest{}
 
 // AccountUpdateRequest struct for AccountUpdateRequest
 type AccountUpdateRequest struct {
-	JwtSettings          *AccountJWTSettings `json:"jwt_settings,omitempty"`
-	Name                 *string             `json:"name,omitempty"`
-	UserJwtExpiresInSecs *int64              `json:"user_jwt_expires_in_secs,omitempty"`
+	JwtSettings          *AccountJWTSettingsPatch `json:"jwt_settings,omitempty"`
+	Name                 *string                  `json:"name,omitempty"`
+	UserJwtExpiresInSecs *int64                   `json:"user_jwt_expires_in_secs,omitempty"`
 }
 
 func (o AccountUpdateRequest) ToMap() (map[string]interface{}, error) {

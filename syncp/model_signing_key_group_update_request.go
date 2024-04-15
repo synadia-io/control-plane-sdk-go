@@ -15,9 +15,9 @@ var _ MappedNullable = &SigningKeyGroupUpdateRequest{}
 
 // SigningKeyGroupUpdateRequest struct for SigningKeyGroupUpdateRequest
 type SigningKeyGroupUpdateRequest struct {
-	Disabled *bool                 `json:"disabled,omitempty"`
-	Name     *string               `json:"name,omitempty"`
-	Scope    *UserPermissionLimits `json:"scope,omitempty"`
+	Disabled *bool                      `json:"disabled,omitempty"`
+	Name     *string                    `json:"name,omitempty"`
+	Scope    *UserPermissionLimitsPatch `json:"scope,omitempty"`
 }
 
 func (o SigningKeyGroupUpdateRequest) ToMap() (map[string]interface{}, error) {

@@ -24,8 +24,8 @@ func (o AppUserCreateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["invitation_link"] = o.InvitationLink
 	toSerialize["created"] = o.Created
 	toSerialize["id"] = o.Id
-	if !o.Identifier.IsNull() {
-		toSerialize["identifier"] = o.Identifier.Val
+	if o.Identifier != nil {
+		toSerialize["identifier"] = o.Identifier
 	}
 	toSerialize["name"] = o.Name
 	toSerialize["pending_creation"] = o.PendingCreation

@@ -15,8 +15,7 @@ var _ MappedNullable = &GenericFields{}
 
 // GenericFields struct for GenericFields
 type GenericFields struct {
-	// TagList is a unique array of lower case strings All tag list methods lower case the strings in the arguments
-	Tags *Nullable[[]string] `json:"tags,omitempty"`
+	Tags []string `json:"tags,omitempty"`
 	// ClaimType is used to indicate the type of JWT being stored in a Claim
 	Type    *string `json:"type,omitempty"`
 	Version *int32  `json:"version,omitempty"`
@@ -24,8 +23,8 @@ type GenericFields struct {
 
 func (o GenericFields) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Tags != nil && !o.Tags.IsNull() {
-		toSerialize["tags"] = o.Tags.Val
+	if len(o.Tags) != 0 {
+		toSerialize["tags"] = o.Tags
 	}
 	if o.Type != nil {
 		toSerialize["type"] = o.Type

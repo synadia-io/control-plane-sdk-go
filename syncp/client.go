@@ -54,6 +54,10 @@ type APIClient struct {
 
 	AlertAPI AlertAPI
 
+	AppServiceAccountAPI AppServiceAccountAPI
+
+	AppServiceAccountTokensAPI AppServiceAccountTokensAPI
+
 	AppUserAPI AppUserAPI
 
 	AuthzAPI AuthzAPI
@@ -93,6 +97,10 @@ type APIClient struct {
 	SystemAPI SystemAPI
 
 	TeamAPI TeamAPI
+
+	TeamServiceAccountAPI TeamServiceAccountAPI
+
+	TeamServiceAccountTokensAPI TeamServiceAccountTokensAPI
 }
 
 type service struct {
@@ -114,6 +122,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AccountAPI = (*AccountAPIService)(&c.common)
 	c.AgentTokenAPI = (*AgentTokenAPIService)(&c.common)
 	c.AlertAPI = (*AlertAPIService)(&c.common)
+	c.AppServiceAccountAPI = (*AppServiceAccountAPIService)(&c.common)
+	c.AppServiceAccountTokensAPI = (*AppServiceAccountTokensAPIService)(&c.common)
 	c.AppUserAPI = (*AppUserAPIService)(&c.common)
 	c.AuthzAPI = (*AuthzAPIService)(&c.common)
 	c.IssuanceAPI = (*IssuanceAPIService)(&c.common)
@@ -134,6 +144,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.SubjectImportAPI = (*SubjectImportAPIService)(&c.common)
 	c.SystemAPI = (*SystemAPIService)(&c.common)
 	c.TeamAPI = (*TeamAPIService)(&c.common)
+	c.TeamServiceAccountAPI = (*TeamServiceAccountAPIService)(&c.common)
+	c.TeamServiceAccountTokensAPI = (*TeamServiceAccountTokensAPIService)(&c.common)
 
 	return c
 }

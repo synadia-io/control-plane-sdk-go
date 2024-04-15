@@ -26,8 +26,8 @@ func (o AppUserUpdateResponse) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["created"] = o.Created
 	toSerialize["id"] = o.Id
-	if !o.Identifier.IsNull() {
-		toSerialize["identifier"] = o.Identifier.Val
+	if o.Identifier != nil {
+		toSerialize["identifier"] = o.Identifier
 	}
 	toSerialize["name"] = o.Name
 	toSerialize["pending_creation"] = o.PendingCreation

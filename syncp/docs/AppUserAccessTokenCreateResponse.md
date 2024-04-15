@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | **time.Time** |  | 
-**Expires** | Nullable[**string**] |  | 
+**Expires** | Pointer to **time.Time** |  | [optional] 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
 **Token** | **string** |  | 

@@ -15,17 +15,22 @@ var _ MappedNullable = &UpdatableObjectBucketConfig{}
 
 // UpdatableObjectBucketConfig ObjectStoreConfig is the config for the object store.
 type UpdatableObjectBucketConfig struct {
+	// Enable underlying stream compression. NOTE: Compression is supported for nats-server 2.10.0+
+	Compression *bool   `json:"compression,omitempty"`
 	Description *string `json:"description,omitempty"`
 	MaxAge      *int64  `json:"max_age,omitempty"`
 	MaxBytes    *int64  `json:"max_bytes,omitempty"`
 	// Bucket-specific metadata NOTE: Metadata requires nats-server v2.10.0+
-	Metadata    *map[string]string `json:"metadata,omitempty"`
-	NumReplicas *int32             `json:"num_replicas,omitempty"`
-	Placement   *Placement         `json:"placement,omitempty"`
+	Metadata    map[string]string `json:"metadata,omitempty"`
+	NumReplicas *int32            `json:"num_replicas,omitempty"`
+	Placement   *Placement        `json:"placement,omitempty"`
 }
 
 func (o UpdatableObjectBucketConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Compression != nil {
+		toSerialize["compression"] = o.Compression
+	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
@@ -35,7 +40,7 @@ func (o UpdatableObjectBucketConfig) ToMap() (map[string]interface{}, error) {
 	if o.MaxBytes != nil {
 		toSerialize["max_bytes"] = o.MaxBytes
 	}
-	if o.Metadata != nil {
+	if len(o.Metadata) != 0 {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if o.NumReplicas != nil {
