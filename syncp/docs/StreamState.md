@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bytes** | **int32** |  | 
-**ConsumerCount** | **int32** |  | 
-**Deleted** | Pointer to []**int32** |  | [optional] 
-**FirstSeq** | **int32** |  | 
+**Bytes** | **uint64** |  | 
+**ConsumerCount** | **int64** |  | 
+**Deleted** | Pointer to []**uint64** |  | [optional] 
+**FirstSeq** | **uint64** |  | 
 **FirstTs** | **time.Time** |  | 
-**LastSeq** | **int32** |  | 
+**LastSeq** | **uint64** |  | 
 **LastTs** | **time.Time** |  | 
 **Lost** | Pointer to Nullable[[**LostStreamData**](LostStreamData.md)] |  | [optional] 
-**Messages** | **int32** |  | 
-**NumDeleted** | Pointer to **int32** |  | [optional] 
-**NumSubjects** | Pointer to **int32** |  | [optional] 
-**Subjects** | Pointer to **map[string]int32** |  | [optional] 
+**Messages** | **uint64** |  | 
+**NumDeleted** | Pointer to **int64** |  | [optional] 
+**NumSubjects** | Pointer to **int64** |  | [optional] 
+**Subjects** | Pointer to **map[string]uint64** |  | [optional] 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,7 +15,7 @@ var _ MappedNullable = &ResponsePermission{}
 
 // ResponsePermission ResponsePermission can be used to allow responses to any reply subject that is received on a valid subscription.
 type ResponsePermission struct {
-	Max int32 `json:"max"`
+	Max int64 `json:"max"`
 	Ttl int64 `json:"ttl"`
 }
 

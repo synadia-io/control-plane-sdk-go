@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Consumers** | **int32** |  | 
+**Consumers** | **int64** |  | 
 **Limits** | [**JetStreamAccountLimits**](JetStreamAccountLimits.md) |  | 
-**Memory** | **int32** |  | 
-**Storage** | **int32** |  | 
-**Streams** | **int32** |  | 
+**Memory** | **uint64** |  | 
+**Storage** | **uint64** |  | 
+**Streams** | **int64** |  | 
 
 ## Methods
 

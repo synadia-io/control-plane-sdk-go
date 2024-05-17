@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -18,7 +18,7 @@ type StreamSource struct {
 	External          *Nullable[ExternalStream] `json:"external,omitempty"`
 	FilterSubject     *string                   `json:"filter_subject,omitempty"`
 	Name              string                    `json:"name"`
-	OptStartSeq       *int32                    `json:"opt_start_seq,omitempty"`
+	OptStartSeq       *uint64                   `json:"opt_start_seq,omitempty"`
 	OptStartTime      *Nullable[string]         `json:"opt_start_time,omitempty"`
 	SubjectTransforms []SubjectTransformConfig  `json:"subject_transforms,omitempty"`
 }

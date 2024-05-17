@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,7 +15,7 @@ var _ MappedNullable = &AlertRuleBaseCreateRequest{}
 
 // AlertRuleBaseCreateRequest struct for AlertRuleBaseCreateRequest
 type AlertRuleBaseCreateRequest struct {
-	DurationInSecs                int32                     `json:"duration_in_secs"`
+	DurationInSecs                int64                     `json:"duration_in_secs"`
 	Message                       string                    `json:"message"`
 	Metric                        string                    `json:"metric"`
 	Severity                      AlertRuleSeverity         `json:"severity"`

@@ -219,7 +219,7 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    alertRuleAccountCreateRequest := *openapiclient.NewAlertRuleAccountCreateRequest(int32(123), "Message_example", "Metric_example", openapiclient.AlertRuleSeverity("Info"), openapiclient.AlertRuleOperator("Greater Than")) // AlertRuleAccountCreateRequest |  (optional)
+    alertRuleAccountCreateRequest := *openapiclient.NewAlertRuleAccountCreateRequest(int64(123), "Message_example", "Metric_example", openapiclient.AlertRuleSeverity("Info"), openapiclient.AlertRuleOperator("Greater Than")) // AlertRuleAccountCreateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -363,7 +363,7 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    jSMirrorConfigRequest := *openapiclient.NewJSMirrorConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int32(123), int64(123), int64(123), "Name_example", int32(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file")) // JSMirrorConfigRequest |  (optional)
+    jSMirrorConfigRequest := *openapiclient.NewJSMirrorConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int64(123), int64(123), int64(123), "Name_example", int64(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file")) // JSMirrorConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -582,7 +582,7 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | 
-    jSStreamConfigRequest := *openapiclient.NewJSStreamConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int32(123), int64(123), int64(123), "Name_example", int32(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file")) // JSStreamConfigRequest |  (optional)
+    jSStreamConfigRequest := *openapiclient.NewJSStreamConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int64(123), int64(123), int64(123), "Name_example", int64(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file")) // JSStreamConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -1922,7 +1922,7 @@ Name | Type | Description  | Notes
 
 ## ListJetStreamAssets
 
-> JSAssetInfoListResponse ListJetStreamAssets(ctx, accountId).Execute()
+> JSStreamInfoListResponse ListJetStreamAssets(ctx, accountId).Execute()
 
 List JetStream Assets
 
@@ -1950,7 +1950,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.ListJetStreamAssets``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListJetStreamAssets`: JSAssetInfoListResponse
+    // response from `ListJetStreamAssets`: JSStreamInfoListResponse
     fmt.Fprintf(os.Stdout, "Response from `AccountAPI.ListJetStreamAssets`: %v\n", resp)
 }
 ```
@@ -1974,7 +1974,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JSAssetInfoListResponse**](JSAssetInfoListResponse.md)
+[**JSStreamInfoListResponse**](JSStreamInfoListResponse.md)
 
 ### Authorization
 

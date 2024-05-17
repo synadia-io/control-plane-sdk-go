@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -98,21 +97,6 @@ type SystemAPI interface {
 	DeleteSystemAlertRuleExecute(r ApiDeleteSystemAlertRuleRequest) (*http.Response, error)
 
 	/*
-		DownloadSystemLogs Download Logs
-
-		Download System Logs
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param systemId
-		@return ApiDownloadSystemLogsRequest
-	*/
-	DownloadSystemLogs(ctx context.Context, systemId string) ApiDownloadSystemLogsRequest
-
-	// DownloadSystemLogsExecute executes the request
-	//  @return *os.File
-	DownloadSystemLogsExecute(r ApiDownloadSystemLogsRequest) (*os.File, *http.Response, error)
-
-	/*
 		GetCurrentAgentToken Get Current Agent Token
 
 		Get the Current Agent Token
@@ -172,6 +156,21 @@ type SystemAPI interface {
 	// GetSystemLimitsExecute executes the request
 	//  @return SystemLimitsResponse
 	GetSystemLimitsExecute(r ApiGetSystemLimitsRequest) (*SystemLimitsResponse, *http.Response, error)
+
+	/*
+		GetSystemPrometheusMetrics Get Prometheus Metrics
+
+		Get Prometheus Metrics
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiGetSystemPrometheusMetricsRequest
+	*/
+	GetSystemPrometheusMetrics(ctx context.Context, systemId string) ApiGetSystemPrometheusMetricsRequest
+
+	// GetSystemPrometheusMetricsExecute executes the request
+	//  @return string
+	GetSystemPrometheusMetricsExecute(r ApiGetSystemPrometheusMetricsRequest) (string, *http.Response, error)
 
 	/*
 		ImportAccount Import Account
@@ -1001,112 +1000,6 @@ func (a *SystemAPIService) DeleteSystemAlertRuleExecute(r ApiDeleteSystemAlertRu
 	return localVarHTTPResponse, nil
 }
 
-type ApiDownloadSystemLogsRequest struct {
-	ctx        context.Context
-	ApiService SystemAPI
-	systemId   string
-}
-
-func (r ApiDownloadSystemLogsRequest) Execute() (*os.File, *http.Response, error) {
-	return r.ApiService.DownloadSystemLogsExecute(r)
-}
-
-/*
-DownloadSystemLogs Download Logs
-
-Download System Logs
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param systemId
-	@return ApiDownloadSystemLogsRequest
-*/
-func (a *SystemAPIService) DownloadSystemLogs(ctx context.Context, systemId string) ApiDownloadSystemLogsRequest {
-	return ApiDownloadSystemLogsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		systemId:   systemId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return *os.File
-func (a *SystemAPIService) DownloadSystemLogsExecute(r ApiDownloadSystemLogsRequest) (*os.File, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *os.File
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.DownloadSystemLogs")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/systems/{systemId}/logs"
-	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/gzip"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			code:  localVarHTTPResponse.StatusCode,
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			code:  localVarHTTPResponse.StatusCode,
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetCurrentAgentTokenRequest struct {
 	ctx        context.Context
 	ApiService SystemAPI
@@ -1490,6 +1383,112 @@ func (a *SystemAPIService) GetSystemLimitsExecute(r ApiGetSystemLimitsRequest) (
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSystemPrometheusMetricsRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiGetSystemPrometheusMetricsRequest) Execute() (string, *http.Response, error) {
+	return r.ApiService.GetSystemPrometheusMetricsExecute(r)
+}
+
+/*
+GetSystemPrometheusMetrics Get Prometheus Metrics
+
+Get Prometheus Metrics
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiGetSystemPrometheusMetricsRequest
+*/
+func (a *SystemAPIService) GetSystemPrometheusMetrics(ctx context.Context, systemId string) ApiGetSystemPrometheusMetricsRequest {
+	return ApiGetSystemPrometheusMetricsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return string
+func (a *SystemAPIService) GetSystemPrometheusMetricsExecute(r ApiGetSystemPrometheusMetricsRequest) (string, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemPrometheusMetrics")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/systems/{systemId}/prometheus-metrics"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/plain"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

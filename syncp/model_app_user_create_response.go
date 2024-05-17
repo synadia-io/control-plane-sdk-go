@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -26,6 +26,9 @@ func (o AppUserCreateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	if o.Identifier != nil {
 		toSerialize["identifier"] = o.Identifier
+	}
+	if o.LastActive != nil && !o.LastActive.IsNull() {
+		toSerialize["last_active"] = o.LastActive.Val
 	}
 	toSerialize["name"] = o.Name
 	toSerialize["pending_creation"] = o.PendingCreation

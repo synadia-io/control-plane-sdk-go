@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bytes** | **int32** |  | 
+**Bytes** | **uint64** |  | 
 **Config** | [**JSKVBucketConfig**](JSKVBucketConfig.md) |  | 
 **Id** | **string** |  | 
-**NumValues** | **int32** |  | 
+**NumValues** | **uint64** |  | 
 **StreamName** | **string** |  | 
 
 ## Methods

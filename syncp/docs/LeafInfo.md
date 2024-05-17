@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **IsSpoke** | Pointer to **bool** |  | [optional] 
 **OutBytes** | **int64** |  | 
 **OutMsgs** | **int64** |  | 
-**Port** | **int32** |  | 
+**Port** | **int64** |  | 
 **Rtt** | Pointer to **string** |  | [optional] 
-**Subscriptions** | **int32** |  | 
+**Subscriptions** | **uint32** |  | 
 **SubscriptionsList** | Pointer to []**string** |  | [optional] 
 
 ## Methods

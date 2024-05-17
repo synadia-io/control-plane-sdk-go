@@ -1,5 +1,5 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
 Testing AppServiceAccountTokensAPIService
 

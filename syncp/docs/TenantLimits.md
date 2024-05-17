@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**NumAccounts** | **int32** |  | 
+**NumAccounts** | **int64** |  | 
 **ResourceLimits** | [**OperatorLimits**](OperatorLimits.md) |  | 
 
 ## Methods

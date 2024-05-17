@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ActiveAccounts** | **int32** |  | 
-**ActiveServers** | Pointer to **int32** |  | [optional] 
-**Connections** | **int32** |  | 
-**Cores** | **int32** |  | 
+**ActiveAccounts** | **int64** |  | 
+**ActiveServers** | Pointer to **int64** |  | [optional] 
+**Connections** | **int64** |  | 
+**Cores** | **int64** |  | 
 **Cpu** | **float64** |  | 
 **Gateways** | Pointer to Nullable[[][**GatewayStat**](GatewayStat.md)] |  | [optional] 
 **Jetstream** | Pointer to Nullable[[**JetStreamVarz**](JetStreamVarz.md)] |  | [optional] 
@@ -17,8 +17,8 @@ Name | Type | Description | Notes
 **Sent** | [**DataStats**](DataStats.md) |  | 
 **SlowConsumers** | **int64** |  | 
 **Start** | **time.Time** |  | 
-**Subscriptions** | **int32** |  | 
-**TotalConnections** | **int32** |  | 
+**Subscriptions** | **uint32** |  | 
+**TotalConnections** | **uint64** |  | 
 
 ## Methods
 

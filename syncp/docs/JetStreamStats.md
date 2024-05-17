@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Accounts** | **int32** |  | 
+**Accounts** | **int64** |  | 
 **Api** | [**JetStreamAPIStats**](JetStreamAPIStats.md) |  | 
-**HaAssets** | **int32** |  | 
-**Memory** | **int32** |  | 
-**ReservedMemory** | **int32** |  | 
-**ReservedStorage** | **int32** |  | 
-**Storage** | **int32** |  | 
+**HaAssets** | **int64** |  | 
+**Memory** | **uint64** |  | 
+**ReservedMemory** | **uint64** |  | 
+**ReservedStorage** | **uint64** |  | 
+**Storage** | **uint64** |  | 
 
 ## Methods
 

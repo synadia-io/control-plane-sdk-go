@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
-**Pending** | **int32** |  | 
+**Pending** | **int64** |  | 
 **Received** | [**DataStats**](DataStats.md) |  | 
-**Rid** | **int32** |  | 
+**Rid** | **uint64** |  | 
 **Sent** | [**DataStats**](DataStats.md) |  | 
 
 ## Methods

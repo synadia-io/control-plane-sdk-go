@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,9 +15,9 @@ var _ MappedNullable = &JetStreamAPIStats{}
 
 // JetStreamAPIStats struct for JetStreamAPIStats
 type JetStreamAPIStats struct {
-	Errors   int32  `json:"errors"`
-	Inflight *int32 `json:"inflight,omitempty"`
-	Total    int32  `json:"total"`
+	Errors   uint64  `json:"errors"`
+	Inflight *uint64 `json:"inflight,omitempty"`
+	Total    uint64  `json:"total"`
 }
 
 func (o JetStreamAPIStats) ToMap() (map[string]interface{}, error) {

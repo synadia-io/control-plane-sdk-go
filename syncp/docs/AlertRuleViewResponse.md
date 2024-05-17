@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountId** | Pointer to **string** |  | [optional] 
 **ConsumerName** | Pointer to **string** |  | [optional] 
 **Created** | **time.Time** |  | 
-**DurationInSecs** | **int32** |  | 
+**DurationInSecs** | **int64** |  | 
 **Id** | **string** |  | 
 **IsEnabled** | **bool** |  | 
 **Message** | **string** |  | 

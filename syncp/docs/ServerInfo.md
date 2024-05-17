@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Jetstream** | **bool** |  | 
 **Name** | **string** |  | 
-**Seq** | **int32** |  | 
+**Seq** | **uint64** |  | 
 **Tags** | Pointer to []**string** |  | [optional] 
 **Time** | **time.Time** |  | 
 **Ver** | **string** |  | 

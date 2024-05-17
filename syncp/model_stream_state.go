@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -19,18 +19,18 @@ var _ MappedNullable = &StreamState{}
 
 // StreamState struct for StreamState
 type StreamState struct {
-	Bytes         int32                     `json:"bytes"`
-	ConsumerCount int32                     `json:"consumer_count"`
-	Deleted       []int32                   `json:"deleted,omitempty"`
-	FirstSeq      int32                     `json:"first_seq"`
+	Bytes         uint64                    `json:"bytes"`
+	ConsumerCount int64                     `json:"consumer_count"`
+	Deleted       []uint64                  `json:"deleted,omitempty"`
+	FirstSeq      uint64                    `json:"first_seq"`
 	FirstTs       time.Time                 `json:"first_ts"`
-	LastSeq       int32                     `json:"last_seq"`
+	LastSeq       uint64                    `json:"last_seq"`
 	LastTs        time.Time                 `json:"last_ts"`
 	Lost          *Nullable[LostStreamData] `json:"lost,omitempty"`
-	Messages      int32                     `json:"messages"`
-	NumDeleted    *int32                    `json:"num_deleted,omitempty"`
-	NumSubjects   *int32                    `json:"num_subjects,omitempty"`
-	Subjects      map[string]int32          `json:"subjects,omitempty"`
+	Messages      uint64                    `json:"messages"`
+	NumDeleted    *int64                    `json:"num_deleted,omitempty"`
+	NumSubjects   *int64                    `json:"num_subjects,omitempty"`
+	Subjects      map[string]uint64         `json:"subjects,omitempty"`
 }
 
 func (o StreamState) ToMap() (map[string]interface{}, error) {

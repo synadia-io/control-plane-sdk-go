@@ -9,11 +9,11 @@ Method | HTTP request | Description
 [**CreateSystemAlertRule**](SystemAPI.md#CreateSystemAlertRule) | **Post** /systems/{systemId}/alert-rules | Create System Alert Rule
 [**DeleteSystem**](SystemAPI.md#DeleteSystem) | **Delete** /systems/{systemId} | Delete System
 [**DeleteSystemAlertRule**](SystemAPI.md#DeleteSystemAlertRule) | **Delete** /systems/{systemId}/alert-rules/{alertRuleId} | Delete System Alert Rule
-[**DownloadSystemLogs**](SystemAPI.md#DownloadSystemLogs) | **Post** /systems/{systemId}/logs | Download Logs
 [**GetCurrentAgentToken**](SystemAPI.md#GetCurrentAgentToken) | **Get** /systems/{systemId}/agent-tokens/current | Get Current Agent Token
 [**GetSystem**](SystemAPI.md#GetSystem) | **Get** /systems/{systemId} | Get System
 [**GetSystemAlertRule**](SystemAPI.md#GetSystemAlertRule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId} | Get System Alert Rule
 [**GetSystemLimits**](SystemAPI.md#GetSystemLimits) | **Get** /systems/{systemId}/limits | Get System Limits
+[**GetSystemPrometheusMetrics**](SystemAPI.md#GetSystemPrometheusMetrics) | **Get** /systems/{systemId}/prometheus-metrics | Get Prometheus Metrics
 [**ImportAccount**](SystemAPI.md#ImportAccount) | **Post** /systems/{systemId}/import-account | Import Account
 [**ImportUser**](SystemAPI.md#ImportUser) | **Post** /systems/{systemId}/import-user | Import User
 [**ListAccounts**](SystemAPI.md#ListAccounts) | **Get** /systems/{systemId}/accounts | List Accounts
@@ -394,76 +394,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DownloadSystemLogs
-
-> *os.File DownloadSystemLogs(ctx, systemId).Execute()
-
-Download Logs
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    systemId := "systemId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemAPI.DownloadSystemLogs(context.Background(), systemId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.DownloadSystemLogs``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DownloadSystemLogs`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.DownloadSystemLogs`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**systemId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDownloadSystemLogsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[***os.File**](*os.File.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/gzip
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetCurrentAgentToken
 
 > AgentTokenCurrentResponse GetCurrentAgentToken(ctx, systemId).Execute()
@@ -741,6 +671,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSystemPrometheusMetrics
+
+> string GetSystemPrometheusMetrics(ctx, systemId).Execute()
+
+Get Prometheus Metrics
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetSystemPrometheusMetrics(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemPrometheusMetrics``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemPrometheusMetrics`: string
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemPrometheusMetrics`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemPrometheusMetricsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

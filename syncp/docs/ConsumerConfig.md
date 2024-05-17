@@ -19,19 +19,19 @@ Name | Type | Description | Notes
 **HeadersOnly** | Pointer to **bool** |  | [optional] 
 **IdleHeartbeat** | Pointer to **int64** |  | [optional] 
 **InactiveThreshold** | Pointer to **int64** |  | [optional] 
-**MaxAckPending** | Pointer to **int32** |  | [optional] 
-**MaxBatch** | Pointer to **int32** |  | [optional] 
-**MaxBytes** | Pointer to **int32** |  | [optional] 
-**MaxDeliver** | Pointer to **int32** |  | [optional] 
+**MaxAckPending** | Pointer to **int64** |  | [optional] 
+**MaxBatch** | Pointer to **int64** |  | [optional] 
+**MaxBytes** | Pointer to **int64** |  | [optional] 
+**MaxDeliver** | Pointer to **int64** |  | [optional] 
 **MaxExpires** | Pointer to **int64** |  | [optional] 
-**MaxWaiting** | Pointer to **int32** |  | [optional] 
+**MaxWaiting** | Pointer to **int64** |  | [optional] 
 **MemStorage** | Pointer to **bool** |  | [optional] 
 **Metadata** | Pointer to **map[string]string** | Metadata is additional metadata for the Consumer. | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**NumReplicas** | **int32** |  | 
-**OptStartSeq** | Pointer to **int32** |  | [optional] 
+**NumReplicas** | **int64** |  | 
+**OptStartSeq** | Pointer to **uint64** |  | [optional] 
 **OptStartTime** | Pointer to Nullable[**string**] |  | [optional] 
-**RateLimitBps** | Pointer to **int32** |  | [optional] 
+**RateLimitBps** | Pointer to **uint64** |  | [optional] 
 **ReplayPolicy** | [**ReplayPolicy**](ReplayPolicy.md) |  | 
 **SampleFreq** | Pointer to **string** |  | [optional] 
 

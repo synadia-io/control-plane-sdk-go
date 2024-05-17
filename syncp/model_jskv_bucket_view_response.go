@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,10 +15,10 @@ var _ MappedNullable = &JSKVBucketViewResponse{}
 
 // JSKVBucketViewResponse struct for JSKVBucketViewResponse
 type JSKVBucketViewResponse struct {
-	Bytes      int32            `json:"bytes"`
+	Bytes      uint64           `json:"bytes"`
 	Config     JSKVBucketConfig `json:"config"`
 	Id         string           `json:"id"`
-	NumValues  int32            `json:"num_values"`
+	NumValues  uint64           `json:"num_values"`
 	StreamName string           `json:"stream_name"`
 }
 

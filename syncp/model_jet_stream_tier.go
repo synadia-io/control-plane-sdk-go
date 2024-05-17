@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,11 +15,11 @@ var _ MappedNullable = &JetStreamTier{}
 
 // JetStreamTier struct for JetStreamTier
 type JetStreamTier struct {
-	Consumers int32                  `json:"consumers"`
+	Consumers int64                  `json:"consumers"`
 	Limits    JetStreamAccountLimits `json:"limits"`
-	Memory    int32                  `json:"memory"`
-	Storage   int32                  `json:"storage"`
-	Streams   int32                  `json:"streams"`
+	Memory    uint64                 `json:"memory"`
+	Storage   uint64                 `json:"storage"`
+	Streams   int64                  `json:"streams"`
 }
 
 func (o JetStreamTier) ToMap() (map[string]interface{}, error) {

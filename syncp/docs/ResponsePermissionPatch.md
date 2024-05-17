@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Max** | Pointer to **int32** |  | [optional] 
+**Max** | Pointer to **int64** |  | [optional] 
 **Ttl** | Pointer to **int64** |  | [optional] 
 
 ## Methods

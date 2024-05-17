@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -19,7 +19,7 @@ var _ MappedNullable = &Leafz{}
 
 // Leafz Leafz represents detailed information on Leafnodes.
 type Leafz struct {
-	Leafnodes int32      `json:"leafnodes"`
+	Leafnodes int64      `json:"leafnodes"`
 	Leafs     []LeafInfo `json:"leafs"`
 	Now       time.Time  `json:"now"`
 	ServerId  string     `json:"server_id"`

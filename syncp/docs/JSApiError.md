@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | **int32** |  | 
+**Code** | **int64** |  | 
 **Description** | Pointer to **string** |  | [optional] 
-**ErrCode** | Pointer to **int32** |  | [optional] 
+**ErrCode** | Pointer to **uint16** |  | [optional] 
 
 ## Methods
 

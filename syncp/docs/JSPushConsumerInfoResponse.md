@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **Delivered** | [**SequenceInfo**](SequenceInfo.md) |  | 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
-**NumAckPending** | **int32** |  | 
-**NumPending** | **int32** |  | 
-**NumRedelivered** | **int32** |  | 
+**NumAckPending** | **int64** |  | 
+**NumPending** | **uint64** |  | 
+**NumRedelivered** | **int64** |  | 
 **PushBound** | Pointer to **bool** |  | [optional] 
 **StreamName** | **string** |  | 
 

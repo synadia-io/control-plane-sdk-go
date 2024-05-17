@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -19,10 +19,10 @@ var _ MappedNullable = &ServerStats{}
 
 // ServerStats ServerStats hold various statistics that we will periodically send out.
 type ServerStats struct {
-	ActiveAccounts   int32                    `json:"active_accounts"`
-	ActiveServers    *int32                   `json:"active_servers,omitempty"`
-	Connections      int32                    `json:"connections"`
-	Cores            int32                    `json:"cores"`
+	ActiveAccounts   int64                    `json:"active_accounts"`
+	ActiveServers    *int64                   `json:"active_servers,omitempty"`
+	Connections      int64                    `json:"connections"`
+	Cores            int64                    `json:"cores"`
 	Cpu              float64                  `json:"cpu"`
 	Gateways         []GatewayStat            `json:"gateways,omitempty"`
 	Jetstream        *Nullable[JetStreamVarz] `json:"jetstream,omitempty"`
@@ -32,8 +32,8 @@ type ServerStats struct {
 	Sent             DataStats                `json:"sent"`
 	SlowConsumers    int64                    `json:"slow_consumers"`
 	Start            time.Time                `json:"start"`
-	Subscriptions    int32                    `json:"subscriptions"`
-	TotalConnections int32                    `json:"total_connections"`
+	Subscriptions    uint32                   `json:"subscriptions"`
+	TotalConnections uint64                   `json:"total_connections"`
 }
 
 func (o ServerStats) ToMap() (map[string]interface{}, error) {

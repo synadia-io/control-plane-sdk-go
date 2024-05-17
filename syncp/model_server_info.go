@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -25,7 +25,7 @@ type ServerInfo struct {
 	Id        string    `json:"id"`
 	Jetstream bool      `json:"jetstream"`
 	Name      string    `json:"name"`
-	Seq       int32     `json:"seq"`
+	Seq       uint64    `json:"seq"`
 	Tags      []string  `json:"tags,omitempty"`
 	Time      time.Time `json:"time"`
 	Ver       string    `json:"ver"`

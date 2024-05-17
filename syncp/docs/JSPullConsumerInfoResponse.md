@@ -11,10 +11,10 @@ Name | Type | Description | Notes
 **Delivered** | [**SequenceInfo**](SequenceInfo.md) |  | 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
-**NumAckPending** | **int32** |  | 
-**NumPending** | **int32** |  | 
-**NumRedelivered** | **int32** |  | 
-**NumWaiting** | **int32** |  | 
+**NumAckPending** | **int64** |  | 
+**NumPending** | **uint64** |  | 
+**NumRedelivered** | **int64** |  | 
+**NumWaiting** | **int64** |  | 
 **StreamName** | **string** |  | 
 
 ## Methods

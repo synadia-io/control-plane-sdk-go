@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bytes** | **int32** | How many bytes were lost | 
-**Msgs** | []**int32** | Message IDs of lost messages | 
+**Bytes** | **uint64** | How many bytes were lost | 
+**Msgs** | []**uint64** | Message IDs of lost messages | 
 
 ## Methods
 

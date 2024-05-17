@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,14 +15,14 @@ var _ MappedNullable = &ExportPatch{}
 
 // ExportPatch struct for ExportPatch
 type ExportPatch struct {
-	AccountTokenPosition *Nullable[int32]               `json:"account_token_position,omitempty"`
+	AccountTokenPosition *Nullable[int64]               `json:"account_token_position,omitempty"`
 	Advertise            *bool                          `json:"advertise,omitempty"`
 	Description          *Nullable[string]              `json:"description,omitempty"`
 	InfoUrl              *Nullable[string]              `json:"info_url,omitempty"`
 	Name                 *string                        `json:"name,omitempty"`
-	ResponseThreshold    *Nullable[int32]               `json:"response_threshold,omitempty"`
+	ResponseThreshold    *Nullable[int64]               `json:"response_threshold,omitempty"`
 	ResponseType         *ResponseType                  `json:"response_type,omitempty"`
-	Revocations          map[string]int32               `json:"revocations,omitempty"`
+	Revocations          map[string]int64               `json:"revocations,omitempty"`
 	ServiceLatency       *Nullable[ServiceLatencyPatch] `json:"service_latency,omitempty"`
 	Subject              *string                        `json:"subject,omitempty"`
 	TokenReq             *bool                          `json:"token_req,omitempty"`

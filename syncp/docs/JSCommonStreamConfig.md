@@ -13,16 +13,16 @@ Name | Type | Description | Notes
 **Discard** | [**DiscardPolicy**](DiscardPolicy.md) |  | 
 **DiscardNewPerSubject** | Pointer to **bool** |  | [optional] 
 **DuplicateWindow** | Pointer to **int64** |  | [optional] 
-**FirstSeq** | Pointer to **int32** |  | [optional] 
+**FirstSeq** | Pointer to **uint64** |  | [optional] 
 **MaxAge** | **int64** |  | 
 **MaxBytes** | **int64** |  | 
-**MaxConsumers** | **int32** |  | 
-**MaxMsgSize** | Pointer to **int32** |  | [optional] 
+**MaxConsumers** | **int64** |  | 
+**MaxMsgSize** | Pointer to **int64** |  | [optional] 
 **MaxMsgs** | **int64** |  | 
 **MaxMsgsPerSubject** | **int64** |  | 
 **Name** | **string** |  | 
 **NoAck** | Pointer to **bool** |  | [optional] 
-**NumReplicas** | **int32** |  | 
+**NumReplicas** | **int64** |  | 
 **Placement** | Pointer to [**Placement**](Placement.md) |  | [optional] 
 **Republish** | Pointer to [**RePublish**](RePublish.md) |  | [optional] 
 **Retention** | [**RetentionPolicy**](RetentionPolicy.md) |  | 

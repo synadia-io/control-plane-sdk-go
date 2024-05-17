@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DurationInSecs** | **int32** |  | 
+**DurationInSecs** | **int64** |  | 
 **Message** | **string** |  | 
 **Metric** | **string** |  | 
 **Severity** | [**AlertRuleSeverity**](AlertRuleSeverity.md) |  | 

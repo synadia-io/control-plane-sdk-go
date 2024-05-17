@@ -7,6 +7,7 @@ Name | Type | Description | Notes
  | [**JSCommonStreamInfo**](JSCommonStreamInfo.md) |   | Embedded Struct
 **Config** | [**JSStreamConfigRequest**](JSStreamConfigRequest.md) |  | 
 **Id** | **string** |  | 
+**JetstreamType** | [**JSType**](JSType.md) |  | 
 
 ## Methods
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Leafnodes** | **int32** |  | 
+**Leafnodes** | **int64** |  | 
 **Leafs** | Nullable[[][**LeafInfo**](LeafInfo.md)] |  | 
 **Now** | **time.Time** |  | 
 **ServerId** | **string** |  | 

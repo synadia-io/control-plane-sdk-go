@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -21,7 +21,7 @@ var _ MappedNullable = &ConnInfo{}
 type ConnInfo struct {
 	Account                 *string           `json:"account,omitempty"`
 	AuthorizedUser          *string           `json:"authorized_user,omitempty"`
-	Cid                     int32             `json:"cid"`
+	Cid                     uint64            `json:"cid"`
 	Idle                    string            `json:"idle"`
 	InBytes                 int64             `json:"in_bytes"`
 	InMsgs                  int64             `json:"in_msgs"`
@@ -36,13 +36,13 @@ type ConnInfo struct {
 	NameTag                 *string           `json:"name_tag,omitempty"`
 	OutBytes                int64             `json:"out_bytes"`
 	OutMsgs                 int64             `json:"out_msgs"`
-	PendingBytes            int32             `json:"pending_bytes"`
-	Port                    int32             `json:"port"`
+	PendingBytes            int64             `json:"pending_bytes"`
+	Port                    int64             `json:"port"`
 	Reason                  *string           `json:"reason,omitempty"`
 	Rtt                     *string           `json:"rtt,omitempty"`
 	Start                   time.Time         `json:"start"`
 	Stop                    *Nullable[string] `json:"stop,omitempty"`
-	Subscriptions           int32             `json:"subscriptions"`
+	Subscriptions           uint32            `json:"subscriptions"`
 	SubscriptionsList       []string          `json:"subscriptions_list,omitempty"`
 	SubscriptionsListDetail []SubDetail       `json:"subscriptions_list_detail,omitempty"`
 	Tags                    []string          `json:"tags,omitempty"`

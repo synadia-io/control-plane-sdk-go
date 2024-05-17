@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -17,7 +17,7 @@ var _ MappedNullable = &WeightedMapping{}
 type WeightedMapping struct {
 	Cluster *string `json:"cluster,omitempty"`
 	Subject string  `json:"subject"`
-	Weight  *int32  `json:"weight,omitempty"`
+	Weight  *int64  `json:"weight,omitempty"`
 }
 
 func (o WeightedMapping) ToMap() (map[string]interface{}, error) {

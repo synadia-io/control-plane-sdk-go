@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -18,7 +18,7 @@ type GenericFields struct {
 	Tags []string `json:"tags,omitempty"`
 	// ClaimType is used to indicate the type of JWT being stored in a Claim
 	Type    *string `json:"type,omitempty"`
-	Version *int32  `json:"version,omitempty"`
+	Version *int64  `json:"version,omitempty"`
 }
 
 func (o GenericFields) ToMap() (map[string]interface{}, error) {

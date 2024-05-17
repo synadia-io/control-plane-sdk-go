@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -28,12 +28,12 @@ type JSCommonConsumerConfigRequest struct {
 	DurableName       *string       `json:"durable_name,omitempty"`
 	FilterSubject     *string       `json:"filter_subject,omitempty"`
 	InactiveThreshold *int64        `json:"inactive_threshold,omitempty"`
-	MaxAckPending     *int32        `json:"max_ack_pending,omitempty"`
-	MaxDeliver        *int32        `json:"max_deliver,omitempty"`
+	MaxAckPending     *int64        `json:"max_ack_pending,omitempty"`
+	MaxDeliver        *int64        `json:"max_deliver,omitempty"`
 	MemStorage        *bool         `json:"mem_storage,omitempty"`
 	Name              *string       `json:"name,omitempty"`
-	NumReplicas       int32         `json:"num_replicas"`
-	OptStartSeq       *int32        `json:"opt_start_seq,omitempty"`
+	NumReplicas       int64         `json:"num_replicas"`
+	OptStartSeq       *uint64       `json:"opt_start_seq,omitempty"`
 	OptStartTime      *time.Time    `json:"opt_start_time,omitempty"`
 	ReplayPolicy      ReplayPolicy  `json:"replay_policy"`
 	SampleFreq        *string       `json:"sample_freq,omitempty"`

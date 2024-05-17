@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConsumerSeq** | **int32** |  | 
+**ConsumerSeq** | **uint64** |  | 
 **LastActive** | Pointer to Nullable[**string**] |  | [optional] 
-**StreamSeq** | **int32** |  | 
+**StreamSeq** | **uint64** |  | 
 
 ## Methods
 

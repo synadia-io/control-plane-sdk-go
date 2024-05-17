@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** |  | [optional] 
 **AuthorizedUser** | Pointer to **string** |  | [optional] 
-**Cid** | **int32** |  | 
+**Cid** | **uint64** |  | 
 **Idle** | **string** |  | 
 **InBytes** | **int64** |  | 
 **InMsgs** | **int64** |  | 
@@ -21,13 +21,13 @@ Name | Type | Description | Notes
 **NameTag** | Pointer to **string** |  | [optional] 
 **OutBytes** | **int64** |  | 
 **OutMsgs** | **int64** |  | 
-**PendingBytes** | **int32** |  | 
-**Port** | **int32** |  | 
+**PendingBytes** | **int64** |  | 
+**Port** | **int64** |  | 
 **Reason** | Pointer to **string** |  | [optional] 
 **Rtt** | Pointer to **string** |  | [optional] 
 **Start** | **time.Time** |  | 
 **Stop** | Pointer to Nullable[**string**] |  | [optional] 
-**Subscriptions** | **int32** |  | 
+**Subscriptions** | **uint32** |  | 
 **SubscriptionsList** | Pointer to []**string** |  | [optional] 
 **SubscriptionsListDetail** | Pointer to [][**SubDetail**](SubDetail.md) |  | [optional] 
 **Tags** | Pointer to []**string** |  | [optional] 

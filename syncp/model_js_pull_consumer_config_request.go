@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -16,11 +16,11 @@ var _ MappedNullable = &JSPullConsumerConfigRequest{}
 // JSPullConsumerConfigRequest struct for JSPullConsumerConfigRequest
 type JSPullConsumerConfigRequest struct {
 	JSCommonConsumerConfigRequest
-	MaxBatch   *int32 `json:"max_batch,omitempty"`
-	MaxBytes   *int32 `json:"max_bytes,omitempty"`
+	MaxBatch   *int64 `json:"max_batch,omitempty"`
+	MaxBytes   *int64 `json:"max_bytes,omitempty"`
 	MaxExpires *int64 `json:"max_expires,omitempty"`
 	// Pull based options.
-	MaxWaiting *int32 `json:"max_waiting,omitempty"`
+	MaxWaiting *int64 `json:"max_waiting,omitempty"`
 }
 
 func (o JSPullConsumerConfigRequest) ToMap() (map[string]interface{}, error) {

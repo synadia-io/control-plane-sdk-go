@@ -132,8 +132,6 @@ docs/InvitationDecisionRequest.md
 docs/InvitationListResponse.md
 docs/IssuanceAPI.md
 docs/JSApiError.md
-docs/JSAssetInfoListResponse.md
-docs/JSAssetInfoResponse.md
 docs/JSCommonConsumerConfigRequest.md
 docs/JSCommonStreamConfig.md
 docs/JSCommonStreamInfo.md
@@ -438,8 +436,6 @@ model_jet_stream_stats.go
 model_jet_stream_tier.go
 model_jet_stream_varz.go
 model_js_api_error.go
-model_js_asset_info_list_response.go
-model_js_asset_info_response.go
 model_js_common_consumer_config_request.go
 model_js_common_stream_config.go
 model_js_common_stream_info.go

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** |  | [optional] 
-**Cid** | **int32** |  | 
+**Cid** | **uint64** |  | 
 **Max** | Pointer to **int64** |  | [optional] 
 **Msgs** | **int64** |  | 
 **Qgroup** | Pointer to **string** |  | [optional] 

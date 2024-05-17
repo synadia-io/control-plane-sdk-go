@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  description: API for Synadia Control Plane Server
-  title: Synadia Control Plane
+  description: API for Synadia Control Plane / Synadia Cloud
+  title: Synadia Control Plane / Synadia Cloud
   version: beta
 servers:
 - description: Path to Synadia Control Plane Server Api
@@ -972,7 +972,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JSAssetInfoListResponse'
+                $ref: '#/components/schemas/JSStreamInfoListResponse'
           description: Success
         "400":
           description: Bad Request
@@ -6005,39 +6005,6 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/logs:
-    post:
-      description: Download System Logs
-      operationId: downloadSystemLogs
-      parameters:
-      - explode: false
-        in: path
-        name: systemId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/gzip:
-              schema:
-                format: binary
-                type: string
-          description: Success
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      summary: Download Logs
-      tags:
-      - system
-      x-doc-tags:
-      - Systems
   /systems/{systemId}/nats-clusters:
     get:
       description: List cluster information
@@ -6066,6 +6033,38 @@ paths:
         "404":
           description: Not Found
       summary: List Clusters
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
+  /systems/{systemId}/prometheus-metrics:
+    get:
+      description: Get Prometheus Metrics
+      operationId: getSystemPrometheusMetrics
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get Prometheus Metrics
       tags:
       - system
       x-doc-tags:
@@ -8814,42 +8813,29 @@ components:
       - name
       type: object
     AppUserAccessTokenCreateResponse:
+      allOf:
+      - $ref: '#/components/schemas/AppUserAccessTokenViewResponse'
+      - required:
+        - token
       example:
-        expires: 2000-01-23T04:56:07.000+00:00
-        created: 2000-01-23T04:56:07.000+00:00
-        name: name
-        id: id
         token: token
       properties:
-        created:
-          format: date-time
-          type: string
-        expires:
-          format: date-time
-          type: string
-        id:
-          type: string
-        name:
-          type: string
         token:
           type: string
-      required:
-      - created
-      - id
-      - name
-      - token
       type: object
     AppUserAccessTokenListResponse:
       example:
         items:
-        - expires: 2000-01-23T04:56:07.000+00:00
+        - expires: expires
           created: 2000-01-23T04:56:07.000+00:00
           name: name
           id: id
-        - expires: 2000-01-23T04:56:07.000+00:00
+          last_active: last_active
+        - expires: expires
           created: 2000-01-23T04:56:07.000+00:00
           name: name
           id: id
+          last_active: last_active
       properties:
         items:
           items:
@@ -8871,18 +8857,22 @@ components:
       type: object
     AppUserAccessTokenViewResponse:
       example:
-        expires: 2000-01-23T04:56:07.000+00:00
+        expires: expires
         created: 2000-01-23T04:56:07.000+00:00
         name: name
         id: id
+        last_active: last_active
       properties:
         created:
           format: date-time
           type: string
         expires:
-          format: date-time
+          nullable: true
           type: string
         id:
+          type: string
+        last_active:
+          nullable: true
           type: string
         name:
           type: string
@@ -9183,6 +9173,7 @@ components:
           pending_creation: true
           name: name
           id: id
+          last_active: last_active
           type: null
         - role_name: role_name
           identifier: identifier
@@ -9191,6 +9182,7 @@ components:
           pending_creation: true
           name: name
           id: id
+          last_active: last_active
           type: null
       properties:
         items:
@@ -9235,6 +9227,7 @@ components:
         pending_creation: true
         name: name
         id: id
+        last_active: last_active
         type: null
       properties:
         created:
@@ -9243,6 +9236,9 @@ components:
         id:
           type: string
         identifier:
+          type: string
+        last_active:
+          nullable: true
           type: string
         name:
           type: string
@@ -10035,210 +10031,6 @@ components:
       required:
       - code
       type: object
-    JSAssetInfoListResponse:
-      example:
-        items:
-        - jetstream_type: null
-          id: id
-          config:
-            discard: null
-            sources:
-            - opt_start_time: opt_start_time
-              external: null
-              opt_start_seq: 2147483647
-              name: name
-              filter_subject: filter_subject
-              subject_transforms:
-              - src: src
-                dest: dest
-              - src: src
-                dest: dest
-            - opt_start_time: opt_start_time
-              external: null
-              opt_start_seq: 2147483647
-              name: name
-              filter_subject: filter_subject
-              subject_transforms:
-              - src: src
-                dest: dest
-              - src: src
-                dest: dest
-            deny_delete: true
-            allow_rollup_hdrs: true
-            description: description
-            max_bytes: 5
-            storage: null
-            subject_transform:
-              src: src
-              dest: dest
-            max_consumers: 5
-            discard_new_per_subject: true
-            max_msgs_per_subject: 9
-            max_msgs: 7
-            retention: null
-            first_seq: 2147483647
-            duplicate_window: 0
-            sealed: true
-            max_msg_size: 2
-            allow_direct: true
-            max_age: 1
-            republish:
-              src: src
-              headers_only: true
-              dest: dest
-            template_owner: template_owner
-            no_ack: true
-            num_replicas: 3
-            deny_purge: true
-            name: name
-            placement:
-              cluster: cluster
-              tags:
-              - tags
-              - tags
-            compression: null
-        - jetstream_type: null
-          id: id
-          config:
-            discard: null
-            sources:
-            - opt_start_time: opt_start_time
-              external: null
-              opt_start_seq: 2147483647
-              name: name
-              filter_subject: filter_subject
-              subject_transforms:
-              - src: src
-                dest: dest
-              - src: src
-                dest: dest
-            - opt_start_time: opt_start_time
-              external: null
-              opt_start_seq: 2147483647
-              name: name
-              filter_subject: filter_subject
-              subject_transforms:
-              - src: src
-                dest: dest
-              - src: src
-                dest: dest
-            deny_delete: true
-            allow_rollup_hdrs: true
-            description: description
-            max_bytes: 5
-            storage: null
-            subject_transform:
-              src: src
-              dest: dest
-            max_consumers: 5
-            discard_new_per_subject: true
-            max_msgs_per_subject: 9
-            max_msgs: 7
-            retention: null
-            first_seq: 2147483647
-            duplicate_window: 0
-            sealed: true
-            max_msg_size: 2
-            allow_direct: true
-            max_age: 1
-            republish:
-              src: src
-              headers_only: true
-              dest: dest
-            template_owner: template_owner
-            no_ack: true
-            num_replicas: 3
-            deny_purge: true
-            name: name
-            placement:
-              cluster: cluster
-              tags:
-              - tags
-              - tags
-            compression: null
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/JSAssetInfoResponse'
-          type: array
-      required:
-      - items
-      type: object
-    JSAssetInfoResponse:
-      allOf:
-      - $ref: '#/components/schemas/JSCommonStreamInfo'
-      - required:
-        - config
-        - id
-        - jetstream_type
-      example:
-        jetstream_type: null
-        id: id
-        config:
-          discard: null
-          sources:
-          - opt_start_time: opt_start_time
-            external: null
-            opt_start_seq: 2147483647
-            name: name
-            filter_subject: filter_subject
-            subject_transforms:
-            - src: src
-              dest: dest
-            - src: src
-              dest: dest
-          - opt_start_time: opt_start_time
-            external: null
-            opt_start_seq: 2147483647
-            name: name
-            filter_subject: filter_subject
-            subject_transforms:
-            - src: src
-              dest: dest
-            - src: src
-              dest: dest
-          deny_delete: true
-          allow_rollup_hdrs: true
-          description: description
-          max_bytes: 5
-          storage: null
-          subject_transform:
-            src: src
-            dest: dest
-          max_consumers: 5
-          discard_new_per_subject: true
-          max_msgs_per_subject: 9
-          max_msgs: 7
-          retention: null
-          first_seq: 2147483647
-          duplicate_window: 0
-          sealed: true
-          max_msg_size: 2
-          allow_direct: true
-          max_age: 1
-          republish:
-            src: src
-            headers_only: true
-            dest: dest
-          template_owner: template_owner
-          no_ack: true
-          num_replicas: 3
-          deny_purge: true
-          name: name
-          placement:
-            cluster: cluster
-            tags:
-            - tags
-            - tags
-          compression: null
-      properties:
-        config:
-          $ref: '#/components/schemas/JSCommonStreamConfig'
-        id:
-          type: string
-        jetstream_type:
-          $ref: '#/components/schemas/JSType'
-      type: object
     JSCommonConsumerConfigRequest:
       properties:
         ack_policy:
@@ -10292,63 +10084,6 @@ components:
       - replay_policy
       type: object
     JSCommonStreamConfig:
-      example:
-        discard: null
-        sources:
-        - opt_start_time: opt_start_time
-          external: null
-          opt_start_seq: 2147483647
-          name: name
-          filter_subject: filter_subject
-          subject_transforms:
-          - src: src
-            dest: dest
-          - src: src
-            dest: dest
-        - opt_start_time: opt_start_time
-          external: null
-          opt_start_seq: 2147483647
-          name: name
-          filter_subject: filter_subject
-          subject_transforms:
-          - src: src
-            dest: dest
-          - src: src
-            dest: dest
-        deny_delete: true
-        allow_rollup_hdrs: true
-        description: description
-        max_bytes: 5
-        storage: null
-        subject_transform:
-          src: src
-          dest: dest
-        max_consumers: 5
-        discard_new_per_subject: true
-        max_msgs_per_subject: 9
-        max_msgs: 7
-        retention: null
-        first_seq: 2147483647
-        duplicate_window: 0
-        sealed: true
-        max_msg_size: 2
-        allow_direct: true
-        max_age: 1
-        republish:
-          src: src
-          headers_only: true
-          dest: dest
-        template_owner: template_owner
-        no_ack: true
-        num_replicas: 3
-        deny_purge: true
-        name: name
-        placement:
-          cluster: cluster
-          tags:
-          - tags
-          - tags
-        compression: null
       properties:
         allow_direct:
           type: boolean
@@ -10532,7 +10267,7 @@ components:
           src: src
           headers_only: true
           dest: dest
-        num_replicas: 2
+        num_replicas: 7
         placement:
           cluster: cluster
           tags:
@@ -10631,7 +10366,7 @@ components:
               src: src
               headers_only: true
               dest: dest
-            num_replicas: 2
+            num_replicas: 7
             placement:
               cluster: cluster
               tags:
@@ -10686,7 +10421,7 @@ components:
               src: src
               headers_only: true
               dest: dest
-            num_replicas: 2
+            num_replicas: 7
             placement:
               cluster: cluster
               tags:
@@ -10808,7 +10543,7 @@ components:
             src: src
             headers_only: true
             dest: dest
-          num_replicas: 2
+          num_replicas: 7
           placement:
             cluster: cluster
             tags:
@@ -11359,12 +11094,14 @@ components:
     JSStreamInfoListResponse:
       example:
         items:
-        - id: id
+        - jetstream_type: null
+          id: id
           config:
             subjects:
             - subjects
             - subjects
-        - id: id
+        - jetstream_type: null
+          id: id
           config:
             subjects:
             - subjects
@@ -11383,7 +11120,9 @@ components:
       - required:
         - config
         - id
+        - jetstream_type
       example:
+        jetstream_type: null
         id: id
         config:
           subjects:
@@ -11394,6 +11133,8 @@ components:
           $ref: '#/components/schemas/JSStreamConfigRequest'
         id:
           type: string
+        jetstream_type:
+          $ref: '#/components/schemas/JSType'
       type: object
     JSType:
       enum:
@@ -13390,6 +13131,7 @@ components:
       example:
         items:
         - role_id: role_id
+          created: 2000-01-23T04:56:07.000+00:00
           scope: null
           name: name
           resources:
@@ -13437,8 +13179,10 @@ components:
                 is_scp_account: true
                 is_system_account: true
           id: id
+          last_active: last_active
           team_id: team_id
         - role_id: role_id
+          created: 2000-01-23T04:56:07.000+00:00
           scope: null
           name: name
           resources:
@@ -13486,6 +13230,7 @@ components:
                 is_scp_account: true
                 is_system_account: true
           id: id
+          last_active: last_active
           team_id: team_id
       properties:
         items:
@@ -13529,6 +13274,7 @@ components:
     ServiceAccountViewResponse:
       example:
         role_id: role_id
+        created: 2000-01-23T04:56:07.000+00:00
         scope: null
         name: name
         resources:
@@ -13576,9 +13322,16 @@ components:
               is_scp_account: true
               is_system_account: true
         id: id
+        last_active: last_active
         team_id: team_id
       properties:
+        created:
+          format: date-time
+          type: string
         id:
+          type: string
+        last_active:
+          nullable: true
           type: string
         name:
           type: string
@@ -13594,7 +13347,9 @@ components:
         team_id:
           type: string
       required:
+      - created
       - id
+      - last_active
       - name
       - resources
       - role_id
@@ -15155,6 +14910,7 @@ components:
         jetstream_enabled: true
         connection_type: null
         http_gateway_config: null
+        operator_jwt: operator_jwt
         name: name
         jetstream_domain: jetstream_domain
         url: url
@@ -15172,6 +14928,8 @@ components:
         jetstream_enabled:
           type: boolean
         name:
+          type: string
+        operator_jwt:
           type: string
         url:
           type: string
@@ -15449,7 +15207,10 @@ components:
     TeamLimits:
       example:
         num_users: 0
+        disable_prometheus_federation: true
       properties:
+        disable_prometheus_federation:
+          type: boolean
         num_users:
           type: integer
       required:
@@ -15459,10 +15220,13 @@ components:
       example:
         total:
           num_users: 0
+          disable_prometheus_federation: true
         available:
           num_users: 0
+          disable_prometheus_federation: true
         allocated:
           num_users: 0
+          disable_prometheus_federation: true
       properties:
         allocated:
           $ref: '#/components/schemas/TeamLimits'
@@ -15483,11 +15247,13 @@ components:
           id: id
           limits:
             num_users: 0
+            disable_prometheus_federation: true
         - created: 2000-01-23T04:56:07.000+00:00
           name: name
           id: id
           limits:
             num_users: 0
+            disable_prometheus_federation: true
       properties:
         items:
           items:
@@ -15510,6 +15276,7 @@ components:
         id: id
         limits:
           num_users: 0
+          disable_prometheus_federation: true
       properties:
         created:
           format: date-time

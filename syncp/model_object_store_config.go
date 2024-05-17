@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -23,7 +23,7 @@ type ObjectStoreConfig struct {
 	MaxBytes    *int64  `json:"max_bytes,omitempty"`
 	// Bucket-specific metadata NOTE: Metadata requires nats-server v2.10.0+
 	Metadata    map[string]string `json:"metadata,omitempty"`
-	NumReplicas *int32            `json:"num_replicas,omitempty"`
+	NumReplicas *int64            `json:"num_replicas,omitempty"`
 	Placement   *Placement        `json:"placement,omitempty"`
 	Storage     *StorageType      `json:"storage,omitempty"`
 }

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **External** | Pointer to Nullable[[**ExternalStream**](ExternalStream.md)] |  | [optional] 
 **FilterSubject** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
-**OptStartSeq** | Pointer to **int32** |  | [optional] 
+**OptStartSeq** | Pointer to **uint64** |  | [optional] 
 **OptStartTime** | Pointer to Nullable[**string**] |  | [optional] 
 **SubjectTransforms** | Pointer to [][**SubjectTransformConfig**](SubjectTransformConfig.md) |  | [optional] 
 

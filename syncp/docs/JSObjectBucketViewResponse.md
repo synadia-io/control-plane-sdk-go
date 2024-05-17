@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bytes** | **int32** |  | 
+**Bytes** | **uint64** |  | 
 **Config** | [**JSObjectBucketConfig**](JSObjectBucketConfig.md) |  | 
 **Id** | **string** |  | 
 **StreamName** | **string** |  | 

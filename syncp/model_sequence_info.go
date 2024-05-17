@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,9 +15,9 @@ var _ MappedNullable = &SequenceInfo{}
 
 // SequenceInfo SequenceInfo is the consumer and stream sequence that uniquely identify a message
 type SequenceInfo struct {
-	ConsumerSeq int32             `json:"consumer_seq"`
+	ConsumerSeq uint64            `json:"consumer_seq"`
 	LastActive  *Nullable[string] `json:"last_active,omitempty"`
-	StreamSeq   int32             `json:"stream_seq"`
+	StreamSeq   uint64            `json:"stream_seq"`
 }
 
 func (o SequenceInfo) ToMap() (map[string]interface{}, error) {

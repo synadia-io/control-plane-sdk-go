@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -16,7 +16,7 @@ var _ MappedNullable = &SubDetail{}
 // SubDetail SubDetail is for verbose information for subscriptions.
 type SubDetail struct {
 	Account *string `json:"account,omitempty"`
-	Cid     int32   `json:"cid"`
+	Cid     uint64  `json:"cid"`
 	Max     *int64  `json:"max,omitempty"`
 	Msgs    int64   `json:"msgs"`
 	Qgroup  *string `json:"qgroup,omitempty"`

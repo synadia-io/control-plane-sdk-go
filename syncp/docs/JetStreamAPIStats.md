@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Errors** | **int32** |  | 
-**Inflight** | Pointer to **int32** |  | [optional] 
-**Total** | **int32** |  | 
+**Errors** | **uint64** |  | 
+**Inflight** | Pointer to **uint64** |  | [optional] 
+**Total** | **uint64** |  | 
 
 ## Methods
 

@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,11 +15,15 @@ var _ MappedNullable = &TeamLimits{}
 
 // TeamLimits struct for TeamLimits
 type TeamLimits struct {
-	NumUsers int32 `json:"num_users"`
+	DisablePrometheusFederation *bool `json:"disable_prometheus_federation,omitempty"`
+	NumUsers                    int64 `json:"num_users"`
 }
 
 func (o TeamLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.DisablePrometheusFederation != nil {
+		toSerialize["disable_prometheus_federation"] = o.DisablePrometheusFederation
+	}
 	toSerialize["num_users"] = o.NumUsers
 	return toSerialize, nil
 }

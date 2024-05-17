@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,7 +15,7 @@ var _ MappedNullable = &TenantLimits{}
 
 // TenantLimits struct for TenantLimits
 type TenantLimits struct {
-	NumAccounts    int32          `json:"num_accounts"`
+	NumAccounts    int64          `json:"num_accounts"`
 	ResourceLimits OperatorLimits `json:"resource_limits"`
 }
 

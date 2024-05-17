@@ -35,7 +35,7 @@ import (
 
 func main() {
     streamId := "streamId_example" // string | 
-    jSPullConsumerConfigRequest := *openapiclient.NewJSPullConsumerConfigRequest(openapiclient.AckPolicy("none"), openapiclient.DeliverPolicy("all"), int32(123), openapiclient.ReplayPolicy("instant")) // JSPullConsumerConfigRequest |  (optional)
+    jSPullConsumerConfigRequest := *openapiclient.NewJSPullConsumerConfigRequest(openapiclient.AckPolicy("none"), openapiclient.DeliverPolicy("all"), int64(123), openapiclient.ReplayPolicy("instant")) // JSPullConsumerConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -107,7 +107,7 @@ import (
 
 func main() {
     streamId := "streamId_example" // string | 
-    jSPushConsumerConfigRequest := *openapiclient.NewJSPushConsumerConfigRequest(openapiclient.AckPolicy("none"), openapiclient.DeliverPolicy("all"), int32(123), openapiclient.ReplayPolicy("instant")) // JSPushConsumerConfigRequest |  (optional)
+    jSPushConsumerConfigRequest := *openapiclient.NewJSPushConsumerConfigRequest(openapiclient.AckPolicy("none"), openapiclient.DeliverPolicy("all"), int64(123), openapiclient.ReplayPolicy("instant")) // JSPushConsumerConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -387,7 +387,7 @@ import (
 
 func main() {
     streamId := "streamId_example" // string | 
-    jSStreamConfigRequest := *openapiclient.NewJSStreamConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int32(123), int64(123), int64(123), "Name_example", int32(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file")) // JSStreamConfigRequest |  (optional)
+    jSStreamConfigRequest := *openapiclient.NewJSStreamConfigRequest(false, false, false, false, openapiclient.DiscardPolicy("old"), int64(123), int64(123), int64(123), int64(123), int64(123), "Name_example", int64(123), openapiclient.RetentionPolicy("limits"), false, openapiclient.StorageType("file")) // JSStreamConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

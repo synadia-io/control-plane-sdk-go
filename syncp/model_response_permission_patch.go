@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,7 +15,7 @@ var _ MappedNullable = &ResponsePermissionPatch{}
 
 // ResponsePermissionPatch struct for ResponsePermissionPatch
 type ResponsePermissionPatch struct {
-	Max *int32 `json:"max,omitempty"`
+	Max *int64 `json:"max,omitempty"`
 	Ttl *int64 `json:"ttl,omitempty"`
 }
 
