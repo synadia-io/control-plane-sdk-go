@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **MaxAge** | Pointer to **int64** |  | [optional] 
 **MaxBytes** | Pointer to **int64** |  | [optional] 
 **Metadata** | Pointer to **map[string]string** | Bucket-specific metadata NOTE: Metadata requires nats-server v2.10.0+ | [optional] 
-**NumReplicas** | Pointer to **int32** |  | [optional] 
+**NumReplicas** | Pointer to **int64** |  | [optional] 
 **Placement** | Pointer to [**Placement**](Placement.md) |  | [optional] 
 **Storage** | Pointer to [**StorageType**](StorageType.md) |  | [optional] 
 

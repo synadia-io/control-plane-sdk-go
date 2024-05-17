@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Results** | **string** |  | 
-**Sampling** | **int32** |  | 
+**Sampling** | **int64** |  | 
 
 ## Methods
 

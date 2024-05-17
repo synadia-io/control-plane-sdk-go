@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
  | [**Info**](Info.md) |   | Embedded Struct
-**AccountTokenPosition** | Pointer to **int32** |  | [optional] 
+**AccountTokenPosition** | Pointer to **int64** |  | [optional] 
 **Advertise** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **ResponseThreshold** | Pointer to **int64** |  | [optional] 

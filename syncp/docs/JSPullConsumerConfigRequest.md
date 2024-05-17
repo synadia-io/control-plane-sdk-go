@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
  | [**JSCommonConsumerConfigRequest**](JSCommonConsumerConfigRequest.md) |   | Embedded Struct
-**MaxBatch** | Pointer to **int32** |  | [optional] 
-**MaxBytes** | Pointer to **int32** |  | [optional] 
+**MaxBatch** | Pointer to **int64** |  | [optional] 
+**MaxBytes** | Pointer to **int64** |  | [optional] 
 **MaxExpires** | Pointer to **int64** |  | [optional] 
-**MaxWaiting** | Pointer to **int32** | Pull based options. | [optional] 
+**MaxWaiting** | Pointer to **int64** | Pull based options. | [optional] 
 
 ## Methods
 

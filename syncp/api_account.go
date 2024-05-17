@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -426,8 +426,8 @@ type AccountAPI interface {
 	ListJetStreamAssets(ctx context.Context, accountId string) ApiListJetStreamAssetsRequest
 
 	// ListJetStreamAssetsExecute executes the request
-	//  @return JSAssetInfoListResponse
-	ListJetStreamAssetsExecute(r ApiListJetStreamAssetsRequest) (*JSAssetInfoListResponse, *http.Response, error)
+	//  @return JSStreamInfoListResponse
+	ListJetStreamAssetsExecute(r ApiListJetStreamAssetsRequest) (*JSStreamInfoListResponse, *http.Response, error)
 
 	/*
 		ListKvBuckets List KV buckets
@@ -3579,7 +3579,7 @@ type ApiListJetStreamAssetsRequest struct {
 	accountId  string
 }
 
-func (r ApiListJetStreamAssetsRequest) Execute() (*JSAssetInfoListResponse, *http.Response, error) {
+func (r ApiListJetStreamAssetsRequest) Execute() (*JSStreamInfoListResponse, *http.Response, error) {
 	return r.ApiService.ListJetStreamAssetsExecute(r)
 }
 
@@ -3602,13 +3602,13 @@ func (a *AccountAPIService) ListJetStreamAssets(ctx context.Context, accountId s
 
 // Execute executes the request
 //
-//	@return JSAssetInfoListResponse
-func (a *AccountAPIService) ListJetStreamAssetsExecute(r ApiListJetStreamAssetsRequest) (*JSAssetInfoListResponse, *http.Response, error) {
+//	@return JSStreamInfoListResponse
+func (a *AccountAPIService) ListJetStreamAssetsExecute(r ApiListJetStreamAssetsRequest) (*JSStreamInfoListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *JSAssetInfoListResponse
+		localVarReturnValue *JSStreamInfoListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.ListJetStreamAssets")

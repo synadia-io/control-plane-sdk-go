@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -21,7 +21,7 @@ var _ MappedNullable = &NatsUserIssuanceInfo{}
 type NatsUserIssuanceInfo struct {
 	Created time.Time `json:"created"`
 	// total download events for this issuance
-	EventsCount int32 `json:"events_count"`
+	EventsCount int64 `json:"events_count"`
 	// highest expiry time, undefined means Unlimited (exp not set)
 	ExpMax *int64 `json:"exp_max,omitempty"`
 	// most recent time this was issued

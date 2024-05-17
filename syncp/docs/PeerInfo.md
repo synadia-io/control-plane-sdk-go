@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Active** | **int64** |  | 
 **Current** | **bool** |  | 
-**Lag** | Pointer to **int32** |  | [optional] 
+**Lag** | Pointer to **uint64** |  | [optional] 
 **Name** | **string** |  | 
 **Offline** | Pointer to **bool** |  | [optional] 
 

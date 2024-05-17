@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Connections** | Nullable[[][**ConnInfo**](ConnInfo.md)] |  | 
-**Limit** | **int32** |  | 
+**Limit** | **int64** |  | 
 **Now** | **time.Time** |  | 
-**NumConnections** | **int32** |  | 
-**Offset** | **int32** |  | 
+**NumConnections** | **int64** |  | 
+**Offset** | **int64** |  | 
 **ServerId** | **string** |  | 
-**Total** | **int32** |  | 
+**Total** | **int64** |  | 
 
 ## Methods
 

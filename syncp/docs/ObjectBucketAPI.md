@@ -35,7 +35,7 @@ import (
 
 func main() {
     streamId := "streamId_example" // string | 
-    jSPullConsumerConfigRequest := *openapiclient.NewJSPullConsumerConfigRequest(openapiclient.AckPolicy("none"), openapiclient.DeliverPolicy("all"), int32(123), openapiclient.ReplayPolicy("instant")) // JSPullConsumerConfigRequest |  (optional)
+    jSPullConsumerConfigRequest := *openapiclient.NewJSPullConsumerConfigRequest(openapiclient.AckPolicy("none"), openapiclient.DeliverPolicy("all"), int64(123), openapiclient.ReplayPolicy("instant")) // JSPullConsumerConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -107,7 +107,7 @@ import (
 
 func main() {
     streamId := "streamId_example" // string | 
-    jSPushConsumerConfigRequest := *openapiclient.NewJSPushConsumerConfigRequest(openapiclient.AckPolicy("none"), openapiclient.DeliverPolicy("all"), int32(123), openapiclient.ReplayPolicy("instant")) // JSPushConsumerConfigRequest |  (optional)
+    jSPushConsumerConfigRequest := *openapiclient.NewJSPushConsumerConfigRequest(openapiclient.AckPolicy("none"), openapiclient.DeliverPolicy("all"), int64(123), openapiclient.ReplayPolicy("instant")) // JSPushConsumerConfigRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

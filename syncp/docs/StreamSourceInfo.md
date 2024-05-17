@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Error** | Pointer to Nullable[[**JSApiError**](JSApiError.md)] |  | [optional] 
 **External** | Pointer to Nullable[[**ExternalStream**](ExternalStream.md)] |  | [optional] 
 **FilterSubject** | Pointer to **string** |  | [optional] 
-**Lag** | **int32** |  | 
+**Lag** | **uint64** |  | 
 **Name** | **string** |  | 
 **SubjectTransformDest** | Pointer to **string** |  | [optional] 
 **SubjectTransforms** | Pointer to [][**SubjectTransformConfig**](SubjectTransformConfig.md) |  | [optional] 

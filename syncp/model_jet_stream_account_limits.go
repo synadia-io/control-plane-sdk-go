@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,12 +15,12 @@ var _ MappedNullable = &JetStreamAccountLimits{}
 
 // JetStreamAccountLimits struct for JetStreamAccountLimits
 type JetStreamAccountLimits struct {
-	MaxAckPending         int32 `json:"max_ack_pending"`
+	MaxAckPending         int64 `json:"max_ack_pending"`
 	MaxBytesRequired      bool  `json:"max_bytes_required"`
-	MaxConsumers          int32 `json:"max_consumers"`
+	MaxConsumers          int64 `json:"max_consumers"`
 	MaxMemory             int64 `json:"max_memory"`
 	MaxStorage            int64 `json:"max_storage"`
-	MaxStreams            int32 `json:"max_streams"`
+	MaxStreams            int64 `json:"max_streams"`
 	MemoryMaxStreamBytes  int64 `json:"memory_max_stream_bytes"`
 	StorageMaxStreamBytes int64 `json:"storage_max_stream_bytes"`
 }

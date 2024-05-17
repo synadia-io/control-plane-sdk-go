@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,7 +15,7 @@ var _ MappedNullable = &JSObjectBucketViewResponse{}
 
 // JSObjectBucketViewResponse struct for JSObjectBucketViewResponse
 type JSObjectBucketViewResponse struct {
-	Bytes      int32                `json:"bytes"`
+	Bytes      uint64               `json:"bytes"`
 	Config     JSObjectBucketConfig `json:"config"`
 	Id         string               `json:"id"`
 	StreamName string               `json:"stream_name"`

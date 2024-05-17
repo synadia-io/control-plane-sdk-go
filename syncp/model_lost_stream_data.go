@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -16,9 +16,9 @@ var _ MappedNullable = &LostStreamData{}
 // LostStreamData LostStreamData indicates msgs that have been lost during file checks and recover due to corruption
 type LostStreamData struct {
 	// How many bytes were lost
-	Bytes int32 `json:"bytes"`
+	Bytes uint64 `json:"bytes"`
 	// Message IDs of lost messages
-	Msgs []int32 `json:"msgs"`
+	Msgs []uint64 `json:"msgs"`
 }
 
 func (o LostStreamData) ToMap() (map[string]interface{}, error) {

@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,9 +15,9 @@ var _ MappedNullable = &JSApiError{}
 
 // JSApiError struct for JSApiError
 type JSApiError struct {
-	Code        int32   `json:"code"`
+	Code        int64   `json:"code"`
 	Description *string `json:"description,omitempty"`
-	ErrCode     *int32  `json:"err_code,omitempty"`
+	ErrCode     *uint16 `json:"err_code,omitempty"`
 }
 
 func (o JSApiError) ToMap() (map[string]interface{}, error) {

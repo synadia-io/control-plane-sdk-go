@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | **time.Time** |  | 
-**EventsCount** | **int32** | total download events for this issuance | 
+**EventsCount** | **int64** | total download events for this issuance | 
 **ExpMax** | Pointer to **int64** | highest expiry time, undefined means Unlimited (exp not set) | [optional] 
 **IatMax** | **int64** | most recent time this was issued | 
 **IatMin** | **int64** | first time this was issued | 

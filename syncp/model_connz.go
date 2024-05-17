@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -20,12 +20,12 @@ var _ MappedNullable = &Connz{}
 // Connz Connz represents detailed information on current client connections.
 type Connz struct {
 	Connections    []ConnInfo `json:"connections"`
-	Limit          int32      `json:"limit"`
+	Limit          int64      `json:"limit"`
 	Now            time.Time  `json:"now"`
-	NumConnections int32      `json:"num_connections"`
-	Offset         int32      `json:"offset"`
+	NumConnections int64      `json:"num_connections"`
+	Offset         int64      `json:"offset"`
 	ServerId       string     `json:"server_id"`
-	Total          int32      `json:"total"`
+	Total          int64      `json:"total"`
 }
 
 func (o Connz) ToMap() (map[string]interface{}, error) {

@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -16,7 +16,7 @@ var _ MappedNullable = &Export{}
 // Export Export represents a single export
 type Export struct {
 	Info
-	AccountTokenPosition *int32        `json:"account_token_position,omitempty"`
+	AccountTokenPosition *int64        `json:"account_token_position,omitempty"`
 	Advertise            *bool         `json:"advertise,omitempty"`
 	Name                 *string       `json:"name,omitempty"`
 	ResponseThreshold    *int64        `json:"response_threshold,omitempty"`

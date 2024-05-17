@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Clusters** | []**string** |  | 
-**NumReplicas** | []**int32** |  | 
+**NumReplicas** | []**int64** |  | 
 **Tags** | []**string** |  | 
 
 ## Methods

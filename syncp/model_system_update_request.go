@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -21,6 +21,7 @@ type SystemUpdateRequest struct {
 	JetstreamDomain      *Nullable[string]                          `json:"jetstream_domain,omitempty"`
 	JetstreamEnabled     *bool                                      `json:"jetstream_enabled,omitempty"`
 	Name                 *string                                    `json:"name,omitempty"`
+	OperatorJwt          *string                                    `json:"operator_jwt,omitempty"`
 	Url                  *string                                    `json:"url,omitempty"`
 }
 
@@ -43,6 +44,9 @@ func (o SystemUpdateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
+	}
+	if o.OperatorJwt != nil {
+		toSerialize["operator_jwt"] = o.OperatorJwt
 	}
 	if o.Url != nil {
 		toSerialize["url"] = o.Url

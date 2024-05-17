@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Gwid** | **int32** |  | 
-**InboundConnections** | **int32** |  | 
+**Gwid** | **uint64** |  | 
+**InboundConnections** | **int64** |  | 
 **Name** | **string** |  | 
 **Received** | [**DataStats**](DataStats.md) |  | 
 **Sent** | [**DataStats**](DataStats.md) |  | 

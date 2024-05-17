@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -16,9 +16,9 @@ var _ MappedNullable = &RouteStat{}
 // RouteStat RouteStat holds route statistics.
 type RouteStat struct {
 	Name     *string   `json:"name,omitempty"`
-	Pending  int32     `json:"pending"`
+	Pending  int64     `json:"pending"`
 	Received DataStats `json:"received"`
-	Rid      int32     `json:"rid"`
+	Rid      uint64    `json:"rid"`
 	Sent     DataStats `json:"sent"`
 }
 

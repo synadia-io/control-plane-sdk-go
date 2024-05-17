@@ -4,10 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Created** | **time.Time** |  | 
-**Expires** | Pointer to **time.Time** |  | [optional] 
-**Id** | **string** |  | 
-**Name** | **string** |  | 
+ | [**AppUserAccessTokenViewResponse**](AppUserAccessTokenViewResponse.md) |   | Embedded Struct
 **Token** | **string** |  | 
 
 ## Methods

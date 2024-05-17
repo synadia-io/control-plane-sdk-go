@@ -13,12 +13,12 @@ Name | Type | Description | Notes
 **DurableName** | Pointer to **string** |  | [optional] 
 **FilterSubject** | Pointer to **string** |  | [optional] 
 **InactiveThreshold** | Pointer to **int64** |  | [optional] 
-**MaxAckPending** | Pointer to **int32** |  | [optional] 
-**MaxDeliver** | Pointer to **int32** |  | [optional] 
+**MaxAckPending** | Pointer to **int64** |  | [optional] 
+**MaxDeliver** | Pointer to **int64** |  | [optional] 
 **MemStorage** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**NumReplicas** | **int32** |  | 
-**OptStartSeq** | Pointer to **int32** |  | [optional] 
+**NumReplicas** | **int64** |  | 
+**OptStartSeq** | Pointer to **uint64** |  | [optional] 
 **OptStartTime** | Pointer to **time.Time** |  | [optional] 
 **ReplayPolicy** | [**ReplayPolicy**](ReplayPolicy.md) |  | 
 **SampleFreq** | Pointer to **string** |  | [optional] 

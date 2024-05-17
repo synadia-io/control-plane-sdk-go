@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**NumUsers** | **int32** |  | 
+**DisablePrometheusFederation** | Pointer to **bool** |  | [optional] 
+**NumUsers** | **int64** |  | 
 
 ## Methods
 

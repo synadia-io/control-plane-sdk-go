@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -22,7 +22,7 @@ type JSPushConsumerConfigRequest struct {
 	FlowControl    *bool   `json:"flow_control,omitempty"`
 	HeadersOnly    *bool   `json:"headers_only,omitempty"`
 	IdleHeartbeat  *int64  `json:"idle_heartbeat,omitempty"`
-	RateLimitBps   *int32  `json:"rate_limit_bps,omitempty"`
+	RateLimitBps   *uint64 `json:"rate_limit_bps,omitempty"`
 }
 
 func (o JSPushConsumerConfigRequest) ToMap() (map[string]interface{}, error) {

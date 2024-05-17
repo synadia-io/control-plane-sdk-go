@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -17,12 +17,12 @@ var _ MappedNullable = &UpdatableKVBucketConfig{}
 type UpdatableKVBucketConfig struct {
 	Compression  *bool          `json:"compression,omitempty"`
 	Description  *string        `json:"description,omitempty"`
-	History      *int32         `json:"history,omitempty"`
+	History      *int64         `json:"history,omitempty"`
 	MaxAge       *int64         `json:"max_age,omitempty"`
 	MaxBytes     *int64         `json:"max_bytes,omitempty"`
-	MaxValueSize *int32         `json:"max_value_size,omitempty"`
+	MaxValueSize *int64         `json:"max_value_size,omitempty"`
 	Mirror       *StreamSource  `json:"mirror,omitempty"`
-	NumReplicas  *int32         `json:"num_replicas,omitempty"`
+	NumReplicas  *int64         `json:"num_replicas,omitempty"`
 	Placement    *Placement     `json:"placement,omitempty"`
 	Republish    *RePublish     `json:"republish,omitempty"`
 	Sources      []StreamSource `json:"sources,omitempty"`

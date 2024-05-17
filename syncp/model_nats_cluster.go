@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,11 +15,11 @@ var _ MappedNullable = &NatsCluster{}
 
 // NatsCluster struct for NatsCluster
 type NatsCluster struct {
-	Connections      int32        `json:"connections"`
-	IncomingGateways int32        `json:"incoming_gateways"`
+	Connections      int64        `json:"connections"`
+	IncomingGateways int64        `json:"incoming_gateways"`
 	Name             string       `json:"name"`
-	NodeCount        int32        `json:"node_count"`
-	OutgoingGateways int32        `json:"outgoing_gateways"`
+	NodeCount        int64        `json:"node_count"`
+	OutgoingGateways int64        `json:"outgoing_gateways"`
 	Servers          []NatsServer `json:"servers"`
 }
 

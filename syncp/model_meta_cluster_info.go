@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,7 +15,7 @@ var _ MappedNullable = &MetaClusterInfo{}
 
 // MetaClusterInfo MetaClusterInfo shows information about the meta group.
 type MetaClusterInfo struct {
-	ClusterSize int32      `json:"cluster_size"`
+	ClusterSize int64      `json:"cluster_size"`
 	Leader      *string    `json:"leader,omitempty"`
 	Name        *string    `json:"name,omitempty"`
 	Replicas    []PeerInfo `json:"replicas,omitempty"`

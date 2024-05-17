@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -10,30 +10,26 @@ API version: beta
 
 package syncp
 
-import (
-	"time"
-)
-
 // checks if the AppUserAccessTokenCreateResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AppUserAccessTokenCreateResponse{}
 
 // AppUserAccessTokenCreateResponse struct for AppUserAccessTokenCreateResponse
 type AppUserAccessTokenCreateResponse struct {
-	Created time.Time  `json:"created"`
-	Expires *time.Time `json:"expires,omitempty"`
-	Id      string     `json:"id"`
-	Name    string     `json:"name"`
-	Token   string     `json:"token"`
+	AppUserAccessTokenViewResponse
+	Token string `json:"token"`
 }
 
 func (o AppUserAccessTokenCreateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["token"] = o.Token
 	toSerialize["created"] = o.Created
-	if o.Expires != nil {
-		toSerialize["expires"] = o.Expires
+	if o.Expires != nil && !o.Expires.IsNull() {
+		toSerialize["expires"] = o.Expires.Val
 	}
 	toSerialize["id"] = o.Id
+	if o.LastActive != nil && !o.LastActive.IsNull() {
+		toSerialize["last_active"] = o.LastActive.Val
+	}
 	toSerialize["name"] = o.Name
-	toSerialize["token"] = o.Token
 	return toSerialize, nil
 }

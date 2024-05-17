@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -22,9 +22,9 @@ type LeafInfo struct {
 	IsSpoke           *bool    `json:"is_spoke,omitempty"`
 	OutBytes          int64    `json:"out_bytes"`
 	OutMsgs           int64    `json:"out_msgs"`
-	Port              int32    `json:"port"`
+	Port              int64    `json:"port"`
 	Rtt               *string  `json:"rtt,omitempty"`
-	Subscriptions     int32    `json:"subscriptions"`
+	Subscriptions     uint32   `json:"subscriptions"`
 	SubscriptionsList []string `json:"subscriptions_list,omitempty"`
 }
 

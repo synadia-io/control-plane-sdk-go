@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **FlowControl** | Pointer to **bool** |  | [optional] 
 **HeadersOnly** | Pointer to **bool** |  | [optional] 
 **IdleHeartbeat** | Pointer to **int64** |  | [optional] 
-**RateLimitBps** | Pointer to **int32** |  | [optional] 
+**RateLimitBps** | Pointer to **uint64** |  | [optional] 
 
 ## Methods
 

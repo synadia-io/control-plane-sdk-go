@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClusterSize** | **int32** |  | 
+**ClusterSize** | **int64** |  | 
 **Leader** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Replicas** | Pointer to Nullable[[][**PeerInfo**](PeerInfo.md)] |  | [optional] 

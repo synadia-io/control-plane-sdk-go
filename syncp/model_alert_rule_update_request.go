@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,7 +15,7 @@ var _ MappedNullable = &AlertRuleUpdateRequest{}
 
 // AlertRuleUpdateRequest struct for AlertRuleUpdateRequest
 type AlertRuleUpdateRequest struct {
-	DurationInSecs                *int32                    `json:"duration_in_secs,omitempty"`
+	DurationInSecs                *int64                    `json:"duration_in_secs,omitempty"`
 	IsEnabled                     *bool                     `json:"is_enabled,omitempty"`
 	Message                       *string                   `json:"message,omitempty"`
 	Severity                      *AlertRuleSeverity        `json:"severity,omitempty"`

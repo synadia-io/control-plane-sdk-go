@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -22,7 +22,7 @@ type AlertRuleViewResponse struct {
 	AccountId                     *string           `json:"account_id,omitempty"`
 	ConsumerName                  *string           `json:"consumer_name,omitempty"`
 	Created                       time.Time         `json:"created"`
-	DurationInSecs                int32             `json:"duration_in_secs"`
+	DurationInSecs                int64             `json:"duration_in_secs"`
 	Id                            string            `json:"id"`
 	IsEnabled                     bool              `json:"is_enabled"`
 	Message                       string            `json:"message"`

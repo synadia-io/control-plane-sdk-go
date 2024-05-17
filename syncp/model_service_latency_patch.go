@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -16,7 +16,7 @@ var _ MappedNullable = &ServiceLatencyPatch{}
 // ServiceLatencyPatch struct for ServiceLatencyPatch
 type ServiceLatencyPatch struct {
 	Results  *string `json:"results,omitempty"`
-	Sampling *int32  `json:"sampling,omitempty"`
+	Sampling *int64  `json:"sampling,omitempty"`
 }
 
 func (o ServiceLatencyPatch) ToMap() (map[string]interface{}, error) {

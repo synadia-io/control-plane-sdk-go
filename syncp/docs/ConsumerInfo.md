@@ -10,10 +10,10 @@ Name | Type | Description | Notes
 **Created** | **time.Time** |  | 
 **Delivered** | [**SequenceInfo**](SequenceInfo.md) |  | 
 **Name** | **string** |  | 
-**NumAckPending** | **int32** |  | 
-**NumPending** | **int32** |  | 
-**NumRedelivered** | **int32** |  | 
-**NumWaiting** | **int32** |  | 
+**NumAckPending** | **int64** |  | 
+**NumPending** | **uint64** |  | 
+**NumRedelivered** | **int64** |  | 
+**NumWaiting** | **int64** |  | 
 **PushBound** | Pointer to **bool** |  | [optional] 
 **StreamName** | **string** |  | 
 **Ts** | **time.Time** |  | 

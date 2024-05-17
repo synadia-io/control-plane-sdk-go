@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DurationInSecs** | Pointer to **int32** |  | [optional] 
+**DurationInSecs** | Pointer to **int64** |  | [optional] 
 **IsEnabled** | Pointer to **bool** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
 **Severity** | Pointer to [**AlertRuleSeverity**](AlertRuleSeverity.md) |  | [optional] 

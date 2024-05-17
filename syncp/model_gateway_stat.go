@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,8 +15,8 @@ var _ MappedNullable = &GatewayStat{}
 
 // GatewayStat GatewayStat holds gateway statistics.
 type GatewayStat struct {
-	Gwid               int32     `json:"gwid"`
-	InboundConnections int32     `json:"inbound_connections"`
+	Gwid               uint64    `json:"gwid"`
+	InboundConnections int64     `json:"inbound_connections"`
 	Name               string    `json:"name"`
 	Received           DataStats `json:"received"`
 	Sent               DataStats `json:"sent"`

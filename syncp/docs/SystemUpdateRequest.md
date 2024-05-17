@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **JetstreamDomain** | Pointer to Nullable[**string**] |  | [optional] 
 **JetstreamEnabled** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
+**OperatorJwt** | Pointer to **string** |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
 
 ## Methods

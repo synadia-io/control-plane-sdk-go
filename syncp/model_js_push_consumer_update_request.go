@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -20,8 +20,8 @@ type JSPushConsumerUpdateRequest struct {
 	Description   *string `json:"description,omitempty"`
 	FilterSubject *string `json:"filter_subject,omitempty"`
 	HeadersOnly   *bool   `json:"headers_only,omitempty"`
-	MaxAckPending *int32  `json:"max_ack_pending,omitempty"`
-	MaxDeliver    *int32  `json:"max_deliver,omitempty"`
+	MaxAckPending *int64  `json:"max_ack_pending,omitempty"`
+	MaxDeliver    *int64  `json:"max_deliver,omitempty"`
 	SampleFreq    *string `json:"sample_freq,omitempty"`
 }
 

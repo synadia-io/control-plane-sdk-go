@@ -5,8 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | **time.Time** |  | 
-**Expires** | Pointer to **time.Time** |  | [optional] 
+**Expires** | Pointer to Nullable[**string**] |  | [optional] 
 **Id** | **string** |  | 
+**LastActive** | Pointer to Nullable[**string**] |  | [optional] 
 **Name** | **string** |  | 
 
 ## Methods

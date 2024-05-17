@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Max** | **int32** |  | 
+**Max** | **int64** |  | 
 **Ttl** | **int64** |  | 
 
 ## Methods

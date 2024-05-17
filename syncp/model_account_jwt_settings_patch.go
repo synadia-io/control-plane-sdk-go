@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -20,7 +20,7 @@ type AccountJWTSettingsPatch struct {
 	InfoUrl       *Nullable[string]                     `json:"info_url,omitempty"`
 	Limits        *Nullable[OperatorLimitsPatch]        `json:"limits,omitempty"`
 	Mappings      map[string][]WeightedMapping          `json:"mappings,omitempty"`
-	Revocations   map[string]int32                      `json:"revocations,omitempty"`
+	Revocations   map[string]int64                      `json:"revocations,omitempty"`
 	Tags          []string                              `json:"tags,omitempty"`
 }
 

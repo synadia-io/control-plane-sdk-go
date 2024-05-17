@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -15,13 +15,13 @@ var _ MappedNullable = &JetStreamStats{}
 
 // JetStreamStats Statistics about JetStream for this server.
 type JetStreamStats struct {
-	Accounts        int32             `json:"accounts"`
+	Accounts        int64             `json:"accounts"`
 	Api             JetStreamAPIStats `json:"api"`
-	HaAssets        int32             `json:"ha_assets"`
-	Memory          int32             `json:"memory"`
-	ReservedMemory  int32             `json:"reserved_memory"`
-	ReservedStorage int32             `json:"reserved_storage"`
-	Storage         int32             `json:"storage"`
+	HaAssets        int64             `json:"ha_assets"`
+	Memory          uint64            `json:"memory"`
+	ReservedMemory  uint64            `json:"reserved_memory"`
+	ReservedStorage uint64            `json:"reserved_storage"`
+	Storage         uint64            `json:"storage"`
 }
 
 func (o JetStreamStats) ToMap() (map[string]interface{}, error) {

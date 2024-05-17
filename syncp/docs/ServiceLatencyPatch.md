@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Results** | Pointer to **string** |  | [optional] 
-**Sampling** | Pointer to **int32** |  | [optional] 
+**Sampling** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 

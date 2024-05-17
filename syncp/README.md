@@ -1,6 +1,6 @@
 # Go API client for syncp
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 
 ## Installation
@@ -223,11 +223,11 @@ Class | Method | HTTP request | Description
 *SystemAPI* | [**CreateSystemAlertRule**](docs/SystemAPI.md#createsystemalertrule) | **Post** /systems/{systemId}/alert-rules | Create System Alert Rule
 *SystemAPI* | [**DeleteSystem**](docs/SystemAPI.md#deletesystem) | **Delete** /systems/{systemId} | Delete System
 *SystemAPI* | [**DeleteSystemAlertRule**](docs/SystemAPI.md#deletesystemalertrule) | **Delete** /systems/{systemId}/alert-rules/{alertRuleId} | Delete System Alert Rule
-*SystemAPI* | [**DownloadSystemLogs**](docs/SystemAPI.md#downloadsystemlogs) | **Post** /systems/{systemId}/logs | Download Logs
 *SystemAPI* | [**GetCurrentAgentToken**](docs/SystemAPI.md#getcurrentagenttoken) | **Get** /systems/{systemId}/agent-tokens/current | Get Current Agent Token
 *SystemAPI* | [**GetSystem**](docs/SystemAPI.md#getsystem) | **Get** /systems/{systemId} | Get System
 *SystemAPI* | [**GetSystemAlertRule**](docs/SystemAPI.md#getsystemalertrule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId} | Get System Alert Rule
 *SystemAPI* | [**GetSystemLimits**](docs/SystemAPI.md#getsystemlimits) | **Get** /systems/{systemId}/limits | Get System Limits
+*SystemAPI* | [**GetSystemPrometheusMetrics**](docs/SystemAPI.md#getsystemprometheusmetrics) | **Get** /systems/{systemId}/prometheus-metrics | Get Prometheus Metrics
 *SystemAPI* | [**ImportAccount**](docs/SystemAPI.md#importaccount) | **Post** /systems/{systemId}/import-account | Import Account
 *SystemAPI* | [**ImportUser**](docs/SystemAPI.md#importuser) | **Post** /systems/{systemId}/import-user | Import User
 *SystemAPI* | [**ListAccounts**](docs/SystemAPI.md#listaccounts) | **Get** /systems/{systemId}/accounts | List Accounts
@@ -369,8 +369,6 @@ Class | Method | HTTP request | Description
  - [InvitationDecisionRequest](docs/InvitationDecisionRequest.md)
  - [InvitationListResponse](docs/InvitationListResponse.md)
  - [JSApiError](docs/JSApiError.md)
- - [JSAssetInfoListResponse](docs/JSAssetInfoListResponse.md)
- - [JSAssetInfoResponse](docs/JSAssetInfoResponse.md)
  - [JSCommonConsumerConfigRequest](docs/JSCommonConsumerConfigRequest.md)
  - [JSCommonStreamConfig](docs/JSCommonStreamConfig.md)
  - [JSCommonStreamInfo](docs/JSCommonStreamInfo.md)

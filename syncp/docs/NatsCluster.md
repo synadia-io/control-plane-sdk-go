@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Connections** | **int32** |  | 
-**IncomingGateways** | **int32** |  | 
+**Connections** | **int64** |  | 
+**IncomingGateways** | **int64** |  | 
 **Name** | **string** |  | 
-**NodeCount** | **int32** |  | 
-**OutgoingGateways** | **int32** |  | 
+**NodeCount** | **int64** |  | 
+**OutgoingGateways** | **int64** |  | 
 **Servers** | [][**NatsServer**](NatsServer.md) |  | 
 
 ## Methods

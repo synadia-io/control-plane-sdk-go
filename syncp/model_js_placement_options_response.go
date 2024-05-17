@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -16,7 +16,7 @@ var _ MappedNullable = &JSPlacementOptionsResponse{}
 // JSPlacementOptionsResponse struct for JSPlacementOptionsResponse
 type JSPlacementOptionsResponse struct {
 	Clusters    []string `json:"clusters"`
-	NumReplicas []int32  `json:"num_replicas"`
+	NumReplicas []int64  `json:"num_replicas"`
 	Tags        []string `json:"tags"`
 }
 

@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -25,10 +25,10 @@ type ConsumerInfo struct {
 	Created        time.Time              `json:"created"`
 	Delivered      SequenceInfo           `json:"delivered"`
 	Name           string                 `json:"name"`
-	NumAckPending  int32                  `json:"num_ack_pending"`
-	NumPending     int32                  `json:"num_pending"`
-	NumRedelivered int32                  `json:"num_redelivered"`
-	NumWaiting     int32                  `json:"num_waiting"`
+	NumAckPending  int64                  `json:"num_ack_pending"`
+	NumPending     uint64                 `json:"num_pending"`
+	NumRedelivered int64                  `json:"num_redelivered"`
+	NumWaiting     int64                  `json:"num_waiting"`
 	PushBound      *bool                  `json:"push_bound,omitempty"`
 	StreamName     string                 `json:"stream_name"`
 	Ts             time.Time              `json:"ts"`

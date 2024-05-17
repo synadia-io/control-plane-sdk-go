@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -16,14 +16,16 @@ var _ MappedNullable = &JSStreamInfoResponse{}
 // JSStreamInfoResponse struct for JSStreamInfoResponse
 type JSStreamInfoResponse struct {
 	JSCommonStreamInfo
-	Config JSStreamConfigRequest `json:"config"`
-	Id     string                `json:"id"`
+	Config        JSStreamConfigRequest `json:"config"`
+	Id            string                `json:"id"`
+	JetstreamType JSType                `json:"jetstream_type"`
 }
 
 func (o JSStreamInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["config"] = o.Config
 	toSerialize["id"] = o.Id
+	toSerialize["jetstream_type"] = o.JetstreamType
 	if len(o.Alternates) != 0 {
 		toSerialize["alternates"] = o.Alternates
 	}

@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -31,20 +31,20 @@ type ConsumerConfig struct {
 	HeadersOnly       *bool    `json:"headers_only,omitempty"`
 	IdleHeartbeat     *int64   `json:"idle_heartbeat,omitempty"`
 	InactiveThreshold *int64   `json:"inactive_threshold,omitempty"`
-	MaxAckPending     *int32   `json:"max_ack_pending,omitempty"`
-	MaxBatch          *int32   `json:"max_batch,omitempty"`
-	MaxBytes          *int32   `json:"max_bytes,omitempty"`
-	MaxDeliver        *int32   `json:"max_deliver,omitempty"`
+	MaxAckPending     *int64   `json:"max_ack_pending,omitempty"`
+	MaxBatch          *int64   `json:"max_batch,omitempty"`
+	MaxBytes          *int64   `json:"max_bytes,omitempty"`
+	MaxDeliver        *int64   `json:"max_deliver,omitempty"`
 	MaxExpires        *int64   `json:"max_expires,omitempty"`
-	MaxWaiting        *int32   `json:"max_waiting,omitempty"`
+	MaxWaiting        *int64   `json:"max_waiting,omitempty"`
 	MemStorage        *bool    `json:"mem_storage,omitempty"`
 	// Metadata is additional metadata for the Consumer.
 	Metadata     map[string]string `json:"metadata,omitempty"`
 	Name         *string           `json:"name,omitempty"`
-	NumReplicas  int32             `json:"num_replicas"`
-	OptStartSeq  *int32            `json:"opt_start_seq,omitempty"`
+	NumReplicas  int64             `json:"num_replicas"`
+	OptStartSeq  *uint64           `json:"opt_start_seq,omitempty"`
 	OptStartTime *Nullable[string] `json:"opt_start_time,omitempty"`
-	RateLimitBps *int32            `json:"rate_limit_bps,omitempty"`
+	RateLimitBps *uint64           `json:"rate_limit_bps,omitempty"`
 	ReplayPolicy ReplayPolicy      `json:"replay_policy"`
 	SampleFreq   *string           `json:"sample_freq,omitempty"`
 }

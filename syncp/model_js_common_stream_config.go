@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -24,16 +24,16 @@ type JSCommonStreamConfig struct {
 	Discard              DiscardPolicy           `json:"discard"`
 	DiscardNewPerSubject *bool                   `json:"discard_new_per_subject,omitempty"`
 	DuplicateWindow      *int64                  `json:"duplicate_window,omitempty"`
-	FirstSeq             *int32                  `json:"first_seq,omitempty"`
+	FirstSeq             *uint64                 `json:"first_seq,omitempty"`
 	MaxAge               int64                   `json:"max_age"`
 	MaxBytes             int64                   `json:"max_bytes"`
-	MaxConsumers         int32                   `json:"max_consumers"`
-	MaxMsgSize           *int32                  `json:"max_msg_size,omitempty"`
+	MaxConsumers         int64                   `json:"max_consumers"`
+	MaxMsgSize           *int64                  `json:"max_msg_size,omitempty"`
 	MaxMsgs              int64                   `json:"max_msgs"`
 	MaxMsgsPerSubject    int64                   `json:"max_msgs_per_subject"`
 	Name                 string                  `json:"name"`
 	NoAck                *bool                   `json:"no_ack,omitempty"`
-	NumReplicas          int32                   `json:"num_replicas"`
+	NumReplicas          int64                   `json:"num_replicas"`
 	Placement            *Placement              `json:"placement,omitempty"`
 	Republish            *RePublish              `json:"republish,omitempty"`
 	Retention            RetentionPolicy         `json:"retention"`

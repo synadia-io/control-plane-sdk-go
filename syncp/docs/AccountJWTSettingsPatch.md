@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **InfoUrl** | Pointer to Nullable[**string**] |  | [optional] 
 **Limits** | Pointer to Nullable[[**OperatorLimitsPatch**](OperatorLimitsPatch.md)] |  | [optional] 
 **Mappings** | Pointer to Nullable[[**map[string][]WeightedMapping**](WeightedMapping.md)] |  | [optional] 
-**Revocations** | Pointer to Nullable[**map[string]int32**] |  | [optional] 
+**Revocations** | Pointer to Nullable[**map[string]int64**] |  | [optional] 
 **Tags** | Pointer to Nullable[[]**string**] |  | [optional] 
 
 ## Methods

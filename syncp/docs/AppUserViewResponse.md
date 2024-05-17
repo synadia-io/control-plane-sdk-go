@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Created** | **time.Time** |  | 
 **Id** | **string** |  | 
 **Identifier** | Pointer to **string** |  | [optional] 
+**LastActive** | Pointer to Nullable[**string**] |  | [optional] 
 **Name** | **string** |  | 
 **PendingCreation** | **bool** |  | 
 **RoleId** | **string** |  | 

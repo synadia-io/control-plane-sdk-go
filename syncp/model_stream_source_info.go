@@ -1,7 +1,7 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
-API for Synadia Control Plane Server
+API for Synadia Control Plane / Synadia Cloud
 
 API version: beta
 */
@@ -19,7 +19,7 @@ type StreamSourceInfo struct {
 	Error                *Nullable[JSApiError]     `json:"error,omitempty"`
 	External             *Nullable[ExternalStream] `json:"external,omitempty"`
 	FilterSubject        *string                   `json:"filter_subject,omitempty"`
-	Lag                  int32                     `json:"lag"`
+	Lag                  uint64                    `json:"lag"`
 	Name                 string                    `json:"name"`
 	SubjectTransformDest *string                   `json:"subject_transform_dest,omitempty"`
 	SubjectTransforms    []SubjectTransformConfig  `json:"subject_transforms,omitempty"`

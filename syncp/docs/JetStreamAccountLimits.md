@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaxAckPending** | **int32** |  | 
+**MaxAckPending** | **int64** |  | 
 **MaxBytesRequired** | **bool** |  | 
-**MaxConsumers** | **int32** |  | 
+**MaxConsumers** | **int64** |  | 
 **MaxMemory** | **int64** |  | 
 **MaxStorage** | **int64** |  | 
-**MaxStreams** | **int32** |  | 
+**MaxStreams** | **int64** |  | 
 **MemoryMaxStreamBytes** | **int64** |  | 
 **StorageMaxStreamBytes** | **int64** |  | 
 

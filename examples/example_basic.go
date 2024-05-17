@@ -46,7 +46,7 @@ func main() {
 					},
 				},
 				// use helper method to get ptr to primitive type
-				UserJwtExpiresInSecs: syncp.Ptr(int64(0)),
+				UserJwtExpiresInSecs: syncp.Ptr(int64(30)),
 			},
 		).Execute()
 	if err != nil {

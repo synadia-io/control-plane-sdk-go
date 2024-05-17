@@ -1,5 +1,5 @@
 /*
-Synadia Control Plane
+Synadia Control Plane / Synadia Cloud
 
 Testing SystemAPIService
 
@@ -83,18 +83,6 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test SystemAPIService DownloadSystemLogs", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		var systemId string
-
-		resp, httpRes, err := apiClient.SystemAPI.DownloadSystemLogs(context.Background(), systemId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
 	t.Run("Test SystemAPIService GetCurrentAgentToken", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -138,6 +126,18 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		var systemId string
 
 		resp, httpRes, err := apiClient.SystemAPI.GetSystemLimits(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService GetSystemPrometheusMetrics", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.GetSystemPrometheusMetrics(context.Background(), systemId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
