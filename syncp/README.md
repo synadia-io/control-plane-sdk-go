@@ -139,12 +139,14 @@ Class | Method | HTTP request | Description
 *KvBucketAPI* | [**DeleteKvBucket**](docs/KvBucketAPI.md#deletekvbucket) | **Delete** /jetstream/kv-bucket/{streamId} | Delete KV Bucket
 *KvBucketAPI* | [**GetKvBucket**](docs/KvBucketAPI.md#getkvbucket) | **Get** /jetstream/kv-bucket/{streamId} | Get KV Bucket
 *KvBucketAPI* | [**ListKvConsumers**](docs/KvBucketAPI.md#listkvconsumers) | **Get** /jetstream/kv-bucket/{streamId}/consumers | List Consumers
+*KvBucketAPI* | [**PurgeKvBucket**](docs/KvBucketAPI.md#purgekvbucket) | **Delete** /jetstream/kv-bucket/{streamId}/purge | Purge KV Bucket
 *KvBucketAPI* | [**UpdateKvBucket**](docs/KvBucketAPI.md#updatekvbucket) | **Patch** /jetstream/kv-bucket/{streamId} | Update KV Bucket
 *MirrorAPI* | [**CreateMirrorPullConsumer**](docs/MirrorAPI.md#createmirrorpullconsumer) | **Post** /jetstream/mirror/{streamId}/consumers/pull | Create Pull Consumer
 *MirrorAPI* | [**CreateMirrorPushConsumer**](docs/MirrorAPI.md#createmirrorpushconsumer) | **Post** /jetstream/mirror/{streamId}/consumers/push | Create Push consumer
 *MirrorAPI* | [**DeleteMirror**](docs/MirrorAPI.md#deletemirror) | **Delete** /jetstream/mirror/{streamId} | Delete Mirror
 *MirrorAPI* | [**GetMirror**](docs/MirrorAPI.md#getmirror) | **Get** /jetstream/mirror/{streamId} | Get Mirror
 *MirrorAPI* | [**ListMirrorConsumers**](docs/MirrorAPI.md#listmirrorconsumers) | **Get** /jetstream/mirror/{streamId}/consumers | List Consumers
+*MirrorAPI* | [**PurgeMirror**](docs/MirrorAPI.md#purgemirror) | **Delete** /jetstream/mirror/{streamId}/purge | Purge Mirror
 *MirrorAPI* | [**UpdateMirror**](docs/MirrorAPI.md#updatemirror) | **Patch** /jetstream/mirror/{streamId} | Update Mirror
 *NatsUserAPI* | [**AssignNatsUserTeamAppUser**](docs/NatsUserAPI.md#assignnatsuserteamappuser) | **Post** /nats-users/{userId}/app-users/{teamAppUserId} | Assign Team App User to NATS User
 *NatsUserAPI* | [**CopyNatsUser**](docs/NatsUserAPI.md#copynatsuser) | **Post** /nats-users/{userId}/copy | Copy nats user
@@ -164,6 +166,7 @@ Class | Method | HTTP request | Description
 *ObjectBucketAPI* | [**DeleteObjectBucket**](docs/ObjectBucketAPI.md#deleteobjectbucket) | **Delete** /jetstream/object-bucket/{streamId} | Delete Object Bucket
 *ObjectBucketAPI* | [**GetObjectBucket**](docs/ObjectBucketAPI.md#getobjectbucket) | **Get** /jetstream/object-bucket/{streamId} | Get Object Bucket
 *ObjectBucketAPI* | [**ListObjConsumers**](docs/ObjectBucketAPI.md#listobjconsumers) | **Get** /jetstream/object-bucket/{streamId}/consumers | List Consumers
+*ObjectBucketAPI* | [**PurgeObjBucket**](docs/ObjectBucketAPI.md#purgeobjbucket) | **Delete** /jetstream/object-bucket/{streamId}/purge | Purge Object Bucket
 *ObjectBucketAPI* | [**UpdateObjectBucket**](docs/ObjectBucketAPI.md#updateobjectbucket) | **Patch** /jetstream/object-bucket/{streamId} | Update Object Bucket
 *PersonalAccessTokenAPI* | [**DeletePersonalAccessToken**](docs/PersonalAccessTokenAPI.md#deletepersonalaccesstoken) | **Delete** /personal-access-tokens/{tokenId} | Delete Personal Access Token
 *PersonalAccessTokenAPI* | [**GetPersonalAccessToken**](docs/PersonalAccessTokenAPI.md#getpersonalaccesstoken) | **Get** /personal-access-tokens/{tokenId} | Get Personal Access Token
@@ -201,6 +204,7 @@ Class | Method | HTTP request | Description
 *StreamAPI* | [**DeleteStream**](docs/StreamAPI.md#deletestream) | **Delete** /jetstream/stream/{streamId} | Delete Stream
 *StreamAPI* | [**GetStreamInfo**](docs/StreamAPI.md#getstreaminfo) | **Get** /jetstream/stream/{streamId} | Get Stream
 *StreamAPI* | [**ListConsumers**](docs/StreamAPI.md#listconsumers) | **Get** /jetstream/stream/{streamId}/consumers | List Consumers
+*StreamAPI* | [**PurgeStream**](docs/StreamAPI.md#purgestream) | **Delete** /jetstream/stream/{streamId}/purge | Purge Stream
 *StreamAPI* | [**UpdateStream**](docs/StreamAPI.md#updatestream) | **Patch** /jetstream/stream/{streamId} | Update Stream
 *StreamExportAPI* | [**CreateStreamShares**](docs/StreamExportAPI.md#createstreamshares) | **Post** /stream-exports/{streamExportId}/shares | Create Stream Shares
 *StreamExportAPI* | [**DeleteStreamExport**](docs/StreamExportAPI.md#deletestreamexport) | **Delete** /stream-exports/{streamExportId} | Delete Stream Export
@@ -318,6 +322,7 @@ Class | Method | HTTP request | Description
  - [ApexCoordinate](docs/ApexCoordinate.md)
  - [ApexSeries](docs/ApexSeries.md)
  - [AppPolicy](docs/AppPolicy.md)
+ - [AppPolicyGroup](docs/AppPolicyGroup.md)
  - [AppPolicyStatement](docs/AppPolicyStatement.md)
  - [AppRole](docs/AppRole.md)
  - [AppRoleEffect](docs/AppRoleEffect.md)

@@ -82,6 +82,17 @@ func Test_syncp_KvBucketAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test KvBucketAPIService PurgeKvBucket", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var streamId string
+
+		httpRes, err := apiClient.KvBucketAPI.PurgeKvBucket(context.Background(), streamId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test KvBucketAPIService UpdateKvBucket", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 

@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DisablePrometheusFederation** | Pointer to **bool** |  | [optional] 
-**NumUsers** | **int64** |  | 
+**DisablePrometheusFederation** | **bool** |  | 
+**NumSystems** | Nullable[**int64**] |  | 
+**NumUsers** | Nullable[**int64**] |  | 
 
 ## Methods
 

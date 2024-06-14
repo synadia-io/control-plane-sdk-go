@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**DeleteStream**](StreamAPI.md#DeleteStream) | **Delete** /jetstream/stream/{streamId} | Delete Stream
 [**GetStreamInfo**](StreamAPI.md#GetStreamInfo) | **Get** /jetstream/stream/{streamId} | Get Stream
 [**ListConsumers**](StreamAPI.md#ListConsumers) | **Get** /jetstream/stream/{streamId}/consumers | List Consumers
+[**PurgeStream**](StreamAPI.md#PurgeStream) | **Delete** /jetstream/stream/{streamId}/purge | Purge Stream
 [**UpdateStream**](StreamAPI.md#UpdateStream) | **Patch** /jetstream/stream/{streamId} | Update Stream
 
 
@@ -359,6 +360,74 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PurgeStream
+
+> PurgeStream(ctx, streamId).Execute()
+
+Purge Stream
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    streamId := "streamId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.StreamAPI.PurgeStream(context.Background(), streamId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `StreamAPI.PurgeStream``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**streamId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPurgeStreamRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

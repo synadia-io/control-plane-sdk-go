@@ -16,6 +16,7 @@ var _ MappedNullable = &AppPolicy{}
 // AppPolicy struct for AppPolicy
 type AppPolicy struct {
 	Description *string                       `json:"description,omitempty"`
+	Group       AppPolicyGroup                `json:"group"`
 	Name        string                        `json:"name"`
 	Statements  map[string]AppPolicyStatement `json:"statements"`
 }
@@ -25,6 +26,7 @@ func (o AppPolicy) ToMap() (map[string]interface{}, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+	toSerialize["group"] = o.Group
 	toSerialize["name"] = o.Name
 	toSerialize["statements"] = o.Statements
 	return toSerialize, nil

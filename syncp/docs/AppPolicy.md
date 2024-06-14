@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** |  | [optional] 
+**Group** | [**AppPolicyGroup**](AppPolicyGroup.md) |  | 
 **Name** | **string** |  | 
 **Statements** | [**map[string]AppPolicyStatement**](AppPolicyStatement.md) |  | 
 

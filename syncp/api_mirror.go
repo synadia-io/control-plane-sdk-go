@@ -96,6 +96,20 @@ type MirrorAPI interface {
 	ListMirrorConsumersExecute(r ApiListMirrorConsumersRequest) (*JSConsumerInfoListResponse, *http.Response, error)
 
 	/*
+		PurgeMirror Purge Mirror
+
+		Purges Mirror
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param streamId
+		@return ApiPurgeMirrorRequest
+	*/
+	PurgeMirror(ctx context.Context, streamId string) ApiPurgeMirrorRequest
+
+	// PurgeMirrorExecute executes the request
+	PurgeMirrorExecute(r ApiPurgeMirrorRequest) (*http.Response, error)
+
+	/*
 		UpdateMirror Update Mirror
 
 		Update Mirror
@@ -645,6 +659,99 @@ func (a *MirrorAPIService) ListMirrorConsumersExecute(r ApiListMirrorConsumersRe
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPurgeMirrorRequest struct {
+	ctx        context.Context
+	ApiService MirrorAPI
+	streamId   string
+}
+
+func (r ApiPurgeMirrorRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PurgeMirrorExecute(r)
+}
+
+/*
+PurgeMirror Purge Mirror
+
+Purges Mirror
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param streamId
+	@return ApiPurgeMirrorRequest
+*/
+func (a *MirrorAPIService) PurgeMirror(ctx context.Context, streamId string) ApiPurgeMirrorRequest {
+	return ApiPurgeMirrorRequest{
+		ApiService: a,
+		ctx:        ctx,
+		streamId:   streamId,
+	}
+}
+
+// Execute executes the request
+func (a *MirrorAPIService) PurgeMirrorExecute(r ApiPurgeMirrorRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MirrorAPIService.PurgeMirror")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/jetstream/mirror/{streamId}/purge"
+	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiUpdateMirrorRequest struct {
