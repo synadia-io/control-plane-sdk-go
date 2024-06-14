@@ -2749,6 +2749,34 @@ paths:
       - kv-bucket
       x-doc-tags:
       - "JetStream: KV Buckets"
+  /jetstream/kv-bucket/{streamId}/purge:
+    delete:
+      description: Purges KV Bucket
+      operationId: purgeKvBucket
+      parameters:
+      - explode: false
+        in: path
+        name: streamId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Purge KV Bucket
+      tags:
+      - kv-bucket
+      x-doc-tags:
+      - "JetStream: Streams"
   /jetstream/mirror/{streamId}:
     delete:
       description: Delete Mirror
@@ -2950,6 +2978,34 @@ paths:
       - mirror
       x-doc-tags:
       - "JetStream: Mirrors"
+  /jetstream/mirror/{streamId}/purge:
+    delete:
+      description: Purges Mirror
+      operationId: purgeMirror
+      parameters:
+      - explode: false
+        in: path
+        name: streamId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Purge Mirror
+      tags:
+      - mirror
+      x-doc-tags:
+      - "JetStream: Streams"
   /jetstream/object-bucket/{streamId}:
     delete:
       description: Deletes Object Bucket
@@ -3151,6 +3207,34 @@ paths:
       - object-bucket
       x-doc-tags:
       - "JetStream: Object Buckets"
+  /jetstream/object-bucket/{streamId}/purge:
+    delete:
+      description: Purges Object Bucket
+      operationId: purgeObjBucket
+      parameters:
+      - explode: false
+        in: path
+        name: streamId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Purge Object Bucket
+      tags:
+      - object-bucket
+      x-doc-tags:
+      - "JetStream: Streams"
   /jetstream/stream/{streamId}:
     delete:
       description: Deletes Stream
@@ -3348,6 +3432,34 @@ paths:
         "404":
           description: Not Found
       summary: Create Push Consumer
+      tags:
+      - stream
+      x-doc-tags:
+      - "JetStream: Streams"
+  /jetstream/stream/{streamId}/purge:
+    delete:
+      description: Purges Stream
+      operationId: purgeStream
+      parameters:
+      - explode: false
+        in: path
+        name: streamId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Purge Stream
       tags:
       - stream
       x-doc-tags:
@@ -8697,9 +8809,12 @@ components:
             - action
             - action
             operation_id: operation_id
+        group: null
       properties:
         description:
           type: string
+        group:
+          $ref: '#/components/schemas/AppPolicyGroup'
         name:
           type: string
         statements:
@@ -8707,9 +8822,16 @@ components:
             $ref: '#/components/schemas/AppPolicyStatement'
           type: object
       required:
+      - group
       - name
       - statements
       type: object
+    AppPolicyGroup:
+      enum:
+      - Core
+      - Cloud
+      - Applications
+      type: string
     AppPolicyStatement:
       example:
         resource:
@@ -12729,6 +12851,7 @@ components:
               - action
               - action
               operation_id: operation_id
+          group: null
         - name: name
           description: description
           statements:
@@ -12745,6 +12868,7 @@ components:
               - action
               - action
               operation_id: operation_id
+          group: null
       properties:
         items:
           items:
@@ -15206,26 +15330,36 @@ components:
       type: object
     TeamLimits:
       example:
-        num_users: 0
+        num_systems: 0
+        num_users: 6
         disable_prometheus_federation: true
       properties:
         disable_prometheus_federation:
           type: boolean
+        num_systems:
+          nullable: true
+          type: integer
         num_users:
+          nullable: true
           type: integer
       required:
+      - disable_prometheus_federation
+      - num_systems
       - num_users
       type: object
     TeamLimitsResponse:
       example:
         total:
-          num_users: 0
+          num_systems: 0
+          num_users: 6
           disable_prometheus_federation: true
         available:
-          num_users: 0
+          num_systems: 0
+          num_users: 6
           disable_prometheus_federation: true
         allocated:
-          num_users: 0
+          num_systems: 0
+          num_users: 6
           disable_prometheus_federation: true
       properties:
         allocated:
@@ -15246,13 +15380,15 @@ components:
           name: name
           id: id
           limits:
-            num_users: 0
+            num_systems: 0
+            num_users: 6
             disable_prometheus_federation: true
         - created: 2000-01-23T04:56:07.000+00:00
           name: name
           id: id
           limits:
-            num_users: 0
+            num_systems: 0
+            num_users: 6
             disable_prometheus_federation: true
       properties:
         items:
@@ -15275,7 +15411,8 @@ components:
         name: name
         id: id
         limits:
-          num_users: 0
+          num_systems: 0
+          num_users: 6
           disable_prometheus_federation: true
       properties:
         created:
@@ -15308,6 +15445,7 @@ components:
               consumer: 7
       properties:
         num_accounts:
+          nullable: true
           type: integer
         resource_limits:
           $ref: '#/components/schemas/OperatorLimits'

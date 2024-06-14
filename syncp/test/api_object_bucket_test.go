@@ -82,6 +82,17 @@ func Test_syncp_ObjectBucketAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test ObjectBucketAPIService PurgeObjBucket", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var streamId string
+
+		httpRes, err := apiClient.ObjectBucketAPI.PurgeObjBucket(context.Background(), streamId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test ObjectBucketAPIService UpdateObjectBucket", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 

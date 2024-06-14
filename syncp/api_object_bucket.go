@@ -96,6 +96,20 @@ type ObjectBucketAPI interface {
 	ListObjConsumersExecute(r ApiListObjConsumersRequest) (*JSConsumerInfoListResponse, *http.Response, error)
 
 	/*
+		PurgeObjBucket Purge Object Bucket
+
+		Purges Object Bucket
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param streamId
+		@return ApiPurgeObjBucketRequest
+	*/
+	PurgeObjBucket(ctx context.Context, streamId string) ApiPurgeObjBucketRequest
+
+	// PurgeObjBucketExecute executes the request
+	PurgeObjBucketExecute(r ApiPurgeObjBucketRequest) (*http.Response, error)
+
+	/*
 		UpdateObjectBucket Update Object Bucket
 
 		Update Object Bucket
@@ -645,6 +659,99 @@ func (a *ObjectBucketAPIService) ListObjConsumersExecute(r ApiListObjConsumersRe
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPurgeObjBucketRequest struct {
+	ctx        context.Context
+	ApiService ObjectBucketAPI
+	streamId   string
+}
+
+func (r ApiPurgeObjBucketRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PurgeObjBucketExecute(r)
+}
+
+/*
+PurgeObjBucket Purge Object Bucket
+
+Purges Object Bucket
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param streamId
+	@return ApiPurgeObjBucketRequest
+*/
+func (a *ObjectBucketAPIService) PurgeObjBucket(ctx context.Context, streamId string) ApiPurgeObjBucketRequest {
+	return ApiPurgeObjBucketRequest{
+		ApiService: a,
+		ctx:        ctx,
+		streamId:   streamId,
+	}
+}
+
+// Execute executes the request
+func (a *ObjectBucketAPIService) PurgeObjBucketExecute(r ApiPurgeObjBucketRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ObjectBucketAPIService.PurgeObjBucket")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/jetstream/object-bucket/{streamId}/purge"
+	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiUpdateObjectBucketRequest struct {

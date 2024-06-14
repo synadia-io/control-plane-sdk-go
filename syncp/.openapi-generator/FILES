@@ -76,6 +76,7 @@ docs/AlertViewResponse.md
 docs/ApexCoordinate.md
 docs/ApexSeries.md
 docs/AppPolicy.md
+docs/AppPolicyGroup.md
 docs/AppPolicyStatement.md
 docs/AppRole.md
 docs/AppRoleEffect.md
@@ -377,6 +378,7 @@ model_alert_view_response.go
 model_apex_coordinate.go
 model_apex_series.go
 model_app_policy.go
+model_app_policy_group.go
 model_app_policy_statement.go
 model_app_role.go
 model_app_role_effect.go

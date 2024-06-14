@@ -96,6 +96,20 @@ type StreamAPI interface {
 	ListConsumersExecute(r ApiListConsumersRequest) (*JSConsumerInfoListResponse, *http.Response, error)
 
 	/*
+		PurgeStream Purge Stream
+
+		Purges Stream
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param streamId
+		@return ApiPurgeStreamRequest
+	*/
+	PurgeStream(ctx context.Context, streamId string) ApiPurgeStreamRequest
+
+	// PurgeStreamExecute executes the request
+	PurgeStreamExecute(r ApiPurgeStreamRequest) (*http.Response, error)
+
+	/*
 		UpdateStream Update Stream
 
 		Updates Stream
@@ -645,6 +659,99 @@ func (a *StreamAPIService) ListConsumersExecute(r ApiListConsumersRequest) (*JSC
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPurgeStreamRequest struct {
+	ctx        context.Context
+	ApiService StreamAPI
+	streamId   string
+}
+
+func (r ApiPurgeStreamRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PurgeStreamExecute(r)
+}
+
+/*
+PurgeStream Purge Stream
+
+Purges Stream
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param streamId
+	@return ApiPurgeStreamRequest
+*/
+func (a *StreamAPIService) PurgeStream(ctx context.Context, streamId string) ApiPurgeStreamRequest {
+	return ApiPurgeStreamRequest{
+		ApiService: a,
+		ctx:        ctx,
+		streamId:   streamId,
+	}
+}
+
+// Execute executes the request
+func (a *StreamAPIService) PurgeStreamExecute(r ApiPurgeStreamRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StreamAPIService.PurgeStream")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/jetstream/stream/{streamId}/purge"
+	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiUpdateStreamRequest struct {

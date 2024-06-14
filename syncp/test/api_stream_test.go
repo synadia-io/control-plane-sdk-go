@@ -82,6 +82,17 @@ func Test_syncp_StreamAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test StreamAPIService PurgeStream", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var streamId string
+
+		httpRes, err := apiClient.StreamAPI.PurgeStream(context.Background(), streamId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test StreamAPIService UpdateStream", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 

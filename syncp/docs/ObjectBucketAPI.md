@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**DeleteObjectBucket**](ObjectBucketAPI.md#DeleteObjectBucket) | **Delete** /jetstream/object-bucket/{streamId} | Delete Object Bucket
 [**GetObjectBucket**](ObjectBucketAPI.md#GetObjectBucket) | **Get** /jetstream/object-bucket/{streamId} | Get Object Bucket
 [**ListObjConsumers**](ObjectBucketAPI.md#ListObjConsumers) | **Get** /jetstream/object-bucket/{streamId}/consumers | List Consumers
+[**PurgeObjBucket**](ObjectBucketAPI.md#PurgeObjBucket) | **Delete** /jetstream/object-bucket/{streamId}/purge | Purge Object Bucket
 [**UpdateObjectBucket**](ObjectBucketAPI.md#UpdateObjectBucket) | **Patch** /jetstream/object-bucket/{streamId} | Update Object Bucket
 
 
@@ -359,6 +360,74 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PurgeObjBucket
+
+> PurgeObjBucket(ctx, streamId).Execute()
+
+Purge Object Bucket
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    streamId := "streamId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ObjectBucketAPI.PurgeObjBucket(context.Background(), streamId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ObjectBucketAPI.PurgeObjBucket``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**streamId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPurgeObjBucketRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

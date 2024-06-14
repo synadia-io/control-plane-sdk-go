@@ -82,6 +82,17 @@ func Test_syncp_MirrorAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test MirrorAPIService PurgeMirror", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var streamId string
+
+		httpRes, err := apiClient.MirrorAPI.PurgeMirror(context.Background(), streamId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test MirrorAPIService UpdateMirror", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
