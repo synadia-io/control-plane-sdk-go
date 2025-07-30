@@ -1,12 +1,12 @@
 # \AuthzAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Check**](AuthzAPI.md#Check) | **Post** /authz/check | Check Authz Decisions
-[**ListPolicies**](AuthzAPI.md#ListPolicies) | **Get** /authz/policies | Get Policy List
-[**ListRoles**](AuthzAPI.md#ListRoles) | **Get** /authz/roles | Get Authz roles List
+[**Check**](AuthzAPI.md#Check) | **Post** /core/beta/authz/check | Check Authz Decisions
+[**ListPolicies**](AuthzAPI.md#ListPolicies) | **Get** /core/beta/authz/policies | Get Policy List
+[**ListRoles**](AuthzAPI.md#ListRoles) | **Get** /core/beta/authz/roles | Get Authz roles List
 
 
 

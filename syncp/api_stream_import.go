@@ -94,7 +94,7 @@ func (a *StreamImportAPIService) DeleteStreamImportExecute(r ApiDeleteStreamImpo
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/stream-imports/{streamImportId}"
+	localVarPath := localBasePath + "/core/beta/stream-imports/{streamImportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamImportId"+"}", url.PathEscape(parameterValueToString(r.streamImportId, "streamImportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -190,7 +190,7 @@ func (a *StreamImportAPIService) GetStreamImportExecute(r ApiGetStreamImportRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/stream-imports/{streamImportId}"
+	localVarPath := localBasePath + "/core/beta/stream-imports/{streamImportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamImportId"+"}", url.PathEscape(parameterValueToString(r.streamImportId, "streamImportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

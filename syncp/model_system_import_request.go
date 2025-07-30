@@ -15,12 +15,13 @@ var _ MappedNullable = &SystemImportRequest{}
 
 // SystemImportRequest struct for SystemImportRequest
 type SystemImportRequest struct {
-	JetstreamDomain  *string `json:"jetstream_domain,omitempty"`
-	JetstreamEnabled *bool   `json:"jetstream_enabled,omitempty"`
-	OperatorJwt      string  `json:"operator_jwt"`
-	OperatorKey      string  `json:"operator_key"`
-	SystemJwt        string  `json:"system_jwt"`
-	SystemKey        string  `json:"system_key"`
+	JetstreamDomain  *string          `json:"jetstream_domain,omitempty"`
+	JetstreamEnabled *bool            `json:"jetstream_enabled,omitempty"`
+	ManagedBy        *SystemManagedBy `json:"managed_by,omitempty"`
+	OperatorJwt      string           `json:"operator_jwt"`
+	OperatorKey      string           `json:"operator_key"`
+	SystemJwt        string           `json:"system_jwt"`
+	SystemKey        string           `json:"system_key"`
 }
 
 func (o SystemImportRequest) ToMap() (map[string]interface{}, error) {
@@ -30,6 +31,9 @@ func (o SystemImportRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.JetstreamEnabled != nil {
 		toSerialize["jetstream_enabled"] = o.JetstreamEnabled
+	}
+	if o.ManagedBy != nil {
+		toSerialize["managed_by"] = o.ManagedBy
 	}
 	toSerialize["operator_jwt"] = o.OperatorJwt
 	toSerialize["operator_key"] = o.OperatorKey

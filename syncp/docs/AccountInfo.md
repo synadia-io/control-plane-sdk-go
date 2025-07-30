@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountPublicKey** | **string** |  | 
 **Id** | **string** |  | 
+**IsPlatformAccount** | **bool** |  | 
 **IsScpAccount** | **bool** |  | 
 **IsSystemAccount** | **bool** |  | 
 **Name** | **string** |  | 

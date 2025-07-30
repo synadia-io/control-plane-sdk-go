@@ -177,7 +177,7 @@ func (a *MirrorAPIService) CreateMirrorPullConsumerExecute(r ApiCreateMirrorPull
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/mirror/{streamId}/consumers/pull"
+	localVarPath := localBasePath + "/core/beta/jetstream/mirror/{streamId}/consumers/pull"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -291,7 +291,7 @@ func (a *MirrorAPIService) CreateMirrorPushConsumerExecute(r ApiCreateMirrorPush
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/mirror/{streamId}/consumers/push"
+	localVarPath := localBasePath + "/core/beta/jetstream/mirror/{streamId}/consumers/push"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -396,7 +396,7 @@ func (a *MirrorAPIService) DeleteMirrorExecute(r ApiDeleteMirrorRequest) (*http.
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/mirror/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/mirror/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -492,7 +492,7 @@ func (a *MirrorAPIService) GetMirrorExecute(r ApiGetMirrorRequest) (*JSMirrorInf
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/mirror/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/mirror/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -598,7 +598,7 @@ func (a *MirrorAPIService) ListMirrorConsumersExecute(r ApiListMirrorConsumersRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/mirror/{streamId}/consumers"
+	localVarPath := localBasePath + "/core/beta/jetstream/mirror/{streamId}/consumers"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -701,7 +701,7 @@ func (a *MirrorAPIService) PurgeMirrorExecute(r ApiPurgeMirrorRequest) (*http.Re
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/mirror/{streamId}/purge"
+	localVarPath := localBasePath + "/core/beta/jetstream/mirror/{streamId}/purge"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -803,7 +803,7 @@ func (a *MirrorAPIService) UpdateMirrorExecute(r ApiUpdateMirrorRequest) (*JSMir
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/mirror/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/mirror/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

@@ -272,7 +272,7 @@ func (a *NatsUserAPIService) AssignNatsUserTeamAppUserExecute(r ApiAssignNatsUse
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/app-users/{teamAppUserId}"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
@@ -387,7 +387,7 @@ func (a *NatsUserAPIService) CopyNatsUserExecute(r ApiCopyNatsUserRequest) (*Nat
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/copy"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/copy"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -492,7 +492,7 @@ func (a *NatsUserAPIService) DeleteNatsUserExecute(r ApiDeleteNatsUserRequest) (
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -588,7 +588,7 @@ func (a *NatsUserAPIService) DownloadNatsUserBearerJwtExecute(r ApiDownloadNatsU
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/bearer-jwt"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/bearer-jwt"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -694,7 +694,7 @@ func (a *NatsUserAPIService) DownloadNatsUserCredsExecute(r ApiDownloadNatsUserC
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/creds"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/creds"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -800,7 +800,7 @@ func (a *NatsUserAPIService) DownloadNatsUserHttpGwTokenExecute(r ApiDownloadNat
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/http-gw-token"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/http-gw-token"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -906,7 +906,7 @@ func (a *NatsUserAPIService) GetNatsUserExecute(r ApiGetNatsUserRequest) (*NatsU
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1042,7 +1042,7 @@ func (a *NatsUserAPIService) ListNatsUserConnectionsExecute(r ApiListNatsUserCon
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/connections"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/connections"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1163,7 +1163,7 @@ func (a *NatsUserAPIService) ListNatsUserIssuancesExecute(r ApiListNatsUserIssua
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/issuances"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/issuances"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1269,7 +1269,7 @@ func (a *NatsUserAPIService) ListNatsUserTeamAppUsersExecute(r ApiListNatsUserTe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/app-users"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/app-users"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1375,7 +1375,7 @@ func (a *NatsUserAPIService) RotateNatsUserExecute(r ApiRotateNatsUserRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/rotate"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/rotate"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1481,7 +1481,7 @@ func (a *NatsUserAPIService) UnAssignNatsUserTeamAppUserExecute(r ApiUnAssignNat
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}/app-users/{teamAppUserId}"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
@@ -1584,7 +1584,7 @@ func (a *NatsUserAPIService) UpdateNatsUserExecute(r ApiUpdateNatsUserRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-users/{userId}"
+	localVarPath := localBasePath + "/core/beta/nats-users/{userId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

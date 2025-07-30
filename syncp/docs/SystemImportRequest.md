@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **JetstreamDomain** | Pointer to **string** |  | [optional] 
 **JetstreamEnabled** | Pointer to **bool** |  | [optional] [default to true]
+**ManagedBy** | Pointer to [**SystemManagedBy**](SystemManagedBy.md) |  | [optional] 
 **OperatorJwt** | **string** |  | 
 **OperatorKey** | **string** |  | 
 **SystemJwt** | **string** |  | 

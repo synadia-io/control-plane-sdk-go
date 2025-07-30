@@ -26,7 +26,7 @@ type JSCommonConsumerConfigRequest struct {
 	Description       *string       `json:"description,omitempty"`
 	Direct            *bool         `json:"direct,omitempty"`
 	DurableName       *string       `json:"durable_name,omitempty"`
-	FilterSubject     *string       `json:"filter_subject,omitempty"`
+	FilterSubjects    []string      `json:"filter_subjects,omitempty"`
 	InactiveThreshold *int64        `json:"inactive_threshold,omitempty"`
 	MaxAckPending     *int64        `json:"max_ack_pending,omitempty"`
 	MaxDeliver        *int64        `json:"max_deliver,omitempty"`
@@ -58,8 +58,8 @@ func (o JSCommonConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if o.DurableName != nil {
 		toSerialize["durable_name"] = o.DurableName
 	}
-	if o.FilterSubject != nil {
-		toSerialize["filter_subject"] = o.FilterSubject
+	if len(o.FilterSubjects) != 0 {
+		toSerialize["filter_subjects"] = o.FilterSubjects
 	}
 	if o.InactiveThreshold != nil {
 		toSerialize["inactive_threshold"] = o.InactiveThreshold

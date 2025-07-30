@@ -177,7 +177,7 @@ func (a *KvBucketAPIService) CreateKvPullConsumerExecute(r ApiCreateKvPullConsum
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/kv-bucket/{streamId}/consumers/pull"
+	localVarPath := localBasePath + "/core/beta/jetstream/kv-bucket/{streamId}/consumers/pull"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -291,7 +291,7 @@ func (a *KvBucketAPIService) CreateKvPushConsumerExecute(r ApiCreateKvPushConsum
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/kv-bucket/{streamId}/consumers/push"
+	localVarPath := localBasePath + "/core/beta/jetstream/kv-bucket/{streamId}/consumers/push"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -396,7 +396,7 @@ func (a *KvBucketAPIService) DeleteKvBucketExecute(r ApiDeleteKvBucketRequest) (
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/kv-bucket/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/kv-bucket/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -492,7 +492,7 @@ func (a *KvBucketAPIService) GetKvBucketExecute(r ApiGetKvBucketRequest) (*JSKVB
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/kv-bucket/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/kv-bucket/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -598,7 +598,7 @@ func (a *KvBucketAPIService) ListKvConsumersExecute(r ApiListKvConsumersRequest)
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/kv-bucket/{streamId}/consumers"
+	localVarPath := localBasePath + "/core/beta/jetstream/kv-bucket/{streamId}/consumers"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -701,7 +701,7 @@ func (a *KvBucketAPIService) PurgeKvBucketExecute(r ApiPurgeKvBucketRequest) (*h
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/kv-bucket/{streamId}/purge"
+	localVarPath := localBasePath + "/core/beta/jetstream/kv-bucket/{streamId}/purge"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -803,7 +803,7 @@ func (a *KvBucketAPIService) UpdateKvBucketExecute(r ApiUpdateKvBucketRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/kv-bucket/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/kv-bucket/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

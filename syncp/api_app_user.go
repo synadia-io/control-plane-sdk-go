@@ -152,7 +152,7 @@ func (a *AppUserAPIService) AssignTeamAppUserExecute(r ApiAssignTeamAppUserReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/app-users/{appUserId}/teams/{teamId}"
+	localVarPath := localBasePath + "/core/beta/app-users/{appUserId}/teams/{teamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
@@ -258,7 +258,7 @@ func (a *AppUserAPIService) DeleteAppUserExecute(r ApiDeleteAppUserRequest) (*ht
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/app-users/{appUserId}"
+	localVarPath := localBasePath + "/core/beta/app-users/{appUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -354,7 +354,7 @@ func (a *AppUserAPIService) GetAppUserExecute(r ApiGetAppUserRequest) (*AppUserV
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/app-users/{appUserId}"
+	localVarPath := localBasePath + "/core/beta/app-users/{appUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -460,7 +460,7 @@ func (a *AppUserAPIService) ListAppUserRolesExecute(r ApiListAppUserRolesRequest
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/app-users/{appUserId}/roles"
+	localVarPath := localBasePath + "/core/beta/app-users/{appUserId}/roles"
 	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -572,7 +572,7 @@ func (a *AppUserAPIService) UpdateAppUserExecute(r ApiUpdateAppUserRequest) (*Ap
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/app-users/{appUserId}"
+	localVarPath := localBasePath + "/core/beta/app-users/{appUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

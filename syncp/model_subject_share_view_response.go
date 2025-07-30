@@ -17,7 +17,7 @@ import (
 // checks if the SubjectShareViewResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SubjectShareViewResponse{}
 
-// SubjectShareViewResponse struct for SubjectShareViewResponse
+// SubjectShareViewResponse / Subject Shares /
 type SubjectShareViewResponse struct {
 	Created                 time.Time        `json:"created"`
 	Id                      string           `json:"id"`

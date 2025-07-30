@@ -17,6 +17,7 @@ var _ MappedNullable = &AccountInfo{}
 type AccountInfo struct {
 	AccountPublicKey     string `json:"account_public_key"`
 	Id                   string `json:"id"`
+	IsPlatformAccount    bool   `json:"is_platform_account"`
 	IsScpAccount         bool   `json:"is_scp_account"`
 	IsSystemAccount      bool   `json:"is_system_account"`
 	Name                 string `json:"name"`
@@ -27,6 +28,7 @@ func (o AccountInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["account_public_key"] = o.AccountPublicKey
 	toSerialize["id"] = o.Id
+	toSerialize["is_platform_account"] = o.IsPlatformAccount
 	toSerialize["is_scp_account"] = o.IsScpAccount
 	toSerialize["is_system_account"] = o.IsSystemAccount
 	toSerialize["name"] = o.Name

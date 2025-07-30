@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **JwtExpiresInSecs** | Pointer to **int64** |  | [optional] 
-**JwtSettings** | Pointer to [**NatsUserJwtSettings**](NatsUserJwtSettings.md) |  | [optional] 
+**JwtSettings** | Pointer to [**NatsCreateUserJwtSettings**](NatsCreateUserJwtSettings.md) |  | [optional] 
 **Name** | **string** |  | 
 **SkGroupId** | **string** |  | 
 

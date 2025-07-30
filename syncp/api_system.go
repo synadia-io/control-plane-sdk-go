@@ -38,6 +38,20 @@ type SystemAPI interface {
 	AssignSystemTeamAppUserExecute(r ApiAssignSystemTeamAppUserRequest) (*AppUserAssignResponse, *http.Response, error)
 
 	/*
+		BulkShare Share assets across accounts
+
+		allows sharing streams/exports across multiple accounts at once
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiBulkShareRequest
+	*/
+	BulkShare(ctx context.Context, systemId string) ApiBulkShareRequest
+
+	// BulkShareExecute executes the request
+	BulkShareExecute(r ApiBulkShareRequest) (*http.Response, error)
+
+	/*
 		CreateAccount Create Account
 
 		Create Account
@@ -97,6 +111,36 @@ type SystemAPI interface {
 	DeleteSystemAlertRuleExecute(r ApiDeleteSystemAlertRuleRequest) (*http.Response, error)
 
 	/*
+		EnableAuthCallout Enable Auth Callout For System
+
+		Saves an auth callout config for the system
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiEnableAuthCalloutRequest
+	*/
+	EnableAuthCallout(ctx context.Context, systemId string) ApiEnableAuthCalloutRequest
+
+	// EnableAuthCalloutExecute executes the request
+	EnableAuthCalloutExecute(r ApiEnableAuthCalloutRequest) (*http.Response, error)
+
+	/*
+		GetComponentToken Get a component access token
+
+		Retrieves an access token for the platform component
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@param id
+		@return ApiGetComponentTokenRequest
+	*/
+	GetComponentToken(ctx context.Context, systemId string, id string) ApiGetComponentTokenRequest
+
+	// GetComponentTokenExecute executes the request
+	//  @return PlatformComponentTokenViewResponse
+	GetComponentTokenExecute(r ApiGetComponentTokenRequest) (*PlatformComponentTokenViewResponse, *http.Response, error)
+
+	/*
 		GetCurrentAgentToken Get Current Agent Token
 
 		Get the Current Agent Token
@@ -141,6 +185,21 @@ type SystemAPI interface {
 	// GetSystemAlertRuleExecute executes the request
 	//  @return AlertRuleViewResponse
 	GetSystemAlertRuleExecute(r ApiGetSystemAlertRuleRequest) (*AlertRuleViewResponse, *http.Response, error)
+
+	/*
+		GetSystemExport Export System Seeds
+
+		Export System Seeds
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiGetSystemExportRequest
+	*/
+	GetSystemExport(ctx context.Context, systemId string) ApiGetSystemExportRequest
+
+	// GetSystemExportExecute executes the request
+	//  @return SystemExportResponse
+	GetSystemExportExecute(r ApiGetSystemExportRequest) (*SystemExportResponse, *http.Response, error)
 
 	/*
 		GetSystemLimits Get System Limits
@@ -247,6 +306,36 @@ type SystemAPI interface {
 	ListAgentTokensExecute(r ApiListAgentTokensRequest) (*AgentTokenListResponse, *http.Response, error)
 
 	/*
+		ListAuthCalloutAuthenticators Get List of Available Authenticators
+
+		Get a list of authenticators available for use
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiListAuthCalloutAuthenticatorsRequest
+	*/
+	ListAuthCalloutAuthenticators(ctx context.Context, systemId string) ApiListAuthCalloutAuthenticatorsRequest
+
+	// ListAuthCalloutAuthenticatorsExecute executes the request
+	//  @return AuthCalloutAuthenticatorsListResponse
+	ListAuthCalloutAuthenticatorsExecute(r ApiListAuthCalloutAuthenticatorsRequest) (*AuthCalloutAuthenticatorsListResponse, *http.Response, error)
+
+	/*
+		ListAuthCalloutConfigs List Auth Callout Configs
+
+		List Auth Callout Configs for the System
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiListAuthCalloutConfigsRequest
+	*/
+	ListAuthCalloutConfigs(ctx context.Context, systemId string) ApiListAuthCalloutConfigsRequest
+
+	// ListAuthCalloutConfigsExecute executes the request
+	//  @return AuthCalloutConfigListResponse
+	ListAuthCalloutConfigsExecute(r ApiListAuthCalloutConfigsRequest) (*AuthCalloutConfigListResponse, *http.Response, error)
+
+	/*
 		ListClusters List Clusters
 
 		List cluster information
@@ -318,8 +407,8 @@ type SystemAPI interface {
 	ListSystemInfoAccounts(ctx context.Context, systemId string) ApiListSystemInfoAccountsRequest
 
 	// ListSystemInfoAccountsExecute executes the request
-	//  @return AccountSearchListResponse
-	ListSystemInfoAccountsExecute(r ApiListSystemInfoAccountsRequest) (*AccountSearchListResponse, *http.Response, error)
+	//  @return AccountInfoListResponse
+	ListSystemInfoAccountsExecute(r ApiListSystemInfoAccountsRequest) (*AccountInfoListResponse, *http.Response, error)
 
 	/*
 		ListSystemInfoServers List System Servers info
@@ -383,15 +472,13 @@ type SystemAPI interface {
 	RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequest) (*AlertViewResponse, *http.Response, error)
 
 	/*
-			SystemJWTSync Re-sync JWTs of all accounts in this system
-
-			Re-sync JWTs of all accounts in this system
+		SystemJWTSync Re-sync JWTs of all accounts in this system
 
 		Use this endpoint to re-issue all JWTs. This endpoint just marks all account JWTs for renewal. The actual renewal takes place asynchronously and may take a while depending on the number of accounts.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param systemId
-			@return ApiSystemJWTSyncRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiSystemJWTSyncRequest
 	*/
 	SystemJWTSync(ctx context.Context, systemId string) ApiSystemJWTSyncRequest
 
@@ -428,15 +515,27 @@ type SystemAPI interface {
 	UnmanageSystemExecute(r ApiUnmanageSystemRequest) (*http.Response, error)
 
 	/*
-			UpdateSystem Update System
+		UpdatePlatformComponents Update Platform Components for System
 
-			Updates a System
+		Update the different platform components config
 
-		To test the backend connection without updating the system, pass test_connection=true in query parameter.
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiUpdatePlatformComponentsRequest
+	*/
+	UpdatePlatformComponents(ctx context.Context, systemId string) ApiUpdatePlatformComponentsRequest
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param systemId
-			@return ApiUpdateSystemRequest
+	// UpdatePlatformComponentsExecute executes the request
+	UpdatePlatformComponentsExecute(r ApiUpdatePlatformComponentsRequest) (*http.Response, error)
+
+	/*
+		UpdateSystem Update System
+
+		Updates a System
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiUpdateSystemRequest
 	*/
 	UpdateSystem(ctx context.Context, systemId string) ApiUpdateSystemRequest
 
@@ -516,7 +615,7 @@ func (a *SystemAPIService) AssignSystemTeamAppUserExecute(r ApiAssignSystemTeamA
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/app-users/{teamAppUserId}"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
@@ -582,6 +681,107 @@ func (a *SystemAPIService) AssignSystemTeamAppUserExecute(r ApiAssignSystemTeamA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiBulkShareRequest struct {
+	ctx              context.Context
+	ApiService       SystemAPI
+	systemId         string
+	bulkShareRequest *BulkShareRequest
+}
+
+func (r ApiBulkShareRequest) BulkShareRequest(bulkShareRequest BulkShareRequest) ApiBulkShareRequest {
+	r.bulkShareRequest = &bulkShareRequest
+	return r
+}
+
+func (r ApiBulkShareRequest) Execute() (*http.Response, error) {
+	return r.ApiService.BulkShareExecute(r)
+}
+
+/*
+BulkShare Share assets across accounts
+
+allows sharing streams/exports across multiple accounts at once
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiBulkShareRequest
+*/
+func (a *SystemAPIService) BulkShare(ctx context.Context, systemId string) ApiBulkShareRequest {
+	return ApiBulkShareRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+func (a *SystemAPIService) BulkShareExecute(r ApiBulkShareRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.BulkShare")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/bulk/shares"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.bulkShareRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiCreateAccountRequest struct {
 	ctx                  context.Context
 	ApiService           SystemAPI
@@ -631,7 +831,7 @@ func (a *SystemAPIService) CreateAccountExecute(r ApiCreateAccountRequest) (*Acc
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/accounts"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/accounts"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -745,7 +945,7 @@ func (a *SystemAPIService) CreateSystemAlertRuleExecute(r ApiCreateSystemAlertRu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/alert-rules"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/alert-rules"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -850,7 +1050,7 @@ func (a *SystemAPIService) DeleteSystemExecute(r ApiDeleteSystemRequest) (*http.
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -946,7 +1146,7 @@ func (a *SystemAPIService) DeleteSystemAlertRuleExecute(r ApiDeleteSystemAlertRu
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/alert-rules/{alertRuleId}"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/alert-rules/{alertRuleId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"alertRuleId"+"}", url.PathEscape(parameterValueToString(r.alertRuleId, "alertRuleId")), -1)
 
@@ -1000,6 +1200,217 @@ func (a *SystemAPIService) DeleteSystemAlertRuleExecute(r ApiDeleteSystemAlertRu
 	return localVarHTTPResponse, nil
 }
 
+type ApiEnableAuthCalloutRequest struct {
+	ctx                      context.Context
+	ApiService               SystemAPI
+	systemId                 string
+	authCalloutEnableRequest *AuthCalloutEnableRequest
+}
+
+func (r ApiEnableAuthCalloutRequest) AuthCalloutEnableRequest(authCalloutEnableRequest AuthCalloutEnableRequest) ApiEnableAuthCalloutRequest {
+	r.authCalloutEnableRequest = &authCalloutEnableRequest
+	return r
+}
+
+func (r ApiEnableAuthCalloutRequest) Execute() (*http.Response, error) {
+	return r.ApiService.EnableAuthCalloutExecute(r)
+}
+
+/*
+EnableAuthCallout Enable Auth Callout For System
+
+Saves an auth callout config for the system
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiEnableAuthCalloutRequest
+*/
+func (a *SystemAPIService) EnableAuthCallout(ctx context.Context, systemId string) ApiEnableAuthCalloutRequest {
+	return ApiEnableAuthCalloutRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+func (a *SystemAPIService) EnableAuthCalloutExecute(r ApiEnableAuthCalloutRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.EnableAuthCallout")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/auth-callout"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.authCalloutEnableRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiGetComponentTokenRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+	id         string
+}
+
+func (r ApiGetComponentTokenRequest) Execute() (*PlatformComponentTokenViewResponse, *http.Response, error) {
+	return r.ApiService.GetComponentTokenExecute(r)
+}
+
+/*
+GetComponentToken Get a component access token
+
+Retrieves an access token for the platform component
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@param id
+	@return ApiGetComponentTokenRequest
+*/
+func (a *SystemAPIService) GetComponentToken(ctx context.Context, systemId string, id string) ApiGetComponentTokenRequest {
+	return ApiGetComponentTokenRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PlatformComponentTokenViewResponse
+func (a *SystemAPIService) GetComponentTokenExecute(r ApiGetComponentTokenRequest) (*PlatformComponentTokenViewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PlatformComponentTokenViewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetComponentToken")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/platform-components/{id}/tokens"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetCurrentAgentTokenRequest struct {
 	ctx        context.Context
 	ApiService SystemAPI
@@ -1043,7 +1454,7 @@ func (a *SystemAPIService) GetCurrentAgentTokenExecute(r ApiGetCurrentAgentToken
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/agent-tokens/current"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/agent-tokens/current"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1149,7 +1560,7 @@ func (a *SystemAPIService) GetSystemExecute(r ApiGetSystemRequest) (*SystemViewR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1258,9 +1669,115 @@ func (a *SystemAPIService) GetSystemAlertRuleExecute(r ApiGetSystemAlertRuleRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/alert-rules/{alertRuleId}"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/alert-rules/{alertRuleId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"alertRuleId"+"}", url.PathEscape(parameterValueToString(r.alertRuleId, "alertRuleId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSystemExportRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiGetSystemExportRequest) Execute() (*SystemExportResponse, *http.Response, error) {
+	return r.ApiService.GetSystemExportExecute(r)
+}
+
+/*
+GetSystemExport Export System Seeds
+
+Export System Seeds
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiGetSystemExportRequest
+*/
+func (a *SystemAPIService) GetSystemExport(ctx context.Context, systemId string) ApiGetSystemExportRequest {
+	return ApiGetSystemExportRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return SystemExportResponse
+func (a *SystemAPIService) GetSystemExportExecute(r ApiGetSystemExportRequest) (*SystemExportResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SystemExportResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemExport")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/export"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1365,7 +1882,7 @@ func (a *SystemAPIService) GetSystemLimitsExecute(r ApiGetSystemLimitsRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/limits"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/limits"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1471,7 +1988,7 @@ func (a *SystemAPIService) GetSystemPrometheusMetricsExecute(r ApiGetSystemProme
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/prometheus-metrics"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/prometheus-metrics"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1580,7 +2097,7 @@ func (a *SystemAPIService) ImportAccountExecute(r ApiImportAccountRequest) (*htt
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/import-account"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/import-account"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1684,7 +2201,7 @@ func (a *SystemAPIService) ImportUserExecute(r ApiImportUserRequest) (*NatsUserV
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/import-user"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/import-user"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1792,7 +2309,7 @@ func (a *SystemAPIService) ListAccountsExecute(r ApiListAccountsRequest) (*Accou
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/accounts"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/accounts"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1898,7 +2415,7 @@ func (a *SystemAPIService) ListAccountsOverviewMetricsExecute(r ApiListAccountsO
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/accounts-overview-metrics"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/accounts-overview-metrics"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2004,7 +2521,219 @@ func (a *SystemAPIService) ListAgentTokensExecute(r ApiListAgentTokensRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/agent-tokens"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/agent-tokens"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListAuthCalloutAuthenticatorsRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiListAuthCalloutAuthenticatorsRequest) Execute() (*AuthCalloutAuthenticatorsListResponse, *http.Response, error) {
+	return r.ApiService.ListAuthCalloutAuthenticatorsExecute(r)
+}
+
+/*
+ListAuthCalloutAuthenticators Get List of Available Authenticators
+
+Get a list of authenticators available for use
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiListAuthCalloutAuthenticatorsRequest
+*/
+func (a *SystemAPIService) ListAuthCalloutAuthenticators(ctx context.Context, systemId string) ApiListAuthCalloutAuthenticatorsRequest {
+	return ApiListAuthCalloutAuthenticatorsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AuthCalloutAuthenticatorsListResponse
+func (a *SystemAPIService) ListAuthCalloutAuthenticatorsExecute(r ApiListAuthCalloutAuthenticatorsRequest) (*AuthCalloutAuthenticatorsListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthCalloutAuthenticatorsListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListAuthCalloutAuthenticators")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/auth-callout/authenticators"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListAuthCalloutConfigsRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiListAuthCalloutConfigsRequest) Execute() (*AuthCalloutConfigListResponse, *http.Response, error) {
+	return r.ApiService.ListAuthCalloutConfigsExecute(r)
+}
+
+/*
+ListAuthCalloutConfigs List Auth Callout Configs
+
+List Auth Callout Configs for the System
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiListAuthCalloutConfigsRequest
+*/
+func (a *SystemAPIService) ListAuthCalloutConfigs(ctx context.Context, systemId string) ApiListAuthCalloutConfigsRequest {
+	return ApiListAuthCalloutConfigsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AuthCalloutConfigListResponse
+func (a *SystemAPIService) ListAuthCalloutConfigsExecute(r ApiListAuthCalloutConfigsRequest) (*AuthCalloutConfigListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthCalloutConfigListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListAuthCalloutConfigs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/auth-callout"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2110,7 +2839,7 @@ func (a *SystemAPIService) ListClustersExecute(r ApiListClustersRequest) (*NatsC
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/nats-clusters"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/nats-clusters"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2258,7 +2987,7 @@ func (a *SystemAPIService) ListConnectionsExecute(r ApiListConnectionsRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/connections"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/connections"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2385,7 +3114,7 @@ func (a *SystemAPIService) ListServersExecute(r ApiListServersRequest) (*NatsSer
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/servers"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/servers"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2491,7 +3220,7 @@ func (a *SystemAPIService) ListSystemAlertRulesExecute(r ApiListSystemAlertRules
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/alert-rules"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/alert-rules"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2560,7 +3289,7 @@ type ApiListSystemInfoAccountsRequest struct {
 	systemId   string
 }
 
-func (r ApiListSystemInfoAccountsRequest) Execute() (*AccountSearchListResponse, *http.Response, error) {
+func (r ApiListSystemInfoAccountsRequest) Execute() (*AccountInfoListResponse, *http.Response, error) {
 	return r.ApiService.ListSystemInfoAccountsExecute(r)
 }
 
@@ -2583,13 +3312,13 @@ func (a *SystemAPIService) ListSystemInfoAccounts(ctx context.Context, systemId 
 
 // Execute executes the request
 //
-//	@return AccountSearchListResponse
-func (a *SystemAPIService) ListSystemInfoAccountsExecute(r ApiListSystemInfoAccountsRequest) (*AccountSearchListResponse, *http.Response, error) {
+//	@return AccountInfoListResponse
+func (a *SystemAPIService) ListSystemInfoAccountsExecute(r ApiListSystemInfoAccountsRequest) (*AccountInfoListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountSearchListResponse
+		localVarReturnValue *AccountInfoListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListSystemInfoAccounts")
@@ -2597,7 +3326,7 @@ func (a *SystemAPIService) ListSystemInfoAccountsExecute(r ApiListSystemInfoAcco
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/info/accounts"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/info/accounts"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2703,7 +3432,7 @@ func (a *SystemAPIService) ListSystemInfoServersExecute(r ApiListSystemInfoServe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/info/servers"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/info/servers"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2809,7 +3538,7 @@ func (a *SystemAPIService) ListSystemTeamAppUsersExecute(r ApiListSystemTeamAppU
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/app-users"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/app-users"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2921,7 +3650,7 @@ func (a *SystemAPIService) RotateAgentTokenExecute(r ApiRotateAgentTokenRequest)
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/agent-tokens"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/agent-tokens"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3032,7 +3761,7 @@ func (a *SystemAPIService) RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/alert-rules/{alertRuleId}/run"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/alert-rules/{alertRuleId}/run"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"alertRuleId"+"}", url.PathEscape(parameterValueToString(r.alertRuleId, "alertRuleId")), -1)
 
@@ -3109,8 +3838,6 @@ func (r ApiSystemJWTSyncRequest) Execute() (*http.Response, error) {
 /*
 SystemJWTSync Re-sync JWTs of all accounts in this system
 
-# Re-sync JWTs of all accounts in this system
-
 Use this endpoint to re-issue all JWTs. This endpoint just marks all account JWTs for renewal. The actual renewal takes place asynchronously and may take a while depending on the number of accounts.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -3138,7 +3865,7 @@ func (a *SystemAPIService) SystemJWTSyncExecute(r ApiSystemJWTSyncRequest) (*htt
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/jwt-sync"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/jwt-sync"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3234,7 +3961,7 @@ func (a *SystemAPIService) UnAssignSystemTeamAppUserExecute(r ApiUnAssignSystemT
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/app-users/{teamAppUserId}"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
@@ -3328,7 +4055,7 @@ func (a *SystemAPIService) UnmanageSystemExecute(r ApiUnmanageSystemRequest) (*h
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/unmanage"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/unmanage"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3381,6 +4108,107 @@ func (a *SystemAPIService) UnmanageSystemExecute(r ApiUnmanageSystemRequest) (*h
 	return localVarHTTPResponse, nil
 }
 
+type ApiUpdatePlatformComponentsRequest struct {
+	ctx                             context.Context
+	ApiService                      SystemAPI
+	systemId                        string
+	platformComponentsUpdateRequest *PlatformComponentsUpdateRequest
+}
+
+func (r ApiUpdatePlatformComponentsRequest) PlatformComponentsUpdateRequest(platformComponentsUpdateRequest PlatformComponentsUpdateRequest) ApiUpdatePlatformComponentsRequest {
+	r.platformComponentsUpdateRequest = &platformComponentsUpdateRequest
+	return r
+}
+
+func (r ApiUpdatePlatformComponentsRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdatePlatformComponentsExecute(r)
+}
+
+/*
+UpdatePlatformComponents Update Platform Components for System
+
+Update the different platform components config
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiUpdatePlatformComponentsRequest
+*/
+func (a *SystemAPIService) UpdatePlatformComponents(ctx context.Context, systemId string) ApiUpdatePlatformComponentsRequest {
+	return ApiUpdatePlatformComponentsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+func (a *SystemAPIService) UpdatePlatformComponentsExecute(r ApiUpdatePlatformComponentsRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.UpdatePlatformComponents")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/platform-components"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.platformComponentsUpdateRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiUpdateSystemRequest struct {
 	ctx                 context.Context
 	ApiService          SystemAPI
@@ -3389,6 +4217,7 @@ type ApiUpdateSystemRequest struct {
 	systemUpdateRequest *SystemUpdateRequest
 }
 
+// To test the backend connection without updating the system, pass test_connection&#x3D;true in query parameter.
 func (r ApiUpdateSystemRequest) TestConnection(testConnection bool) ApiUpdateSystemRequest {
 	r.testConnection = &testConnection
 	return r
@@ -3406,9 +4235,7 @@ func (r ApiUpdateSystemRequest) Execute() (*SystemViewResponse, *http.Response, 
 /*
 UpdateSystem Update System
 
-# Updates a System
-
-To test the backend connection without updating the system, pass test_connection=true in query parameter.
+Updates a System
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param systemId
@@ -3438,7 +4265,7 @@ func (a *SystemAPIService) UpdateSystemExecute(r ApiUpdateSystemRequest) (*Syste
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3558,7 +4385,7 @@ func (a *SystemAPIService) UpdateSystemAlertRuleExecute(r ApiUpdateSystemAlertRu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/systems/{systemId}/alert-rules/{alertRuleId}"
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/alert-rules/{alertRuleId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"alertRuleId"+"}", url.PathEscape(parameterValueToString(r.alertRuleId, "alertRuleId")), -1)
 

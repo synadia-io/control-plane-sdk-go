@@ -4,8 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Data** | Pointer to [**DataLimits**](DataLimits.md) |  | [optional] 
 **NumAccounts** | Nullable[**int64**] |  | 
+**NumConnectors** | Nullable[**int64**] |  | 
 **ResourceLimits** | [**OperatorLimits**](OperatorLimits.md) |  | 
+**Workloads** | [**WorkloadLimits**](WorkloadLimits.md) |  | 
 
 ## Methods
 

@@ -15,10 +15,10 @@ var _ MappedNullable = &NatsUserCreateRequest{}
 
 // NatsUserCreateRequest struct for NatsUserCreateRequest
 type NatsUserCreateRequest struct {
-	JwtExpiresInSecs *int64               `json:"jwt_expires_in_secs,omitempty"`
-	JwtSettings      *NatsUserJwtSettings `json:"jwt_settings,omitempty"`
-	Name             string               `json:"name"`
-	SkGroupId        string               `json:"sk_group_id"`
+	JwtExpiresInSecs *int64                     `json:"jwt_expires_in_secs,omitempty"`
+	JwtSettings      *NatsCreateUserJwtSettings `json:"jwt_settings,omitempty"`
+	Name             string                     `json:"name"`
+	SkGroupId        string                     `json:"sk_group_id"`
 }
 
 func (o NatsUserCreateRequest) ToMap() (map[string]interface{}, error) {

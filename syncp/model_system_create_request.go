@@ -19,6 +19,7 @@ type SystemCreateRequest struct {
 	DirectConnectionOpts *SystemDirectConnectionOpts `json:"direct_connection_opts,omitempty"`
 	JetstreamDomain      *string                     `json:"jetstream_domain,omitempty"`
 	JetstreamEnabled     *bool                       `json:"jetstream_enabled,omitempty"`
+	ManagedBy            *SystemManagedBy            `json:"managed_by,omitempty"`
 	Name                 string                      `json:"name"`
 	Url                  string                      `json:"url"`
 }
@@ -36,6 +37,9 @@ func (o SystemCreateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.JetstreamEnabled != nil {
 		toSerialize["jetstream_enabled"] = o.JetstreamEnabled
+	}
+	if o.ManagedBy != nil {
+		toSerialize["managed_by"] = o.ManagedBy
 	}
 	toSerialize["name"] = o.Name
 	toSerialize["url"] = o.Url

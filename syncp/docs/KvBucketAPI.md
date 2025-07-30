@@ -1,16 +1,16 @@
 # \KvBucketAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateKvPullConsumer**](KvBucketAPI.md#CreateKvPullConsumer) | **Post** /jetstream/kv-bucket/{streamId}/consumers/pull | Create Pull Consumer
-[**CreateKvPushConsumer**](KvBucketAPI.md#CreateKvPushConsumer) | **Post** /jetstream/kv-bucket/{streamId}/consumers/push | Create Push Consumer
-[**DeleteKvBucket**](KvBucketAPI.md#DeleteKvBucket) | **Delete** /jetstream/kv-bucket/{streamId} | Delete KV Bucket
-[**GetKvBucket**](KvBucketAPI.md#GetKvBucket) | **Get** /jetstream/kv-bucket/{streamId} | Get KV Bucket
-[**ListKvConsumers**](KvBucketAPI.md#ListKvConsumers) | **Get** /jetstream/kv-bucket/{streamId}/consumers | List Consumers
-[**PurgeKvBucket**](KvBucketAPI.md#PurgeKvBucket) | **Delete** /jetstream/kv-bucket/{streamId}/purge | Purge KV Bucket
-[**UpdateKvBucket**](KvBucketAPI.md#UpdateKvBucket) | **Patch** /jetstream/kv-bucket/{streamId} | Update KV Bucket
+[**CreateKvPullConsumer**](KvBucketAPI.md#CreateKvPullConsumer) | **Post** /core/beta/jetstream/kv-bucket/{streamId}/consumers/pull | Create Pull Consumer
+[**CreateKvPushConsumer**](KvBucketAPI.md#CreateKvPushConsumer) | **Post** /core/beta/jetstream/kv-bucket/{streamId}/consumers/push | Create Push Consumer
+[**DeleteKvBucket**](KvBucketAPI.md#DeleteKvBucket) | **Delete** /core/beta/jetstream/kv-bucket/{streamId} | Delete KV Bucket
+[**GetKvBucket**](KvBucketAPI.md#GetKvBucket) | **Get** /core/beta/jetstream/kv-bucket/{streamId} | Get KV Bucket
+[**ListKvConsumers**](KvBucketAPI.md#ListKvConsumers) | **Get** /core/beta/jetstream/kv-bucket/{streamId}/consumers | List Consumers
+[**PurgeKvBucket**](KvBucketAPI.md#PurgeKvBucket) | **Delete** /core/beta/jetstream/kv-bucket/{streamId}/purge | Purge KV Bucket
+[**UpdateKvBucket**](KvBucketAPI.md#UpdateKvBucket) | **Patch** /core/beta/jetstream/kv-bucket/{streamId} | Update KV Bucket
 
 
 

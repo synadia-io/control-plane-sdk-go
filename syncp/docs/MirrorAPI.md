@@ -1,16 +1,16 @@
 # \MirrorAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateMirrorPullConsumer**](MirrorAPI.md#CreateMirrorPullConsumer) | **Post** /jetstream/mirror/{streamId}/consumers/pull | Create Pull Consumer
-[**CreateMirrorPushConsumer**](MirrorAPI.md#CreateMirrorPushConsumer) | **Post** /jetstream/mirror/{streamId}/consumers/push | Create Push consumer
-[**DeleteMirror**](MirrorAPI.md#DeleteMirror) | **Delete** /jetstream/mirror/{streamId} | Delete Mirror
-[**GetMirror**](MirrorAPI.md#GetMirror) | **Get** /jetstream/mirror/{streamId} | Get Mirror
-[**ListMirrorConsumers**](MirrorAPI.md#ListMirrorConsumers) | **Get** /jetstream/mirror/{streamId}/consumers | List Consumers
-[**PurgeMirror**](MirrorAPI.md#PurgeMirror) | **Delete** /jetstream/mirror/{streamId}/purge | Purge Mirror
-[**UpdateMirror**](MirrorAPI.md#UpdateMirror) | **Patch** /jetstream/mirror/{streamId} | Update Mirror
+[**CreateMirrorPullConsumer**](MirrorAPI.md#CreateMirrorPullConsumer) | **Post** /core/beta/jetstream/mirror/{streamId}/consumers/pull | Create Pull Consumer
+[**CreateMirrorPushConsumer**](MirrorAPI.md#CreateMirrorPushConsumer) | **Post** /core/beta/jetstream/mirror/{streamId}/consumers/push | Create Push consumer
+[**DeleteMirror**](MirrorAPI.md#DeleteMirror) | **Delete** /core/beta/jetstream/mirror/{streamId} | Delete Mirror
+[**GetMirror**](MirrorAPI.md#GetMirror) | **Get** /core/beta/jetstream/mirror/{streamId} | Get Mirror
+[**ListMirrorConsumers**](MirrorAPI.md#ListMirrorConsumers) | **Get** /core/beta/jetstream/mirror/{streamId}/consumers | List Consumers
+[**PurgeMirror**](MirrorAPI.md#PurgeMirror) | **Delete** /core/beta/jetstream/mirror/{streamId}/purge | Purge Mirror
+[**UpdateMirror**](MirrorAPI.md#UpdateMirror) | **Patch** /core/beta/jetstream/mirror/{streamId} | Update Mirror
 
 
 

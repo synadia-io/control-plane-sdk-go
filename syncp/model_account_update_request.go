@@ -15,13 +15,23 @@ var _ MappedNullable = &AccountUpdateRequest{}
 
 // AccountUpdateRequest struct for AccountUpdateRequest
 type AccountUpdateRequest struct {
+	Connectors           *bool                    `json:"connectors,omitempty"`
+	ConnectorsLogStream  *string                  `json:"connectors_log_stream,omitempty"`
 	JwtSettings          *AccountJWTSettingsPatch `json:"jwt_settings,omitempty"`
 	Name                 *string                  `json:"name,omitempty"`
 	UserJwtExpiresInSecs *int64                   `json:"user_jwt_expires_in_secs,omitempty"`
+	Workloads            *bool                    `json:"workloads,omitempty"`
+	WorkloadsLogStream   *string                  `json:"workloads_log_stream,omitempty"`
 }
 
 func (o AccountUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Connectors != nil {
+		toSerialize["connectors"] = o.Connectors
+	}
+	if o.ConnectorsLogStream != nil {
+		toSerialize["connectors_log_stream"] = o.ConnectorsLogStream
+	}
 	if o.JwtSettings != nil {
 		toSerialize["jwt_settings"] = o.JwtSettings
 	}
@@ -30,6 +40,12 @@ func (o AccountUpdateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.UserJwtExpiresInSecs != nil {
 		toSerialize["user_jwt_expires_in_secs"] = o.UserJwtExpiresInSecs
+	}
+	if o.Workloads != nil {
+		toSerialize["workloads"] = o.Workloads
+	}
+	if o.WorkloadsLogStream != nil {
+		toSerialize["workloads_log_stream"] = o.WorkloadsLogStream
 	}
 	return toSerialize, nil
 }

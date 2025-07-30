@@ -148,7 +148,7 @@ func (a *StreamExportAPIService) CreateStreamSharesExecute(r ApiCreateStreamShar
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/stream-exports/{streamExportId}/shares"
+	localVarPath := localBasePath + "/core/beta/stream-exports/{streamExportId}/shares"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamExportId"+"}", url.PathEscape(parameterValueToString(r.streamExportId, "streamExportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -253,7 +253,7 @@ func (a *StreamExportAPIService) DeleteStreamExportExecute(r ApiDeleteStreamExpo
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/stream-exports/{streamExportId}"
+	localVarPath := localBasePath + "/core/beta/stream-exports/{streamExportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamExportId"+"}", url.PathEscape(parameterValueToString(r.streamExportId, "streamExportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -349,7 +349,7 @@ func (a *StreamExportAPIService) DeleteStreamShareExecute(r ApiDeleteStreamShare
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/stream-exports/{streamExportId}/shares/{targetAccountNKeyPublic}"
+	localVarPath := localBasePath + "/core/beta/stream-exports/{streamExportId}/shares/{targetAccountNKeyPublic}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamExportId"+"}", url.PathEscape(parameterValueToString(r.streamExportId, "streamExportId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"targetAccountNKeyPublic"+"}", url.PathEscape(parameterValueToString(r.targetAccountNKeyPublic, "targetAccountNKeyPublic")), -1)
 
@@ -446,7 +446,7 @@ func (a *StreamExportAPIService) GetStreamExportExecute(r ApiGetStreamExportRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/stream-exports/{streamExportId}"
+	localVarPath := localBasePath + "/core/beta/stream-exports/{streamExportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamExportId"+"}", url.PathEscape(parameterValueToString(r.streamExportId, "streamExportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -552,7 +552,7 @@ func (a *StreamExportAPIService) ListStreamSharesExecute(r ApiListStreamSharesRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/stream-exports/{streamExportId}/shares"
+	localVarPath := localBasePath + "/core/beta/stream-exports/{streamExportId}/shares"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamExportId"+"}", url.PathEscape(parameterValueToString(r.streamExportId, "streamExportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

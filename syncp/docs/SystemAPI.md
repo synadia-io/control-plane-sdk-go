@@ -1,38 +1,45 @@
 # \SystemAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssignSystemTeamAppUser**](SystemAPI.md#AssignSystemTeamAppUser) | **Post** /systems/{systemId}/app-users/{teamAppUserId} | Assign Team App User to System
-[**CreateAccount**](SystemAPI.md#CreateAccount) | **Post** /systems/{systemId}/accounts | Create Account
-[**CreateSystemAlertRule**](SystemAPI.md#CreateSystemAlertRule) | **Post** /systems/{systemId}/alert-rules | Create System Alert Rule
-[**DeleteSystem**](SystemAPI.md#DeleteSystem) | **Delete** /systems/{systemId} | Delete System
-[**DeleteSystemAlertRule**](SystemAPI.md#DeleteSystemAlertRule) | **Delete** /systems/{systemId}/alert-rules/{alertRuleId} | Delete System Alert Rule
-[**GetCurrentAgentToken**](SystemAPI.md#GetCurrentAgentToken) | **Get** /systems/{systemId}/agent-tokens/current | Get Current Agent Token
-[**GetSystem**](SystemAPI.md#GetSystem) | **Get** /systems/{systemId} | Get System
-[**GetSystemAlertRule**](SystemAPI.md#GetSystemAlertRule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId} | Get System Alert Rule
-[**GetSystemLimits**](SystemAPI.md#GetSystemLimits) | **Get** /systems/{systemId}/limits | Get System Limits
-[**GetSystemPrometheusMetrics**](SystemAPI.md#GetSystemPrometheusMetrics) | **Get** /systems/{systemId}/prometheus-metrics | Get Prometheus Metrics
-[**ImportAccount**](SystemAPI.md#ImportAccount) | **Post** /systems/{systemId}/import-account | Import Account
-[**ImportUser**](SystemAPI.md#ImportUser) | **Post** /systems/{systemId}/import-user | Import User
-[**ListAccounts**](SystemAPI.md#ListAccounts) | **Get** /systems/{systemId}/accounts | List Accounts
-[**ListAccountsOverviewMetrics**](SystemAPI.md#ListAccountsOverviewMetrics) | **Get** /systems/{systemId}/accounts-overview-metrics | List Accounts overview metrics
-[**ListAgentTokens**](SystemAPI.md#ListAgentTokens) | **Get** /systems/{systemId}/agent-tokens | List Agent Tokens
-[**ListClusters**](SystemAPI.md#ListClusters) | **Get** /systems/{systemId}/nats-clusters | List Clusters
-[**ListConnections**](SystemAPI.md#ListConnections) | **Get** /systems/{systemId}/connections | List Connections
-[**ListServers**](SystemAPI.md#ListServers) | **Get** /systems/{systemId}/servers | List Servers
-[**ListSystemAlertRules**](SystemAPI.md#ListSystemAlertRules) | **Get** /systems/{systemId}/alert-rules | List System Alert Rules
-[**ListSystemInfoAccounts**](SystemAPI.md#ListSystemInfoAccounts) | **Get** /systems/{systemId}/info/accounts | List System Accounts Info
-[**ListSystemInfoServers**](SystemAPI.md#ListSystemInfoServers) | **Get** /systems/{systemId}/info/servers | List System Servers info
-[**ListSystemTeamAppUsers**](SystemAPI.md#ListSystemTeamAppUsers) | **Get** /systems/{systemId}/app-users | List System Team App Users
-[**RotateAgentToken**](SystemAPI.md#RotateAgentToken) | **Post** /systems/{systemId}/agent-tokens | Rotate Agent Token
-[**RunSystemAlertRule**](SystemAPI.md#RunSystemAlertRule) | **Get** /systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
-[**SystemJWTSync**](SystemAPI.md#SystemJWTSync) | **Post** /systems/{systemId}/jwt-sync | Re-sync JWTs of all accounts in this system
-[**UnAssignSystemTeamAppUser**](SystemAPI.md#UnAssignSystemTeamAppUser) | **Delete** /systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
-[**UnmanageSystem**](SystemAPI.md#UnmanageSystem) | **Delete** /systems/{systemId}/unmanage | Unmanage System
-[**UpdateSystem**](SystemAPI.md#UpdateSystem) | **Patch** /systems/{systemId} | Update System
-[**UpdateSystemAlertRule**](SystemAPI.md#UpdateSystemAlertRule) | **Patch** /systems/{systemId}/alert-rules/{alertRuleId} | Update System Alert Rules
+[**AssignSystemTeamAppUser**](SystemAPI.md#AssignSystemTeamAppUser) | **Post** /core/beta/systems/{systemId}/app-users/{teamAppUserId} | Assign Team App User to System
+[**BulkShare**](SystemAPI.md#BulkShare) | **Post** /core/beta/systems/{systemId}/bulk/shares | Share assets across accounts
+[**CreateAccount**](SystemAPI.md#CreateAccount) | **Post** /core/beta/systems/{systemId}/accounts | Create Account
+[**CreateSystemAlertRule**](SystemAPI.md#CreateSystemAlertRule) | **Post** /core/beta/systems/{systemId}/alert-rules | Create System Alert Rule
+[**DeleteSystem**](SystemAPI.md#DeleteSystem) | **Delete** /core/beta/systems/{systemId} | Delete System
+[**DeleteSystemAlertRule**](SystemAPI.md#DeleteSystemAlertRule) | **Delete** /core/beta/systems/{systemId}/alert-rules/{alertRuleId} | Delete System Alert Rule
+[**EnableAuthCallout**](SystemAPI.md#EnableAuthCallout) | **Post** /core/beta/systems/{systemId}/auth-callout | Enable Auth Callout For System
+[**GetComponentToken**](SystemAPI.md#GetComponentToken) | **Get** /core/beta/systems/{systemId}/platform-components/{id}/tokens | Get a component access token
+[**GetCurrentAgentToken**](SystemAPI.md#GetCurrentAgentToken) | **Get** /core/beta/systems/{systemId}/agent-tokens/current | Get Current Agent Token
+[**GetSystem**](SystemAPI.md#GetSystem) | **Get** /core/beta/systems/{systemId} | Get System
+[**GetSystemAlertRule**](SystemAPI.md#GetSystemAlertRule) | **Get** /core/beta/systems/{systemId}/alert-rules/{alertRuleId} | Get System Alert Rule
+[**GetSystemExport**](SystemAPI.md#GetSystemExport) | **Get** /core/beta/systems/{systemId}/export | Export System Seeds
+[**GetSystemLimits**](SystemAPI.md#GetSystemLimits) | **Get** /core/beta/systems/{systemId}/limits | Get System Limits
+[**GetSystemPrometheusMetrics**](SystemAPI.md#GetSystemPrometheusMetrics) | **Get** /core/beta/systems/{systemId}/prometheus-metrics | Get Prometheus Metrics
+[**ImportAccount**](SystemAPI.md#ImportAccount) | **Post** /core/beta/systems/{systemId}/import-account | Import Account
+[**ImportUser**](SystemAPI.md#ImportUser) | **Post** /core/beta/systems/{systemId}/import-user | Import User
+[**ListAccounts**](SystemAPI.md#ListAccounts) | **Get** /core/beta/systems/{systemId}/accounts | List Accounts
+[**ListAccountsOverviewMetrics**](SystemAPI.md#ListAccountsOverviewMetrics) | **Get** /core/beta/systems/{systemId}/accounts-overview-metrics | List Accounts overview metrics
+[**ListAgentTokens**](SystemAPI.md#ListAgentTokens) | **Get** /core/beta/systems/{systemId}/agent-tokens | List Agent Tokens
+[**ListAuthCalloutAuthenticators**](SystemAPI.md#ListAuthCalloutAuthenticators) | **Get** /core/beta/systems/{systemId}/auth-callout/authenticators | Get List of Available Authenticators
+[**ListAuthCalloutConfigs**](SystemAPI.md#ListAuthCalloutConfigs) | **Get** /core/beta/systems/{systemId}/auth-callout | List Auth Callout Configs
+[**ListClusters**](SystemAPI.md#ListClusters) | **Get** /core/beta/systems/{systemId}/nats-clusters | List Clusters
+[**ListConnections**](SystemAPI.md#ListConnections) | **Get** /core/beta/systems/{systemId}/connections | List Connections
+[**ListServers**](SystemAPI.md#ListServers) | **Get** /core/beta/systems/{systemId}/servers | List Servers
+[**ListSystemAlertRules**](SystemAPI.md#ListSystemAlertRules) | **Get** /core/beta/systems/{systemId}/alert-rules | List System Alert Rules
+[**ListSystemInfoAccounts**](SystemAPI.md#ListSystemInfoAccounts) | **Get** /core/beta/systems/{systemId}/info/accounts | List System Accounts Info
+[**ListSystemInfoServers**](SystemAPI.md#ListSystemInfoServers) | **Get** /core/beta/systems/{systemId}/info/servers | List System Servers info
+[**ListSystemTeamAppUsers**](SystemAPI.md#ListSystemTeamAppUsers) | **Get** /core/beta/systems/{systemId}/app-users | List System Team App Users
+[**RotateAgentToken**](SystemAPI.md#RotateAgentToken) | **Post** /core/beta/systems/{systemId}/agent-tokens | Rotate Agent Token
+[**RunSystemAlertRule**](SystemAPI.md#RunSystemAlertRule) | **Get** /core/beta/systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
+[**SystemJWTSync**](SystemAPI.md#SystemJWTSync) | **Post** /core/beta/systems/{systemId}/jwt-sync | Re-sync JWTs of all accounts in this system
+[**UnAssignSystemTeamAppUser**](SystemAPI.md#UnAssignSystemTeamAppUser) | **Delete** /core/beta/systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
+[**UnmanageSystem**](SystemAPI.md#UnmanageSystem) | **Delete** /core/beta/systems/{systemId}/unmanage | Unmanage System
+[**UpdatePlatformComponents**](SystemAPI.md#UpdatePlatformComponents) | **Patch** /core/beta/systems/{systemId}/platform-components | Update Platform Components for System
+[**UpdateSystem**](SystemAPI.md#UpdateSystem) | **Patch** /core/beta/systems/{systemId} | Update System
+[**UpdateSystemAlertRule**](SystemAPI.md#UpdateSystemAlertRule) | **Patch** /core/beta/systems/{systemId}/alert-rules/{alertRuleId} | Update System Alert Rules
 
 
 
@@ -105,6 +112,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## BulkShare
+
+> BulkShare(ctx, systemId).BulkShareRequest(bulkShareRequest).Execute()
+
+Share assets across accounts
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+    bulkShareRequest := *openapiclient.NewBulkShareRequest("Id_example", []openapiclient.BulkShareTarget{*openapiclient.NewBulkShareTarget(false, "Id_example", "LocalSubject_example")}, openapiclient.BulkShareType("stream")) // BulkShareRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.SystemAPI.BulkShare(context.Background(), systemId).BulkShareRequest(bulkShareRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.BulkShare``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiBulkShareRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **bulkShareRequest** | [**BulkShareRequest**](BulkShareRequest.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -394,6 +471,149 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## EnableAuthCallout
+
+> EnableAuthCallout(ctx, systemId).AuthCalloutEnableRequest(authCalloutEnableRequest).Execute()
+
+Enable Auth Callout For System
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+    authCalloutEnableRequest := *openapiclient.NewAuthCalloutEnableRequest("ControlAccount_example") // AuthCalloutEnableRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.SystemAPI.EnableAuthCallout(context.Background(), systemId).AuthCalloutEnableRequest(authCalloutEnableRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.EnableAuthCallout``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiEnableAuthCalloutRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **authCalloutEnableRequest** | [**AuthCalloutEnableRequest**](AuthCalloutEnableRequest.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetComponentToken
+
+> PlatformComponentTokenViewResponse GetComponentToken(ctx, systemId, id).Execute()
+
+Get a component access token
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+    id := "id_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetComponentToken(context.Background(), systemId, id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetComponentToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetComponentToken`: PlatformComponentTokenViewResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetComponentToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetComponentTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**PlatformComponentTokenViewResponse**](PlatformComponentTokenViewResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetCurrentAgentToken
 
 > AgentTokenCurrentResponse GetCurrentAgentToken(ctx, systemId).Execute()
@@ -592,6 +812,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AlertRuleViewResponse**](AlertRuleViewResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSystemExport
+
+> SystemExportResponse GetSystemExport(ctx, systemId).Execute()
+
+Export System Seeds
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetSystemExport(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemExport``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemExport`: SystemExportResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemExport`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemExportRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SystemExportResponse**](SystemExportResponse.md)
 
 ### Authorization
 
@@ -1099,6 +1389,146 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListAuthCalloutAuthenticators
+
+> AuthCalloutAuthenticatorsListResponse ListAuthCalloutAuthenticators(ctx, systemId).Execute()
+
+Get List of Available Authenticators
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.ListAuthCalloutAuthenticators(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListAuthCalloutAuthenticators``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAuthCalloutAuthenticators`: AuthCalloutAuthenticatorsListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListAuthCalloutAuthenticators`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAuthCalloutAuthenticatorsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AuthCalloutAuthenticatorsListResponse**](AuthCalloutAuthenticatorsListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAuthCalloutConfigs
+
+> AuthCalloutConfigListResponse ListAuthCalloutConfigs(ctx, systemId).Execute()
+
+List Auth Callout Configs
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.ListAuthCalloutConfigs(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListAuthCalloutConfigs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAuthCalloutConfigs`: AuthCalloutConfigListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListAuthCalloutConfigs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAuthCalloutConfigsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AuthCalloutConfigListResponse**](AuthCalloutConfigListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListClusters
 
 > NatsClusterListResponse ListClusters(ctx, systemId).Execute()
@@ -1395,7 +1825,7 @@ Name | Type | Description  | Notes
 
 ## ListSystemInfoAccounts
 
-> AccountSearchListResponse ListSystemInfoAccounts(ctx, systemId).Execute()
+> AccountInfoListResponse ListSystemInfoAccounts(ctx, systemId).Execute()
 
 List System Accounts Info
 
@@ -1423,7 +1853,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListSystemInfoAccounts``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListSystemInfoAccounts`: AccountSearchListResponse
+    // response from `ListSystemInfoAccounts`: AccountInfoListResponse
     fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListSystemInfoAccounts`: %v\n", resp)
 }
 ```
@@ -1447,7 +1877,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountSearchListResponse**](AccountSearchListResponse.md)
+[**AccountInfoListResponse**](AccountInfoListResponse.md)
 
 ### Authorization
 
@@ -1955,6 +2385,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## UpdatePlatformComponents
+
+> UpdatePlatformComponents(ctx, systemId).PlatformComponentsUpdateRequest(platformComponentsUpdateRequest).Execute()
+
+Update Platform Components for System
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+    platformComponentsUpdateRequest := *openapiclient.NewPlatformComponentsUpdateRequest(false, openapiclient.PlatformComponentType("http_gateway")) // PlatformComponentsUpdateRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.SystemAPI.UpdatePlatformComponents(context.Background(), systemId).PlatformComponentsUpdateRequest(platformComponentsUpdateRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.UpdatePlatformComponents``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdatePlatformComponentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **platformComponentsUpdateRequest** | [**PlatformComponentsUpdateRequest**](PlatformComponentsUpdateRequest.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UpdateSystem
 
 > SystemViewResponse UpdateSystem(ctx, systemId).TestConnection(testConnection).SystemUpdateRequest(systemUpdateRequest).Execute()
@@ -1977,7 +2477,7 @@ import (
 
 func main() {
     systemId := "systemId_example" // string | 
-    testConnection := true // bool |  (optional)
+    testConnection := true // bool | To test the backend connection without updating the system, pass test_connection=true in query parameter. (optional)
     systemUpdateRequest := *openapiclient.NewSystemUpdateRequest() // SystemUpdateRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -2008,7 +2508,7 @@ Other parameters are passed through a pointer to a apiUpdateSystemRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **testConnection** | **bool** |  | 
+ **testConnection** | **bool** | To test the backend connection without updating the system, pass test_connection&#x3D;true in query parameter. | 
  **systemUpdateRequest** | [**SystemUpdateRequest**](SystemUpdateRequest.md) |  | 
 
 ### Return type

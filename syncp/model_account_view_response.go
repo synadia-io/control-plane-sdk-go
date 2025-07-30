@@ -22,8 +22,11 @@ type AccountViewResponse struct {
 	AccountPublicKey     string             `json:"account_public_key"`
 	Claims               AccountClaims      `json:"claims"`
 	ClaimsInfo           AccountClaimsInfo  `json:"claims_info"`
+	Connectors           bool               `json:"connectors"`
+	ConnectorsLogStream  *string            `json:"connectors_log_stream,omitempty"`
 	Created              time.Time          `json:"created"`
 	Id                   string             `json:"id"`
+	IsPlatformAccount    bool               `json:"is_platform_account"`
 	IsScpAccount         bool               `json:"is_scp_account"`
 	IsSystemAccount      bool               `json:"is_system_account"`
 	Jwt                  string             `json:"jwt"`
@@ -35,6 +38,8 @@ type AccountViewResponse struct {
 	System               SystemInfo         `json:"system"`
 	Team                 TeamInfo           `json:"team"`
 	UserJwtExpiresInSecs int64              `json:"user_jwt_expires_in_secs"`
+	Workloads            bool               `json:"workloads"`
+	WorkloadsLogStream   *string            `json:"workloads_log_stream,omitempty"`
 }
 
 func (o AccountViewResponse) ToMap() (map[string]interface{}, error) {
@@ -42,8 +47,13 @@ func (o AccountViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["account_public_key"] = o.AccountPublicKey
 	toSerialize["claims"] = o.Claims
 	toSerialize["claims_info"] = o.ClaimsInfo
+	toSerialize["connectors"] = o.Connectors
+	if o.ConnectorsLogStream != nil {
+		toSerialize["connectors_log_stream"] = o.ConnectorsLogStream
+	}
 	toSerialize["created"] = o.Created
 	toSerialize["id"] = o.Id
+	toSerialize["is_platform_account"] = o.IsPlatformAccount
 	toSerialize["is_scp_account"] = o.IsScpAccount
 	toSerialize["is_system_account"] = o.IsSystemAccount
 	toSerialize["jwt"] = o.Jwt
@@ -55,5 +65,9 @@ func (o AccountViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["system"] = o.System
 	toSerialize["team"] = o.Team
 	toSerialize["user_jwt_expires_in_secs"] = o.UserJwtExpiresInSecs
+	toSerialize["workloads"] = o.Workloads
+	if o.WorkloadsLogStream != nil {
+		toSerialize["workloads_log_stream"] = o.WorkloadsLogStream
+	}
 	return toSerialize, nil
 }

@@ -278,6 +278,21 @@ type AccountAPI interface {
 	GetAccountExecute(r ApiGetAccountRequest) (*AccountViewResponse, *http.Response, error)
 
 	/*
+		GetAccountExport Export Account Seeds
+
+		Export Account Seeds
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId
+		@return ApiGetAccountExportRequest
+	*/
+	GetAccountExport(ctx context.Context, accountId string) ApiGetAccountExportRequest
+
+	// GetAccountExportExecute executes the request
+	//  @return AccountExportResponse
+	GetAccountExportExecute(r ApiGetAccountExportRequest) (*AccountExportResponse, *http.Response, error)
+
+	/*
 		GetAccountInfo Get Account Info
 
 		Returns Account info
@@ -595,6 +610,27 @@ type AccountAPI interface {
 	ListUsersExecute(r ApiListUsersRequest) (*NatsUserListResponse, *http.Response, error)
 
 	/*
+			NatsCoreWebsocketViewer Subscribe to a NATS Core subject over websockets
+
+			This endpoint enables connection to NATS over WebSocket using account credentials.
+
+		It generates a user JWT from the account signing key and acts as a proxy to establish a connection with the first NATS server defined in a System.
+		Options specified in the CONNECT request from client take priority, so the caller should avoid including authentication information in CONNECT to leverage automatic JWT injection.
+
+		As a proxy, direct connection to NATS servers may be unavailable for the caller.
+		Hence, it's advised to disregard all server update messages.
+		In nats.ws, achieve this by setting 'ignoreClusterUpdates' to true.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param accountId
+			@return ApiNatsCoreWebsocketViewerRequest
+	*/
+	NatsCoreWebsocketViewer(ctx context.Context, accountId string) ApiNatsCoreWebsocketViewerRequest
+
+	// NatsCoreWebsocketViewerExecute executes the request
+	NatsCoreWebsocketViewerExecute(r ApiNatsCoreWebsocketViewerRequest) (*http.Response, error)
+
+	/*
 		RunAlertRule Run Account Alert Rule
 
 		Run Account Alert Rule and return an alert object if the rule condition is met
@@ -726,7 +762,7 @@ func (a *AccountAPIService) AssignAccountTeamAppUserExecute(r ApiAssignAccountTe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/app-users/{teamAppUserId}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
@@ -841,7 +877,7 @@ func (a *AccountAPIService) CreateAccountSkGroupExecute(r ApiCreateAccountSkGrou
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/account-sk-groups"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/account-sk-groups"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -955,7 +991,7 @@ func (a *AccountAPIService) CreateAlertRuleExecute(r ApiCreateAlertRuleRequest) 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/alert-rules"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/alert-rules"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1069,7 +1105,7 @@ func (a *AccountAPIService) CreateKvBucketExecute(r ApiCreateKvBucketRequest) (*
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/kv-buckets"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream/kv-buckets"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1183,7 +1219,7 @@ func (a *AccountAPIService) CreateMirrorExecute(r ApiCreateMirrorRequest) (*JSMi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/mirrors"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream/mirrors"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1297,7 +1333,7 @@ func (a *AccountAPIService) CreateObjectBucketExecute(r ApiCreateObjectBucketReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/object-buckets"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream/object-buckets"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1414,7 +1450,7 @@ func (a *AccountAPIService) CreateOrUpdateNatsUserRevocationExecute(r ApiCreateO
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"userNkeyPublic"+"}", url.PathEscape(parameterValueToString(r.userNkeyPublic, "userNkeyPublic")), -1)
 
@@ -1529,7 +1565,7 @@ func (a *AccountAPIService) CreateStreamExecute(r ApiCreateStreamRequest) (*JSSt
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/streams"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream/streams"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1643,7 +1679,7 @@ func (a *AccountAPIService) CreateStreamExportExecute(r ApiCreateStreamExportReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/stream-exports"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/stream-exports"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1757,7 +1793,7 @@ func (a *AccountAPIService) CreateStreamImportExecute(r ApiCreateStreamImportReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/stream-imports"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/stream-imports"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1871,7 +1907,7 @@ func (a *AccountAPIService) CreateSubjectExportExecute(r ApiCreateSubjectExportR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/subject-exports"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/subject-exports"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1985,7 +2021,7 @@ func (a *AccountAPIService) CreateSubjectImportExecute(r ApiCreateSubjectImportR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/subject-imports"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/subject-imports"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2099,7 +2135,7 @@ func (a *AccountAPIService) CreateUserExecute(r ApiCreateUserRequest) (*NatsUser
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/nats-users"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/nats-users"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2204,7 +2240,7 @@ func (a *AccountAPIService) DeleteAccountExecute(r ApiDeleteAccountRequest) (*ht
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2300,7 +2336,7 @@ func (a *AccountAPIService) DeleteAlertRuleExecute(r ApiDeleteAlertRuleRequest) 
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/alert-rules/{alertRuleId}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/alert-rules/{alertRuleId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"alertRuleId"+"}", url.PathEscape(parameterValueToString(r.alertRuleId, "alertRuleId")), -1)
 
@@ -2397,7 +2433,7 @@ func (a *AccountAPIService) DeleteNatsUserRevocationExecute(r ApiDeleteNatsUserR
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"userNkeyPublic"+"}", url.PathEscape(parameterValueToString(r.userNkeyPublic, "userNkeyPublic")), -1)
 
@@ -2494,7 +2530,113 @@ func (a *AccountAPIService) GetAccountExecute(r ApiGetAccountRequest) (*AccountV
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetAccountExportRequest struct {
+	ctx        context.Context
+	ApiService AccountAPI
+	accountId  string
+}
+
+func (r ApiGetAccountExportRequest) Execute() (*AccountExportResponse, *http.Response, error) {
+	return r.ApiService.GetAccountExportExecute(r)
+}
+
+/*
+GetAccountExport Export Account Seeds
+
+Export Account Seeds
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId
+	@return ApiGetAccountExportRequest
+*/
+func (a *AccountAPIService) GetAccountExport(ctx context.Context, accountId string) ApiGetAccountExportRequest {
+	return ApiGetAccountExportRequest{
+		ApiService: a,
+		ctx:        ctx,
+		accountId:  accountId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AccountExportResponse
+func (a *AccountAPIService) GetAccountExportExecute(r ApiGetAccountExportRequest) (*AccountExportResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountExportResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.GetAccountExport")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/export"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2600,7 +2742,7 @@ func (a *AccountAPIService) GetAccountInfoExecute(r ApiGetAccountInfoRequest) (*
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/info"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/info"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2706,7 +2848,7 @@ func (a *AccountAPIService) GetAccountMetricsExecute(r ApiGetAccountMetricsReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/metrics"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/metrics"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2815,7 +2957,7 @@ func (a *AccountAPIService) GetAlertRuleExecute(r ApiGetAlertRuleRequest) (*Aler
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/alert-rules/{alertRuleId}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/alert-rules/{alertRuleId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"alertRuleId"+"}", url.PathEscape(parameterValueToString(r.alertRuleId, "alertRuleId")), -1)
 
@@ -2922,7 +3064,7 @@ func (a *AccountAPIService) GetJetStreamPlacementOptionsExecute(r ApiGetJetStrea
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/placement-options"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream/placement-options"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3031,7 +3173,7 @@ func (a *AccountAPIService) GetNatsUserRevocationExecute(r ApiGetNatsUserRevocat
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"userNkeyPublic"+"}", url.PathEscape(parameterValueToString(r.userNkeyPublic, "userNkeyPublic")), -1)
 
@@ -3174,7 +3316,7 @@ func (a *AccountAPIService) ListAccountConnectionsExecute(r ApiListAccountConnec
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/connections"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/connections"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3298,7 +3440,7 @@ func (a *AccountAPIService) ListAccountSkGroupExecute(r ApiListAccountSkGroupReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/account-sk-groups"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/account-sk-groups"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3404,7 +3546,7 @@ func (a *AccountAPIService) ListAccountTeamAppUsersExecute(r ApiListAccountTeamA
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/app-users"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/app-users"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3510,7 +3652,7 @@ func (a *AccountAPIService) ListAlertRulesExecute(r ApiListAlertRulesRequest) (*
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/alert-rules"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/alert-rules"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3616,7 +3758,7 @@ func (a *AccountAPIService) ListJetStreamAssetsExecute(r ApiListJetStreamAssetsR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3722,7 +3864,7 @@ func (a *AccountAPIService) ListKvBucketsExecute(r ApiListKvBucketsRequest) (*JS
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/kv-buckets"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream/kv-buckets"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3828,7 +3970,7 @@ func (a *AccountAPIService) ListMirrorsExecute(r ApiListMirrorsRequest) (*JSMirr
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/mirrors"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream/mirrors"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3934,7 +4076,7 @@ func (a *AccountAPIService) ListObjectBucketsExecute(r ApiListObjectBucketsReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/object-buckets"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream/object-buckets"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4040,7 +4182,7 @@ func (a *AccountAPIService) ListStreamExportsExecute(r ApiListStreamExportsReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/stream-exports"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/stream-exports"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4146,7 +4288,7 @@ func (a *AccountAPIService) ListStreamExportsSharedExecute(r ApiListStreamExport
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/stream-imports/shared"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/stream-imports/shared"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4252,7 +4394,7 @@ func (a *AccountAPIService) ListStreamImportsExecute(r ApiListStreamImportsReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/stream-imports"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/stream-imports"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4358,7 +4500,7 @@ func (a *AccountAPIService) ListStreamsExecute(r ApiListStreamsRequest) (*JSStre
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/jetstream/streams"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/jetstream/streams"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4464,7 +4606,7 @@ func (a *AccountAPIService) ListSubjectExportsExecute(r ApiListSubjectExportsReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/subject-exports"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/subject-exports"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4570,7 +4712,7 @@ func (a *AccountAPIService) ListSubjectExportsSharedExecute(r ApiListSubjectExpo
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/subject-imports/shared"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/subject-imports/shared"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4676,7 +4818,7 @@ func (a *AccountAPIService) ListSubjectImportsExecute(r ApiListSubjectImportsReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/subject-imports"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/subject-imports"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4782,7 +4924,7 @@ func (a *AccountAPIService) ListUsersExecute(r ApiListUsersRequest) (*NatsUserLi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/nats-users"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/nats-users"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -4845,6 +4987,116 @@ func (a *AccountAPIService) ListUsersExecute(r ApiListUsersRequest) (*NatsUserLi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiNatsCoreWebsocketViewerRequest struct {
+	ctx        context.Context
+	ApiService AccountAPI
+	accountId  string
+	subject    *string
+}
+
+func (r ApiNatsCoreWebsocketViewerRequest) Subject(subject string) ApiNatsCoreWebsocketViewerRequest {
+	r.subject = &subject
+	return r
+}
+
+func (r ApiNatsCoreWebsocketViewerRequest) Execute() (*http.Response, error) {
+	return r.ApiService.NatsCoreWebsocketViewerExecute(r)
+}
+
+/*
+NatsCoreWebsocketViewer Subscribe to a NATS Core subject over websockets
+
+This endpoint enables connection to NATS over WebSocket using account credentials.
+
+It generates a user JWT from the account signing key and acts as a proxy to establish a connection with the first NATS server defined in a System.
+Options specified in the CONNECT request from client take priority, so the caller should avoid including authentication information in CONNECT to leverage automatic JWT injection.
+
+As a proxy, direct connection to NATS servers may be unavailable for the caller.
+Hence, it's advised to disregard all server update messages.
+In nats.ws, achieve this by setting 'ignoreClusterUpdates' to true.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId
+	@return ApiNatsCoreWebsocketViewerRequest
+*/
+func (a *AccountAPIService) NatsCoreWebsocketViewer(ctx context.Context, accountId string) ApiNatsCoreWebsocketViewerRequest {
+	return ApiNatsCoreWebsocketViewerRequest{
+		ApiService: a,
+		ctx:        ctx,
+		accountId:  accountId,
+	}
+}
+
+// Execute executes the request
+func (a *AccountAPIService) NatsCoreWebsocketViewerExecute(r ApiNatsCoreWebsocketViewerRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.NatsCoreWebsocketViewer")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/nats-core/websocket/view"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.subject == nil {
+		return nil, reportError("subject is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "subject", r.subject, "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiRunAlertRuleRequest struct {
 	ctx         context.Context
 	ApiService  AccountAPI
@@ -4891,7 +5143,7 @@ func (a *AccountAPIService) RunAlertRuleExecute(r ApiRunAlertRuleRequest) (*Aler
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/alert-rules/{alertRuleId}/run"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/alert-rules/{alertRuleId}/run"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"alertRuleId"+"}", url.PathEscape(parameterValueToString(r.alertRuleId, "alertRuleId")), -1)
 
@@ -4998,7 +5250,7 @@ func (a *AccountAPIService) UnAssignAccountTeamAppUserExecute(r ApiUnAssignAccou
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/app-users/{teamAppUserId}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/app-users/{teamAppUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"teamAppUserId"+"}", url.PathEscape(parameterValueToString(r.teamAppUserId, "teamAppUserId")), -1)
 
@@ -5092,7 +5344,7 @@ func (a *AccountAPIService) UnmanageAccountExecute(r ApiUnmanageAccountRequest) 
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/unmanage"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/unmanage"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -5194,7 +5446,7 @@ func (a *AccountAPIService) UpdateAccountExecute(r ApiUpdateAccountRequest) (*Ac
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -5311,7 +5563,7 @@ func (a *AccountAPIService) UpdateAlertRuleExecute(r ApiUpdateAlertRuleRequest) 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountId}/alert-rules/{alertRuleId}"
+	localVarPath := localBasePath + "/core/beta/accounts/{accountId}/alert-rules/{alertRuleId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"alertRuleId"+"}", url.PathEscape(parameterValueToString(r.alertRuleId, "alertRuleId")), -1)
 

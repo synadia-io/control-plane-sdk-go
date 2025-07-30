@@ -109,7 +109,7 @@ func (a *SubjectImportAPIService) DeleteSubjectImportExecute(r ApiDeleteSubjectI
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subject-imports/{subjectImportId}"
+	localVarPath := localBasePath + "/core/beta/subject-imports/{subjectImportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"subjectImportId"+"}", url.PathEscape(parameterValueToString(r.subjectImportId, "subjectImportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -205,7 +205,7 @@ func (a *SubjectImportAPIService) GetSubjectImportExecute(r ApiGetSubjectImportR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subject-imports/{subjectImportId}"
+	localVarPath := localBasePath + "/core/beta/subject-imports/{subjectImportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"subjectImportId"+"}", url.PathEscape(parameterValueToString(r.subjectImportId, "subjectImportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -317,7 +317,7 @@ func (a *SubjectImportAPIService) UpdateSubjectImportExecute(r ApiUpdateSubjectI
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subject-imports/{subjectImportId}"
+	localVarPath := localBasePath + "/core/beta/subject-imports/{subjectImportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"subjectImportId"+"}", url.PathEscape(parameterValueToString(r.subjectImportId, "subjectImportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

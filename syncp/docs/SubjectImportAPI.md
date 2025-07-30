@@ -1,12 +1,12 @@
 # \SubjectImportAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteSubjectImport**](SubjectImportAPI.md#DeleteSubjectImport) | **Delete** /subject-imports/{subjectImportId} | Delete Subject Import
-[**GetSubjectImport**](SubjectImportAPI.md#GetSubjectImport) | **Get** /subject-imports/{subjectImportId} | Get Subject Import
-[**UpdateSubjectImport**](SubjectImportAPI.md#UpdateSubjectImport) | **Patch** /subject-imports/{subjectImportId} | Update Subject Import
+[**DeleteSubjectImport**](SubjectImportAPI.md#DeleteSubjectImport) | **Delete** /core/beta/subject-imports/{subjectImportId} | Delete Subject Import
+[**GetSubjectImport**](SubjectImportAPI.md#GetSubjectImport) | **Get** /core/beta/subject-imports/{subjectImportId} | Get Subject Import
+[**UpdateSubjectImport**](SubjectImportAPI.md#UpdateSubjectImport) | **Patch** /core/beta/subject-imports/{subjectImportId} | Update Subject Import
 
 
 

@@ -15,14 +15,18 @@ var _ MappedNullable = &TeamLimits{}
 
 // TeamLimits struct for TeamLimits
 type TeamLimits struct {
-	DisablePrometheusFederation bool            `json:"disable_prometheus_federation"`
-	NumSystems                  Nullable[int64] `json:"num_systems"`
-	NumUsers                    Nullable[int64] `json:"num_users"`
+	DisablePrometheusFederation bool                  `json:"disable_prometheus_federation"`
+	NumSdkube                   Nullable[SDKubeLimit] `json:"num_sdkube"`
+	NumSystems                  Nullable[int64]       `json:"num_systems"`
+	NumUsers                    Nullable[int64]       `json:"num_users"`
 }
 
 func (o TeamLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["disable_prometheus_federation"] = o.DisablePrometheusFederation
+	if !o.NumSdkube.IsNull() {
+		toSerialize["num_sdkube"] = o.NumSdkube.Val
+	}
 	if !o.NumSystems.IsNull() {
 		toSerialize["num_systems"] = o.NumSystems.Val
 	}

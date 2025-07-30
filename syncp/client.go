@@ -50,6 +50,8 @@ type APIClient struct {
 
 	AccountAPI AccountAPI
 
+	AdminAPI AdminAPI
+
 	AgentTokenAPI AgentTokenAPI
 
 	AlertAPI AlertAPI
@@ -60,7 +62,11 @@ type APIClient struct {
 
 	AppUserAPI AppUserAPI
 
+	AuthCalloutAPI AuthCalloutAPI
+
 	AuthzAPI AuthzAPI
+
+	ComponentVersionsAPI ComponentVersionsAPI
 
 	IssuanceAPI IssuanceAPI
 
@@ -72,7 +78,11 @@ type APIClient struct {
 
 	ObjectBucketAPI ObjectBucketAPI
 
+	OidcProviderAPI OidcProviderAPI
+
 	PersonalAccessTokenAPI PersonalAccessTokenAPI
+
+	PlatformComponentsAPI PlatformComponentsAPI
 
 	PullConsumerAPI PullConsumerAPI
 
@@ -101,6 +111,8 @@ type APIClient struct {
 	TeamServiceAccountAPI TeamServiceAccountAPI
 
 	TeamServiceAccountTokensAPI TeamServiceAccountTokensAPI
+
+	WorkloadsAPI WorkloadsAPI
 }
 
 type service struct {
@@ -120,18 +132,23 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.AccountAPI = (*AccountAPIService)(&c.common)
+	c.AdminAPI = (*AdminAPIService)(&c.common)
 	c.AgentTokenAPI = (*AgentTokenAPIService)(&c.common)
 	c.AlertAPI = (*AlertAPIService)(&c.common)
 	c.AppServiceAccountAPI = (*AppServiceAccountAPIService)(&c.common)
 	c.AppServiceAccountTokensAPI = (*AppServiceAccountTokensAPIService)(&c.common)
 	c.AppUserAPI = (*AppUserAPIService)(&c.common)
+	c.AuthCalloutAPI = (*AuthCalloutAPIService)(&c.common)
 	c.AuthzAPI = (*AuthzAPIService)(&c.common)
+	c.ComponentVersionsAPI = (*ComponentVersionsAPIService)(&c.common)
 	c.IssuanceAPI = (*IssuanceAPIService)(&c.common)
 	c.KvBucketAPI = (*KvBucketAPIService)(&c.common)
 	c.MirrorAPI = (*MirrorAPIService)(&c.common)
 	c.NatsUserAPI = (*NatsUserAPIService)(&c.common)
 	c.ObjectBucketAPI = (*ObjectBucketAPIService)(&c.common)
+	c.OidcProviderAPI = (*OidcProviderAPIService)(&c.common)
 	c.PersonalAccessTokenAPI = (*PersonalAccessTokenAPIService)(&c.common)
+	c.PlatformComponentsAPI = (*PlatformComponentsAPIService)(&c.common)
 	c.PullConsumerAPI = (*PullConsumerAPIService)(&c.common)
 	c.PushConsumerAPI = (*PushConsumerAPIService)(&c.common)
 	c.SessionAPI = (*SessionAPIService)(&c.common)
@@ -146,6 +163,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.TeamAPI = (*TeamAPIService)(&c.common)
 	c.TeamServiceAccountAPI = (*TeamServiceAccountAPIService)(&c.common)
 	c.TeamServiceAccountTokensAPI = (*TeamServiceAccountTokensAPIService)(&c.common)
+	c.WorkloadsAPI = (*WorkloadsAPIService)(&c.common)
 
 	return c
 }

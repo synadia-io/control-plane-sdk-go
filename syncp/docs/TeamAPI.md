@@ -1,26 +1,24 @@
 # \TeamAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSystem**](TeamAPI.md#CreateSystem) | **Post** /teams/{teamId}/systems | Create System
-[**CreateTeamServiceAccount**](TeamAPI.md#CreateTeamServiceAccount) | **Post** /teams/{teamId}/service-accounts | Create Team Service Account
-[**DeleteTeam**](TeamAPI.md#DeleteTeam) | **Delete** /teams/{teamId} | Delete Team
-[**GetTeam**](TeamAPI.md#GetTeam) | **Get** /teams/{teamId} | Get Team
-[**GetTeamLimits**](TeamAPI.md#GetTeamLimits) | **Get** /teams/{teamId}/team-limits | Get Team Limits
-[**ImportSystem**](TeamAPI.md#ImportSystem) | **Post** /teams/{teamId}/import-system | Import a System
-[**InviteAppUser**](TeamAPI.md#InviteAppUser) | **Post** /teams/{teamId}/app-users/invitations | Invite App Users
-[**LeaveTeam**](TeamAPI.md#LeaveTeam) | **Post** /teams/{teamId}/app-users/leave | Leave Team
-[**ListTeamAccounts**](TeamAPI.md#ListTeamAccounts) | **Get** /teams/{teamId}/accounts | List Accounts
-[**ListTeamAppUsers**](TeamAPI.md#ListTeamAppUsers) | **Get** /teams/{teamId}/app-users | List App Users
-[**ListTeamInfoAppUsers**](TeamAPI.md#ListTeamInfoAppUsers) | **Get** /teams/{teamId}/info/app-users | List info of App Users in Team
-[**ListTeamNatsUsers**](TeamAPI.md#ListTeamNatsUsers) | **Get** /teams/{teamId}/nats-users | List NATS Users
-[**ListTeamServiceAccounts**](TeamAPI.md#ListTeamServiceAccounts) | **Get** /teams/{teamId}/service-accounts | List Team Service Accounts
-[**ListTeamSystems**](TeamAPI.md#ListTeamSystems) | **Get** /teams/{teamId}/systems | List Systems
-[**UnAssignTeamAppUser**](TeamAPI.md#UnAssignTeamAppUser) | **Delete** /teams/{teamId}/app-users/{appUserId} | Unassign App User from Team
-[**UpdateTeam**](TeamAPI.md#UpdateTeam) | **Patch** /teams/{teamId} | Update Team
-[**UpdateTeamAppUser**](TeamAPI.md#UpdateTeamAppUser) | **Patch** /teams/{teamId}/app-users/{appUserId} | Update App User Team Assignment
+[**CreateSystem**](TeamAPI.md#CreateSystem) | **Post** /core/beta/teams/{teamId}/systems | Create System
+[**CreateTeamServiceAccount**](TeamAPI.md#CreateTeamServiceAccount) | **Post** /core/beta/teams/{teamId}/service-accounts | Create Team Service Account
+[**DeleteTeam**](TeamAPI.md#DeleteTeam) | **Delete** /core/beta/teams/{teamId} | Delete Team
+[**GetTeam**](TeamAPI.md#GetTeam) | **Get** /core/beta/teams/{teamId} | Get Team
+[**GetTeamLimits**](TeamAPI.md#GetTeamLimits) | **Get** /core/beta/teams/{teamId}/team-limits | Get Team Limits
+[**ImportSystem**](TeamAPI.md#ImportSystem) | **Post** /core/beta/teams/{teamId}/import-system | Import a System
+[**InviteAppUser**](TeamAPI.md#InviteAppUser) | **Post** /core/beta/teams/{teamId}/app-users/invitations | Invite App Users
+[**LeaveTeam**](TeamAPI.md#LeaveTeam) | **Post** /core/beta/teams/{teamId}/app-users/leave | Leave Team
+[**ListTeamAppUsers**](TeamAPI.md#ListTeamAppUsers) | **Get** /core/beta/teams/{teamId}/app-users | List App Users
+[**ListTeamInfoAppUsers**](TeamAPI.md#ListTeamInfoAppUsers) | **Get** /core/beta/teams/{teamId}/info/app-users | List info of App Users in Team
+[**ListTeamServiceAccounts**](TeamAPI.md#ListTeamServiceAccounts) | **Get** /core/beta/teams/{teamId}/service-accounts | List Team Service Accounts
+[**ListTeamSystems**](TeamAPI.md#ListTeamSystems) | **Get** /core/beta/teams/{teamId}/systems | List Systems
+[**UnAssignTeamAppUser**](TeamAPI.md#UnAssignTeamAppUser) | **Delete** /core/beta/teams/{teamId}/app-users/{appUserId} | Unassign App User from Team
+[**UpdateTeam**](TeamAPI.md#UpdateTeam) | **Patch** /core/beta/teams/{teamId} | Update Team
+[**UpdateTeamAppUser**](TeamAPI.md#UpdateTeamAppUser) | **Patch** /core/beta/teams/{teamId}/app-users/{appUserId} | Update App User Team Assignment
 
 
 
@@ -588,76 +586,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ListTeamAccounts
-
-> AccountListResponse ListTeamAccounts(ctx, teamId).Execute()
-
-List Accounts
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    teamId := "teamId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TeamAPI.ListTeamAccounts(context.Background(), teamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.ListTeamAccounts``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListTeamAccounts`: AccountListResponse
-    fmt.Fprintf(os.Stdout, "Response from `TeamAPI.ListTeamAccounts`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**teamId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListTeamAccountsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**AccountListResponse**](AccountListResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListTeamAppUsers
 
 > AppUserAssignListResponse ListTeamAppUsers(ctx, teamId).Execute()
@@ -783,76 +711,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TeamAppUserListResponse**](TeamAppUserListResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListTeamNatsUsers
-
-> NatsUserListResponse ListTeamNatsUsers(ctx, teamId).Execute()
-
-List NATS Users
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-    teamId := "teamId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TeamAPI.ListTeamNatsUsers(context.Background(), teamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TeamAPI.ListTeamNatsUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListTeamNatsUsers`: NatsUserListResponse
-    fmt.Fprintf(os.Stdout, "Response from `TeamAPI.ListTeamNatsUsers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**teamId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListTeamNatsUsersRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**NatsUserListResponse**](NatsUserListResponse.md)
 
 ### Authorization
 

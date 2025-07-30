@@ -17,10 +17,11 @@ var _ MappedNullable = &SystemUpdateRequest{}
 type SystemUpdateRequest struct {
 	ConnectionType       *SystemConnectionType                      `json:"connection_type,omitempty"`
 	DirectConnectionOpts *Nullable[SystemDirectConnectionOptsPatch] `json:"direct_connection_opts,omitempty"`
-	HttpGatewayConfig    *Nullable[HTTPGatewayConfigPatch]          `json:"http_gateway_config,omitempty"`
 	JetstreamDomain      *Nullable[string]                          `json:"jetstream_domain,omitempty"`
 	JetstreamEnabled     *bool                                      `json:"jetstream_enabled,omitempty"`
+	LogForwardingOpts    *Nullable[SystemLogForwardingOptsPatch]    `json:"log_forwarding_opts,omitempty"`
 	Name                 *string                                    `json:"name,omitempty"`
+	NatsAlertingConfig   *Nullable[NatsAlertingConfigPatch]         `json:"nats_alerting_config,omitempty"`
 	OperatorJwt          *string                                    `json:"operator_jwt,omitempty"`
 	Url                  *string                                    `json:"url,omitempty"`
 }
@@ -33,17 +34,20 @@ func (o SystemUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if o.DirectConnectionOpts != nil && !o.DirectConnectionOpts.IsNull() {
 		toSerialize["direct_connection_opts"] = o.DirectConnectionOpts.Val
 	}
-	if o.HttpGatewayConfig != nil && !o.HttpGatewayConfig.IsNull() {
-		toSerialize["http_gateway_config"] = o.HttpGatewayConfig.Val
-	}
 	if o.JetstreamDomain != nil && !o.JetstreamDomain.IsNull() {
 		toSerialize["jetstream_domain"] = o.JetstreamDomain.Val
 	}
 	if o.JetstreamEnabled != nil {
 		toSerialize["jetstream_enabled"] = o.JetstreamEnabled
 	}
+	if o.LogForwardingOpts != nil && !o.LogForwardingOpts.IsNull() {
+		toSerialize["log_forwarding_opts"] = o.LogForwardingOpts.Val
+	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
+	}
+	if o.NatsAlertingConfig != nil && !o.NatsAlertingConfig.IsNull() {
+		toSerialize["nats_alerting_config"] = o.NatsAlertingConfig.Val
 	}
 	if o.OperatorJwt != nil {
 		toSerialize["operator_jwt"] = o.OperatorJwt

@@ -7,8 +7,11 @@ Name | Type | Description | Notes
 **AccountPublicKey** | **string** |  | 
 **Claims** | [**AccountClaims**](AccountClaims.md) |  | 
 **ClaimsInfo** | [**AccountClaimsInfo**](AccountClaimsInfo.md) |  | 
+**Connectors** | **bool** |  | 
+**ConnectorsLogStream** | Pointer to **string** |  | [optional] 
 **Created** | **time.Time** |  | 
 **Id** | **string** |  | 
+**IsPlatformAccount** | **bool** |  | 
 **IsScpAccount** | **bool** |  | 
 **IsSystemAccount** | **bool** |  | 
 **Jwt** | **string** |  | 
@@ -20,6 +23,8 @@ Name | Type | Description | Notes
 **System** | [**SystemInfo**](SystemInfo.md) |  | 
 **Team** | [**TeamInfo**](TeamInfo.md) |  | 
 **UserJwtExpiresInSecs** | **int64** |  | 
+**Workloads** | **bool** |  | 
+**WorkloadsLogStream** | Pointer to **string** |  | [optional] 
 
 ## Methods
 

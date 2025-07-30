@@ -1,14 +1,14 @@
 # \TeamServiceAccountAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTeamServiceAccountToken**](TeamServiceAccountAPI.md#CreateTeamServiceAccountToken) | **Post** /service-accounts/team/{serviceAccountId}/tokens | Create Acess Token for Team Service Account
-[**DeleteTeamServiceAccount**](TeamServiceAccountAPI.md#DeleteTeamServiceAccount) | **Delete** /service-accounts/team/{serviceAccountId} | Delete Team Service Account
-[**GetTeamServiceAccount**](TeamServiceAccountAPI.md#GetTeamServiceAccount) | **Get** /service-accounts/team/{serviceAccountId} | Get Team Service Account
-[**ListTeamServiceAccountTokens**](TeamServiceAccountAPI.md#ListTeamServiceAccountTokens) | **Get** /service-accounts/team/{serviceAccountId}/tokens | List Access Tokens for Team Service Account
-[**UpdateTeamServiceAccount**](TeamServiceAccountAPI.md#UpdateTeamServiceAccount) | **Patch** /service-accounts/team/{serviceAccountId} | Update Team Service Account
+[**CreateTeamServiceAccountToken**](TeamServiceAccountAPI.md#CreateTeamServiceAccountToken) | **Post** /core/beta/service-accounts/team/{serviceAccountId}/tokens | Create Acess Token for Team Service Account
+[**DeleteTeamServiceAccount**](TeamServiceAccountAPI.md#DeleteTeamServiceAccount) | **Delete** /core/beta/service-accounts/team/{serviceAccountId} | Delete Team Service Account
+[**GetTeamServiceAccount**](TeamServiceAccountAPI.md#GetTeamServiceAccount) | **Get** /core/beta/service-accounts/team/{serviceAccountId} | Get Team Service Account
+[**ListTeamServiceAccountTokens**](TeamServiceAccountAPI.md#ListTeamServiceAccountTokens) | **Get** /core/beta/service-accounts/team/{serviceAccountId}/tokens | List Access Tokens for Team Service Account
+[**UpdateTeamServiceAccount**](TeamServiceAccountAPI.md#UpdateTeamServiceAccount) | **Patch** /core/beta/service-accounts/team/{serviceAccountId} | Update Team Service Account
 
 
 

@@ -79,7 +79,7 @@ func (a *AgentTokenAPIService) DeleteAgentTokenExecute(r ApiDeleteAgentTokenRequ
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/agent-tokens/{tokenId}"
+	localVarPath := localBasePath + "/core/beta/agent-tokens/{tokenId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

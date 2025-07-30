@@ -177,7 +177,7 @@ func (a *ObjectBucketAPIService) CreateObjPullConsumerExecute(r ApiCreateObjPull
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/object-bucket/{streamId}/consumers/pull"
+	localVarPath := localBasePath + "/core/beta/jetstream/object-bucket/{streamId}/consumers/pull"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -291,7 +291,7 @@ func (a *ObjectBucketAPIService) CreateObjPushConsumerExecute(r ApiCreateObjPush
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/object-bucket/{streamId}/consumers/push"
+	localVarPath := localBasePath + "/core/beta/jetstream/object-bucket/{streamId}/consumers/push"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -396,7 +396,7 @@ func (a *ObjectBucketAPIService) DeleteObjectBucketExecute(r ApiDeleteObjectBuck
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/object-bucket/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/object-bucket/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -492,7 +492,7 @@ func (a *ObjectBucketAPIService) GetObjectBucketExecute(r ApiGetObjectBucketRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/object-bucket/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/object-bucket/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -598,7 +598,7 @@ func (a *ObjectBucketAPIService) ListObjConsumersExecute(r ApiListObjConsumersRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/object-bucket/{streamId}/consumers"
+	localVarPath := localBasePath + "/core/beta/jetstream/object-bucket/{streamId}/consumers"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -701,7 +701,7 @@ func (a *ObjectBucketAPIService) PurgeObjBucketExecute(r ApiPurgeObjBucketReques
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/object-bucket/{streamId}/purge"
+	localVarPath := localBasePath + "/core/beta/jetstream/object-bucket/{streamId}/purge"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -803,7 +803,7 @@ func (a *ObjectBucketAPIService) UpdateObjectBucketExecute(r ApiUpdateObjectBuck
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/object-bucket/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/object-bucket/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

@@ -148,7 +148,7 @@ func (a *TeamServiceAccountAPIService) CreateTeamServiceAccountTokenExecute(r Ap
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-accounts/team/{serviceAccountId}/tokens"
+	localVarPath := localBasePath + "/core/beta/service-accounts/team/{serviceAccountId}/tokens"
 	localVarPath = strings.Replace(localVarPath, "{"+"serviceAccountId"+"}", url.PathEscape(parameterValueToString(r.serviceAccountId, "serviceAccountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -253,7 +253,7 @@ func (a *TeamServiceAccountAPIService) DeleteTeamServiceAccountExecute(r ApiDele
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-accounts/team/{serviceAccountId}"
+	localVarPath := localBasePath + "/core/beta/service-accounts/team/{serviceAccountId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"serviceAccountId"+"}", url.PathEscape(parameterValueToString(r.serviceAccountId, "serviceAccountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -349,7 +349,7 @@ func (a *TeamServiceAccountAPIService) GetTeamServiceAccountExecute(r ApiGetTeam
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-accounts/team/{serviceAccountId}"
+	localVarPath := localBasePath + "/core/beta/service-accounts/team/{serviceAccountId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"serviceAccountId"+"}", url.PathEscape(parameterValueToString(r.serviceAccountId, "serviceAccountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -455,7 +455,7 @@ func (a *TeamServiceAccountAPIService) ListTeamServiceAccountTokensExecute(r Api
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-accounts/team/{serviceAccountId}/tokens"
+	localVarPath := localBasePath + "/core/beta/service-accounts/team/{serviceAccountId}/tokens"
 	localVarPath = strings.Replace(localVarPath, "{"+"serviceAccountId"+"}", url.PathEscape(parameterValueToString(r.serviceAccountId, "serviceAccountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -567,7 +567,7 @@ func (a *TeamServiceAccountAPIService) UpdateTeamServiceAccountExecute(r ApiUpda
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-accounts/team/{serviceAccountId}"
+	localVarPath := localBasePath + "/core/beta/service-accounts/team/{serviceAccountId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"serviceAccountId"+"}", url.PathEscape(parameterValueToString(r.serviceAccountId, "serviceAccountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

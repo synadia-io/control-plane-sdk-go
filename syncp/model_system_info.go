@@ -22,6 +22,7 @@ type SystemInfo struct {
 	JetstreamDomain      *string              `json:"jetstream_domain,omitempty"`
 	JetstreamEnabled     bool                 `json:"jetstream_enabled"`
 	JetstreamTiers       []string             `json:"jetstream_tiers,omitempty"`
+	ManagedBy            *SystemManagedBy     `json:"managed_by,omitempty"`
 	Name                 string               `json:"name"`
 	ServerUrls           *string              `json:"server_urls,omitempty"`
 	State                SystemState          `json:"state"`
@@ -42,6 +43,9 @@ func (o SystemInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["jetstream_enabled"] = o.JetstreamEnabled
 	if len(o.JetstreamTiers) != 0 {
 		toSerialize["jetstream_tiers"] = o.JetstreamTiers
+	}
+	if o.ManagedBy != nil {
+		toSerialize["managed_by"] = o.ManagedBy
 	}
 	toSerialize["name"] = o.Name
 	if o.ServerUrls != nil {

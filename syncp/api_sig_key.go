@@ -109,7 +109,7 @@ func (a *SigKeyAPIService) DeleteAccountSkExecute(r ApiDeleteAccountSkRequest) (
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/account-sks/{keyId}"
+	localVarPath := localBasePath + "/core/beta/account-sks/{keyId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"keyId"+"}", url.PathEscape(parameterValueToString(r.keyId, "keyId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -205,7 +205,7 @@ func (a *SigKeyAPIService) GetAccountSkExecute(r ApiGetAccountSkRequest) (*Signi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/account-sks/{keyId}"
+	localVarPath := localBasePath + "/core/beta/account-sks/{keyId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"keyId"+"}", url.PathEscape(parameterValueToString(r.keyId, "keyId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -317,7 +317,7 @@ func (a *SigKeyAPIService) UpdateAccountSkExecute(r ApiUpdateAccountSkRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/account-sks/{keyId}"
+	localVarPath := localBasePath + "/core/beta/account-sks/{keyId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"keyId"+"}", url.PathEscape(parameterValueToString(r.keyId, "keyId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

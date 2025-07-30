@@ -1,12 +1,12 @@
 # \PushConsumerAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeletePushConsumer**](PushConsumerAPI.md#DeletePushConsumer) | **Delete** /consumers/push/{consumerId} | Delete Push Consumer
-[**GetPushConsumerInfo**](PushConsumerAPI.md#GetPushConsumerInfo) | **Get** /consumers/push/{consumerId} | Get Push Consumer
-[**UpdatePushConsumer**](PushConsumerAPI.md#UpdatePushConsumer) | **Patch** /consumers/push/{consumerId} | Update Push Consumer
+[**DeletePushConsumer**](PushConsumerAPI.md#DeletePushConsumer) | **Delete** /core/beta/consumers/push/{consumerId} | Delete Push Consumer
+[**GetPushConsumerInfo**](PushConsumerAPI.md#GetPushConsumerInfo) | **Get** /core/beta/consumers/push/{consumerId} | Get Push Consumer
+[**UpdatePushConsumer**](PushConsumerAPI.md#UpdatePushConsumer) | **Patch** /core/beta/consumers/push/{consumerId} | Update Push Consumer
 
 
 

@@ -36,6 +36,17 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SystemAPIService BulkShare", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		httpRes, err := apiClient.SystemAPI.BulkShare(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SystemAPIService CreateAccount", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -83,6 +94,30 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SystemAPIService EnableAuthCallout", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		httpRes, err := apiClient.SystemAPI.EnableAuthCallout(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService GetComponentToken", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+		var id string
+
+		resp, httpRes, err := apiClient.SystemAPI.GetComponentToken(context.Background(), systemId, id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SystemAPIService GetCurrentAgentToken", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -114,6 +149,18 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		var alertRuleId string
 
 		resp, httpRes, err := apiClient.SystemAPI.GetSystemAlertRule(context.Background(), systemId, alertRuleId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService GetSystemExport", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.GetSystemExport(context.Background(), systemId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -197,6 +244,30 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		var systemId string
 
 		resp, httpRes, err := apiClient.SystemAPI.ListAgentTokens(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService ListAuthCalloutAuthenticators", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.ListAuthCalloutAuthenticators(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService ListAuthCalloutConfigs", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.ListAuthCalloutConfigs(context.Background(), systemId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -341,6 +412,17 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		var systemId string
 
 		httpRes, err := apiClient.SystemAPI.UnmanageSystem(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService UpdatePlatformComponents", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		httpRes, err := apiClient.SystemAPI.UpdatePlatformComponents(context.Background(), systemId).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

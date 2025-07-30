@@ -177,7 +177,7 @@ func (a *StreamAPIService) CreatePullConsumerExecute(r ApiCreatePullConsumerRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/stream/{streamId}/consumers/pull"
+	localVarPath := localBasePath + "/core/beta/jetstream/stream/{streamId}/consumers/pull"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -291,7 +291,7 @@ func (a *StreamAPIService) CreatePushConsumerExecute(r ApiCreatePushConsumerRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/stream/{streamId}/consumers/push"
+	localVarPath := localBasePath + "/core/beta/jetstream/stream/{streamId}/consumers/push"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -396,7 +396,7 @@ func (a *StreamAPIService) DeleteStreamExecute(r ApiDeleteStreamRequest) (*http.
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/stream/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/stream/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -492,7 +492,7 @@ func (a *StreamAPIService) GetStreamInfoExecute(r ApiGetStreamInfoRequest) (*JSS
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/stream/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/stream/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -598,7 +598,7 @@ func (a *StreamAPIService) ListConsumersExecute(r ApiListConsumersRequest) (*JSC
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/stream/{streamId}/consumers"
+	localVarPath := localBasePath + "/core/beta/jetstream/stream/{streamId}/consumers"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -701,7 +701,7 @@ func (a *StreamAPIService) PurgeStreamExecute(r ApiPurgeStreamRequest) (*http.Re
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/stream/{streamId}/purge"
+	localVarPath := localBasePath + "/core/beta/jetstream/stream/{streamId}/purge"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -803,7 +803,7 @@ func (a *StreamAPIService) UpdateStreamExecute(r ApiUpdateStreamRequest) (*JSStr
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/jetstream/stream/{streamId}"
+	localVarPath := localBasePath + "/core/beta/jetstream/stream/{streamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"streamId"+"}", url.PathEscape(parameterValueToString(r.streamId, "streamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

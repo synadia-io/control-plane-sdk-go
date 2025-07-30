@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **DirectConnectionOpts** | Pointer to [**SystemDirectConnectionOpts**](SystemDirectConnectionOpts.md) |  | [optional] 
 **JetstreamDomain** | Pointer to **string** |  | [optional] 
 **JetstreamEnabled** | Pointer to **bool** |  | [optional] [default to true]
+**ManagedBy** | Pointer to [**SystemManagedBy**](SystemManagedBy.md) |  | [optional] 
 **Name** | **string** |  | 
 **Url** | **string** |  | 
 

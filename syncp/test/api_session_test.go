@@ -53,10 +53,10 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
-	t.Run("Test SessionAPIService CreatePersonalAccessToken", func(t *testing.T) {
+	t.Run("Test SessionAPIService CreateAppUserAccessToken", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
-		resp, httpRes, err := apiClient.SessionAPI.CreatePersonalAccessToken(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SessionAPI.CreateAppUserAccessToken(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -114,6 +114,16 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SessionAPIService ListAppUserAccessTokens", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.SessionAPI.ListAppUserAccessTokens(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SessionAPIService ListAppUsers", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -128,16 +138,6 @@ func Test_syncp_SessionAPIService(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.SessionAPI.ListInvitations(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-	})
-
-	t.Run("Test SessionAPIService ListPersonalAccessTokens", func(t *testing.T) {
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.SessionAPI.ListPersonalAccessTokens(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

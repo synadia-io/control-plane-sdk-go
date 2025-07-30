@@ -17,7 +17,7 @@ import (
 // checks if the SubjectExportViewResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SubjectExportViewResponse{}
 
-// SubjectExportViewResponse struct for SubjectExportViewResponse
+// SubjectExportViewResponse / Subject Exports /
 type SubjectExportViewResponse struct {
 	Account                   AccountInfo      `json:"account"`
 	Created                   time.Time        `json:"created"`

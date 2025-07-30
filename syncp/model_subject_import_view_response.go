@@ -17,7 +17,7 @@ import (
 // checks if the SubjectImportViewResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SubjectImportViewResponse{}
 
-// SubjectImportViewResponse struct for SubjectImportViewResponse
+// SubjectImportViewResponse / Subject Imports /
 type SubjectImportViewResponse struct {
 	Created                 time.Time `json:"created"`
 	Id                      string    `json:"id"`

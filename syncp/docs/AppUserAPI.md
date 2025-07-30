@@ -1,14 +1,14 @@
 # \AppUserAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssignTeamAppUser**](AppUserAPI.md#AssignTeamAppUser) | **Post** /app-users/{appUserId}/teams/{teamId} | Assign App User to Team
-[**DeleteAppUser**](AppUserAPI.md#DeleteAppUser) | **Delete** /app-users/{appUserId} | Delete App User
-[**GetAppUser**](AppUserAPI.md#GetAppUser) | **Get** /app-users/{appUserId} | Get App User
-[**ListAppUserRoles**](AppUserAPI.md#ListAppUserRoles) | **Get** /app-users/{appUserId}/roles | List Roles
-[**UpdateAppUser**](AppUserAPI.md#UpdateAppUser) | **Patch** /app-users/{appUserId} | Update App User
+[**AssignTeamAppUser**](AppUserAPI.md#AssignTeamAppUser) | **Post** /core/beta/app-users/{appUserId}/teams/{teamId} | Assign App User to Team
+[**DeleteAppUser**](AppUserAPI.md#DeleteAppUser) | **Delete** /core/beta/app-users/{appUserId} | Delete App User
+[**GetAppUser**](AppUserAPI.md#GetAppUser) | **Get** /core/beta/app-users/{appUserId} | Get App User
+[**ListAppUserRoles**](AppUserAPI.md#ListAppUserRoles) | **Get** /core/beta/app-users/{appUserId}/roles | List Roles
+[**UpdateAppUser**](AppUserAPI.md#UpdateAppUser) | **Patch** /core/beta/app-users/{appUserId} | Update App User
 
 
 

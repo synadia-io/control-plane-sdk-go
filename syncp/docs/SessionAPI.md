@@ -1,22 +1,22 @@
 # \SessionAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AcceptTerms**](SessionAPI.md#AcceptTerms) | **Post** /terms/accept | Accept terms
-[**CreateAppServiceAccount**](SessionAPI.md#CreateAppServiceAccount) | **Post** /service-accounts/app | Create App Service Account
-[**CreateAppUser**](SessionAPI.md#CreateAppUser) | **Post** /app-users | Create App User
-[**CreatePersonalAccessToken**](SessionAPI.md#CreatePersonalAccessToken) | **Post** /personal-access-tokens | Create Personal Access Token
-[**CreateTeam**](SessionAPI.md#CreateTeam) | **Post** /teams | Create Team
-[**DecideInvitation**](SessionAPI.md#DecideInvitation) | **Post** /invitations/{teamId} | Accept or reject team invitation
-[**GetVersion**](SessionAPI.md#GetVersion) | **Get** /version | Get Version
-[**ListAlerts**](SessionAPI.md#ListAlerts) | **Get** /alerts | List Alerts
-[**ListAppServiceAccounts**](SessionAPI.md#ListAppServiceAccounts) | **Get** /service-accounts/app | List App Service Accounts
-[**ListAppUsers**](SessionAPI.md#ListAppUsers) | **Get** /app-users | List App Users
-[**ListInvitations**](SessionAPI.md#ListInvitations) | **Get** /invitations | List of pending invitations
-[**ListPersonalAccessTokens**](SessionAPI.md#ListPersonalAccessTokens) | **Get** /personal-access-tokens | List Personal Access Tokens
-[**ListTeams**](SessionAPI.md#ListTeams) | **Get** /teams | List Teams
+[**AcceptTerms**](SessionAPI.md#AcceptTerms) | **Post** /core/beta/terms/accept | Accept terms
+[**CreateAppServiceAccount**](SessionAPI.md#CreateAppServiceAccount) | **Post** /core/beta/service-accounts/app | Create App Service Account
+[**CreateAppUser**](SessionAPI.md#CreateAppUser) | **Post** /core/beta/app-users | Create App User
+[**CreateAppUserAccessToken**](SessionAPI.md#CreateAppUserAccessToken) | **Post** /core/beta/personal-access-tokens | Create Personal Access Token
+[**CreateTeam**](SessionAPI.md#CreateTeam) | **Post** /core/beta/teams | Create Team
+[**DecideInvitation**](SessionAPI.md#DecideInvitation) | **Post** /core/beta/invitations/{teamId} | Accept or reject team invitation
+[**GetVersion**](SessionAPI.md#GetVersion) | **Get** /core/beta/version | Get Version
+[**ListAlerts**](SessionAPI.md#ListAlerts) | **Get** /core/beta/alerts | List Alerts
+[**ListAppServiceAccounts**](SessionAPI.md#ListAppServiceAccounts) | **Get** /core/beta/service-accounts/app | List App Service Accounts
+[**ListAppUserAccessTokens**](SessionAPI.md#ListAppUserAccessTokens) | **Get** /core/beta/personal-access-tokens | List Personal Access Tokens
+[**ListAppUsers**](SessionAPI.md#ListAppUsers) | **Get** /core/beta/app-users | List App Users
+[**ListInvitations**](SessionAPI.md#ListInvitations) | **Get** /core/beta/invitations | List of pending invitations
+[**ListTeams**](SessionAPI.md#ListTeams) | **Get** /core/beta/teams | List Teams
 
 
 
@@ -213,9 +213,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CreatePersonalAccessToken
+## CreateAppUserAccessToken
 
-> AppUserAccessTokenCreateResponse CreatePersonalAccessToken(ctx).AppUserAccessTokenCreateRequest(appUserAccessTokenCreateRequest).Execute()
+> AppUserAccessTokenCreateResponse CreateAppUserAccessToken(ctx).AppUserAccessTokenCreateRequest(appUserAccessTokenCreateRequest).Execute()
 
 Create Personal Access Token
 
@@ -238,13 +238,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.CreatePersonalAccessToken(context.Background()).AppUserAccessTokenCreateRequest(appUserAccessTokenCreateRequest).Execute()
+    resp, r, err := apiClient.SessionAPI.CreateAppUserAccessToken(context.Background()).AppUserAccessTokenCreateRequest(appUserAccessTokenCreateRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.CreatePersonalAccessToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.CreateAppUserAccessToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreatePersonalAccessToken`: AppUserAccessTokenCreateResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.CreatePersonalAccessToken`: %v\n", resp)
+    // response from `CreateAppUserAccessToken`: AppUserAccessTokenCreateResponse
+    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.CreateAppUserAccessToken`: %v\n", resp)
 }
 ```
 
@@ -254,7 +254,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreatePersonalAccessTokenRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateAppUserAccessTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -603,6 +603,67 @@ Other parameters are passed through a pointer to a apiListAppServiceAccountsRequ
 [[Back to README]](../README.md)
 
 
+## ListAppUserAccessTokens
+
+> AppUserAccessTokenListResponse ListAppUserAccessTokens(ctx).Execute()
+
+List Personal Access Tokens
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SessionAPI.ListAppUserAccessTokens(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ListAppUserAccessTokens``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAppUserAccessTokens`: AppUserAccessTokenListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.ListAppUserAccessTokens`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAppUserAccessTokensRequest struct via the builder pattern
+
+
+### Return type
+
+[**AppUserAccessTokenListResponse**](AppUserAccessTokenListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListAppUsers
 
 > AppUserListResponse ListAppUsers(ctx).Execute()
@@ -725,70 +786,9 @@ Other parameters are passed through a pointer to a apiListInvitationsRequest str
 [[Back to README]](../README.md)
 
 
-## ListPersonalAccessTokens
-
-> AppUserAccessTokenListResponse ListPersonalAccessTokens(ctx).Execute()
-
-List Personal Access Tokens
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.ListPersonalAccessTokens(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ListPersonalAccessTokens``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListPersonalAccessTokens`: AppUserAccessTokenListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionAPI.ListPersonalAccessTokens`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListPersonalAccessTokensRequest struct via the builder pattern
-
-
-### Return type
-
-[**AppUserAccessTokenListResponse**](AppUserAccessTokenListResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListTeams
 
-> TeamListResponse ListTeams(ctx).Execute()
+> TeamListResponse ListTeams(ctx).Assigned(assigned).Execute()
 
 List Teams
 
@@ -807,10 +807,11 @@ import (
 )
 
 func main() {
+    assigned := "assigned_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionAPI.ListTeams(context.Background()).Execute()
+    resp, r, err := apiClient.SessionAPI.ListTeams(context.Background()).Assigned(assigned).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SessionAPI.ListTeams``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -822,12 +823,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListTeamsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **assigned** | **string** |  | 
 
 ### Return type
 

@@ -1,12 +1,12 @@
 # \SigKeyAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAccountSk**](SigKeyAPI.md#DeleteAccountSk) | **Delete** /account-sks/{keyId} | Delete Account Signing
-[**GetAccountSk**](SigKeyAPI.md#GetAccountSk) | **Get** /account-sks/{keyId} | Get Account Signing
-[**UpdateAccountSk**](SigKeyAPI.md#UpdateAccountSk) | **Patch** /account-sks/{keyId} | Update Account Signing
+[**DeleteAccountSk**](SigKeyAPI.md#DeleteAccountSk) | **Delete** /core/beta/account-sks/{keyId} | Delete Account Signing
+[**GetAccountSk**](SigKeyAPI.md#GetAccountSk) | **Get** /core/beta/account-sks/{keyId} | Get Account Signing
+[**UpdateAccountSk**](SigKeyAPI.md#UpdateAccountSk) | **Patch** /core/beta/account-sks/{keyId} | Update Account Signing
 
 
 
