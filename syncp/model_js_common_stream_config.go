@@ -31,6 +31,7 @@ type JSCommonStreamConfig struct {
 	MaxMsgSize           *int64                  `json:"max_msg_size,omitempty"`
 	MaxMsgs              int64                   `json:"max_msgs"`
 	MaxMsgsPerSubject    int64                   `json:"max_msgs_per_subject"`
+	Metadata             map[string]string       `json:"metadata,omitempty"`
 	Name                 string                  `json:"name"`
 	NoAck                *bool                   `json:"no_ack,omitempty"`
 	NumReplicas          int64                   `json:"num_replicas"`
@@ -74,6 +75,9 @@ func (o JSCommonStreamConfig) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["max_msgs"] = o.MaxMsgs
 	toSerialize["max_msgs_per_subject"] = o.MaxMsgsPerSubject
+	if len(o.Metadata) != 0 {
+		toSerialize["metadata"] = o.Metadata
+	}
 	toSerialize["name"] = o.Name
 	if o.NoAck != nil {
 		toSerialize["no_ack"] = o.NoAck

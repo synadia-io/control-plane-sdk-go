@@ -94,7 +94,7 @@ func (a *AlertAPIService) AcknowledgeAlertExecute(r ApiAcknowledgeAlertRequest) 
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/alerts/{alertId}/acknowledge"
+	localVarPath := localBasePath + "/core/beta/alerts/{alertId}/acknowledge"
 	localVarPath = strings.Replace(localVarPath, "{"+"alertId"+"}", url.PathEscape(parameterValueToString(r.alertId, "alertId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -190,7 +190,7 @@ func (a *AlertAPIService) GetAlertExecute(r ApiGetAlertRequest) (*AlertViewRespo
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/alerts/{alertId}"
+	localVarPath := localBasePath + "/core/beta/alerts/{alertId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"alertId"+"}", url.PathEscape(parameterValueToString(r.alertId, "alertId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

@@ -1,15 +1,15 @@
 # \SubjectExportAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSubjectShares**](SubjectExportAPI.md#CreateSubjectShares) | **Post** /subject-exports/{subjectExportId}/shares | Create Subject Shares
-[**DeleteSubjectExport**](SubjectExportAPI.md#DeleteSubjectExport) | **Delete** /subject-exports/{subjectExportId} | Delete Subject Export
-[**DeleteSubjectShare**](SubjectExportAPI.md#DeleteSubjectShare) | **Delete** /subject-exports/{subjectExportId}/shares/{targetAccountNKeyPublic} | Delete Subject Share
-[**GetSubjectExport**](SubjectExportAPI.md#GetSubjectExport) | **Get** /subject-exports/{subjectExportId} | Get Subject Export
-[**ListSubjectShares**](SubjectExportAPI.md#ListSubjectShares) | **Get** /subject-exports/{subjectExportId}/shares | List Subject Shares
-[**UpdateSubjectExport**](SubjectExportAPI.md#UpdateSubjectExport) | **Patch** /subject-exports/{subjectExportId} | Update Subject Export
+[**CreateSubjectShares**](SubjectExportAPI.md#CreateSubjectShares) | **Post** /core/beta/subject-exports/{subjectExportId}/shares | Create Subject Shares
+[**DeleteSubjectExport**](SubjectExportAPI.md#DeleteSubjectExport) | **Delete** /core/beta/subject-exports/{subjectExportId} | Delete Subject Export
+[**DeleteSubjectShare**](SubjectExportAPI.md#DeleteSubjectShare) | **Delete** /core/beta/subject-exports/{subjectExportId}/shares/{targetAccountNKeyPublic} | Delete Subject Share
+[**GetSubjectExport**](SubjectExportAPI.md#GetSubjectExport) | **Get** /core/beta/subject-exports/{subjectExportId} | Get Subject Export
+[**ListSubjectShares**](SubjectExportAPI.md#ListSubjectShares) | **Get** /core/beta/subject-exports/{subjectExportId}/shares | List Subject Shares
+[**UpdateSubjectExport**](SubjectExportAPI.md#UpdateSubjectExport) | **Patch** /core/beta/subject-exports/{subjectExportId} | Update Subject Export
 
 
 

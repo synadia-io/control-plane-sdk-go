@@ -13,14 +13,35 @@ package syncp
 // checks if the NatsUserJwtSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NatsUserJwtSettings{}
 
-// NatsUserJwtSettings filter jwt.User to editable fields only
+// NatsUserJwtSettings Set correct allowed values extention of jwt.#UserPermissionsLimits
 type NatsUserJwtSettings struct {
-	UserPermissionLimits
-	Tags []string `json:"tags,omitempty"`
+	Permissions
+	UserLimits
+	AllowedConnectionTypes []string `json:"allowed_connection_types,omitempty"`
+	BearerToken            *bool    `json:"bearer_token,omitempty"`
+	Data                   *int64   `json:"data,omitempty"`
+	Payload                *int64   `json:"payload,omitempty"`
+	Subs                   *int64   `json:"subs,omitempty"`
+	Tags                   []string `json:"tags,omitempty"`
 }
 
 func (o NatsUserJwtSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if len(o.AllowedConnectionTypes) != 0 {
+		toSerialize["allowed_connection_types"] = o.AllowedConnectionTypes
+	}
+	if o.BearerToken != nil {
+		toSerialize["bearer_token"] = o.BearerToken
+	}
+	if o.Data != nil {
+		toSerialize["data"] = o.Data
+	}
+	if o.Payload != nil {
+		toSerialize["payload"] = o.Payload
+	}
+	if o.Subs != nil {
+		toSerialize["subs"] = o.Subs
+	}
 	if len(o.Tags) != 0 {
 		toSerialize["tags"] = o.Tags
 	}
@@ -41,15 +62,6 @@ func (o NatsUserJwtSettings) ToMap() (map[string]interface{}, error) {
 	}
 	if o.TimesLocation != nil {
 		toSerialize["times_location"] = o.TimesLocation
-	}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
-	}
-	if o.Payload != nil {
-		toSerialize["payload"] = o.Payload
-	}
-	if o.Subs != nil {
-		toSerialize["subs"] = o.Subs
 	}
 	return toSerialize, nil
 }

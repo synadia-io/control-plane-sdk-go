@@ -83,7 +83,7 @@ func (a *IssuanceAPIService) GetNatsUserIssuanceExecute(r ApiGetNatsUserIssuance
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/nats-user-issuances/{issuanceId}"
+	localVarPath := localBasePath + "/core/beta/nats-user-issuances/{issuanceId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"issuanceId"+"}", url.PathEscape(parameterValueToString(r.issuanceId, "issuanceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

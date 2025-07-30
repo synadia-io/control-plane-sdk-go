@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **MaxMsgSize** | Pointer to **int64** |  | [optional] 
 **MaxMsgs** | **int64** |  | 
 **MaxMsgsPerSubject** | **int64** |  | 
+**Metadata** | Pointer to **map[string]string** |  | [optional] 
 **Name** | **string** |  | 
 **NoAck** | Pointer to **bool** |  | [optional] 
 **NumReplicas** | **int64** |  | 

@@ -1,52 +1,54 @@
 # \AccountAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssignAccountTeamAppUser**](AccountAPI.md#AssignAccountTeamAppUser) | **Post** /accounts/{accountId}/app-users/{teamAppUserId} | Assign Team App User to Account
-[**CreateAccountSkGroup**](AccountAPI.md#CreateAccountSkGroup) | **Post** /accounts/{accountId}/account-sk-groups | Create Account Signing Key Group
-[**CreateAlertRule**](AccountAPI.md#CreateAlertRule) | **Post** /accounts/{accountId}/alert-rules | Create Account Alert Rule
-[**CreateKvBucket**](AccountAPI.md#CreateKvBucket) | **Post** /accounts/{accountId}/jetstream/kv-buckets | Create KV Bucket
-[**CreateMirror**](AccountAPI.md#CreateMirror) | **Post** /accounts/{accountId}/jetstream/mirrors | Create Mirror
-[**CreateObjectBucket**](AccountAPI.md#CreateObjectBucket) | **Post** /accounts/{accountId}/jetstream/object-buckets | Create Object Bucket
-[**CreateOrUpdateNatsUserRevocation**](AccountAPI.md#CreateOrUpdateNatsUserRevocation) | **Put** /accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Create or Update Revocation for a NATS User NKey
-[**CreateStream**](AccountAPI.md#CreateStream) | **Post** /accounts/{accountId}/jetstream/streams | Create Stream
-[**CreateStreamExport**](AccountAPI.md#CreateStreamExport) | **Post** /accounts/{accountId}/stream-exports | Create Stream Export
-[**CreateStreamImport**](AccountAPI.md#CreateStreamImport) | **Post** /accounts/{accountId}/stream-imports | Create Stream Import
-[**CreateSubjectExport**](AccountAPI.md#CreateSubjectExport) | **Post** /accounts/{accountId}/subject-exports | Create Subject Export
-[**CreateSubjectImport**](AccountAPI.md#CreateSubjectImport) | **Post** /accounts/{accountId}/subject-imports | Create Subject Import
-[**CreateUser**](AccountAPI.md#CreateUser) | **Post** /accounts/{accountId}/nats-users | Create NATS User
-[**DeleteAccount**](AccountAPI.md#DeleteAccount) | **Delete** /accounts/{accountId} | Delete Account
-[**DeleteAlertRule**](AccountAPI.md#DeleteAlertRule) | **Delete** /accounts/{accountId}/alert-rules/{alertRuleId} | Delete Account Alert Rule
-[**DeleteNatsUserRevocation**](AccountAPI.md#DeleteNatsUserRevocation) | **Delete** /accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Delete a for a NATS User NKey
-[**GetAccount**](AccountAPI.md#GetAccount) | **Get** /accounts/{accountId} | Get Account
-[**GetAccountInfo**](AccountAPI.md#GetAccountInfo) | **Get** /accounts/{accountId}/info | Get Account Info
-[**GetAccountMetrics**](AccountAPI.md#GetAccountMetrics) | **Get** /accounts/{accountId}/metrics | Get Account Metrics
-[**GetAlertRule**](AccountAPI.md#GetAlertRule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId} | Get Account Alert Rule
-[**GetJetStreamPlacementOptions**](AccountAPI.md#GetJetStreamPlacementOptions) | **Get** /accounts/{accountId}/jetstream/placement-options | Get JetStream Placement Options
-[**GetNatsUserRevocation**](AccountAPI.md#GetNatsUserRevocation) | **Get** /accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Get Revocation for a NATS User NKey
-[**ListAccountConnections**](AccountAPI.md#ListAccountConnections) | **Get** /accounts/{accountId}/connections | List Account Connections
-[**ListAccountSkGroup**](AccountAPI.md#ListAccountSkGroup) | **Get** /accounts/{accountId}/account-sk-groups | List Account Signing Key Groups
-[**ListAccountTeamAppUsers**](AccountAPI.md#ListAccountTeamAppUsers) | **Get** /accounts/{accountId}/app-users | List Account Team App Users
-[**ListAlertRules**](AccountAPI.md#ListAlertRules) | **Get** /accounts/{accountId}/alert-rules | List Account Alert Rules
-[**ListJetStreamAssets**](AccountAPI.md#ListJetStreamAssets) | **Get** /accounts/{accountId}/jetstream | List JetStream Assets
-[**ListKvBuckets**](AccountAPI.md#ListKvBuckets) | **Get** /accounts/{accountId}/jetstream/kv-buckets | List KV buckets
-[**ListMirrors**](AccountAPI.md#ListMirrors) | **Get** /accounts/{accountId}/jetstream/mirrors | List Mirrors
-[**ListObjectBuckets**](AccountAPI.md#ListObjectBuckets) | **Get** /accounts/{accountId}/jetstream/object-buckets | List Object buckets
-[**ListStreamExports**](AccountAPI.md#ListStreamExports) | **Get** /accounts/{accountId}/stream-exports | List Stream Exports
-[**ListStreamExportsShared**](AccountAPI.md#ListStreamExportsShared) | **Get** /accounts/{accountId}/stream-imports/shared | List Shared Stream Exports
-[**ListStreamImports**](AccountAPI.md#ListStreamImports) | **Get** /accounts/{accountId}/stream-imports | List Stream Imports
-[**ListStreams**](AccountAPI.md#ListStreams) | **Get** /accounts/{accountId}/jetstream/streams | List Streams
-[**ListSubjectExports**](AccountAPI.md#ListSubjectExports) | **Get** /accounts/{accountId}/subject-exports | List Subject Exports
-[**ListSubjectExportsShared**](AccountAPI.md#ListSubjectExportsShared) | **Get** /accounts/{accountId}/subject-imports/shared | List Shared Subject Exports
-[**ListSubjectImports**](AccountAPI.md#ListSubjectImports) | **Get** /accounts/{accountId}/subject-imports | List Subject Imports
-[**ListUsers**](AccountAPI.md#ListUsers) | **Get** /accounts/{accountId}/nats-users | List NATS Users
-[**RunAlertRule**](AccountAPI.md#RunAlertRule) | **Get** /accounts/{accountId}/alert-rules/{alertRuleId}/run | Run Account Alert Rule
-[**UnAssignAccountTeamAppUser**](AccountAPI.md#UnAssignAccountTeamAppUser) | **Delete** /accounts/{accountId}/app-users/{teamAppUserId} | Unassign Team App User from Account
-[**UnmanageAccount**](AccountAPI.md#UnmanageAccount) | **Delete** /accounts/{accountId}/unmanage | Unmanage Account
-[**UpdateAccount**](AccountAPI.md#UpdateAccount) | **Patch** /accounts/{accountId} | Update Account
-[**UpdateAlertRule**](AccountAPI.md#UpdateAlertRule) | **Patch** /accounts/{accountId}/alert-rules/{alertRuleId} | Update Account Alert Rule
+[**AssignAccountTeamAppUser**](AccountAPI.md#AssignAccountTeamAppUser) | **Post** /core/beta/accounts/{accountId}/app-users/{teamAppUserId} | Assign Team App User to Account
+[**CreateAccountSkGroup**](AccountAPI.md#CreateAccountSkGroup) | **Post** /core/beta/accounts/{accountId}/account-sk-groups | Create Account Signing Key Group
+[**CreateAlertRule**](AccountAPI.md#CreateAlertRule) | **Post** /core/beta/accounts/{accountId}/alert-rules | Create Account Alert Rule
+[**CreateKvBucket**](AccountAPI.md#CreateKvBucket) | **Post** /core/beta/accounts/{accountId}/jetstream/kv-buckets | Create KV Bucket
+[**CreateMirror**](AccountAPI.md#CreateMirror) | **Post** /core/beta/accounts/{accountId}/jetstream/mirrors | Create Mirror
+[**CreateObjectBucket**](AccountAPI.md#CreateObjectBucket) | **Post** /core/beta/accounts/{accountId}/jetstream/object-buckets | Create Object Bucket
+[**CreateOrUpdateNatsUserRevocation**](AccountAPI.md#CreateOrUpdateNatsUserRevocation) | **Put** /core/beta/accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Create or Update Revocation for a NATS User NKey
+[**CreateStream**](AccountAPI.md#CreateStream) | **Post** /core/beta/accounts/{accountId}/jetstream/streams | Create Stream
+[**CreateStreamExport**](AccountAPI.md#CreateStreamExport) | **Post** /core/beta/accounts/{accountId}/stream-exports | Create Stream Export
+[**CreateStreamImport**](AccountAPI.md#CreateStreamImport) | **Post** /core/beta/accounts/{accountId}/stream-imports | Create Stream Import
+[**CreateSubjectExport**](AccountAPI.md#CreateSubjectExport) | **Post** /core/beta/accounts/{accountId}/subject-exports | Create Subject Export
+[**CreateSubjectImport**](AccountAPI.md#CreateSubjectImport) | **Post** /core/beta/accounts/{accountId}/subject-imports | Create Subject Import
+[**CreateUser**](AccountAPI.md#CreateUser) | **Post** /core/beta/accounts/{accountId}/nats-users | Create NATS User
+[**DeleteAccount**](AccountAPI.md#DeleteAccount) | **Delete** /core/beta/accounts/{accountId} | Delete Account
+[**DeleteAlertRule**](AccountAPI.md#DeleteAlertRule) | **Delete** /core/beta/accounts/{accountId}/alert-rules/{alertRuleId} | Delete Account Alert Rule
+[**DeleteNatsUserRevocation**](AccountAPI.md#DeleteNatsUserRevocation) | **Delete** /core/beta/accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Delete a for a NATS User NKey
+[**GetAccount**](AccountAPI.md#GetAccount) | **Get** /core/beta/accounts/{accountId} | Get Account
+[**GetAccountExport**](AccountAPI.md#GetAccountExport) | **Get** /core/beta/accounts/{accountId}/export | Export Account Seeds
+[**GetAccountInfo**](AccountAPI.md#GetAccountInfo) | **Get** /core/beta/accounts/{accountId}/info | Get Account Info
+[**GetAccountMetrics**](AccountAPI.md#GetAccountMetrics) | **Get** /core/beta/accounts/{accountId}/metrics | Get Account Metrics
+[**GetAlertRule**](AccountAPI.md#GetAlertRule) | **Get** /core/beta/accounts/{accountId}/alert-rules/{alertRuleId} | Get Account Alert Rule
+[**GetJetStreamPlacementOptions**](AccountAPI.md#GetJetStreamPlacementOptions) | **Get** /core/beta/accounts/{accountId}/jetstream/placement-options | Get JetStream Placement Options
+[**GetNatsUserRevocation**](AccountAPI.md#GetNatsUserRevocation) | **Get** /core/beta/accounts/{accountId}/nats-user-revocations/{userNkeyPublic} | Get Revocation for a NATS User NKey
+[**ListAccountConnections**](AccountAPI.md#ListAccountConnections) | **Get** /core/beta/accounts/{accountId}/connections | List Account Connections
+[**ListAccountSkGroup**](AccountAPI.md#ListAccountSkGroup) | **Get** /core/beta/accounts/{accountId}/account-sk-groups | List Account Signing Key Groups
+[**ListAccountTeamAppUsers**](AccountAPI.md#ListAccountTeamAppUsers) | **Get** /core/beta/accounts/{accountId}/app-users | List Account Team App Users
+[**ListAlertRules**](AccountAPI.md#ListAlertRules) | **Get** /core/beta/accounts/{accountId}/alert-rules | List Account Alert Rules
+[**ListJetStreamAssets**](AccountAPI.md#ListJetStreamAssets) | **Get** /core/beta/accounts/{accountId}/jetstream | List JetStream Assets
+[**ListKvBuckets**](AccountAPI.md#ListKvBuckets) | **Get** /core/beta/accounts/{accountId}/jetstream/kv-buckets | List KV buckets
+[**ListMirrors**](AccountAPI.md#ListMirrors) | **Get** /core/beta/accounts/{accountId}/jetstream/mirrors | List Mirrors
+[**ListObjectBuckets**](AccountAPI.md#ListObjectBuckets) | **Get** /core/beta/accounts/{accountId}/jetstream/object-buckets | List Object buckets
+[**ListStreamExports**](AccountAPI.md#ListStreamExports) | **Get** /core/beta/accounts/{accountId}/stream-exports | List Stream Exports
+[**ListStreamExportsShared**](AccountAPI.md#ListStreamExportsShared) | **Get** /core/beta/accounts/{accountId}/stream-imports/shared | List Shared Stream Exports
+[**ListStreamImports**](AccountAPI.md#ListStreamImports) | **Get** /core/beta/accounts/{accountId}/stream-imports | List Stream Imports
+[**ListStreams**](AccountAPI.md#ListStreams) | **Get** /core/beta/accounts/{accountId}/jetstream/streams | List Streams
+[**ListSubjectExports**](AccountAPI.md#ListSubjectExports) | **Get** /core/beta/accounts/{accountId}/subject-exports | List Subject Exports
+[**ListSubjectExportsShared**](AccountAPI.md#ListSubjectExportsShared) | **Get** /core/beta/accounts/{accountId}/subject-imports/shared | List Shared Subject Exports
+[**ListSubjectImports**](AccountAPI.md#ListSubjectImports) | **Get** /core/beta/accounts/{accountId}/subject-imports | List Subject Imports
+[**ListUsers**](AccountAPI.md#ListUsers) | **Get** /core/beta/accounts/{accountId}/nats-users | List NATS Users
+[**NatsCoreWebsocketViewer**](AccountAPI.md#NatsCoreWebsocketViewer) | **Get** /core/beta/accounts/{accountId}/nats-core/websocket/view | Subscribe to a NATS Core subject over websockets
+[**RunAlertRule**](AccountAPI.md#RunAlertRule) | **Get** /core/beta/accounts/{accountId}/alert-rules/{alertRuleId}/run | Run Account Alert Rule
+[**UnAssignAccountTeamAppUser**](AccountAPI.md#UnAssignAccountTeamAppUser) | **Delete** /core/beta/accounts/{accountId}/app-users/{teamAppUserId} | Unassign Team App User from Account
+[**UnmanageAccount**](AccountAPI.md#UnmanageAccount) | **Delete** /core/beta/accounts/{accountId}/unmanage | Unmanage Account
+[**UpdateAccount**](AccountAPI.md#UpdateAccount) | **Patch** /core/beta/accounts/{accountId} | Update Account
+[**UpdateAlertRule**](AccountAPI.md#UpdateAlertRule) | **Patch** /core/beta/accounts/{accountId}/alert-rules/{alertRuleId} | Update Account Alert Rule
 
 
 
@@ -1257,6 +1259,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AccountViewResponse**](AccountViewResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAccountExport
+
+> AccountExportResponse GetAccountExport(ctx, accountId).Execute()
+
+Export Account Seeds
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountAPI.GetAccountExport(context.Background(), accountId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.GetAccountExport``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAccountExport`: AccountExportResponse
+    fmt.Fprintf(os.Stdout, "Response from `AccountAPI.GetAccountExport`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAccountExportRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AccountExportResponse**](AccountExportResponse.md)
 
 ### Authorization
 
@@ -2754,6 +2826,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## NatsCoreWebsocketViewer
+
+> NatsCoreWebsocketViewer(ctx, accountId).Subject(subject).Execute()
+
+Subscribe to a NATS Core subject over websockets
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    accountId := "accountId_example" // string | 
+    subject := "subject_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.AccountAPI.NatsCoreWebsocketViewer(context.Background(), accountId).Subject(subject).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.NatsCoreWebsocketViewer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiNatsCoreWebsocketViewerRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **subject** | **string** |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

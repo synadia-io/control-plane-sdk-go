@@ -1,16 +1,16 @@
 # \StreamAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePullConsumer**](StreamAPI.md#CreatePullConsumer) | **Post** /jetstream/stream/{streamId}/consumers/pull | Create Pull Consumer
-[**CreatePushConsumer**](StreamAPI.md#CreatePushConsumer) | **Post** /jetstream/stream/{streamId}/consumers/push | Create Push Consumer
-[**DeleteStream**](StreamAPI.md#DeleteStream) | **Delete** /jetstream/stream/{streamId} | Delete Stream
-[**GetStreamInfo**](StreamAPI.md#GetStreamInfo) | **Get** /jetstream/stream/{streamId} | Get Stream
-[**ListConsumers**](StreamAPI.md#ListConsumers) | **Get** /jetstream/stream/{streamId}/consumers | List Consumers
-[**PurgeStream**](StreamAPI.md#PurgeStream) | **Delete** /jetstream/stream/{streamId}/purge | Purge Stream
-[**UpdateStream**](StreamAPI.md#UpdateStream) | **Patch** /jetstream/stream/{streamId} | Update Stream
+[**CreatePullConsumer**](StreamAPI.md#CreatePullConsumer) | **Post** /core/beta/jetstream/stream/{streamId}/consumers/pull | Create Pull Consumer
+[**CreatePushConsumer**](StreamAPI.md#CreatePushConsumer) | **Post** /core/beta/jetstream/stream/{streamId}/consumers/push | Create Push Consumer
+[**DeleteStream**](StreamAPI.md#DeleteStream) | **Delete** /core/beta/jetstream/stream/{streamId} | Delete Stream
+[**GetStreamInfo**](StreamAPI.md#GetStreamInfo) | **Get** /core/beta/jetstream/stream/{streamId} | Get Stream
+[**ListConsumers**](StreamAPI.md#ListConsumers) | **Get** /core/beta/jetstream/stream/{streamId}/consumers | List Consumers
+[**PurgeStream**](StreamAPI.md#PurgeStream) | **Delete** /core/beta/jetstream/stream/{streamId}/purge | Purge Stream
+[**UpdateStream**](StreamAPI.md#UpdateStream) | **Patch** /core/beta/jetstream/stream/{streamId} | Update Stream
 
 
 

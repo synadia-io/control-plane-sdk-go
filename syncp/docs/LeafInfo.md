@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **InMsgs** | **int64** |  | 
 **Ip** | **string** |  | 
 **IsSpoke** | Pointer to **bool** |  | [optional] 
+**Name** | **string** |  | 
 **OutBytes** | **int64** |  | 
 **OutMsgs** | **int64** |  | 
 **Port** | **int64** |  | 

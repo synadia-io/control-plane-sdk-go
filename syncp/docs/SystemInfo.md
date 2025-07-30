@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **JetstreamDomain** | Pointer to **string** |  | [optional] 
 **JetstreamEnabled** | **bool** |  | 
 **JetstreamTiers** | Pointer to []**string** |  | [optional] 
+**ManagedBy** | Pointer to [**SystemManagedBy**](SystemManagedBy.md) |  | [optional] 
 **Name** | **string** |  | 
 **ServerUrls** | Pointer to **string** |  | [optional] 
 **State** | [**SystemState**](SystemState.md) |  | 

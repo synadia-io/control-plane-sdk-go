@@ -109,7 +109,7 @@ func (a *PersonalAccessTokenAPIService) DeletePersonalAccessTokenExecute(r ApiDe
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/personal-access-tokens/{tokenId}"
+	localVarPath := localBasePath + "/core/beta/personal-access-tokens/{tokenId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -205,7 +205,7 @@ func (a *PersonalAccessTokenAPIService) GetPersonalAccessTokenExecute(r ApiGetPe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/personal-access-tokens/{tokenId}"
+	localVarPath := localBasePath + "/core/beta/personal-access-tokens/{tokenId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -317,7 +317,7 @@ func (a *PersonalAccessTokenAPIService) UpdatePersonalAccessTokenExecute(r ApiUp
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/personal-access-tokens/{tokenId}"
+	localVarPath := localBasePath + "/core/beta/personal-access-tokens/{tokenId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

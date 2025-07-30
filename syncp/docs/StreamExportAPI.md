@@ -1,14 +1,14 @@
 # \StreamExportAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateStreamShares**](StreamExportAPI.md#CreateStreamShares) | **Post** /stream-exports/{streamExportId}/shares | Create Stream Shares
-[**DeleteStreamExport**](StreamExportAPI.md#DeleteStreamExport) | **Delete** /stream-exports/{streamExportId} | Delete Stream Export
-[**DeleteStreamShare**](StreamExportAPI.md#DeleteStreamShare) | **Delete** /stream-exports/{streamExportId}/shares/{targetAccountNKeyPublic} | Delete Stream Share
-[**GetStreamExport**](StreamExportAPI.md#GetStreamExport) | **Get** /stream-exports/{streamExportId} | Get Stream Export
-[**ListStreamShares**](StreamExportAPI.md#ListStreamShares) | **Get** /stream-exports/{streamExportId}/shares | List Stream Shares
+[**CreateStreamShares**](StreamExportAPI.md#CreateStreamShares) | **Post** /core/beta/stream-exports/{streamExportId}/shares | Create Stream Shares
+[**DeleteStreamExport**](StreamExportAPI.md#DeleteStreamExport) | **Delete** /core/beta/stream-exports/{streamExportId} | Delete Stream Export
+[**DeleteStreamShare**](StreamExportAPI.md#DeleteStreamShare) | **Delete** /core/beta/stream-exports/{streamExportId}/shares/{targetAccountNKeyPublic} | Delete Stream Share
+[**GetStreamExport**](StreamExportAPI.md#GetStreamExport) | **Get** /core/beta/stream-exports/{streamExportId} | Get Stream Export
+[**ListStreamShares**](StreamExportAPI.md#ListStreamShares) | **Get** /core/beta/stream-exports/{streamExportId}/shares | List Stream Shares
 
 
 

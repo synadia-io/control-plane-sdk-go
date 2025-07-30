@@ -13,7 +13,7 @@ package syncp
 // checks if the StreamShareCreateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &StreamShareCreateRequest{}
 
-// StreamShareCreateRequest struct for StreamShareCreateRequest
+// StreamShareCreateRequest / Stream Share /
 type StreamShareCreateRequest struct {
 	TargetAccountNkeyPublic string `json:"target_account_nkey_public"`
 }

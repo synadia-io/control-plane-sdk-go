@@ -1,12 +1,12 @@
 # \AppServiceAccountTokensAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAppServiceAccountToken**](AppServiceAccountTokensAPI.md#DeleteAppServiceAccountToken) | **Delete** /service-account-tokens/app/{tokenId} | Delete App Service Account Token
-[**GetAppServiceAccountToken**](AppServiceAccountTokensAPI.md#GetAppServiceAccountToken) | **Get** /service-account-tokens/app/{tokenId} | Get App Service Account Token
-[**UpdateAppServiceAccountToken**](AppServiceAccountTokensAPI.md#UpdateAppServiceAccountToken) | **Patch** /service-account-tokens/app/{tokenId} | Update App Service Account Token
+[**DeleteAppServiceAccountToken**](AppServiceAccountTokensAPI.md#DeleteAppServiceAccountToken) | **Delete** /core/beta/service-account-tokens/app/{tokenId} | Delete App Service Account Token
+[**GetAppServiceAccountToken**](AppServiceAccountTokensAPI.md#GetAppServiceAccountToken) | **Get** /core/beta/service-account-tokens/app/{tokenId} | Get App Service Account Token
+[**UpdateAppServiceAccountToken**](AppServiceAccountTokensAPI.md#UpdateAppServiceAccountToken) | **Patch** /core/beta/service-account-tokens/app/{tokenId} | Update App Service Account Token
 
 
 

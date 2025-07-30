@@ -52,6 +52,9 @@ func (o JSStreamConfigRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["max_msgs"] = o.MaxMsgs
 	toSerialize["max_msgs_per_subject"] = o.MaxMsgsPerSubject
+	if len(o.Metadata) != 0 {
+		toSerialize["metadata"] = o.Metadata
+	}
 	toSerialize["name"] = o.Name
 	if o.NoAck != nil {
 		toSerialize["no_ack"] = o.NoAck

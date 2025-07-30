@@ -21,12 +21,16 @@ type AppUserType string
 
 // List of AppUserType
 const (
-	APPUSERTYPE_PERSON AppUserType = "Person"
+	APPUSERTYPE_PERSON               AppUserType = "Person"
+	APPUSERTYPE_APP_SERVICE_ACCOUNT  AppUserType = "AppServiceAccount"
+	APPUSERTYPE_TEAM_SERVICE_ACCOUNT AppUserType = "TeamServiceAccount"
 )
 
 // All allowed values of AppUserType enum
 var AllowedAppUserTypeEnumValues = []AppUserType{
 	"Person",
+	"AppServiceAccount",
+	"TeamServiceAccount",
 }
 
 func (v *AppUserType) UnmarshalJSON(src []byte) error {

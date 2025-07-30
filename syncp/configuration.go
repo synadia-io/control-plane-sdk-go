@@ -96,7 +96,7 @@ func NewConfiguration() *Configuration {
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
-				URL:         "{baseUrl}/api/core/beta",
+				URL:         "{baseUrl}/api",
 				Description: "Path to Synadia Control Plane Server Api",
 				Variables: map[string]ServerVariable{
 					"baseUrl": ServerVariable{

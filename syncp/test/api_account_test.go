@@ -228,6 +228,18 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test AccountAPIService GetAccountExport", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var accountId string
+
+		resp, httpRes, err := apiClient.AccountAPI.GetAccountExport(context.Background(), accountId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test AccountAPIService GetAccountInfo", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -479,6 +491,17 @@ func Test_syncp_AccountAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test AccountAPIService NatsCoreWebsocketViewer", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var accountId string
+
+		httpRes, err := apiClient.AccountAPI.NatsCoreWebsocketViewer(context.Background(), accountId).Execute()
+
+		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 

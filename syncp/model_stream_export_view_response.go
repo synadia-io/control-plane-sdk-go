@@ -17,7 +17,7 @@ import (
 // checks if the StreamExportViewResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &StreamExportViewResponse{}
 
-// StreamExportViewResponse struct for StreamExportViewResponse
+// StreamExportViewResponse / Stream export /
 type StreamExportViewResponse struct {
 	AccountId            string    `json:"account_id"`
 	Created              time.Time `json:"created"`

@@ -140,21 +140,6 @@ type TeamAPI interface {
 	LeaveTeamExecute(r ApiLeaveTeamRequest) (*http.Response, error)
 
 	/*
-		ListTeamAccounts List Accounts
-
-		Returns a list of Accounts directly associated with the current team
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param teamId
-		@return ApiListTeamAccountsRequest
-	*/
-	ListTeamAccounts(ctx context.Context, teamId string) ApiListTeamAccountsRequest
-
-	// ListTeamAccountsExecute executes the request
-	//  @return AccountListResponse
-	ListTeamAccountsExecute(r ApiListTeamAccountsRequest) (*AccountListResponse, *http.Response, error)
-
-	/*
 		ListTeamAppUsers List App Users
 
 		Returns a list of App Users associated with the Team
@@ -183,21 +168,6 @@ type TeamAPI interface {
 	// ListTeamInfoAppUsersExecute executes the request
 	//  @return TeamAppUserListResponse
 	ListTeamInfoAppUsersExecute(r ApiListTeamInfoAppUsersRequest) (*TeamAppUserListResponse, *http.Response, error)
-
-	/*
-		ListTeamNatsUsers List NATS Users
-
-		Returns a list of NATS Users directly associated with the current team
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param teamId
-		@return ApiListTeamNatsUsersRequest
-	*/
-	ListTeamNatsUsers(ctx context.Context, teamId string) ApiListTeamNatsUsersRequest
-
-	// ListTeamNatsUsersExecute executes the request
-	//  @return NatsUserListResponse
-	ListTeamNatsUsersExecute(r ApiListTeamNatsUsersRequest) (*NatsUserListResponse, *http.Response, error)
 
 	/*
 		ListTeamServiceAccounts List Team Service Accounts
@@ -328,7 +298,7 @@ func (a *TeamAPIService) CreateSystemExecute(r ApiCreateSystemRequest) (*SystemV
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/systems"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/systems"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -442,7 +412,7 @@ func (a *TeamAPIService) CreateTeamServiceAccountExecute(r ApiCreateTeamServiceA
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/service-accounts"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/service-accounts"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -547,7 +517,7 @@ func (a *TeamAPIService) DeleteTeamExecute(r ApiDeleteTeamRequest) (*http.Respon
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -643,7 +613,7 @@ func (a *TeamAPIService) GetTeamExecute(r ApiGetTeamRequest) (*TeamViewResponse,
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -749,7 +719,7 @@ func (a *TeamAPIService) GetTeamLimitsExecute(r ApiGetTeamLimitsRequest) (*TeamL
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/team-limits"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/team-limits"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -861,7 +831,7 @@ func (a *TeamAPIService) ImportSystemExecute(r ApiImportSystemRequest) (*SystemV
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/import-system"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/import-system"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -975,7 +945,7 @@ func (a *TeamAPIService) InviteAppUserExecute(r ApiInviteAppUserRequest) (*AppUs
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/app-users/invitations"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/app-users/invitations"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1080,7 +1050,7 @@ func (a *TeamAPIService) LeaveTeamExecute(r ApiLeaveTeamRequest) (*http.Response
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/app-users/leave"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/app-users/leave"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1133,112 +1103,6 @@ func (a *TeamAPIService) LeaveTeamExecute(r ApiLeaveTeamRequest) (*http.Response
 	return localVarHTTPResponse, nil
 }
 
-type ApiListTeamAccountsRequest struct {
-	ctx        context.Context
-	ApiService TeamAPI
-	teamId     string
-}
-
-func (r ApiListTeamAccountsRequest) Execute() (*AccountListResponse, *http.Response, error) {
-	return r.ApiService.ListTeamAccountsExecute(r)
-}
-
-/*
-ListTeamAccounts List Accounts
-
-Returns a list of Accounts directly associated with the current team
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param teamId
-	@return ApiListTeamAccountsRequest
-*/
-func (a *TeamAPIService) ListTeamAccounts(ctx context.Context, teamId string) ApiListTeamAccountsRequest {
-	return ApiListTeamAccountsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		teamId:     teamId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AccountListResponse
-func (a *TeamAPIService) ListTeamAccountsExecute(r ApiListTeamAccountsRequest) (*AccountListResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AccountListResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.ListTeamAccounts")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/teams/{teamId}/accounts"
-	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			code:  localVarHTTPResponse.StatusCode,
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			code:  localVarHTTPResponse.StatusCode,
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiListTeamAppUsersRequest struct {
 	ctx        context.Context
 	ApiService TeamAPI
@@ -1282,7 +1146,7 @@ func (a *TeamAPIService) ListTeamAppUsersExecute(r ApiListTeamAppUsersRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/app-users"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/app-users"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1388,113 +1252,7 @@ func (a *TeamAPIService) ListTeamInfoAppUsersExecute(r ApiListTeamInfoAppUsersRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/info/app-users"
-	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			code:  localVarHTTPResponse.StatusCode,
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			code:  localVarHTTPResponse.StatusCode,
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListTeamNatsUsersRequest struct {
-	ctx        context.Context
-	ApiService TeamAPI
-	teamId     string
-}
-
-func (r ApiListTeamNatsUsersRequest) Execute() (*NatsUserListResponse, *http.Response, error) {
-	return r.ApiService.ListTeamNatsUsersExecute(r)
-}
-
-/*
-ListTeamNatsUsers List NATS Users
-
-Returns a list of NATS Users directly associated with the current team
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param teamId
-	@return ApiListTeamNatsUsersRequest
-*/
-func (a *TeamAPIService) ListTeamNatsUsers(ctx context.Context, teamId string) ApiListTeamNatsUsersRequest {
-	return ApiListTeamNatsUsersRequest{
-		ApiService: a,
-		ctx:        ctx,
-		teamId:     teamId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return NatsUserListResponse
-func (a *TeamAPIService) ListTeamNatsUsersExecute(r ApiListTeamNatsUsersRequest) (*NatsUserListResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *NatsUserListResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamAPIService.ListTeamNatsUsers")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/teams/{teamId}/nats-users"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/info/app-users"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1600,7 +1358,7 @@ func (a *TeamAPIService) ListTeamServiceAccountsExecute(r ApiListTeamServiceAcco
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/service-accounts"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/service-accounts"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1706,7 +1464,7 @@ func (a *TeamAPIService) ListTeamSystemsExecute(r ApiListTeamSystemsRequest) (*S
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/systems"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/systems"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1812,7 +1570,7 @@ func (a *TeamAPIService) UnAssignTeamAppUserExecute(r ApiUnAssignTeamAppUserRequ
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/app-users/{appUserId}"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/app-users/{appUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
 
@@ -1915,7 +1673,7 @@ func (a *TeamAPIService) UpdateTeamExecute(r ApiUpdateTeamRequest) (*TeamViewRes
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2032,7 +1790,7 @@ func (a *TeamAPIService) UpdateTeamAppUserExecute(r ApiUpdateTeamAppUserRequest)
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams/{teamId}/app-users/{appUserId}"
+	localVarPath := localBasePath + "/core/beta/teams/{teamId}/app-users/{appUserId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"appUserId"+"}", url.PathEscape(parameterValueToString(r.appUserId, "appUserId")), -1)
 

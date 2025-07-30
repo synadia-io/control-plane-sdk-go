@@ -15,15 +15,25 @@ var _ MappedNullable = &TenantLimits{}
 
 // TenantLimits struct for TenantLimits
 type TenantLimits struct {
+	Data           *DataLimits     `json:"data,omitempty"`
 	NumAccounts    Nullable[int64] `json:"num_accounts"`
+	NumConnectors  Nullable[int64] `json:"num_connectors"`
 	ResourceLimits OperatorLimits  `json:"resource_limits"`
+	Workloads      WorkloadLimits  `json:"workloads"`
 }
 
 func (o TenantLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Data != nil {
+		toSerialize["data"] = o.Data
+	}
 	if !o.NumAccounts.IsNull() {
 		toSerialize["num_accounts"] = o.NumAccounts.Val
 	}
+	if !o.NumConnectors.IsNull() {
+		toSerialize["num_connectors"] = o.NumConnectors.Val
+	}
 	toSerialize["resource_limits"] = o.ResourceLimits
+	toSerialize["workloads"] = o.Workloads
 	return toSerialize, nil
 }

@@ -1,10 +1,10 @@
 # \IssuanceAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetNatsUserIssuance**](IssuanceAPI.md#GetNatsUserIssuance) | **Get** /nats-user-issuances/{issuanceId} | Get nats user issuance
+[**GetNatsUserIssuance**](IssuanceAPI.md#GetNatsUserIssuance) | **Get** /core/beta/nats-user-issuances/{issuanceId} | Get nats user issuance
 
 
 

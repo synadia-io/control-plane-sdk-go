@@ -109,7 +109,7 @@ func (a *PullConsumerAPIService) DeletePullConsumerExecute(r ApiDeletePullConsum
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/consumers/pull/{consumerId}"
+	localVarPath := localBasePath + "/core/beta/consumers/pull/{consumerId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"consumerId"+"}", url.PathEscape(parameterValueToString(r.consumerId, "consumerId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -205,7 +205,7 @@ func (a *PullConsumerAPIService) GetPullConsumerInfoExecute(r ApiGetPullConsumer
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/consumers/pull/{consumerId}"
+	localVarPath := localBasePath + "/core/beta/consumers/pull/{consumerId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"consumerId"+"}", url.PathEscape(parameterValueToString(r.consumerId, "consumerId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -317,7 +317,7 @@ func (a *PullConsumerAPIService) UpdatePullConsumerExecute(r ApiUpdatePullConsum
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/consumers/pull/{consumerId}"
+	localVarPath := localBasePath + "/core/beta/consumers/pull/{consumerId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"consumerId"+"}", url.PathEscape(parameterValueToString(r.consumerId, "consumerId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

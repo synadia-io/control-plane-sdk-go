@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DisablePrometheusFederation** | **bool** |  | 
+**NumSdkube** | Nullable[[**SDKubeLimit**](SDKubeLimit.md)] |  | 
 **NumSystems** | Nullable[**int64**] |  | 
 **NumUsers** | Nullable[**int64**] |  | 
 

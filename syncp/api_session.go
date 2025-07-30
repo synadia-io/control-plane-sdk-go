@@ -64,18 +64,18 @@ type SessionAPI interface {
 	CreateAppUserExecute(r ApiCreateAppUserRequest) (*AppUserCreateResponse, *http.Response, error)
 
 	/*
-		CreatePersonalAccessToken Create Personal Access Token
+		CreateAppUserAccessToken Create Personal Access Token
 
 		Creates a Personal Access Token
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreatePersonalAccessTokenRequest
+		@return ApiCreateAppUserAccessTokenRequest
 	*/
-	CreatePersonalAccessToken(ctx context.Context) ApiCreatePersonalAccessTokenRequest
+	CreateAppUserAccessToken(ctx context.Context) ApiCreateAppUserAccessTokenRequest
 
-	// CreatePersonalAccessTokenExecute executes the request
+	// CreateAppUserAccessTokenExecute executes the request
 	//  @return AppUserAccessTokenCreateResponse
-	CreatePersonalAccessTokenExecute(r ApiCreatePersonalAccessTokenRequest) (*AppUserAccessTokenCreateResponse, *http.Response, error)
+	CreateAppUserAccessTokenExecute(r ApiCreateAppUserAccessTokenRequest) (*AppUserAccessTokenCreateResponse, *http.Response, error)
 
 	/*
 		CreateTeam Create Team
@@ -148,6 +148,20 @@ type SessionAPI interface {
 	ListAppServiceAccountsExecute(r ApiListAppServiceAccountsRequest) (*ServiceAccountListResponse, *http.Response, error)
 
 	/*
+		ListAppUserAccessTokens List Personal Access Tokens
+
+		Returns a list of Personal Access Tokens
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListAppUserAccessTokensRequest
+	*/
+	ListAppUserAccessTokens(ctx context.Context) ApiListAppUserAccessTokensRequest
+
+	// ListAppUserAccessTokensExecute executes the request
+	//  @return AppUserAccessTokenListResponse
+	ListAppUserAccessTokensExecute(r ApiListAppUserAccessTokensRequest) (*AppUserAccessTokenListResponse, *http.Response, error)
+
+	/*
 		ListAppUsers List App Users
 
 		List App Users
@@ -174,20 +188,6 @@ type SessionAPI interface {
 	// ListInvitationsExecute executes the request
 	//  @return InvitationListResponse
 	ListInvitationsExecute(r ApiListInvitationsRequest) (*InvitationListResponse, *http.Response, error)
-
-	/*
-		ListPersonalAccessTokens List Personal Access Tokens
-
-		Returns a list of Personal Access Tokens
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListPersonalAccessTokensRequest
-	*/
-	ListPersonalAccessTokens(ctx context.Context) ApiListPersonalAccessTokensRequest
-
-	// ListPersonalAccessTokensExecute executes the request
-	//  @return AppUserAccessTokenListResponse
-	ListPersonalAccessTokensExecute(r ApiListPersonalAccessTokensRequest) (*AppUserAccessTokenListResponse, *http.Response, error)
 
 	/*
 		ListTeams List Teams
@@ -247,7 +247,7 @@ func (a *SessionAPIService) AcceptTermsExecute(r ApiAcceptTermsRequest) (*Accept
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/terms/accept"
+	localVarPath := localBasePath + "/core/beta/terms/accept"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -355,7 +355,7 @@ func (a *SessionAPIService) CreateAppServiceAccountExecute(r ApiCreateAppService
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-accounts/app"
+	localVarPath := localBasePath + "/core/beta/service-accounts/app"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -465,7 +465,7 @@ func (a *SessionAPIService) CreateAppUserExecute(r ApiCreateAppUserRequest) (*Ap
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/app-users"
+	localVarPath := localBasePath + "/core/beta/app-users"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -529,31 +529,31 @@ func (a *SessionAPIService) CreateAppUserExecute(r ApiCreateAppUserRequest) (*Ap
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiCreatePersonalAccessTokenRequest struct {
+type ApiCreateAppUserAccessTokenRequest struct {
 	ctx                             context.Context
 	ApiService                      SessionAPI
 	appUserAccessTokenCreateRequest *AppUserAccessTokenCreateRequest
 }
 
-func (r ApiCreatePersonalAccessTokenRequest) AppUserAccessTokenCreateRequest(appUserAccessTokenCreateRequest AppUserAccessTokenCreateRequest) ApiCreatePersonalAccessTokenRequest {
+func (r ApiCreateAppUserAccessTokenRequest) AppUserAccessTokenCreateRequest(appUserAccessTokenCreateRequest AppUserAccessTokenCreateRequest) ApiCreateAppUserAccessTokenRequest {
 	r.appUserAccessTokenCreateRequest = &appUserAccessTokenCreateRequest
 	return r
 }
 
-func (r ApiCreatePersonalAccessTokenRequest) Execute() (*AppUserAccessTokenCreateResponse, *http.Response, error) {
-	return r.ApiService.CreatePersonalAccessTokenExecute(r)
+func (r ApiCreateAppUserAccessTokenRequest) Execute() (*AppUserAccessTokenCreateResponse, *http.Response, error) {
+	return r.ApiService.CreateAppUserAccessTokenExecute(r)
 }
 
 /*
-CreatePersonalAccessToken Create Personal Access Token
+CreateAppUserAccessToken Create Personal Access Token
 
 Creates a Personal Access Token
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePersonalAccessTokenRequest
+	@return ApiCreateAppUserAccessTokenRequest
 */
-func (a *SessionAPIService) CreatePersonalAccessToken(ctx context.Context) ApiCreatePersonalAccessTokenRequest {
-	return ApiCreatePersonalAccessTokenRequest{
+func (a *SessionAPIService) CreateAppUserAccessToken(ctx context.Context) ApiCreateAppUserAccessTokenRequest {
+	return ApiCreateAppUserAccessTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -562,7 +562,7 @@ func (a *SessionAPIService) CreatePersonalAccessToken(ctx context.Context) ApiCr
 // Execute executes the request
 //
 //	@return AppUserAccessTokenCreateResponse
-func (a *SessionAPIService) CreatePersonalAccessTokenExecute(r ApiCreatePersonalAccessTokenRequest) (*AppUserAccessTokenCreateResponse, *http.Response, error) {
+func (a *SessionAPIService) CreateAppUserAccessTokenExecute(r ApiCreateAppUserAccessTokenRequest) (*AppUserAccessTokenCreateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -570,12 +570,12 @@ func (a *SessionAPIService) CreatePersonalAccessTokenExecute(r ApiCreatePersonal
 		localVarReturnValue *AppUserAccessTokenCreateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.CreatePersonalAccessToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.CreateAppUserAccessToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/personal-access-tokens"
+	localVarPath := localBasePath + "/core/beta/personal-access-tokens"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -685,7 +685,7 @@ func (a *SessionAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*TeamView
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams"
+	localVarPath := localBasePath + "/core/beta/teams"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -795,7 +795,7 @@ func (a *SessionAPIService) DecideInvitationExecute(r ApiDecideInvitationRequest
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/invitations/{teamId}"
+	localVarPath := localBasePath + "/core/beta/invitations/{teamId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"teamId"+"}", url.PathEscape(parameterValueToString(r.teamId, "teamId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -890,7 +890,7 @@ func (a *SessionAPIService) GetVersionExecute(r ApiGetVersionRequest) (*VersionR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/version"
+	localVarPath := localBasePath + "/core/beta/version"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -998,7 +998,7 @@ func (a *SessionAPIService) ListAlertsExecute(r ApiListAlertsRequest) (*AlertLis
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/alerts"
+	localVarPath := localBasePath + "/core/beta/alerts"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1103,7 +1103,109 @@ func (a *SessionAPIService) ListAppServiceAccountsExecute(r ApiListAppServiceAcc
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-accounts/app"
+	localVarPath := localBasePath + "/core/beta/service-accounts/app"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListAppUserAccessTokensRequest struct {
+	ctx        context.Context
+	ApiService SessionAPI
+}
+
+func (r ApiListAppUserAccessTokensRequest) Execute() (*AppUserAccessTokenListResponse, *http.Response, error) {
+	return r.ApiService.ListAppUserAccessTokensExecute(r)
+}
+
+/*
+ListAppUserAccessTokens List Personal Access Tokens
+
+Returns a list of Personal Access Tokens
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAppUserAccessTokensRequest
+*/
+func (a *SessionAPIService) ListAppUserAccessTokens(ctx context.Context) ApiListAppUserAccessTokensRequest {
+	return ApiListAppUserAccessTokensRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AppUserAccessTokenListResponse
+func (a *SessionAPIService) ListAppUserAccessTokensExecute(r ApiListAppUserAccessTokensRequest) (*AppUserAccessTokenListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AppUserAccessTokenListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.ListAppUserAccessTokens")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/personal-access-tokens"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1205,7 +1307,7 @@ func (a *SessionAPIService) ListAppUsersExecute(r ApiListAppUsersRequest) (*AppU
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/app-users"
+	localVarPath := localBasePath + "/core/beta/app-users"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1307,109 +1409,7 @@ func (a *SessionAPIService) ListInvitationsExecute(r ApiListInvitationsRequest) 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/invitations"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			code:  localVarHTTPResponse.StatusCode,
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			code:  localVarHTTPResponse.StatusCode,
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListPersonalAccessTokensRequest struct {
-	ctx        context.Context
-	ApiService SessionAPI
-}
-
-func (r ApiListPersonalAccessTokensRequest) Execute() (*AppUserAccessTokenListResponse, *http.Response, error) {
-	return r.ApiService.ListPersonalAccessTokensExecute(r)
-}
-
-/*
-ListPersonalAccessTokens List Personal Access Tokens
-
-Returns a list of Personal Access Tokens
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListPersonalAccessTokensRequest
-*/
-func (a *SessionAPIService) ListPersonalAccessTokens(ctx context.Context) ApiListPersonalAccessTokensRequest {
-	return ApiListPersonalAccessTokensRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return AppUserAccessTokenListResponse
-func (a *SessionAPIService) ListPersonalAccessTokensExecute(r ApiListPersonalAccessTokensRequest) (*AppUserAccessTokenListResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *AppUserAccessTokenListResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.ListPersonalAccessTokens")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/personal-access-tokens"
+	localVarPath := localBasePath + "/core/beta/invitations"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1474,6 +1474,12 @@ func (a *SessionAPIService) ListPersonalAccessTokensExecute(r ApiListPersonalAcc
 type ApiListTeamsRequest struct {
 	ctx        context.Context
 	ApiService SessionAPI
+	assigned   *string
+}
+
+func (r ApiListTeamsRequest) Assigned(assigned string) ApiListTeamsRequest {
+	r.assigned = &assigned
+	return r
 }
 
 func (r ApiListTeamsRequest) Execute() (*TeamListResponse, *http.Response, error) {
@@ -1511,12 +1517,15 @@ func (a *SessionAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*TeamListRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/teams"
+	localVarPath := localBasePath + "/core/beta/teams"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.assigned != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "assigned", r.assigned, "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

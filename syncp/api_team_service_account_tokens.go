@@ -109,7 +109,7 @@ func (a *TeamServiceAccountTokensAPIService) DeleteTeamServiceAccountTokenExecut
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-account-tokens/team/{tokenId}"
+	localVarPath := localBasePath + "/core/beta/service-account-tokens/team/{tokenId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -205,7 +205,7 @@ func (a *TeamServiceAccountTokensAPIService) GetTeamServiceAccountTokenExecute(r
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-account-tokens/team/{tokenId}"
+	localVarPath := localBasePath + "/core/beta/service-account-tokens/team/{tokenId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -317,7 +317,7 @@ func (a *TeamServiceAccountTokensAPIService) UpdateTeamServiceAccountTokenExecut
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/service-account-tokens/team/{tokenId}"
+	localVarPath := localBasePath + "/core/beta/service-account-tokens/team/{tokenId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

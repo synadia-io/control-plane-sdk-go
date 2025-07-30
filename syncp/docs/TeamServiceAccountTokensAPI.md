@@ -1,12 +1,12 @@
 # \TeamServiceAccountTokensAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteTeamServiceAccountToken**](TeamServiceAccountTokensAPI.md#DeleteTeamServiceAccountToken) | **Delete** /service-account-tokens/team/{tokenId} | Delete Team Service Account Token
-[**GetTeamServiceAccountToken**](TeamServiceAccountTokensAPI.md#GetTeamServiceAccountToken) | **Get** /service-account-tokens/team/{tokenId} | Get Team Service Account Token
-[**UpdateTeamServiceAccountToken**](TeamServiceAccountTokensAPI.md#UpdateTeamServiceAccountToken) | **Patch** /service-account-tokens/team/{tokenId} | Update Team Service Account Token
+[**DeleteTeamServiceAccountToken**](TeamServiceAccountTokensAPI.md#DeleteTeamServiceAccountToken) | **Delete** /core/beta/service-account-tokens/team/{tokenId} | Delete Team Service Account Token
+[**GetTeamServiceAccountToken**](TeamServiceAccountTokensAPI.md#GetTeamServiceAccountToken) | **Get** /core/beta/service-account-tokens/team/{tokenId} | Get Team Service Account Token
+[**UpdateTeamServiceAccountToken**](TeamServiceAccountTokensAPI.md#UpdateTeamServiceAccountToken) | **Patch** /core/beta/service-account-tokens/team/{tokenId} | Update Team Service Account Token
 
 
 

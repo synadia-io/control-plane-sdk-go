@@ -1,10 +1,10 @@
 # \AgentTokenAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAgentToken**](AgentTokenAPI.md#DeleteAgentToken) | **Delete** /agent-tokens/{tokenId} | Delete Agent Token
+[**DeleteAgentToken**](AgentTokenAPI.md#DeleteAgentToken) | **Delete** /core/beta/agent-tokens/{tokenId} | Delete Agent Token
 
 
 

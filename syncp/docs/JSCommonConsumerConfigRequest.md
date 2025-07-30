@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **Direct** | Pointer to **bool** |  | [optional] 
 **DurableName** | Pointer to **string** |  | [optional] 
-**FilterSubject** | Pointer to **string** |  | [optional] 
+**FilterSubjects** | Pointer to []**string** |  | [optional] 
 **InactiveThreshold** | Pointer to **int64** |  | [optional] 
 **MaxAckPending** | Pointer to **int64** |  | [optional] 
 **MaxDeliver** | Pointer to **int64** |  | [optional] 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Identifier** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
+**Type** | [**AppUserType**](AppUserType.md) |  | 
 
 ## Methods
 

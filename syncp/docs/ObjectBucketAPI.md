@@ -1,16 +1,16 @@
 # \ObjectBucketAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateObjPullConsumer**](ObjectBucketAPI.md#CreateObjPullConsumer) | **Post** /jetstream/object-bucket/{streamId}/consumers/pull | Create Pull Consumer
-[**CreateObjPushConsumer**](ObjectBucketAPI.md#CreateObjPushConsumer) | **Post** /jetstream/object-bucket/{streamId}/consumers/push | Create Push Consumer
-[**DeleteObjectBucket**](ObjectBucketAPI.md#DeleteObjectBucket) | **Delete** /jetstream/object-bucket/{streamId} | Delete Object Bucket
-[**GetObjectBucket**](ObjectBucketAPI.md#GetObjectBucket) | **Get** /jetstream/object-bucket/{streamId} | Get Object Bucket
-[**ListObjConsumers**](ObjectBucketAPI.md#ListObjConsumers) | **Get** /jetstream/object-bucket/{streamId}/consumers | List Consumers
-[**PurgeObjBucket**](ObjectBucketAPI.md#PurgeObjBucket) | **Delete** /jetstream/object-bucket/{streamId}/purge | Purge Object Bucket
-[**UpdateObjectBucket**](ObjectBucketAPI.md#UpdateObjectBucket) | **Patch** /jetstream/object-bucket/{streamId} | Update Object Bucket
+[**CreateObjPullConsumer**](ObjectBucketAPI.md#CreateObjPullConsumer) | **Post** /core/beta/jetstream/object-bucket/{streamId}/consumers/pull | Create Pull Consumer
+[**CreateObjPushConsumer**](ObjectBucketAPI.md#CreateObjPushConsumer) | **Post** /core/beta/jetstream/object-bucket/{streamId}/consumers/push | Create Push Consumer
+[**DeleteObjectBucket**](ObjectBucketAPI.md#DeleteObjectBucket) | **Delete** /core/beta/jetstream/object-bucket/{streamId} | Delete Object Bucket
+[**GetObjectBucket**](ObjectBucketAPI.md#GetObjectBucket) | **Get** /core/beta/jetstream/object-bucket/{streamId} | Get Object Bucket
+[**ListObjConsumers**](ObjectBucketAPI.md#ListObjConsumers) | **Get** /core/beta/jetstream/object-bucket/{streamId}/consumers | List Consumers
+[**PurgeObjBucket**](ObjectBucketAPI.md#PurgeObjBucket) | **Delete** /core/beta/jetstream/object-bucket/{streamId}/purge | Purge Object Bucket
+[**UpdateObjectBucket**](ObjectBucketAPI.md#UpdateObjectBucket) | **Patch** /core/beta/jetstream/object-bucket/{streamId} | Update Object Bucket
 
 
 

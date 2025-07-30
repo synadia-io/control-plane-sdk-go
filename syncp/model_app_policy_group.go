@@ -21,16 +21,20 @@ type AppPolicyGroup string
 
 // List of AppPolicyGroup
 const (
-	APPPOLICYGROUP_CORE         AppPolicyGroup = "Core"
-	APPPOLICYGROUP_CLOUD        AppPolicyGroup = "Cloud"
-	APPPOLICYGROUP_APPLICATIONS AppPolicyGroup = "Applications"
+	APPPOLICYGROUP_CORE            AppPolicyGroup = "Core"
+	APPPOLICYGROUP_CLOUD           AppPolicyGroup = "Cloud"
+	APPPOLICYGROUP_CONNECTORS      AppPolicyGroup = "Connectors"
+	APPPOLICYGROUP_WORKLOADS       AppPolicyGroup = "Workloads"
+	APPPOLICYGROUP_SCHEMA_REGISTRY AppPolicyGroup = "SchemaRegistry"
 )
 
 // All allowed values of AppPolicyGroup enum
 var AllowedAppPolicyGroupEnumValues = []AppPolicyGroup{
 	"Core",
 	"Cloud",
-	"Applications",
+	"Connectors",
+	"Workloads",
+	"SchemaRegistry",
 }
 
 func (v *AppPolicyGroup) UnmarshalJSON(src []byte) error {

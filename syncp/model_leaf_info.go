@@ -20,6 +20,7 @@ type LeafInfo struct {
 	InMsgs            int64    `json:"in_msgs"`
 	Ip                string   `json:"ip"`
 	IsSpoke           *bool    `json:"is_spoke,omitempty"`
+	Name              string   `json:"name"`
 	OutBytes          int64    `json:"out_bytes"`
 	OutMsgs           int64    `json:"out_msgs"`
 	Port              int64    `json:"port"`
@@ -37,6 +38,7 @@ func (o LeafInfo) ToMap() (map[string]interface{}, error) {
 	if o.IsSpoke != nil {
 		toSerialize["is_spoke"] = o.IsSpoke
 	}
+	toSerialize["name"] = o.Name
 	toSerialize["out_bytes"] = o.OutBytes
 	toSerialize["out_msgs"] = o.OutMsgs
 	toSerialize["port"] = o.Port

@@ -1,11 +1,11 @@
 # \AlertAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AcknowledgeAlert**](AlertAPI.md#AcknowledgeAlert) | **Patch** /alerts/{alertId}/acknowledge | Acknowledge Alert
-[**GetAlert**](AlertAPI.md#GetAlert) | **Get** /alerts/{alertId} | Get Alert
+[**AcknowledgeAlert**](AlertAPI.md#AcknowledgeAlert) | **Patch** /core/beta/alerts/{alertId}/acknowledge | Acknowledge Alert
+[**GetAlert**](AlertAPI.md#GetAlert) | **Get** /core/beta/alerts/{alertId} | Get Alert
 
 
 

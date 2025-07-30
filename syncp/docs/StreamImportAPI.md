@@ -1,11 +1,11 @@
 # \StreamImportAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteStreamImport**](StreamImportAPI.md#DeleteStreamImport) | **Delete** /stream-imports/{streamImportId} | Delete Stream Import
-[**GetStreamImport**](StreamImportAPI.md#GetStreamImport) | **Get** /stream-imports/{streamImportId} | Get Stream Import
+[**DeleteStreamImport**](StreamImportAPI.md#DeleteStreamImport) | **Delete** /core/beta/stream-imports/{streamImportId} | Delete Stream Import
+[**GetStreamImport**](StreamImportAPI.md#GetStreamImport) | **Get** /core/beta/stream-imports/{streamImportId} | Get Stream Import
 
 
 

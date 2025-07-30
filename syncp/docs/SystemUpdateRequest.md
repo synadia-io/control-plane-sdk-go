@@ -6,10 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConnectionType** | Pointer to [**SystemConnectionType**](SystemConnectionType.md) |  | [optional] [default to SYSTEMCONNECTIONTYPE_AGENT]
 **DirectConnectionOpts** | Pointer to Nullable[[**SystemDirectConnectionOptsPatch**](SystemDirectConnectionOptsPatch.md)] |  | [optional] 
-**HttpGatewayConfig** | Pointer to Nullable[[**HTTPGatewayConfigPatch**](HTTPGatewayConfigPatch.md)] |  | [optional] 
 **JetstreamDomain** | Pointer to Nullable[**string**] |  | [optional] 
 **JetstreamEnabled** | Pointer to **bool** |  | [optional] 
+**LogForwardingOpts** | Pointer to Nullable[[**SystemLogForwardingOptsPatch**](SystemLogForwardingOptsPatch.md)] |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
+**NatsAlertingConfig** | Pointer to Nullable[[**NatsAlertingConfigPatch**](NatsAlertingConfigPatch.md)] |  | [optional] 
 **OperatorJwt** | Pointer to **string** |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
 

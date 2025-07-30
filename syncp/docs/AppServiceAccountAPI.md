@@ -1,14 +1,14 @@
 # \AppServiceAccountAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAppServiceAccountToken**](AppServiceAccountAPI.md#CreateAppServiceAccountToken) | **Post** /service-accounts/app/{serviceAccountId}/tokens | Create Acess Token for App Service Account
-[**DeleteAppServiceAccount**](AppServiceAccountAPI.md#DeleteAppServiceAccount) | **Delete** /service-accounts/app/{serviceAccountId} | Delete App Service Account
-[**GetAppServiceAccount**](AppServiceAccountAPI.md#GetAppServiceAccount) | **Get** /service-accounts/app/{serviceAccountId} | Get App Service Account
-[**ListAppServiceAccountTokens**](AppServiceAccountAPI.md#ListAppServiceAccountTokens) | **Get** /service-accounts/app/{serviceAccountId}/tokens | List Access Tokens for App Service Account
-[**UpdateAppServiceAccount**](AppServiceAccountAPI.md#UpdateAppServiceAccount) | **Patch** /service-accounts/app/{serviceAccountId} | Update App Service Account
+[**CreateAppServiceAccountToken**](AppServiceAccountAPI.md#CreateAppServiceAccountToken) | **Post** /core/beta/service-accounts/app/{serviceAccountId}/tokens | Create Acess Token for App Service Account
+[**DeleteAppServiceAccount**](AppServiceAccountAPI.md#DeleteAppServiceAccount) | **Delete** /core/beta/service-accounts/app/{serviceAccountId} | Delete App Service Account
+[**GetAppServiceAccount**](AppServiceAccountAPI.md#GetAppServiceAccount) | **Get** /core/beta/service-accounts/app/{serviceAccountId} | Get App Service Account
+[**ListAppServiceAccountTokens**](AppServiceAccountAPI.md#ListAppServiceAccountTokens) | **Get** /core/beta/service-accounts/app/{serviceAccountId}/tokens | List Access Tokens for App Service Account
+[**UpdateAppServiceAccount**](AppServiceAccountAPI.md#UpdateAppServiceAccount) | **Patch** /core/beta/service-accounts/app/{serviceAccountId} | Update App Service Account
 
 
 

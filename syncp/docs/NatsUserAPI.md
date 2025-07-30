@@ -1,22 +1,22 @@
 # \NatsUserAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssignNatsUserTeamAppUser**](NatsUserAPI.md#AssignNatsUserTeamAppUser) | **Post** /nats-users/{userId}/app-users/{teamAppUserId} | Assign Team App User to NATS User
-[**CopyNatsUser**](NatsUserAPI.md#CopyNatsUser) | **Post** /nats-users/{userId}/copy | Copy nats user
-[**DeleteNatsUser**](NatsUserAPI.md#DeleteNatsUser) | **Delete** /nats-users/{userId} | Delete NATS User
-[**DownloadNatsUserBearerJwt**](NatsUserAPI.md#DownloadNatsUserBearerJwt) | **Post** /nats-users/{userId}/bearer-jwt | Get Bearer JWT
-[**DownloadNatsUserCreds**](NatsUserAPI.md#DownloadNatsUserCreds) | **Post** /nats-users/{userId}/creds | Get Creds
-[**DownloadNatsUserHttpGwToken**](NatsUserAPI.md#DownloadNatsUserHttpGwToken) | **Post** /nats-users/{userId}/http-gw-token | Get HTTP Gateway Token
-[**GetNatsUser**](NatsUserAPI.md#GetNatsUser) | **Get** /nats-users/{userId} | Get NATS User
-[**ListNatsUserConnections**](NatsUserAPI.md#ListNatsUserConnections) | **Get** /nats-users/{userId}/connections | List NATs User Connections
-[**ListNatsUserIssuances**](NatsUserAPI.md#ListNatsUserIssuances) | **Get** /nats-users/{userId}/issuances | List nats user issuances
-[**ListNatsUserTeamAppUsers**](NatsUserAPI.md#ListNatsUserTeamAppUsers) | **Get** /nats-users/{userId}/app-users | List Team App Users
-[**RotateNatsUser**](NatsUserAPI.md#RotateNatsUser) | **Post** /nats-users/{userId}/rotate | Rotate nats user nkey and seed
-[**UnAssignNatsUserTeamAppUser**](NatsUserAPI.md#UnAssignNatsUserTeamAppUser) | **Delete** /nats-users/{userId}/app-users/{teamAppUserId} | Unassign Team App User from NATS User
-[**UpdateNatsUser**](NatsUserAPI.md#UpdateNatsUser) | **Patch** /nats-users/{userId} | Update NATS User
+[**AssignNatsUserTeamAppUser**](NatsUserAPI.md#AssignNatsUserTeamAppUser) | **Post** /core/beta/nats-users/{userId}/app-users/{teamAppUserId} | Assign Team App User to NATS User
+[**CopyNatsUser**](NatsUserAPI.md#CopyNatsUser) | **Post** /core/beta/nats-users/{userId}/copy | Copy nats user
+[**DeleteNatsUser**](NatsUserAPI.md#DeleteNatsUser) | **Delete** /core/beta/nats-users/{userId} | Delete NATS User
+[**DownloadNatsUserBearerJwt**](NatsUserAPI.md#DownloadNatsUserBearerJwt) | **Post** /core/beta/nats-users/{userId}/bearer-jwt | Get Bearer JWT
+[**DownloadNatsUserCreds**](NatsUserAPI.md#DownloadNatsUserCreds) | **Post** /core/beta/nats-users/{userId}/creds | Get Creds
+[**DownloadNatsUserHttpGwToken**](NatsUserAPI.md#DownloadNatsUserHttpGwToken) | **Post** /core/beta/nats-users/{userId}/http-gw-token | Get HTTP Gateway Token
+[**GetNatsUser**](NatsUserAPI.md#GetNatsUser) | **Get** /core/beta/nats-users/{userId} | Get NATS User
+[**ListNatsUserConnections**](NatsUserAPI.md#ListNatsUserConnections) | **Get** /core/beta/nats-users/{userId}/connections | List NATs User Connections
+[**ListNatsUserIssuances**](NatsUserAPI.md#ListNatsUserIssuances) | **Get** /core/beta/nats-users/{userId}/issuances | List nats user issuances
+[**ListNatsUserTeamAppUsers**](NatsUserAPI.md#ListNatsUserTeamAppUsers) | **Get** /core/beta/nats-users/{userId}/app-users | List Team App Users
+[**RotateNatsUser**](NatsUserAPI.md#RotateNatsUser) | **Post** /core/beta/nats-users/{userId}/rotate | Rotate nats user nkey and seed
+[**UnAssignNatsUserTeamAppUser**](NatsUserAPI.md#UnAssignNatsUserTeamAppUser) | **Delete** /core/beta/nats-users/{userId}/app-users/{teamAppUserId} | Unassign Team App User from NATS User
+[**UpdateNatsUser**](NatsUserAPI.md#UpdateNatsUser) | **Patch** /core/beta/nats-users/{userId} | Update NATS User
 
 
 

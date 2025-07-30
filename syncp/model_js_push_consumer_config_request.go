@@ -62,8 +62,8 @@ func (o JSPushConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if o.DurableName != nil {
 		toSerialize["durable_name"] = o.DurableName
 	}
-	if o.FilterSubject != nil {
-		toSerialize["filter_subject"] = o.FilterSubject
+	if len(o.FilterSubjects) != 0 {
+		toSerialize["filter_subjects"] = o.FilterSubjects
 	}
 	if o.InactiveThreshold != nil {
 		toSerialize["inactive_threshold"] = o.InactiveThreshold

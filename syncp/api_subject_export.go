@@ -163,7 +163,7 @@ func (a *SubjectExportAPIService) CreateSubjectSharesExecute(r ApiCreateSubjectS
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subject-exports/{subjectExportId}/shares"
+	localVarPath := localBasePath + "/core/beta/subject-exports/{subjectExportId}/shares"
 	localVarPath = strings.Replace(localVarPath, "{"+"subjectExportId"+"}", url.PathEscape(parameterValueToString(r.subjectExportId, "subjectExportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -268,7 +268,7 @@ func (a *SubjectExportAPIService) DeleteSubjectExportExecute(r ApiDeleteSubjectE
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subject-exports/{subjectExportId}"
+	localVarPath := localBasePath + "/core/beta/subject-exports/{subjectExportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"subjectExportId"+"}", url.PathEscape(parameterValueToString(r.subjectExportId, "subjectExportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -364,7 +364,7 @@ func (a *SubjectExportAPIService) DeleteSubjectShareExecute(r ApiDeleteSubjectSh
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subject-exports/{subjectExportId}/shares/{targetAccountNKeyPublic}"
+	localVarPath := localBasePath + "/core/beta/subject-exports/{subjectExportId}/shares/{targetAccountNKeyPublic}"
 	localVarPath = strings.Replace(localVarPath, "{"+"subjectExportId"+"}", url.PathEscape(parameterValueToString(r.subjectExportId, "subjectExportId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"targetAccountNKeyPublic"+"}", url.PathEscape(parameterValueToString(r.targetAccountNKeyPublic, "targetAccountNKeyPublic")), -1)
 
@@ -461,7 +461,7 @@ func (a *SubjectExportAPIService) GetSubjectExportExecute(r ApiGetSubjectExportR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subject-exports/{subjectExportId}"
+	localVarPath := localBasePath + "/core/beta/subject-exports/{subjectExportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"subjectExportId"+"}", url.PathEscape(parameterValueToString(r.subjectExportId, "subjectExportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -567,7 +567,7 @@ func (a *SubjectExportAPIService) ListSubjectSharesExecute(r ApiListSubjectShare
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subject-exports/{subjectExportId}/shares"
+	localVarPath := localBasePath + "/core/beta/subject-exports/{subjectExportId}/shares"
 	localVarPath = strings.Replace(localVarPath, "{"+"subjectExportId"+"}", url.PathEscape(parameterValueToString(r.subjectExportId, "subjectExportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -679,7 +679,7 @@ func (a *SubjectExportAPIService) UpdateSubjectExportExecute(r ApiUpdateSubjectE
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subject-exports/{subjectExportId}"
+	localVarPath := localBasePath + "/core/beta/subject-exports/{subjectExportId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"subjectExportId"+"}", url.PathEscape(parameterValueToString(r.subjectExportId, "subjectExportId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

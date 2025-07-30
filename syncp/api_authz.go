@@ -112,7 +112,7 @@ func (a *AuthzAPIService) CheckExecute(r ApiCheckRequest) ([]AuthzResponse, *htt
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/authz/check"
+	localVarPath := localBasePath + "/core/beta/authz/check"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -216,7 +216,7 @@ func (a *AuthzAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*Policy
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/authz/policies"
+	localVarPath := localBasePath + "/core/beta/authz/policies"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -318,7 +318,7 @@ func (a *AuthzAPIService) ListRolesExecute(r ApiListRolesRequest) (*RoleListResp
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/authz/roles"
+	localVarPath := localBasePath + "/core/beta/authz/roles"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

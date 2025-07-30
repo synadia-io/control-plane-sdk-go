@@ -24,7 +24,7 @@ type SigKeyGroupAPI interface {
 	/*
 		CopyAccountSkGroup Copy Account SK Group
 
-		Copies Account SK Group. Copies all users from old SK group to the new SK group, genering new NKeys for copied users.
+		Copies Account SK Group. Copies all users from old SK group to the new SK group, generating new NKeys for copied users.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param groupId
@@ -64,6 +64,21 @@ type SigKeyGroupAPI interface {
 	// GetAccountSkGroupExecute executes the request
 	//  @return SigningKeyGroupViewResponse
 	GetAccountSkGroupExecute(r ApiGetAccountSkGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error)
+
+	/*
+		ListAccountSKGroupUsers List NATS Users
+
+		Returns a list of NATS users for the given signing key group
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId
+		@return ApiListAccountSKGroupUsersRequest
+	*/
+	ListAccountSKGroupUsers(ctx context.Context, groupId string) ApiListAccountSKGroupUsersRequest
+
+	// ListAccountSKGroupUsersExecute executes the request
+	//  @return NatsUserListResponse
+	ListAccountSKGroupUsersExecute(r ApiListAccountSKGroupUsersRequest) (*NatsUserListResponse, *http.Response, error)
 
 	/*
 		ListAccountSkGroupKeys List Signing Keys
@@ -133,7 +148,7 @@ func (r ApiCopyAccountSkGroupRequest) Execute() (*SigningKeyGroupViewResponse, *
 /*
 CopyAccountSkGroup Copy Account SK Group
 
-Copies Account SK Group. Copies all users from old SK group to the new SK group, genering new NKeys for copied users.
+Copies Account SK Group. Copies all users from old SK group to the new SK group, generating new NKeys for copied users.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
@@ -163,7 +178,7 @@ func (a *SigKeyGroupAPIService) CopyAccountSkGroupExecute(r ApiCopyAccountSkGrou
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/account-sk-groups/{groupId}/copy"
+	localVarPath := localBasePath + "/core/beta/account-sk-groups/{groupId}/copy"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -268,7 +283,7 @@ func (a *SigKeyGroupAPIService) DeleteAccountSkGroupExecute(r ApiDeleteAccountSk
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/account-sk-groups/{groupId}"
+	localVarPath := localBasePath + "/core/beta/account-sk-groups/{groupId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -364,7 +379,113 @@ func (a *SigKeyGroupAPIService) GetAccountSkGroupExecute(r ApiGetAccountSkGroupR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/account-sk-groups/{groupId}"
+	localVarPath := localBasePath + "/core/beta/account-sk-groups/{groupId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListAccountSKGroupUsersRequest struct {
+	ctx        context.Context
+	ApiService SigKeyGroupAPI
+	groupId    string
+}
+
+func (r ApiListAccountSKGroupUsersRequest) Execute() (*NatsUserListResponse, *http.Response, error) {
+	return r.ApiService.ListAccountSKGroupUsersExecute(r)
+}
+
+/*
+ListAccountSKGroupUsers List NATS Users
+
+Returns a list of NATS users for the given signing key group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiListAccountSKGroupUsersRequest
+*/
+func (a *SigKeyGroupAPIService) ListAccountSKGroupUsers(ctx context.Context, groupId string) ApiListAccountSKGroupUsersRequest {
+	return ApiListAccountSKGroupUsersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		groupId:    groupId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsUserListResponse
+func (a *SigKeyGroupAPIService) ListAccountSKGroupUsersExecute(r ApiListAccountSKGroupUsersRequest) (*NatsUserListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsUserListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SigKeyGroupAPIService.ListAccountSKGroupUsers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/account-sk-groups/{groupId}/nats-users"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -470,7 +591,7 @@ func (a *SigKeyGroupAPIService) ListAccountSkGroupKeysExecute(r ApiListAccountSk
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/account-sk-groups/{groupId}/account-sks"
+	localVarPath := localBasePath + "/core/beta/account-sk-groups/{groupId}/account-sks"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -576,7 +697,7 @@ func (a *SigKeyGroupAPIService) RotateAccountSkExecute(r ApiRotateAccountSkReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/account-sk-groups/{groupId}/rotate-sk"
+	localVarPath := localBasePath + "/core/beta/account-sk-groups/{groupId}/rotate-sk"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -688,7 +809,7 @@ func (a *SigKeyGroupAPIService) UpdateAccountSkGroupExecute(r ApiUpdateAccountSk
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/account-sk-groups/{groupId}"
+	localVarPath := localBasePath + "/core/beta/account-sk-groups/{groupId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 
 	localVarHeaderParams := make(map[string]string)

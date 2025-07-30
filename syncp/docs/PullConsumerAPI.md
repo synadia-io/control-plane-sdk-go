@@ -1,12 +1,12 @@
 # \PullConsumerAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeletePullConsumer**](PullConsumerAPI.md#DeletePullConsumer) | **Delete** /consumers/pull/{consumerId} | Delete Pull Consumer
-[**GetPullConsumerInfo**](PullConsumerAPI.md#GetPullConsumerInfo) | **Get** /consumers/pull/{consumerId} | Get Pull Consumer
-[**UpdatePullConsumer**](PullConsumerAPI.md#UpdatePullConsumer) | **Patch** /consumers/pull/{consumerId} | Update Pull Consumer
+[**DeletePullConsumer**](PullConsumerAPI.md#DeletePullConsumer) | **Delete** /core/beta/consumers/pull/{consumerId} | Delete Pull Consumer
+[**GetPullConsumerInfo**](PullConsumerAPI.md#GetPullConsumerInfo) | **Get** /core/beta/consumers/pull/{consumerId} | Get Pull Consumer
+[**UpdatePullConsumer**](PullConsumerAPI.md#UpdatePullConsumer) | **Patch** /core/beta/consumers/pull/{consumerId} | Update Pull Consumer
 
 
 

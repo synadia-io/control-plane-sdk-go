@@ -5,7 +5,7 @@ info:
   version: beta
 servers:
 - description: Path to Synadia Control Plane Server Api
-  url: "{baseUrl}/api/core/beta"
+  url: "{baseUrl}/api"
   variables:
     baseUrl:
       default: ""
@@ -13,12 +13,16 @@ security:
 - bearerAuth: []
   sessionAuth: []
 tags:
+- description: App admin related functions
+  name: Admin
 - description: Get resources related to the current user session
   name: Session
 - description: Manage NATS systems
   name: Systems
 - description: Manage teams
   name: Teams
+- description: Get Component Versions from Upstream
+  name: Component Versions
 - description: Manage SCP Agent Access Tokens
   name: Agent Tokens
 - description: Manage NATS accounts
@@ -55,8 +59,20 @@ tags:
   name: Team Service Accounts
 - description: Manage App Service Accounts for accessing API
   name: App Service Accounts
+- description: NATS-based data pipelines
+  name: NATS Connector Service
+- description: Manage Synadia Platform Components Configuration
+  name: Platform Components
+- description: Manage Synadia Platform Workloads
+  name: Workloads
+- description: Manage NATS Auth Callout Configuration
+  name: Auth Callout
+- description: Manage Synadia Schema Registry
+  name: Schema Registry
+- description: Manage OIDC authentication providers
+  name: OIDC Providers
 paths:
-  /account-sk-groups/{groupId}:
+  /core/beta/account-sk-groups/{groupId}:
     delete:
       description: Deletes Account Signing Key Group
       operationId: deleteAccountSkGroup
@@ -151,7 +167,7 @@ paths:
       - sig-key-group
       x-doc-tags:
       - Signing Key Groups
-  /account-sk-groups/{groupId}/account-sks:
+  /core/beta/account-sk-groups/{groupId}/account-sks:
     get:
       description: List Account Signing Keys In Group
       operationId: listAccountSkGroupKeys
@@ -183,10 +199,10 @@ paths:
       - sig-key-group
       x-doc-tags:
       - Signing Key Groups
-  /account-sk-groups/{groupId}/copy:
+  /core/beta/account-sk-groups/{groupId}/copy:
     post:
       description: "Copies Account SK Group. Copies all users from old SK group to\
-        \ the new SK group, genering new NKeys for copied users."
+        \ the new SK group, generating new NKeys for copied users."
       operationId: copyAccountSkGroup
       parameters:
       - explode: false
@@ -221,7 +237,39 @@ paths:
       - sig-key-group
       x-doc-tags:
       - Signing Key Groups
-  /account-sk-groups/{groupId}/rotate-sk:
+  /core/beta/account-sk-groups/{groupId}/nats-users:
+    get:
+      description: Returns a list of NATS users for the given signing key group
+      operationId: listAccountSKGroupUsers
+      parameters:
+      - explode: false
+        in: path
+        name: groupId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NatsUserListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: List NATS Users
+      tags:
+      - sig-key-group
+      x-doc-tags:
+      - NATS Users
+  /core/beta/account-sk-groups/{groupId}/rotate-sk:
     post:
       description: Rotates The Active Signing Key For Account Signing Key Group
       operationId: rotateAccountSk
@@ -253,7 +301,7 @@ paths:
       - sig-key-group
       x-doc-tags:
       - Signing Key Groups
-  /account-sks/{keyId}:
+  /core/beta/account-sks/{keyId}:
     delete:
       description: Deletes Account Signing
       operationId: deleteAccountSk
@@ -348,7 +396,7 @@ paths:
       - sig-key
       x-doc-tags:
       - Signing Key Groups
-  /accounts/{accountId}:
+  /core/beta/accounts/{accountId}:
     delete:
       description: Deletes a Account in a system
       operationId: deleteAccount
@@ -445,7 +493,7 @@ paths:
       - account
       x-doc-tags:
       - Accounts
-  /accounts/{accountId}/account-sk-groups:
+  /core/beta/accounts/{accountId}/account-sk-groups:
     get:
       description: List Account Signing Key Groups
       operationId: listAccountSkGroup
@@ -513,7 +561,7 @@ paths:
       - account
       x-doc-tags:
       - Signing Key Groups
-  /accounts/{accountId}/alert-rules:
+  /core/beta/accounts/{accountId}/alert-rules:
     get:
       description: List Account Alert Rules
       operationId: listAlertRules
@@ -581,7 +629,7 @@ paths:
       - account
       x-doc-tags:
       - Alerts
-  /accounts/{accountId}/alert-rules/{alertRuleId}:
+  /core/beta/accounts/{accountId}/alert-rules/{alertRuleId}:
     delete:
       description: Deletes Account alert rule
       operationId: deleteAlertRule
@@ -697,7 +745,7 @@ paths:
       - account
       x-doc-tags:
       - Alerts
-  /accounts/{accountId}/alert-rules/{alertRuleId}/run:
+  /core/beta/accounts/{accountId}/alert-rules/{alertRuleId}/run:
     get:
       description: Run Account Alert Rule and return an alert object if the rule condition
         is met
@@ -737,7 +785,7 @@ paths:
       - account
       x-doc-tags:
       - Alerts
-  /accounts/{accountId}/app-users:
+  /core/beta/accounts/{accountId}/app-users:
     get:
       description: Returns a list of Team App Users associated with the Account
       operationId: listAccountTeamAppUsers
@@ -769,7 +817,7 @@ paths:
       - account
       x-doc-tags:
       - App Users
-  /accounts/{accountId}/app-users/{teamAppUserId}:
+  /core/beta/accounts/{accountId}/app-users/{teamAppUserId}:
     delete:
       description: Unassign a Team App User from an Account
       operationId: unAssignAccountTeamAppUser
@@ -849,7 +897,7 @@ paths:
       - account
       x-doc-tags:
       - App Users
-  /accounts/{accountId}/connections:
+  /core/beta/accounts/{accountId}/connections:
     get:
       description: List Account Connections
       operationId: listAccountConnections
@@ -923,7 +971,39 @@ paths:
       - account
       x-doc-tags:
       - Accounts
-  /accounts/{accountId}/info:
+  /core/beta/accounts/{accountId}/export:
+    get:
+      description: Export Account Seeds
+      operationId: getAccountExport
+      parameters:
+      - explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountExportResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Export Account Seeds
+      tags:
+      - account
+      x-doc-tags:
+      - Accounts
+  /core/beta/accounts/{accountId}/info:
     get:
       description: Returns Account info
       operationId: getAccountInfo
@@ -955,7 +1035,7 @@ paths:
       - account
       x-doc-tags:
       - Accounts
-  /accounts/{accountId}/jetstream:
+  /core/beta/accounts/{accountId}/jetstream:
     get:
       description: List JetStream Assets
       operationId: listJetStreamAssets
@@ -987,7 +1067,7 @@ paths:
       - account
       x-doc-tags:
       - JetStream
-  /accounts/{accountId}/jetstream/kv-buckets:
+  /core/beta/accounts/{accountId}/jetstream/kv-buckets:
     get:
       description: List KV buckets
       operationId: listKvBuckets
@@ -1055,7 +1135,7 @@ paths:
       - account
       x-doc-tags:
       - "JetStream: KV Buckets"
-  /accounts/{accountId}/jetstream/mirrors:
+  /core/beta/accounts/{accountId}/jetstream/mirrors:
     get:
       description: List Mirrors
       operationId: listMirrors
@@ -1123,7 +1203,7 @@ paths:
       - account
       x-doc-tags:
       - "JetStream: Mirrors"
-  /accounts/{accountId}/jetstream/object-buckets:
+  /core/beta/accounts/{accountId}/jetstream/object-buckets:
     get:
       description: List Object buckets
       operationId: listObjectBuckets
@@ -1191,7 +1271,7 @@ paths:
       - account
       x-doc-tags:
       - "JetStream: Object Buckets"
-  /accounts/{accountId}/jetstream/placement-options:
+  /core/beta/accounts/{accountId}/jetstream/placement-options:
     get:
       description: Get available options for JetStream placement
       operationId: getJetStreamPlacementOptions
@@ -1223,7 +1303,7 @@ paths:
       - account
       x-doc-tags:
       - JetStream
-  /accounts/{accountId}/jetstream/streams:
+  /core/beta/accounts/{accountId}/jetstream/streams:
     get:
       description: List Streams
       operationId: listStreams
@@ -1291,7 +1371,7 @@ paths:
       - account
       x-doc-tags:
       - "JetStream: Streams"
-  /accounts/{accountId}/metrics:
+  /core/beta/accounts/{accountId}/metrics:
     get:
       description: Returns Account metrics
       operationId: getAccountMetrics
@@ -1323,7 +1403,50 @@ paths:
       - account
       x-doc-tags:
       - Accounts
-  /accounts/{accountId}/nats-user-revocations/{userNkeyPublic}:
+  /core/beta/accounts/{accountId}/nats-core/websocket/view:
+    get:
+      description: |-
+        This endpoint enables connection to NATS over WebSocket using account credentials.
+
+        It generates a user JWT from the account signing key and acts as a proxy to establish a connection with the first NATS server defined in a System.
+        Options specified in the CONNECT request from client take priority, so the caller should avoid including authentication information in CONNECT to leverage automatic JWT injection.
+
+        As a proxy, direct connection to NATS servers may be unavailable for the caller.
+        Hence, it's advised to disregard all server update messages.
+        In nats.ws, achieve this by setting 'ignoreClusterUpdates' to true.
+      operationId: natsCoreWebsocketViewer
+      parameters:
+      - explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: subject
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "101":
+          description: Switching Protocols
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Subscribe to a NATS Core subject over websockets
+      tags:
+      - account
+      x-doc-tags:
+      - Accounts
+  /core/beta/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}:
     delete:
       description: Deletes a Revocation for the given NATS User NKey
       operationId: deleteNatsUserRevocation
@@ -1447,7 +1570,7 @@ paths:
       - account
       x-doc-tags:
       - Accounts
-  /accounts/{accountId}/nats-users:
+  /core/beta/accounts/{accountId}/nats-users:
     get:
       description: Returns a list of NATS users for the given account
       operationId: listUsers
@@ -1515,7 +1638,7 @@ paths:
       - account
       x-doc-tags:
       - NATS Users
-  /accounts/{accountId}/stream-exports:
+  /core/beta/accounts/{accountId}/stream-exports:
     get:
       description: List Stream Exports
       operationId: listStreamExports
@@ -1583,7 +1706,7 @@ paths:
       - account
       x-doc-tags:
       - Sharing
-  /accounts/{accountId}/stream-imports:
+  /core/beta/accounts/{accountId}/stream-imports:
     get:
       description: List Stream Imports
       operationId: listStreamImports
@@ -1651,7 +1774,7 @@ paths:
       - account
       x-doc-tags:
       - Sharing
-  /accounts/{accountId}/stream-imports/shared:
+  /core/beta/accounts/{accountId}/stream-imports/shared:
     get:
       description: List stream exports shared with this account
       operationId: listStreamExportsShared
@@ -1683,7 +1806,7 @@ paths:
       - account
       x-doc-tags:
       - Sharing
-  /accounts/{accountId}/subject-exports:
+  /core/beta/accounts/{accountId}/subject-exports:
     get:
       description: List Subject Exports
       operationId: listSubjectExports
@@ -1751,7 +1874,7 @@ paths:
       - account
       x-doc-tags:
       - Sharing
-  /accounts/{accountId}/subject-imports:
+  /core/beta/accounts/{accountId}/subject-imports:
     get:
       description: List Subject Imports
       operationId: listSubjectImports
@@ -1819,7 +1942,7 @@ paths:
       - account
       x-doc-tags:
       - Sharing
-  /accounts/{accountId}/subject-imports/shared:
+  /core/beta/accounts/{accountId}/subject-imports/shared:
     get:
       description: List subject exports shared with this account
       operationId: listSubjectExportsShared
@@ -1851,7 +1974,7 @@ paths:
       - account
       x-doc-tags:
       - Sharing
-  /accounts/{accountId}/unmanage:
+  /core/beta/accounts/{accountId}/unmanage:
     delete:
       description: Unmanage a Account in a system
       operationId: unmanageAccount
@@ -1879,7 +2002,56 @@ paths:
       - account
       x-doc-tags:
       - Accounts
-  /agent-tokens/{tokenId}:
+  /core/beta/admin/app-user:
+    get:
+      description: Check whether there is an App Admin user
+      operationId: checkAppAdmin
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Check for Admin User
+      tags:
+      - admin
+      x-doc-tags:
+      - Admin
+    post:
+      description: "On clean installs, allows the programatic creation of the App\
+        \ Admin user"
+      operationId: createAppAdmin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminAppUserCreateRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminAppUserCreateResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Create an App Admin User
+      tags:
+      - admin
+      x-doc-tags:
+      - Admin
+  /core/beta/agent-tokens/{tokenId}:
     delete:
       description: Delete an agent token
       operationId: deleteAgentToken
@@ -1907,7 +2079,7 @@ paths:
       - agent-token
       x-doc-tags:
       - Agent Tokens
-  /alerts:
+  /core/beta/alerts:
     get:
       description: Returns a list of alerts
       operationId: listAlerts
@@ -1939,7 +2111,7 @@ paths:
       - session
       x-doc-tags:
       - Alerts
-  /alerts/{alertId}:
+  /core/beta/alerts/{alertId}:
     get:
       description: Get Alert
       operationId: getAlert
@@ -1971,7 +2143,7 @@ paths:
       - alert
       x-doc-tags:
       - Alerts
-  /alerts/{alertId}/acknowledge:
+  /core/beta/alerts/{alertId}/acknowledge:
     patch:
       description: Acknowledge Alert
       operationId: acknowledgeAlert
@@ -1999,7 +2171,7 @@ paths:
       - alert
       x-doc-tags:
       - Alerts
-  /app-users:
+  /core/beta/app-users:
     get:
       description: List App Users
       operationId: listAppUsers
@@ -2051,7 +2223,7 @@ paths:
       - session
       x-doc-tags:
       - App Users
-  /app-users/{appUserId}:
+  /core/beta/app-users/{appUserId}:
     delete:
       description: Delete App User
       operationId: deleteAppUser
@@ -2146,7 +2318,7 @@ paths:
       - app-user
       x-doc-tags:
       - App Users
-  /app-users/{appUserId}/roles:
+  /core/beta/app-users/{appUserId}/roles:
     get:
       description: List an App User's Roles
       operationId: listAppUserRoles
@@ -2178,7 +2350,7 @@ paths:
       - app-user
       x-doc-tags:
       - App Users
-  /app-users/{appUserId}/teams/{teamId}:
+  /core/beta/app-users/{appUserId}/teams/{teamId}:
     post:
       description: Assign an App User to a Team. This operation is idempotent; if
         an App User is already assigned to a Team the assignment will be updated with
@@ -2224,7 +2396,264 @@ paths:
       - app-user
       x-doc-tags:
       - App Users
-  /authz/check:
+  /core/beta/auth-callout/{authCalloutId}:
+    delete:
+      description: Remove auth callout config and update the control account jwt
+      operationId: deleteAuthCallout
+      parameters:
+      - explode: false
+        in: path
+        name: authCalloutId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Delete Auth Callout Config
+      tags:
+      - auth-callout
+      x-doc-tags:
+      - Auth Callout
+    get:
+      description: Returns the Auth Callout Config
+      operationId: getAuthCallout
+      parameters:
+      - explode: false
+        in: path
+        name: authCalloutId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthCalloutViewResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Auth Callout Config
+      tags:
+      - auth-callout
+      x-doc-tags:
+      - Auth Callout
+  /core/beta/auth-callout/{authCalloutId}/target-accounts:
+    get:
+      description: Get a list of configured Target Accounts
+      operationId: listAuthCalloutTargetAccounts
+      parameters:
+      - explode: false
+        in: path
+        name: authCalloutId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthCalloutTargetAccountListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get Target Account List
+      tags:
+      - auth-callout
+      x-doc-tags:
+      - Auth Callout
+    post:
+      description: Configure a target account
+      operationId: addAuthCalloutTargetAccount
+      parameters:
+      - explode: false
+        in: path
+        name: authCalloutId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthCalloutAddTargetAccountRequest'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Configure Target Account
+      tags:
+      - auth-callout
+      x-doc-tags:
+      - Auth Callout
+  /core/beta/auth-callout/{authCalloutId}/target-accounts/{targetAccountId}:
+    delete:
+      description: Remove configured target account entry
+      operationId: deleteAuthCalloutTargetAccount
+      parameters:
+      - explode: false
+        in: path
+        name: authCalloutId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: targetAccountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Delete Target Account
+      tags:
+      - auth-callout
+      x-doc-tags:
+      - Auth Callout
+  /core/beta/auth-callout/{authCalloutId}/users:
+    get:
+      description: Get a list of configured Target Accounts
+      operationId: listAuthCalloutUsers
+      parameters:
+      - explode: false
+        in: path
+        name: authCalloutId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthCalloutUsersListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get Target Account List
+      tags:
+      - auth-callout
+      x-doc-tags:
+      - Auth Callout
+    post:
+      description: Create a Control Account User that can access auth callout
+      operationId: addAuthCalloutUser
+      parameters:
+      - explode: false
+        in: path
+        name: authCalloutId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthCalloutAddUserRequest'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Create Auth Callout User
+      tags:
+      - auth-callout
+      x-doc-tags:
+      - Auth Callout
+  /core/beta/auth-callout/{authCalloutId}/users/{acUserId}:
+    delete:
+      description: Remove control account auth callout user
+      operationId: deleteAuthCalloutUser
+      parameters:
+      - explode: false
+        in: path
+        name: authCalloutId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: acUserId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Delete Control Account User
+      tags:
+      - auth-callout
+      x-doc-tags:
+      - Auth Callout
+  /core/beta/authz/check:
     post:
       description: Returns applicable policies for calling session and requested service/resource
       operationId: check
@@ -2253,7 +2682,7 @@ paths:
       - authz
       x-doc-tags:
       - Authorization
-  /authz/policies:
+  /core/beta/authz/policies:
     get:
       description: Returns a list of configured app policies
       operationId: listPolicies
@@ -2277,7 +2706,7 @@ paths:
       - authz
       x-doc-tags:
       - Authorization
-  /authz/roles:
+  /core/beta/authz/roles:
     get:
       description: Returns a list of configured app roles
       operationId: listRoles
@@ -2301,7 +2730,59 @@ paths:
       - authz
       x-doc-tags:
       - Authorization
-  /consumers/pull/{consumerId}:
+  /core/beta/component-versions:
+    get:
+      description: Get available component versions
+      operationId: getAvailableComponentVersions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableComponentVersionsResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get Available Component Versions
+      tags:
+      - component-versions
+      x-doc-tags:
+      - Component Versions
+    post:
+      description: Get available component versions by type
+      operationId: getAvailableComponentVersionsByType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AvailableComponentVersionsRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableChartVersions'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get Available Component Versions By Type
+      tags:
+      - component-versions
+      x-doc-tags:
+      - Component Versions
+  /core/beta/consumers/pull/{consumerId}:
     delete:
       description: Deletes a JetStream pull consumer
       operationId: deletePullConsumer
@@ -2396,7 +2877,7 @@ paths:
       - pull-consumer
       x-doc-tags:
       - JetStream
-  /consumers/push/{consumerId}:
+  /core/beta/consumers/push/{consumerId}:
     delete:
       description: Delete Push Consumer
       operationId: deletePushConsumer
@@ -2491,7 +2972,7 @@ paths:
       - push-consumer
       x-doc-tags:
       - JetStream
-  /invitations:
+  /core/beta/invitations:
     get:
       description: List of pending invitations
       operationId: listInvitations
@@ -2515,7 +2996,7 @@ paths:
       - session
       x-doc-tags:
       - Invitations
-  /invitations/{teamId}:
+  /core/beta/invitations/{teamId}:
     post:
       description: Accept or reject team invitation
       operationId: decideInvitation
@@ -2548,7 +3029,7 @@ paths:
       - session
       x-doc-tags:
       - Invitations
-  /jetstream/kv-bucket/{streamId}:
+  /core/beta/jetstream/kv-bucket/{streamId}:
     delete:
       description: Deletes KV Bucket
       operationId: deleteKvBucket
@@ -2643,7 +3124,7 @@ paths:
       - kv-bucket
       x-doc-tags:
       - "JetStream: KV Buckets"
-  /jetstream/kv-bucket/{streamId}/consumers:
+  /core/beta/jetstream/kv-bucket/{streamId}/consumers:
     get:
       description: List Consumers
       operationId: listKvConsumers
@@ -2675,7 +3156,7 @@ paths:
       - kv-bucket
       x-doc-tags:
       - "JetStream: KV Buckets"
-  /jetstream/kv-bucket/{streamId}/consumers/pull:
+  /core/beta/jetstream/kv-bucket/{streamId}/consumers/pull:
     post:
       description: Creates Pull Consumer
       operationId: createKvPullConsumer
@@ -2712,7 +3193,7 @@ paths:
       - kv-bucket
       x-doc-tags:
       - "JetStream: KV Buckets"
-  /jetstream/kv-bucket/{streamId}/consumers/push:
+  /core/beta/jetstream/kv-bucket/{streamId}/consumers/push:
     post:
       description: Creates Push Consumer
       operationId: createKvPushConsumer
@@ -2749,7 +3230,7 @@ paths:
       - kv-bucket
       x-doc-tags:
       - "JetStream: KV Buckets"
-  /jetstream/kv-bucket/{streamId}/purge:
+  /core/beta/jetstream/kv-bucket/{streamId}/purge:
     delete:
       description: Purges KV Bucket
       operationId: purgeKvBucket
@@ -2777,7 +3258,7 @@ paths:
       - kv-bucket
       x-doc-tags:
       - "JetStream: Streams"
-  /jetstream/mirror/{streamId}:
+  /core/beta/jetstream/mirror/{streamId}:
     delete:
       description: Delete Mirror
       operationId: deleteMirror
@@ -2872,7 +3353,7 @@ paths:
       - mirror
       x-doc-tags:
       - "JetStream: Mirrors"
-  /jetstream/mirror/{streamId}/consumers:
+  /core/beta/jetstream/mirror/{streamId}/consumers:
     get:
       description: List Consumers
       operationId: listMirrorConsumers
@@ -2904,7 +3385,7 @@ paths:
       - mirror
       x-doc-tags:
       - "JetStream: Mirrors"
-  /jetstream/mirror/{streamId}/consumers/pull:
+  /core/beta/jetstream/mirror/{streamId}/consumers/pull:
     post:
       description: Create Pull Consumer
       operationId: createMirrorPullConsumer
@@ -2941,7 +3422,7 @@ paths:
       - mirror
       x-doc-tags:
       - "JetStream: Mirrors"
-  /jetstream/mirror/{streamId}/consumers/push:
+  /core/beta/jetstream/mirror/{streamId}/consumers/push:
     post:
       description: Create Push consumer
       operationId: createMirrorPushConsumer
@@ -2978,7 +3459,7 @@ paths:
       - mirror
       x-doc-tags:
       - "JetStream: Mirrors"
-  /jetstream/mirror/{streamId}/purge:
+  /core/beta/jetstream/mirror/{streamId}/purge:
     delete:
       description: Purges Mirror
       operationId: purgeMirror
@@ -3006,7 +3487,7 @@ paths:
       - mirror
       x-doc-tags:
       - "JetStream: Streams"
-  /jetstream/object-bucket/{streamId}:
+  /core/beta/jetstream/object-bucket/{streamId}:
     delete:
       description: Deletes Object Bucket
       operationId: deleteObjectBucket
@@ -3101,7 +3582,7 @@ paths:
       - object-bucket
       x-doc-tags:
       - "JetStream: Object Buckets"
-  /jetstream/object-bucket/{streamId}/consumers:
+  /core/beta/jetstream/object-bucket/{streamId}/consumers:
     get:
       description: List Consumers
       operationId: listObjConsumers
@@ -3133,7 +3614,7 @@ paths:
       - object-bucket
       x-doc-tags:
       - "JetStream: Object Buckets"
-  /jetstream/object-bucket/{streamId}/consumers/pull:
+  /core/beta/jetstream/object-bucket/{streamId}/consumers/pull:
     post:
       description: Creates Pull Consumer
       operationId: createObjPullConsumer
@@ -3170,7 +3651,7 @@ paths:
       - object-bucket
       x-doc-tags:
       - "JetStream: Object Buckets"
-  /jetstream/object-bucket/{streamId}/consumers/push:
+  /core/beta/jetstream/object-bucket/{streamId}/consumers/push:
     post:
       description: Creates Push Consumer
       operationId: createObjPushConsumer
@@ -3207,7 +3688,7 @@ paths:
       - object-bucket
       x-doc-tags:
       - "JetStream: Object Buckets"
-  /jetstream/object-bucket/{streamId}/purge:
+  /core/beta/jetstream/object-bucket/{streamId}/purge:
     delete:
       description: Purges Object Bucket
       operationId: purgeObjBucket
@@ -3235,7 +3716,7 @@ paths:
       - object-bucket
       x-doc-tags:
       - "JetStream: Streams"
-  /jetstream/stream/{streamId}:
+  /core/beta/jetstream/stream/{streamId}:
     delete:
       description: Deletes Stream
       operationId: deleteStream
@@ -3330,7 +3811,7 @@ paths:
       - stream
       x-doc-tags:
       - "JetStream: Streams"
-  /jetstream/stream/{streamId}/consumers:
+  /core/beta/jetstream/stream/{streamId}/consumers:
     get:
       description: List Consumers
       operationId: listConsumers
@@ -3362,7 +3843,7 @@ paths:
       - stream
       x-doc-tags:
       - "JetStream: Consumers"
-  /jetstream/stream/{streamId}/consumers/pull:
+  /core/beta/jetstream/stream/{streamId}/consumers/pull:
     post:
       description: Creates Pull Consumer
       operationId: createPullConsumer
@@ -3399,7 +3880,7 @@ paths:
       - stream
       x-doc-tags:
       - "JetStream: Streams"
-  /jetstream/stream/{streamId}/consumers/push:
+  /core/beta/jetstream/stream/{streamId}/consumers/push:
     post:
       description: Create Push Consumer
       operationId: createPushConsumer
@@ -3436,7 +3917,7 @@ paths:
       - stream
       x-doc-tags:
       - "JetStream: Streams"
-  /jetstream/stream/{streamId}/purge:
+  /core/beta/jetstream/stream/{streamId}/purge:
     delete:
       description: Purges Stream
       operationId: purgeStream
@@ -3464,7 +3945,7 @@ paths:
       - stream
       x-doc-tags:
       - "JetStream: Streams"
-  /nats-user-issuances/{issuanceId}:
+  /core/beta/nats-user-issuances/{issuanceId}:
     get:
       description: Get a history of all downloads and imports of the given issuance
       operationId: getNatsUserIssuance
@@ -3496,7 +3977,7 @@ paths:
       - issuance
       x-doc-tags:
       - NATS User Issuances
-  /nats-users/{userId}:
+  /core/beta/nats-users/{userId}:
     delete:
       description: Deletes a NATS user from an account
       operationId: deleteNatsUser
@@ -3591,7 +4072,7 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /nats-users/{userId}/app-users:
+  /core/beta/nats-users/{userId}/app-users:
     get:
       description: Returns a list of Team App Users associated with the NATS user
       operationId: listNatsUserTeamAppUsers
@@ -3623,7 +4104,7 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /nats-users/{userId}/app-users/{teamAppUserId}:
+  /core/beta/nats-users/{userId}/app-users/{teamAppUserId}:
     delete:
       description: Unassign a Team App User from a NATS User
       operationId: unAssignNatsUserTeamAppUser
@@ -3703,7 +4184,7 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /nats-users/{userId}/bearer-jwt:
+  /core/beta/nats-users/{userId}/bearer-jwt:
     post:
       description: Returns a bearer token a NATS user assigned to the account
       operationId: downloadNatsUserBearerJwt
@@ -3735,7 +4216,7 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /nats-users/{userId}/connections:
+  /core/beta/nats-users/{userId}/connections:
     get:
       description: List NATs User Connections
       operationId: listNatsUserConnections
@@ -3802,7 +4283,7 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /nats-users/{userId}/copy:
+  /core/beta/nats-users/{userId}/copy:
     post:
       description: "Copies the user, changing name and account SK group. Generates\
         \ new user NKey"
@@ -3840,7 +4321,7 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /nats-users/{userId}/creds:
+  /core/beta/nats-users/{userId}/creds:
     post:
       description: Returns a creds file for a NATS user assigned to the account
       operationId: downloadNatsUserCreds
@@ -3872,7 +4353,7 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /nats-users/{userId}/http-gw-token:
+  /core/beta/nats-users/{userId}/http-gw-token:
     post:
       description: Returns a NATS HTTP Gateway token
       operationId: downloadNatsUserHttpGwToken
@@ -3904,7 +4385,7 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /nats-users/{userId}/issuances:
+  /core/beta/nats-users/{userId}/issuances:
     get:
       description: Lists the history of user credential issuances for the user
       operationId: listNatsUserIssuances
@@ -3936,7 +4417,7 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /nats-users/{userId}/rotate:
+  /core/beta/nats-users/{userId}/rotate:
     post:
       description: Generates new user nkey
       operationId: rotateNatsUser
@@ -3968,10 +4449,181 @@ paths:
       - nats-user
       x-doc-tags:
       - NATS Users
-  /personal-access-tokens:
+  /core/beta/oidc-providers:
+    get:
+      description: Returns a list of OIDC providers
+      operationId: listOidcProviders
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OidcProviderListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: List OIDC Providers
+      tags:
+      - oidc-provider
+      x-doc-tags:
+      - OIDC Providers
+    post:
+      description: Creates a new OIDC provider
+      operationId: createOidcProvider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OidcProviderAddRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OidcProviderViewResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Create OIDC Provider
+      tags:
+      - oidc-provider
+      x-doc-tags:
+      - OIDC Providers
+  /core/beta/oidc-providers/{oidcProviderId}:
+    delete:
+      description: Deletes an OIDC provider
+      operationId: deleteOidcProvider
+      parameters:
+      - explode: false
+        in: path
+        name: oidcProviderId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Delete OIDC Provider
+      tags:
+      - oidc-provider
+      x-doc-tags:
+      - OIDC Providers
+    get:
+      description: Returns an OIDC provider by ID
+      operationId: getOidcProvider
+      parameters:
+      - explode: false
+        in: path
+        name: oidcProviderId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OidcProviderViewResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get OIDC Provider
+      tags:
+      - oidc-provider
+      x-doc-tags:
+      - OIDC Providers
+    patch:
+      description: Updates an OIDC provider
+      operationId: updateOidcProvider
+      parameters:
+      - explode: false
+        in: path
+        name: oidcProviderId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OidcProviderUpdateRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OidcProviderViewResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Update OIDC Provider
+      tags:
+      - oidc-provider
+      x-doc-tags:
+      - OIDC Providers
+  /core/beta/oidc-providers/defaults:
+    get:
+      description: Returns a list of OIDC provider defaults
+      operationId: listOidcDefaultProvider
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OidcProviderDefaultsListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: List OIDC Provider Defaults
+      tags:
+      - oidc-provider
+      x-doc-tags:
+      - OIDC Providers
+  /core/beta/personal-access-tokens:
     get:
       description: Returns a list of Personal Access Tokens
-      operationId: listPersonalAccessTokens
+      operationId: listAppUserAccessTokens
       responses:
         "200":
           content:
@@ -3994,7 +4646,7 @@ paths:
       - Session
     post:
       description: Creates a Personal Access Token
-      operationId: createPersonalAccessToken
+      operationId: createAppUserAccessToken
       requestBody:
         content:
           application/json:
@@ -4020,7 +4672,7 @@ paths:
       - session
       x-doc-tags:
       - Session
-  /personal-access-tokens/{tokenId}:
+  /core/beta/personal-access-tokens/{tokenId}:
     delete:
       description: Delete Personal Access Token
       operationId: deletePersonalAccessToken
@@ -4115,7 +4767,45 @@ paths:
       - personal-access-token
       x-doc-tags:
       - Session
-  /service-account-tokens/app/{tokenId}:
+  /core/beta/platform-components/connect:
+    post:
+      description: Connection endpoint for platform components to use. Requires a
+        platform component bearer token
+      operationId: platformComponentConnect
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlatformComponentsConnectRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlatformComponentsConnectViewResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Connect a Platform Component
+      tags:
+      - platform-components
+      x-doc-tags:
+      - Platform Components
+  /core/beta/service-account-tokens/app/{tokenId}:
     delete:
       description: Delete App Service Account Token
       operationId: deleteAppServiceAccountToken
@@ -4210,7 +4900,7 @@ paths:
       - app-service-account-tokens
       x-doc-tags:
       - App Service Accounts
-  /service-account-tokens/team/{tokenId}:
+  /core/beta/service-account-tokens/team/{tokenId}:
     delete:
       description: Delete Team Service Account Token
       operationId: deleteTeamServiceAccountToken
@@ -4305,7 +4995,7 @@ paths:
       - team-service-account-tokens
       x-doc-tags:
       - Team Service Accounts
-  /service-accounts/app:
+  /core/beta/service-accounts/app:
     get:
       description: List App Service Accounts
       operationId: listAppServiceAccounts
@@ -4357,7 +5047,7 @@ paths:
       - session
       x-doc-tags:
       - App Service Accounts
-  /service-accounts/app/{serviceAccountId}:
+  /core/beta/service-accounts/app/{serviceAccountId}:
     delete:
       description: Delete App Service Account
       operationId: deleteAppServiceAccount
@@ -4452,7 +5142,7 @@ paths:
       - app-service-account
       x-doc-tags:
       - App Service Accounts
-  /service-accounts/app/{serviceAccountId}/tokens:
+  /core/beta/service-accounts/app/{serviceAccountId}/tokens:
     get:
       description: List Access Tokens for App Service Account
       operationId: listAppServiceAccountTokens
@@ -4520,7 +5210,7 @@ paths:
       - app-service-account
       x-doc-tags:
       - App Service Accounts
-  /service-accounts/team/{serviceAccountId}:
+  /core/beta/service-accounts/team/{serviceAccountId}:
     delete:
       description: Delete Team Service Account
       operationId: deleteTeamServiceAccount
@@ -4615,7 +5305,7 @@ paths:
       - team-service-account
       x-doc-tags:
       - Team Service Accounts
-  /service-accounts/team/{serviceAccountId}/tokens:
+  /core/beta/service-accounts/team/{serviceAccountId}/tokens:
     get:
       description: List Access Tokens for Team Service Account
       operationId: listTeamServiceAccountTokens
@@ -4683,7 +5373,7 @@ paths:
       - team-service-account
       x-doc-tags:
       - Team Service Accounts
-  /stream-exports/{streamExportId}:
+  /core/beta/stream-exports/{streamExportId}:
     delete:
       description: Delete Stream Export
       operationId: deleteStreamExport
@@ -4742,7 +5432,7 @@ paths:
       - stream-export
       x-doc-tags:
       - Sharing
-  /stream-exports/{streamExportId}/shares:
+  /core/beta/stream-exports/{streamExportId}/shares:
     get:
       description: List stream shares for this export
       operationId: listStreamShares
@@ -4810,7 +5500,7 @@ paths:
       - stream-export
       x-doc-tags:
       - Sharing
-  /stream-exports/{streamExportId}/shares/{targetAccountNKeyPublic}:
+  /core/beta/stream-exports/{streamExportId}/shares/{targetAccountNKeyPublic}:
     delete:
       description: Revokes the share for provided Account NKey
       operationId: deleteStreamShare
@@ -4845,7 +5535,7 @@ paths:
       - stream-export
       x-doc-tags:
       - Sharing
-  /stream-imports/{streamImportId}:
+  /core/beta/stream-imports/{streamImportId}:
     delete:
       description: Delete Stream Import
       operationId: deleteStreamImport
@@ -4904,7 +5594,7 @@ paths:
       - stream-import
       x-doc-tags:
       - Sharing
-  /subject-exports/{subjectExportId}:
+  /core/beta/subject-exports/{subjectExportId}:
     delete:
       description: Delete Subject Export
       operationId: deleteSubjectExport
@@ -4999,7 +5689,7 @@ paths:
       - subject-export
       x-doc-tags:
       - Sharing
-  /subject-exports/{subjectExportId}/shares:
+  /core/beta/subject-exports/{subjectExportId}/shares:
     get:
       description: List subject shares for this export
       operationId: listSubjectShares
@@ -5067,7 +5757,7 @@ paths:
       - subject-export
       x-doc-tags:
       - Sharing
-  /subject-exports/{subjectExportId}/shares/{targetAccountNKeyPublic}:
+  /core/beta/subject-exports/{subjectExportId}/shares/{targetAccountNKeyPublic}:
     delete:
       description: Revokes the share for account
       operationId: deleteSubjectShare
@@ -5102,7 +5792,7 @@ paths:
       - subject-export
       x-doc-tags:
       - Sharing
-  /subject-imports/{subjectImportId}:
+  /core/beta/subject-imports/{subjectImportId}:
     delete:
       description: Delete Subject Import
       operationId: deleteSubjectImport
@@ -5197,7 +5887,7 @@ paths:
       - subject-import
       x-doc-tags:
       - Sharing
-  /systems/{systemId}:
+  /core/beta/systems/{systemId}:
     delete:
       description: Deletes System
       operationId: deleteSystem
@@ -5257,10 +5947,7 @@ paths:
       x-doc-tags:
       - Systems
     patch:
-      description: |-
-        Updates a System
-
-        To test the backend connection without updating the system, pass test_connection=true in query parameter.
+      description: Updates a System
       operationId: updateSystem
       parameters:
       - explode: false
@@ -5270,7 +5957,9 @@ paths:
         schema:
           type: string
         style: simple
-      - explode: true
+      - description: "To test the backend connection without updating the system,\
+          \ pass test_connection=true in query parameter."
+        explode: true
         in: query
         name: test_connection
         required: false
@@ -5302,7 +5991,7 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/accounts:
+  /core/beta/systems/{systemId}/accounts:
     get:
       description: List Accounts
       operationId: listAccounts
@@ -5370,7 +6059,7 @@ paths:
       - system
       x-doc-tags:
       - Accounts
-  /systems/{systemId}/accounts-overview-metrics:
+  /core/beta/systems/{systemId}/accounts-overview-metrics:
     get:
       description: List Accounts overview metrics
       operationId: listAccountsOverviewMetrics
@@ -5402,7 +6091,7 @@ paths:
       - system
       x-doc-tags:
       - Accounts
-  /systems/{systemId}/agent-tokens:
+  /core/beta/systems/{systemId}/agent-tokens:
     get:
       description: List Agent Tokens
       operationId: listAgentTokens
@@ -5470,7 +6159,7 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/agent-tokens/current:
+  /core/beta/systems/{systemId}/agent-tokens/current:
     get:
       description: Get the Current Agent Token
       operationId: getCurrentAgentToken
@@ -5502,7 +6191,7 @@ paths:
       - system
       x-doc-tags:
       - App Users
-  /systems/{systemId}/alert-rules:
+  /core/beta/systems/{systemId}/alert-rules:
     get:
       description: List System Alert Rules
       operationId: listSystemAlertRules
@@ -5570,7 +6259,7 @@ paths:
       - system
       x-doc-tags:
       - Alerts
-  /systems/{systemId}/alert-rules/{alertRuleId}:
+  /core/beta/systems/{systemId}/alert-rules/{alertRuleId}:
     delete:
       description: Delete System Alert rule
       operationId: deleteSystemAlertRule
@@ -5686,7 +6375,7 @@ paths:
       - system
       x-doc-tags:
       - Alerts
-  /systems/{systemId}/alert-rules/{alertRuleId}/run:
+  /core/beta/systems/{systemId}/alert-rules/{alertRuleId}/run:
     get:
       description: Run System Alert Rule and return an alert object if the rule condition
         is met
@@ -5726,7 +6415,7 @@ paths:
       - system
       x-doc-tags:
       - Alerts
-  /systems/{systemId}/app-users:
+  /core/beta/systems/{systemId}/app-users:
     get:
       description: Returns a list of Team App Users associated with the System
       operationId: listSystemTeamAppUsers
@@ -5758,7 +6447,7 @@ paths:
       - system
       x-doc-tags:
       - App Users
-  /systems/{systemId}/app-users/{teamAppUserId}:
+  /core/beta/systems/{systemId}/app-users/{teamAppUserId}:
     delete:
       description: Unassign a Team App User from a System
       operationId: unAssignSystemTeamAppUser
@@ -5838,7 +6527,136 @@ paths:
       - system
       x-doc-tags:
       - App Users
-  /systems/{systemId}/connections:
+  /core/beta/systems/{systemId}/auth-callout:
+    get:
+      description: List Auth Callout Configs for the System
+      operationId: listAuthCalloutConfigs
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthCalloutConfigListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: List Auth Callout Configs
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
+    post:
+      description: Saves an auth callout config for the system
+      operationId: enableAuthCallout
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthCalloutEnableRequest'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Enable Auth Callout For System
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
+  /core/beta/systems/{systemId}/auth-callout/authenticators:
+    get:
+      description: Get a list of authenticators available for use
+      operationId: listAuthCalloutAuthenticators
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthCalloutAuthenticatorsListResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get List of Available Authenticators
+      tags:
+      - system
+      x-doc-tags:
+      - Auth Callout
+  /core/beta/systems/{systemId}/bulk/shares:
+    post:
+      description: allows sharing streams/exports across multiple accounts at once
+      operationId: bulkShare
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkShareRequest'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Share assets across accounts
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
+  /core/beta/systems/{systemId}/connections:
     get:
       description: List Connections
       operationId: listConnections
@@ -5919,7 +6737,39 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/import-account:
+  /core/beta/systems/{systemId}/export:
+    get:
+      description: Export System Seeds
+      operationId: getSystemExport
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemExportResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Export System Seeds
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
+  /core/beta/systems/{systemId}/import-account:
     post:
       description: Imports an existing account
       operationId: importAccount
@@ -5952,7 +6802,7 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/import-user:
+  /core/beta/systems/{systemId}/import-user:
     post:
       description: Imports an existing NATS user
       operationId: importUser
@@ -5989,7 +6839,7 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/info/accounts:
+  /core/beta/systems/{systemId}/info/accounts:
     get:
       description: List info for Accounts within a System. Allows a user with access
         to a single account in a system to list info for all accounts in that system
@@ -6007,7 +6857,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccountSearchListResponse'
+                $ref: '#/components/schemas/AccountInfoListResponse'
           description: Success
         "400":
           description: Bad Request
@@ -6022,7 +6872,7 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/info/servers:
+  /core/beta/systems/{systemId}/info/servers:
     get:
       description: List info for NATS Servers within a System
       operationId: listSystemInfoServers
@@ -6054,12 +6904,11 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/jwt-sync:
+  /core/beta/systems/{systemId}/jwt-sync:
     post:
-      description: |-
-        Re-sync JWTs of all accounts in this system
-
-        Use this endpoint to re-issue all JWTs. This endpoint just marks all account JWTs for renewal. The actual renewal takes place asynchronously and may take a while depending on the number of accounts.
+      description: Use this endpoint to re-issue all JWTs. This endpoint just marks
+        all account JWTs for renewal. The actual renewal takes place asynchronously
+        and may take a while depending on the number of accounts.
       operationId: systemJWTSync
       parameters:
       - explode: false
@@ -6085,7 +6934,7 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/limits:
+  /core/beta/systems/{systemId}/limits:
     get:
       description: Get system total and allocated limits
       operationId: getSystemLimits
@@ -6117,7 +6966,7 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/nats-clusters:
+  /core/beta/systems/{systemId}/nats-clusters:
     get:
       description: List cluster information
       operationId: listClusters
@@ -6149,7 +6998,79 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/prometheus-metrics:
+  /core/beta/systems/{systemId}/platform-components:
+    patch:
+      description: Update the different platform components config
+      operationId: updatePlatformComponents
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlatformComponentsUpdateRequest'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Update Platform Components for System
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
+  /core/beta/systems/{systemId}/platform-components/{id}/tokens:
+    get:
+      description: Retrieves an access token for the platform component
+      operationId: getComponentToken
+      parameters:
+      - explode: false
+        in: path
+        name: systemId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlatformComponentTokenViewResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get a component access token
+      tags:
+      - system
+      x-doc-tags:
+      - Systems
+  /core/beta/systems/{systemId}/prometheus-metrics:
     get:
       description: Get Prometheus Metrics
       operationId: getSystemPrometheusMetrics
@@ -6181,7 +7102,7 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/servers:
+  /core/beta/systems/{systemId}/servers:
     get:
       description: List server information
       operationId: listServers
@@ -6213,7 +7134,7 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /systems/{systemId}/unmanage:
+  /core/beta/systems/{systemId}/unmanage:
     delete:
       description: Same as deleting a system but skips purging system and accounts
         from NATS
@@ -6242,10 +7163,18 @@ paths:
       - system
       x-doc-tags:
       - Systems
-  /teams:
+  /core/beta/teams:
     get:
       description: Returns a list of Teams
       operationId: listTeams
+      parameters:
+      - explode: true
+        in: query
+        name: assigned
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -6294,7 +7223,7 @@ paths:
       - session
       x-doc-tags:
       - Teams
-  /teams/{teamId}:
+  /core/beta/teams/{teamId}:
     delete:
       description: Deletes Team
       operationId: deleteTeam
@@ -6389,40 +7318,7 @@ paths:
       - team
       x-doc-tags:
       - Teams
-  /teams/{teamId}/accounts:
-    get:
-      description: Returns a list of Accounts directly associated with the current
-        team
-      operationId: listTeamAccounts
-      parameters:
-      - explode: false
-        in: path
-        name: teamId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccountListResponse'
-          description: Success
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      summary: List Accounts
-      tags:
-      - team
-      x-doc-tags:
-      - Teams
-  /teams/{teamId}/app-users:
+  /core/beta/teams/{teamId}/app-users:
     get:
       description: Returns a list of App Users associated with the Team
       operationId: listTeamAppUsers
@@ -6454,7 +7350,7 @@ paths:
       - team
       x-doc-tags:
       - App Users
-  /teams/{teamId}/app-users/{appUserId}:
+  /core/beta/teams/{teamId}/app-users/{appUserId}:
     delete:
       description: Unassign an App User from a Team
       operationId: unAssignTeamAppUser
@@ -6532,7 +7428,7 @@ paths:
       - team
       x-doc-tags:
       - App Users
-  /teams/{teamId}/app-users/invitations:
+  /core/beta/teams/{teamId}/app-users/invitations:
     post:
       description: "Invites the specified User to join the Team. This operation is\
         \ idempotent, with the caveat that Roles will not be downgraded; if the User\
@@ -6572,7 +7468,7 @@ paths:
       - team
       x-doc-tags:
       - Invitations
-  /teams/{teamId}/app-users/leave:
+  /core/beta/teams/{teamId}/app-users/leave:
     post:
       description: Leave the specified team
       operationId: leaveTeam
@@ -6600,7 +7496,7 @@ paths:
       - team
       x-doc-tags:
       - Session
-  /teams/{teamId}/import-system:
+  /core/beta/teams/{teamId}/import-system:
     post:
       description: Import a System
       operationId: importSystem
@@ -6637,7 +7533,7 @@ paths:
       - team
       x-doc-tags:
       - Teams
-  /teams/{teamId}/info/app-users:
+  /core/beta/teams/{teamId}/info/app-users:
     get:
       description: List info for App Users in Team.  Allows any user to list info
         for app users within their team.
@@ -6670,40 +7566,7 @@ paths:
       - team
       x-doc-tags:
       - Teams
-  /teams/{teamId}/nats-users:
-    get:
-      description: Returns a list of NATS Users directly associated with the current
-        team
-      operationId: listTeamNatsUsers
-      parameters:
-      - explode: false
-        in: path
-        name: teamId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NatsUserListResponse'
-          description: Success
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      summary: List NATS Users
-      tags:
-      - team
-      x-doc-tags:
-      - Teams
-  /teams/{teamId}/service-accounts:
+  /core/beta/teams/{teamId}/service-accounts:
     get:
       description: List Team Service Accounts
       operationId: listTeamServiceAccounts
@@ -6771,7 +7634,7 @@ paths:
       - team
       x-doc-tags:
       - Teams
-  /teams/{teamId}/systems:
+  /core/beta/teams/{teamId}/systems:
     get:
       description: Returns a list of Systems
       operationId: listTeamSystems
@@ -6839,7 +7702,7 @@ paths:
       - team
       x-doc-tags:
       - Systems
-  /teams/{teamId}/team-limits:
+  /core/beta/teams/{teamId}/team-limits:
     get:
       description: Get team limits total and allocated
       operationId: getTeamLimits
@@ -6871,7 +7734,7 @@ paths:
       - team
       x-doc-tags:
       - Teams
-  /terms/accept:
+  /core/beta/terms/accept:
     post:
       description: Accept terms
       operationId: acceptTerms
@@ -6895,7 +7758,7 @@ paths:
       - session
       x-doc-tags:
       - Session
-  /version:
+  /core/beta/version:
     get:
       description: Returns information about the Synadia Control Plane Version
       operationId: getVersion
@@ -6919,6 +7782,38 @@ paths:
       - session
       x-doc-tags:
       - Session
+  /workloads/alpha/{accountId}/limits:
+    get:
+      description: Get Workloads limits
+      operationId: getWorkloadLimits
+      parameters:
+      - explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkloadLimitsResponse'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: Get Workloads limits
+      tags:
+      - workloads
+      x-doc-tags:
+      - Workloads
 components:
   schemas:
     AcceptTermsResponse:
@@ -7225,6 +8120,8 @@ components:
       type: object
     AccountCreateRequest:
       example:
+        connectors: true
+        connectors_log_stream: connectors_log_stream
         jwt_settings:
           authorization:
             allowed_accounts:
@@ -7259,8 +8156,14 @@ components:
           - tags
           - tags
         name: name
+        workloads: true
         user_jwt_expires_in_secs: 0
+        workloads_log_stream: workloads_log_stream
       properties:
+        connectors:
+          type: boolean
+        connectors_log_stream:
+          type: string
         jwt_settings:
           $ref: '#/components/schemas/AccountJWTSettings'
         name:
@@ -7268,8 +8171,60 @@ components:
         user_jwt_expires_in_secs:
           format: int64
           type: integer
+        workloads:
+          type: boolean
+        workloads_log_stream:
+          type: string
       required:
       - name
+      type: object
+    AccountExportResponse:
+      example:
+        seed: seed
+        jwt: jwt
+        name: name
+        signing_key_groups:
+        - name: name
+          signing_keys:
+          - seed: seed
+            id: id
+          - seed: seed
+            id: id
+        - name: name
+          signing_keys:
+          - seed: seed
+            id: id
+          - seed: seed
+            id: id
+        id: id
+        users:
+        - seed: seed
+          jwt: jwt
+          name: name
+          id: id
+        - seed: seed
+          jwt: jwt
+          name: name
+          id: id
+      properties:
+        id:
+          type: string
+        jwt:
+          type: string
+        name:
+          type: string
+        seed:
+          type: string
+        signing_key_groups:
+          items:
+            $ref: '#/components/schemas/SigningKeyGroupExport'
+          type: array
+        users:
+          items:
+            $ref: '#/components/schemas/UserExport'
+          type: array
+      required:
+      - id
       type: object
     AccountInfo:
       example:
@@ -7277,6 +8232,7 @@ components:
         name: name
         user_jwt_expires_in_secs: 0
         id: id
+        is_platform_account: true
         is_scp_account: true
         is_system_account: true
       properties:
@@ -7284,6 +8240,8 @@ components:
           type: string
         id:
           type: string
+        is_platform_account:
+          type: boolean
         is_scp_account:
           type: boolean
         is_system_account:
@@ -7296,10 +8254,36 @@ components:
       required:
       - account_public_key
       - id
+      - is_platform_account
       - is_scp_account
       - is_system_account
       - name
       - user_jwt_expires_in_secs
+      type: object
+    AccountInfoListResponse:
+      example:
+        items:
+        - account_public_key: account_public_key
+          name: name
+          user_jwt_expires_in_secs: 0
+          id: id
+          is_platform_account: true
+          is_scp_account: true
+          is_system_account: true
+        - account_public_key: account_public_key
+          name: name
+          user_jwt_expires_in_secs: 0
+          id: id
+          is_platform_account: true
+          is_scp_account: true
+          is_system_account: true
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AccountInfo'
+          type: array
+      required:
+      - items
       type: object
     AccountJWTSettings:
       allOf:
@@ -7421,10 +8405,12 @@ components:
       example:
         items:
         - jwt_sync_error: jwt_sync_error
+          connectors: true
           created: 2000-01-23T04:56:07.000+00:00
           jwt: jwt
           account_public_key: account_public_key
-          user_jwt_expires_in_secs: 1
+          workloads: true
+          user_jwt_expires_in_secs: 7
           team:
             name: name
             id: id
@@ -7433,11 +8419,13 @@ components:
           is_system_account: true
           claims_info:
             js_enabled: true
+          connectors_log_stream: connectors_log_stream
           system:
             jetstream_enabled: true
             http_gateway_url: http_gateway_url
             is_tenant: true
             connection_type: null
+            managed_by: null
             name: name
             server_urls: server_urls
             user_jwt_expires_in_secs: 7
@@ -7576,12 +8564,16 @@ components:
                     mem_storage: 7
                     consumer: 7
           name: name
+          workloads_log_stream: workloads_log_stream
           id: id
+          is_platform_account: true
         - jwt_sync_error: jwt_sync_error
+          connectors: true
           created: 2000-01-23T04:56:07.000+00:00
           jwt: jwt
           account_public_key: account_public_key
-          user_jwt_expires_in_secs: 1
+          workloads: true
+          user_jwt_expires_in_secs: 7
           team:
             name: name
             id: id
@@ -7590,11 +8582,13 @@ components:
           is_system_account: true
           claims_info:
             js_enabled: true
+          connectors_log_stream: connectors_log_stream
           system:
             jetstream_enabled: true
             http_gateway_url: http_gateway_url
             is_tenant: true
             connection_type: null
+            managed_by: null
             name: name
             server_urls: server_urls
             user_jwt_expires_in_secs: 7
@@ -7733,7 +8727,9 @@ components:
                     mem_storage: 7
                     consumer: 7
           name: name
+          workloads_log_stream: workloads_log_stream
           id: id
+          is_platform_account: true
       properties:
         items:
           items:
@@ -7838,54 +8834,10 @@ components:
       - account_public_key
       - metrics
       type: object
-    AccountSearch:
-      example:
-        account_public_key: account_public_key
-        name: name
-        id: id
-        is_scp_account: true
-        is_system_account: true
-      properties:
-        account_public_key:
-          type: string
-        id:
-          type: string
-        is_scp_account:
-          type: boolean
-        is_system_account:
-          type: boolean
-        name:
-          type: string
-      required:
-      - account_public_key
-      - id
-      - is_scp_account
-      - is_system_account
-      - name
-      type: object
-    AccountSearchListResponse:
-      example:
-        items:
-        - account_public_key: account_public_key
-          name: name
-          id: id
-          is_scp_account: true
-          is_system_account: true
-        - account_public_key: account_public_key
-          name: name
-          id: id
-          is_scp_account: true
-          is_system_account: true
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/AccountSearch'
-          type: array
-      required:
-      - items
-      type: object
     AccountUpdateRequest:
       example:
+        connectors: true
+        connectors_log_stream: connectors_log_stream
         jwt_settings:
           authorization: null
           mappings: "{}"
@@ -7897,8 +8849,14 @@ components:
           - tags
           - tags
         name: name
+        workloads: true
         user_jwt_expires_in_secs: 0
+        workloads_log_stream: workloads_log_stream
       properties:
+        connectors:
+          type: boolean
+        connectors_log_stream:
+          type: string
         jwt_settings:
           $ref: '#/components/schemas/AccountJWTSettingsPatch'
         name:
@@ -7906,14 +8864,20 @@ components:
         user_jwt_expires_in_secs:
           format: int64
           type: integer
+        workloads:
+          type: boolean
+        workloads_log_stream:
+          type: string
       type: object
     AccountViewResponse:
       example:
         jwt_sync_error: jwt_sync_error
+        connectors: true
         created: 2000-01-23T04:56:07.000+00:00
         jwt: jwt
         account_public_key: account_public_key
-        user_jwt_expires_in_secs: 1
+        workloads: true
+        user_jwt_expires_in_secs: 7
         team:
           name: name
           id: id
@@ -7922,11 +8886,13 @@ components:
         is_system_account: true
         claims_info:
           js_enabled: true
+        connectors_log_stream: connectors_log_stream
         system:
           jetstream_enabled: true
           http_gateway_url: http_gateway_url
           is_tenant: true
           connection_type: null
+          managed_by: null
           name: name
           server_urls: server_urls
           user_jwt_expires_in_secs: 7
@@ -8065,7 +9031,9 @@ components:
                   mem_storage: 7
                   consumer: 7
         name: name
+        workloads_log_stream: workloads_log_stream
         id: id
+        is_platform_account: true
       properties:
         account_public_key:
           type: string
@@ -8073,11 +9041,17 @@ components:
           $ref: '#/components/schemas/AccountClaims'
         claims_info:
           $ref: '#/components/schemas/AccountClaimsInfo'
+        connectors:
+          type: boolean
+        connectors_log_stream:
+          type: string
         created:
           format: date-time
           type: string
         id:
           type: string
+        is_platform_account:
+          type: boolean
         is_scp_account:
           type: boolean
         is_system_account:
@@ -8101,12 +9075,18 @@ components:
         user_jwt_expires_in_secs:
           format: int64
           type: integer
+        workloads:
+          type: boolean
+        workloads_log_stream:
+          type: string
       required:
       - account_public_key
       - claims
       - claims_info
+      - connectors
       - created
       - id
+      - is_platform_account
       - is_scp_account
       - is_system_account
       - jwt
@@ -8118,6 +9098,7 @@ components:
       - system
       - team
       - user_jwt_expires_in_secs
+      - workloads
       type: object
     AccountsOverviewListResponse:
       example:
@@ -8188,6 +9169,66 @@ components:
       properties:
         nats:
           $ref: '#/components/schemas/Activation'
+      type: object
+    AddRequest:
+      properties:
+        compat_policy:
+          type: string
+        definition:
+          description: |-
+            TODO(jrm): we should validate the passed schema
+            The schema definition (required).
+          type: string
+        description:
+          description: Description of the schema (optional).
+          type: string
+        format:
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: Metadata is a map of key-value pairs (optional).
+          type: object
+        name:
+          description: Unique name of the schema (required).
+          type: string
+      required:
+      - definition
+      - format
+      - name
+      type: object
+    AddResponse:
+      properties:
+        revision:
+          type: integer
+        version:
+          type: integer
+      required:
+      - revision
+      - version
+      type: object
+    AdminAppUserCreateRequest:
+      example:
+        password: password
+        generate_token: true
+        username: username
+      properties:
+        generate_token:
+          type: boolean
+        password:
+          type: string
+        username:
+          type: string
+      required:
+      - password
+      - username
+      type: object
+    AdminAppUserCreateResponse:
+      example:
+        token: token
+      properties:
+        token:
+          type: string
       type: object
     AgentTokenCurrentResponse:
       allOf:
@@ -8279,7 +9320,7 @@ components:
           closed_at: 2000-01-23T04:56:07.000+00:00
           created: 2000-01-23T04:56:07.000+00:00
           system_id: system_id
-          metric_value: 6.027456183070403
+          metric_value: 0.8008281904610115
           message: message
           alert_rule:
             severity: null
@@ -8299,10 +9340,10 @@ components:
             id: id
             threshold_expression_multiplier: 6.027456183070403
           sample_values:
-          - value: 5.962133916683182
-            timestamp: 1
-          - value: 5.962133916683182
-            timestamp: 1
+          - value: 1.4658129805029452
+            timestamp: 6
+          - value: 1.4658129805029452
+            timestamp: 6
           is_acknowledged: true
           account_id: account_id
           consumer_name: consumer_name
@@ -8311,6 +9352,7 @@ components:
             http_gateway_url: http_gateway_url
             is_tenant: true
             connection_type: null
+            managed_by: null
             name: name
             server_urls: server_urls
             user_jwt_expires_in_secs: 7
@@ -8321,7 +9363,7 @@ components:
             - jetstream_tiers
             - jetstream_tiers
           stream_name: stream_name
-          threshold_value: 5.637376656633329
+          threshold_value: 5.962133916683182
           AcknowledgedByAppUserID: AcknowledgedByAppUserID
           id: id
           is_firing: true
@@ -8331,6 +9373,7 @@ components:
             name: name
             user_jwt_expires_in_secs: 0
             id: id
+            is_platform_account: true
             is_scp_account: true
             is_system_account: true
           acknowledged_at: 2000-01-23T04:56:07.000+00:00
@@ -8339,7 +9382,7 @@ components:
           closed_at: 2000-01-23T04:56:07.000+00:00
           created: 2000-01-23T04:56:07.000+00:00
           system_id: system_id
-          metric_value: 6.027456183070403
+          metric_value: 0.8008281904610115
           message: message
           alert_rule:
             severity: null
@@ -8359,10 +9402,10 @@ components:
             id: id
             threshold_expression_multiplier: 6.027456183070403
           sample_values:
-          - value: 5.962133916683182
-            timestamp: 1
-          - value: 5.962133916683182
-            timestamp: 1
+          - value: 1.4658129805029452
+            timestamp: 6
+          - value: 1.4658129805029452
+            timestamp: 6
           is_acknowledged: true
           account_id: account_id
           consumer_name: consumer_name
@@ -8371,6 +9414,7 @@ components:
             http_gateway_url: http_gateway_url
             is_tenant: true
             connection_type: null
+            managed_by: null
             name: name
             server_urls: server_urls
             user_jwt_expires_in_secs: 7
@@ -8381,7 +9425,7 @@ components:
             - jetstream_tiers
             - jetstream_tiers
           stream_name: stream_name
-          threshold_value: 5.637376656633329
+          threshold_value: 5.962133916683182
           AcknowledgedByAppUserID: AcknowledgedByAppUserID
           id: id
           is_firing: true
@@ -8391,6 +9435,7 @@ components:
             name: name
             user_jwt_expires_in_secs: 0
             id: id
+            is_platform_account: true
             is_scp_account: true
             is_system_account: true
           acknowledged_at: 2000-01-23T04:56:07.000+00:00
@@ -8647,7 +9692,7 @@ components:
         closed_at: 2000-01-23T04:56:07.000+00:00
         created: 2000-01-23T04:56:07.000+00:00
         system_id: system_id
-        metric_value: 6.027456183070403
+        metric_value: 0.8008281904610115
         message: message
         alert_rule:
           severity: null
@@ -8667,10 +9712,10 @@ components:
           id: id
           threshold_expression_multiplier: 6.027456183070403
         sample_values:
-        - value: 5.962133916683182
-          timestamp: 1
-        - value: 5.962133916683182
-          timestamp: 1
+        - value: 1.4658129805029452
+          timestamp: 6
+        - value: 1.4658129805029452
+          timestamp: 6
         is_acknowledged: true
         account_id: account_id
         consumer_name: consumer_name
@@ -8679,6 +9724,7 @@ components:
           http_gateway_url: http_gateway_url
           is_tenant: true
           connection_type: null
+          managed_by: null
           name: name
           server_urls: server_urls
           user_jwt_expires_in_secs: 7
@@ -8689,7 +9735,7 @@ components:
           - jetstream_tiers
           - jetstream_tiers
         stream_name: stream_name
-        threshold_value: 5.637376656633329
+        threshold_value: 5.962133916683182
         AcknowledgedByAppUserID: AcknowledgedByAppUserID
         id: id
         is_firing: true
@@ -8699,6 +9745,7 @@ components:
           name: name
           user_jwt_expires_in_secs: 0
           id: id
+          is_platform_account: true
           is_scp_account: true
           is_system_account: true
         acknowledged_at: 2000-01-23T04:56:07.000+00:00
@@ -8830,7 +9877,9 @@ components:
       enum:
       - Core
       - Cloud
-      - Applications
+      - Connectors
+      - Workloads
+      - SchemaRegistry
       type: string
     AppPolicyStatement:
       example:
@@ -9016,6 +10065,7 @@ components:
             http_gateway_url: http_gateway_url
             is_tenant: true
             connection_type: null
+            managed_by: null
             name: name
             server_urls: server_urls
             user_jwt_expires_in_secs: 7
@@ -9029,6 +10079,7 @@ components:
             identifier: identifier
             name: name
             id: id
+            type: null
           role_id: role_id
           created: 2000-01-23T04:56:07.000+00:00
           scope: null
@@ -9046,6 +10097,7 @@ components:
             name: name
             user_jwt_expires_in_secs: 0
             id: id
+            is_platform_account: true
             is_scp_account: true
             is_system_account: true
         - role_name: role_name
@@ -9058,6 +10110,7 @@ components:
             http_gateway_url: http_gateway_url
             is_tenant: true
             connection_type: null
+            managed_by: null
             name: name
             server_urls: server_urls
             user_jwt_expires_in_secs: 7
@@ -9071,6 +10124,7 @@ components:
             identifier: identifier
             name: name
             id: id
+            type: null
           role_id: role_id
           created: 2000-01-23T04:56:07.000+00:00
           scope: null
@@ -9088,6 +10142,7 @@ components:
             name: name
             user_jwt_expires_in_secs: 0
             id: id
+            is_platform_account: true
             is_scp_account: true
             is_system_account: true
       properties:
@@ -9119,6 +10174,7 @@ components:
           http_gateway_url: http_gateway_url
           is_tenant: true
           connection_type: null
+          managed_by: null
           name: name
           server_urls: server_urls
           user_jwt_expires_in_secs: 7
@@ -9132,6 +10188,7 @@ components:
           identifier: identifier
           name: name
           id: id
+          type: null
         role_id: role_id
         created: 2000-01-23T04:56:07.000+00:00
         scope: null
@@ -9149,6 +10206,7 @@ components:
           name: name
           user_jwt_expires_in_secs: 0
           id: id
+          is_platform_account: true
           is_scp_account: true
           is_system_account: true
       properties:
@@ -9217,6 +10275,7 @@ components:
         identifier: identifier
         name: name
         id: id
+        type: null
       properties:
         id:
           type: string
@@ -9224,9 +10283,12 @@ components:
           type: string
         name:
           type: string
+        type:
+          $ref: '#/components/schemas/AppUserType'
       required:
       - id
       - name
+      - type
       type: object
     AppUserInfoListResponse:
       properties:
@@ -9271,6 +10333,7 @@ components:
           identifier: identifier
           name: name
           id: id
+          type: null
         team_app_user:
           role_name: role_name
           role_id: role_id
@@ -9317,6 +10380,8 @@ components:
     AppUserType:
       enum:
       - Person
+      - AppServiceAccount
+      - TeamServiceAccount
       type: string
     AppUserUpdateRequest:
       example:
@@ -9381,6 +10446,336 @@ components:
       - role_name
       - type
       type: object
+    AuthCalloutAddTargetAccountRequest:
+      example:
+        sk_group_id: sk_group_id
+        account_id: account_id
+        control_account_sk_group_id: control_account_sk_group_id
+      properties:
+        account_id:
+          type: string
+        control_account_sk_group_id:
+          type: string
+        sk_group_id:
+          type: string
+      required:
+      - account_id
+      - control_account_sk_group_id
+      - sk_group_id
+      type: object
+    AuthCalloutAddUserRequest:
+      example:
+        nats_user_id: nats_user_id
+      properties:
+        nats_user_id:
+          type: string
+      required:
+      - nats_user_id
+      type: object
+    AuthCalloutAuthenticatorComponentConfig:
+      properties:
+        account:
+          type: string
+        bucket:
+          type: string
+      required:
+      - account
+      - bucket
+      type: object
+    AuthCalloutAuthenticatorConfigViewResponse:
+      example:
+        id: id
+        type: type
+        config: config
+        enabled: true
+      properties:
+        config:
+          type: string
+        enabled:
+          type: boolean
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - config
+      - enabled
+      - id
+      - type
+      type: object
+    AuthCalloutAuthenticatorUpdateRequest:
+      properties:
+        config:
+          type: string
+        enabled:
+          type: boolean
+        type:
+          type: string
+      required:
+      - config
+      - enabled
+      - type
+      type: object
+    AuthCalloutAuthenticatorViewResponse:
+      example:
+        config_schema:
+        - data: data
+          name: name
+          type: 0
+          required: true
+        - data: data
+          name: name
+          type: 0
+          required: true
+        id: id
+        type: type
+      properties:
+        config_schema:
+          items:
+            $ref: '#/components/schemas/PlatformComponentsConfigSchema'
+          type: array
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+      type: object
+    AuthCalloutAuthenticatorsListResponse:
+      example:
+        items:
+        - config_schema:
+          - data: data
+            name: name
+            type: 0
+            required: true
+          - data: data
+            name: name
+            type: 0
+            required: true
+          id: id
+          type: type
+        - config_schema:
+          - data: data
+            name: name
+            type: 0
+            required: true
+          - data: data
+            name: name
+            type: 0
+            required: true
+          id: id
+          type: type
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AuthCalloutAuthenticatorViewResponse'
+          type: array
+      required:
+      - items
+      type: object
+    AuthCalloutComponentConnectConfig:
+      properties:
+        config_schema:
+          items:
+            $ref: '#/components/schemas/PlatformComponentsConfigSchema'
+          type: array
+        type:
+          type: string
+      required:
+      - config_schema
+      - type
+      type: object
+    AuthCalloutConfig:
+      example:
+        xkey_public: xkey_public
+        control_account_id: control_account_id
+        system_id: system_id
+        id: id
+      properties:
+        control_account_id:
+          type: string
+        id:
+          type: string
+        system_id:
+          type: string
+        xkey_public:
+          type: string
+      required:
+      - control_account_id
+      - id
+      - system_id
+      type: object
+    AuthCalloutConfigListResponse:
+      example:
+        items:
+        - xkey_public: xkey_public
+          control_account_id: control_account_id
+          system_id: system_id
+          id: id
+        - xkey_public: xkey_public
+          control_account_id: control_account_id
+          system_id: system_id
+          id: id
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AuthCalloutConfig'
+          type: array
+      required:
+      - items
+      type: object
+    AuthCalloutEnableRequest:
+      example:
+        control_account: control_account
+      properties:
+        control_account:
+          type: string
+      required:
+      - control_account
+      type: object
+    AuthCalloutTargetAccountListResponse:
+      example:
+        items:
+        - target_account_name: target_account_name
+          control_account_sk_group_id: control_account_sk_group_id
+          target_account_id: target_account_id
+          control_account_sk_group_name: control_account_sk_group_name
+          target_account_sk_group_id: target_account_sk_group_id
+          id: id
+          target_account_sk_group_name: target_account_sk_group_name
+        - target_account_name: target_account_name
+          control_account_sk_group_id: control_account_sk_group_id
+          target_account_id: target_account_id
+          control_account_sk_group_name: control_account_sk_group_name
+          target_account_sk_group_id: target_account_sk_group_id
+          id: id
+          target_account_sk_group_name: target_account_sk_group_name
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AuthCalloutTargetAccountViewResponse'
+          type: array
+      required:
+      - items
+      type: object
+    AuthCalloutTargetAccountViewResponse:
+      example:
+        target_account_name: target_account_name
+        control_account_sk_group_id: control_account_sk_group_id
+        target_account_id: target_account_id
+        control_account_sk_group_name: control_account_sk_group_name
+        target_account_sk_group_id: target_account_sk_group_id
+        id: id
+        target_account_sk_group_name: target_account_sk_group_name
+      properties:
+        control_account_sk_group_id:
+          type: string
+        control_account_sk_group_name:
+          type: string
+        id:
+          type: string
+        target_account_id:
+          type: string
+        target_account_name:
+          type: string
+        target_account_sk_group_id:
+          type: string
+        target_account_sk_group_name:
+          type: string
+      required:
+      - control_account_sk_group_id
+      - control_account_sk_group_name
+      - id
+      - target_account_id
+      - target_account_name
+      - target_account_sk_group_id
+      - target_account_sk_group_name
+      type: object
+    AuthCalloutUserViewResponse:
+      example:
+        name: name
+        id: id
+        nats_user_id: nats_user_id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        nats_user_id:
+          type: string
+      required:
+      - id
+      - name
+      - nats_user_id
+      type: object
+    AuthCalloutUsersListResponse:
+      example:
+        items:
+        - name: name
+          id: id
+          nats_user_id: nats_user_id
+        - name: name
+          id: id
+          nats_user_id: nats_user_id
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AuthCalloutUserViewResponse'
+          type: array
+      required:
+      - items
+      type: object
+    AuthCalloutViewResponse:
+      allOf:
+      - $ref: '#/components/schemas/AuthCalloutConfig'
+      example:
+        authenticators:
+        - id: id
+          type: type
+          config: config
+          enabled: true
+        - id: id
+          type: type
+          config: config
+          enabled: true
+        target_accounts:
+        - target_account_name: target_account_name
+          control_account_sk_group_id: control_account_sk_group_id
+          target_account_id: target_account_id
+          control_account_sk_group_name: control_account_sk_group_name
+          target_account_sk_group_id: target_account_sk_group_id
+          id: id
+          target_account_sk_group_name: target_account_sk_group_name
+        - target_account_name: target_account_name
+          control_account_sk_group_id: control_account_sk_group_id
+          target_account_id: target_account_id
+          control_account_sk_group_name: control_account_sk_group_name
+          target_account_sk_group_id: target_account_sk_group_id
+          id: id
+          target_account_sk_group_name: target_account_sk_group_name
+        users:
+        - name: name
+          id: id
+          nats_user_id: nats_user_id
+        - name: name
+          id: id
+          nats_user_id: nats_user_id
+      properties:
+        authenticators:
+          items:
+            $ref: '#/components/schemas/AuthCalloutAuthenticatorConfigViewResponse'
+          type: array
+        target_accounts:
+          items:
+            $ref: '#/components/schemas/AuthCalloutTargetAccountViewResponse'
+          type: array
+        users:
+          items:
+            $ref: '#/components/schemas/AuthCalloutUserViewResponse'
+          type: array
+      type: object
     AuthzRequest:
       example:
         service: service
@@ -9424,6 +10819,109 @@ components:
       items:
         $ref: '#/components/schemas/AuthzResponse'
       type: array
+    AvailableChartVersion:
+      example:
+        app_version: app_version
+        repo: repo
+        type: type
+        chart: chart
+        version: version
+      properties:
+        app_version:
+          type: string
+        chart:
+          type: string
+        repo:
+          type: string
+        type:
+          type: string
+        version:
+          type: string
+      required:
+      - app_version
+      - chart
+      - repo
+      - type
+      - version
+      type: object
+    AvailableChartVersions:
+      items:
+        $ref: '#/components/schemas/AvailableChartVersion'
+      type: array
+    AvailableComponentVersionsRequest:
+      example:
+        deployment_type: deployment_type
+        major: 2147483647
+        minor: 2147483647
+      properties:
+        deployment_type:
+          type: string
+        major:
+          default: -1
+          maximum: 9223372036854775807
+          minimum: -1
+          type: integer
+        minor:
+          default: -1
+          maximum: 9223372036854775807
+          minimum: -1
+          type: integer
+      required:
+      - major
+      - minor
+      type: object
+    AvailableComponentVersionsResponse:
+      additionalProperties:
+        $ref: '#/components/schemas/AvailableChartVersions'
+      type: object
+    BulkShareRequest:
+      example:
+        target_accounts:
+        - local_subject: local_subject
+          id: id
+          auto_accept: false
+        - local_subject: local_subject
+          id: id
+          auto_accept: false
+        id: id
+        type: null
+      properties:
+        id:
+          type: string
+        target_accounts:
+          items:
+            $ref: '#/components/schemas/BulkShareTarget'
+          type: array
+        type:
+          $ref: '#/components/schemas/BulkShareType'
+      required:
+      - id
+      - target_accounts
+      - type
+      type: object
+    BulkShareTarget:
+      example:
+        local_subject: local_subject
+        id: id
+        auto_accept: false
+      properties:
+        auto_accept:
+          default: false
+          type: boolean
+        id:
+          type: string
+        local_subject:
+          type: string
+      required:
+      - auto_accept
+      - id
+      - local_subject
+      type: object
+    BulkShareType:
+      enum:
+      - stream
+      - subject
+      type: string
     ClaimType:
       description: ClaimType is used to indicate the type of JWT being stored in a
         Claim
@@ -9597,6 +11095,647 @@ components:
       - subscriptions
       - uptime
       type: object
+    ConnectorComponentConstraint:
+      properties:
+        enum:
+          items:
+            type: string
+          type: array
+        preset:
+          type: string
+        range:
+          $ref: '#/components/schemas/ConnectorComponentRange'
+        regex:
+          type: string
+      type: object
+    ConnectorComponentField:
+      properties:
+        constraints:
+          items:
+            $ref: '#/components/schemas/ConnectorComponentConstraint'
+          type: array
+        default: {}
+        description:
+          type: string
+        examples:
+          items: {}
+          type: array
+        fields:
+          items:
+            $ref: '#/components/schemas/ConnectorComponentField'
+          type: array
+        kind:
+          $ref: '#/components/schemas/ConnectorComponentFieldKind'
+        label:
+          type: string
+        name:
+          type: string
+        optional:
+          type: boolean
+        render_hint:
+          type: string
+        secret:
+          type: boolean
+        type:
+          $ref: '#/components/schemas/ConnectorComponentFieldType'
+      required:
+      - description
+      - kind
+      - label
+      - name
+      - type
+      type: object
+    ConnectorComponentFieldKind:
+      enum:
+      - scalar
+      - map
+      - list
+      type: string
+    ConnectorComponentFieldType:
+      enum:
+      - bool
+      - int
+      - object
+      - scanner
+      - string
+      - expression
+      - condition
+      type: string
+    ConnectorComponentKind:
+      description: -- Library
+      enum:
+      - source
+      - sink
+      - scanner
+      type: string
+    ConnectorComponentRange:
+      properties:
+        gt:
+          type: number
+        gte:
+          type: number
+        lt:
+          type: number
+        lte:
+          type: number
+      type: object
+    ConnectorComponentStatus:
+      enum:
+      - deprecated
+      - experimental
+      - preview
+      - stable
+      type: string
+    ConnectorComponentSummary:
+      properties:
+        icon:
+          type: string
+        kind:
+          $ref: '#/components/schemas/ConnectorComponentKind'
+        label:
+          type: string
+        name:
+          type: string
+        runtime_id:
+          type: string
+        status:
+          $ref: '#/components/schemas/ConnectorComponentStatus'
+        version_id:
+          type: string
+      required:
+      - kind
+      - label
+      - name
+      - runtime_id
+      - status
+      - version_id
+      type: object
+    ConnectorComponentSummaryListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ConnectorComponentSummary'
+          type: array
+      required:
+      - items
+      type: object
+    ConnectorComponentViewResponse:
+      properties:
+        description:
+          type: string
+        fields:
+          items:
+            $ref: '#/components/schemas/ConnectorComponentField'
+          type: array
+        icon:
+          type: string
+        kind:
+          $ref: '#/components/schemas/ConnectorComponentKind'
+        label:
+          type: string
+        name:
+          type: string
+        runtime_id:
+          type: string
+        status:
+          type: string
+        version_id:
+          type: string
+      required:
+      - description
+      - kind
+      - label
+      - name
+      - runtime_id
+      - status
+      - version_id
+      type: object
+    ConnectorConfig:
+      properties:
+        description:
+          type: string
+        metrics:
+          $ref: '#/components/schemas/ConnectorMetricEndpoint'
+        steps:
+          $ref: '#/components/schemas/ConnectorSteps'
+        workload:
+          type: string
+      type: object
+    ConnectorConsumer:
+      properties:
+        core:
+          $ref: '#/components/schemas/ConnectorConsumer_core'
+        kv:
+          $ref: '#/components/schemas/ConnectorConsumer_kv'
+        nats_config:
+          $ref: '#/components/schemas/ConnectorNatsConfig'
+        stream:
+          $ref: '#/components/schemas/ConnectorConsumer_stream'
+      required:
+      - nats_config
+      type: object
+    ConnectorConsumerPatch:
+      properties:
+        core:
+          $ref: '#/components/schemas/ConnectorConsumerPatch_core'
+        kv:
+          $ref: '#/components/schemas/ConnectorConsumerPatch_kv'
+        nats_config:
+          $ref: '#/components/schemas/ConnectorNatsConfigPatch'
+        stream:
+          $ref: '#/components/schemas/ConnectorConsumerPatch_stream'
+      type: object
+    ConnectorCreateRequest:
+      properties:
+        config:
+          $ref: '#/components/schemas/ConnectorConfig'
+        connector_id:
+          type: string
+        deploy:
+          $ref: '#/components/schemas/ConnectorCreateRequest_deploy'
+      required:
+      - config
+      - connector_id
+      type: object
+    ConnectorDeployRequest:
+      properties:
+        env_vars:
+          additionalProperties:
+            type: string
+          type: object
+        placement_tags:
+          items:
+            type: string
+          type: array
+        pull:
+          type: boolean
+        replicas:
+          type: integer
+        timeout:
+          type: string
+      required:
+      - env_vars
+      - placement_tags
+      - pull
+      - replicas
+      - timeout
+      type: object
+    ConnectorDeploymentViewResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ConnectorInstanceViewResponse'
+          type: array
+      required:
+      - items
+      type: object
+    ConnectorExecutionLog:
+      properties:
+        connector_id:
+          type: string
+        instance_id:
+          type: string
+        line:
+          type: string
+        timestamp:
+          type: string
+      required:
+      - connector_id
+      - instance_id
+      - line
+      - timestamp
+      type: object
+    ConnectorExecutionLogListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ConnectorExecutionLog'
+          type: array
+      required:
+      - items
+      type: object
+    ConnectorInstanceEvent:
+      properties:
+        connector_id:
+          type: string
+        error:
+          type: string
+        exit_code:
+          type: integer
+        instance_id:
+          type: string
+        timestamp:
+          type: string
+        type:
+          $ref: '#/components/schemas/ConnectorInstanceEventType'
+      required:
+      - connector_id
+      - instance_id
+      - timestamp
+      - type
+      type: object
+    ConnectorInstanceEventListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ConnectorInstanceEvent'
+          type: array
+      required:
+      - items
+      type: object
+    ConnectorInstanceEventType:
+      enum:
+      - scheduled
+      - created
+      - running
+      - stopped
+      - failed
+      type: string
+    ConnectorInstanceListResponse:
+      description: -- Instance
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ConnectorInstanceViewResponse'
+          type: array
+      required:
+      - items
+      type: object
+    ConnectorInstanceViewResponse:
+      properties:
+        connector_id:
+          type: string
+        instance_id:
+          type: string
+      required:
+      - connector_id
+      - instance_id
+      type: object
+    ConnectorKind:
+      description: -- Control
+      enum:
+      - inlet
+      - outlet
+      - unknown
+      type: string
+    ConnectorListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ConnectorSummary'
+          type: array
+      required:
+      - items
+      type: object
+    ConnectorMetricChartResponse:
+      properties:
+        ConnectorsInputConnectionFailed:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsInputConnectionLost:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsInputConnectionUp:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsInputLatencyNs:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsInputLatencyNsCount:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsInputLatencyNsSum:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsInputReceived:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsOutputBatchSent:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsOutputConnectionFailed:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsOutputConnectionLost:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsOutputConnectionUp:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsOutputError:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsOutputLatencyNs:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsOutputLatencyNsCount:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsOutputLatencyNsSum:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        ConnectorsOutputSent:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+      type: object
+    ConnectorMetricChartTypes:
+      enum:
+      - ConnectorsInputConnectionFailed
+      - ConnectorsInputConnectionLost
+      - ConnectorsInputConnectionUp
+      - ConnectorsInputLatencyNs
+      - ConnectorsInputLatencyNsSum
+      - ConnectorsInputLatencyNsCount
+      - ConnectorsInputReceived
+      - ConnectorsOutputBatchSent
+      - ConnectorsOutputConnectionFailed
+      - ConnectorsOutputConnectionLost
+      - ConnectorsOutputConnectionUp
+      - ConnectorsOutputError
+      - ConnectorsOutputLatencyNs
+      - ConnectorsOutputLatencyNsSum
+      - ConnectorsOutputLatencyNsCount
+      - ConnectorsOutputSent
+      type: string
+    ConnectorMetricEndpoint:
+      properties:
+        path:
+          type: string
+        port:
+          type: integer
+      type: object
+    ConnectorMetricEndpointPatch:
+      properties:
+        path:
+          type: string
+        port:
+          type: integer
+      type: object
+    ConnectorNatsConfig:
+      properties:
+        nats_user_id:
+          type: string
+        url:
+          type: string
+      required:
+      - url
+      type: object
+    ConnectorNatsConfigPatch:
+      properties:
+        nats_user_id:
+          nullable: true
+          type: string
+        url:
+          type: string
+      type: object
+    ConnectorProducer:
+      properties:
+        core:
+          $ref: '#/components/schemas/ConnectorConsumer_stream'
+        kv:
+          $ref: '#/components/schemas/ConnectorProducer_kv'
+        nats_config:
+          $ref: '#/components/schemas/ConnectorNatsConfig'
+        stream:
+          $ref: '#/components/schemas/ConnectorConsumer_stream'
+        threads:
+          type: integer
+      required:
+      - nats_config
+      type: object
+    ConnectorProducerPatch:
+      properties:
+        core:
+          $ref: '#/components/schemas/ConnectorConsumerPatch_stream'
+        kv:
+          $ref: '#/components/schemas/ConnectorConsumerPatch_kv'
+        nats_config:
+          $ref: '#/components/schemas/ConnectorNatsConfigPatch'
+        stream:
+          $ref: '#/components/schemas/ConnectorConsumerPatch_stream'
+        threads:
+          nullable: true
+          type: integer
+      type: object
+    ConnectorSink:
+      properties:
+        config: {}
+        type:
+          type: string
+      required:
+      - config
+      - type
+      type: object
+    ConnectorSinkPatch:
+      properties:
+        config: {}
+        type:
+          type: string
+      type: object
+    ConnectorSource:
+      properties:
+        config: {}
+        type:
+          type: string
+      required:
+      - config
+      - type
+      type: object
+    ConnectorSourcePatch:
+      properties:
+        config: {}
+        type:
+          type: string
+      type: object
+    ConnectorSteps:
+      properties:
+        consumer:
+          $ref: '#/components/schemas/ConnectorConsumer'
+        producer:
+          $ref: '#/components/schemas/ConnectorProducer'
+        sink:
+          $ref: '#/components/schemas/ConnectorSink'
+        source:
+          $ref: '#/components/schemas/ConnectorSource'
+        transformer:
+          $ref: '#/components/schemas/ConnectorTransformer'
+      type: object
+    ConnectorStepsPatch:
+      properties:
+        consumer:
+          $ref: '#/components/schemas/ConnectorStepsPatch_consumer'
+        producer:
+          $ref: '#/components/schemas/ConnectorStepsPatch_producer'
+        sink:
+          $ref: '#/components/schemas/ConnectorStepsPatch_sink'
+        source:
+          $ref: '#/components/schemas/ConnectorStepsPatch_source'
+        transformer:
+          $ref: '#/components/schemas/ConnectorStepsPatch_transformer'
+      type: object
+    ConnectorSummary:
+      properties:
+        description:
+          type: string
+        id:
+          type: string
+        instances:
+          $ref: '#/components/schemas/ConnectorSummaryInstances'
+        runtime_id:
+          type: string
+      required:
+      - description
+      - id
+      - instances
+      - runtime_id
+      type: object
+    ConnectorSummaryInstances:
+      properties:
+        pending:
+          type: integer
+        running:
+          type: integer
+        stopped:
+          type: integer
+      required:
+      - pending
+      - running
+      - stopped
+      type: object
+    ConnectorTransformer:
+      properties:
+        composite:
+          $ref: '#/components/schemas/ConnectorTransformer_composite'
+        kind:
+          $ref: '#/components/schemas/ConnectorTransformerKind'
+        mapping:
+          $ref: '#/components/schemas/ConnectorTransformer_mapping'
+        service:
+          $ref: '#/components/schemas/ConnectorTransformer_service'
+      required:
+      - kind
+      type: object
+    ConnectorTransformerKind:
+      enum:
+      - mapping
+      - composite
+      - service
+      type: string
+    ConnectorTransformerPatch:
+      properties:
+        composite:
+          $ref: '#/components/schemas/ConnectorTransformerPatch_composite'
+        kind:
+          $ref: '#/components/schemas/ConnectorTransformerKind'
+        mapping:
+          $ref: '#/components/schemas/ConnectorTransformerPatch_mapping'
+        service:
+          $ref: '#/components/schemas/ConnectorTransformerPatch_service'
+      type: object
+    ConnectorUpdateRequest:
+      properties:
+        description:
+          type: string
+        metrics:
+          $ref: '#/components/schemas/ConnectorUpdateRequest_metrics'
+        steps:
+          $ref: '#/components/schemas/ConnectorUpdateRequest_steps'
+        workload:
+          type: string
+      type: object
+    ConnectorViewResponse:
+      nullable: true
+      oneOf: []
+      properties:
+        description:
+          description: Config
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        kind:
+          $ref: '#/components/schemas/ConnectorKind'
+        metrics:
+          $ref: '#/components/schemas/ConnectorMetricEndpoint'
+        revision:
+          type: integer
+        steps:
+          $ref: '#/components/schemas/ConnectorSteps'
+        workload:
+          type: string
+      required:
+      - id
+      - kind
+      - revision
+      type: object
+    ConnectorsPlatformComponentConfig:
+      properties:
+        account:
+          type: string
+      required:
+      - account
+      type: object
+    ConnectorsTransformers:
+      items:
+        $ref: '#/components/schemas/ConnectorTransformer'
+      type: array
     Connz:
       description: Connz represents detailed information on current client connections.
       example:
@@ -9771,6 +11910,21 @@ components:
       - num_waiting
       - stream_name
       - ts
+      type: object
+    DataLimits:
+      example:
+        bytes_recv: 0
+        bytes_sent: 6
+      properties:
+        bytes_recv:
+          format: int64
+          type: integer
+        bytes_sent:
+          format: int64
+          type: integer
+      required:
+      - bytes_recv
+      - bytes_sent
       type: object
     DataStats:
       description: DataStats reports how may msg and bytes. Applicable for both sent
@@ -9998,11 +12152,12 @@ components:
         version:
           type: integer
       type: object
-    HTTPGatewayConfig:
-      example:
-        token_bucket: token_bucket
-        account: account
-        url: url
+    GetResponse:
+      properties:
+        schema:
+          $ref: '#/components/schemas/GetResponse_schema'
+      type: object
+    HttpGatewayPlatformComponentConfig:
       properties:
         account:
           type: string
@@ -10014,15 +12169,6 @@ components:
       - account
       - token_bucket
       - url
-      type: object
-    HTTPGatewayConfigPatch:
-      properties:
-        account:
-          type: string
-        token_bucket:
-          type: string
-        url:
-          type: string
       type: object
     Import:
       description: Import describes a mapping from another account into this one
@@ -10173,8 +12319,10 @@ components:
           type: boolean
         durable_name:
           type: string
-        filter_subject:
-          type: string
+        filter_subjects:
+          items:
+            type: string
+          type: array
         inactive_threshold:
           format: int64
           type: integer
@@ -10247,6 +12395,10 @@ components:
         max_msgs_per_subject:
           format: int64
           type: integer
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
         name:
           type: string
         no_ack:
@@ -11035,27 +13187,16 @@ components:
       type: object
     JSPullConsumerUpdateRequest:
       example:
-        max_ack_pending: 1
+        max_ack_pending: 6
         sample_freq: sample_freq
-        backoff:
-        - 6
-        - 6
         ack_wait: 0
         description: description
-        max_deliver: 5
-        filter_subject: filter_subject
+        max_deliver: 1
       properties:
         ack_wait:
           format: int64
           type: integer
-        backoff:
-          items:
-            format: int64
-            type: integer
-          type: array
         description:
-          type: string
-        filter_subject:
           type: string
         max_ack_pending:
           type: integer
@@ -11164,28 +13305,17 @@ components:
       type: object
     JSPushConsumerUpdateRequest:
       example:
-        max_ack_pending: 1
+        max_ack_pending: 6
         sample_freq: sample_freq
-        backoff:
-        - 6
-        - 6
         ack_wait: 0
         description: description
-        max_deliver: 5
+        max_deliver: 1
         headers_only: true
-        filter_subject: filter_subject
       properties:
         ack_wait:
           format: int64
           type: integer
-        backoff:
-          items:
-            format: int64
-            type: integer
-          type: array
         description:
-          type: string
-        filter_subject:
           type: string
         headers_only:
           type: boolean
@@ -11547,6 +13677,8 @@ components:
           type: string
         is_spoke:
           type: boolean
+        name:
+          type: string
         out_bytes:
           format: int64
           type: integer
@@ -11570,6 +13702,7 @@ components:
       - in_bytes
       - in_msgs
       - ip
+      - name
       - out_bytes
       - out_msgs
       - port
@@ -11601,6 +13734,15 @@ components:
       - leafs
       - now
       - server_id
+      type: object
+    ListResponse:
+      properties:
+        schemas:
+          items:
+            $ref: '#/components/schemas/Schema'
+          type: array
+      required:
+      - schemas
       type: object
     LostStreamData:
       description: LostStreamData indicates msgs that have been lost during file checks
@@ -11650,6 +13792,26 @@ components:
           type: array
       required:
       - cluster_size
+      type: object
+    NatsAlertingConfig:
+      example:
+        subject: subject
+        account: account
+      properties:
+        account:
+          type: string
+        subject:
+          type: string
+      required:
+      - account
+      - subject
+      type: object
+    NatsAlertingConfigPatch:
+      properties:
+        account:
+          type: string
+        subject:
+          type: string
       type: object
     NatsCluster:
       example:
@@ -11746,6 +13908,51 @@ components:
           type: array
       required:
       - items
+      type: object
+    NatsCreateUserJwtSettings:
+      allOf:
+      - $ref: '#/components/schemas/Permissions'
+      - $ref: '#/components/schemas/UserLimits'
+      description: |-
+        used to provide default values for create requests
+        extention of jwt.#UserPermissionsLimits
+      example:
+        bearer_token: true
+        data: 2147483647
+        payload: 2147483647
+        subs: 2147483647
+        allowed_connection_types:
+        - allowed_connection_types
+        - allowed_connection_types
+        tags:
+        - tags
+        - tags
+      properties:
+        allowed_connection_types:
+          items:
+            type: string
+          type: array
+        bearer_token:
+          type: boolean
+        data:
+          default: -1
+          maximum: 9223372036854775807
+          minimum: -1
+          type: integer
+        payload:
+          default: -1
+          maximum: 9223372036854775807
+          minimum: -1
+          type: integer
+        subs:
+          default: -1
+          maximum: 9223372036854775807
+          minimum: -1
+          type: integer
+        tags:
+          items:
+            type: string
+          type: array
       type: object
     NatsLimits:
       properties:
@@ -11940,6 +14147,13 @@ components:
       example:
         sk_group_id: sk_group_id
         jwt_settings:
+          bearer_token: true
+          data: 2147483647
+          payload: 2147483647
+          subs: 2147483647
+          allowed_connection_types:
+          - allowed_connection_types
+          - allowed_connection_types
           tags:
           - tags
           - tags
@@ -11950,7 +14164,7 @@ components:
           format: int64
           type: integer
         jwt_settings:
-          $ref: '#/components/schemas/NatsUserJwtSettings'
+          $ref: '#/components/schemas/NatsCreateUserJwtSettings'
         name:
           type: string
         sk_group_id:
@@ -11991,6 +14205,7 @@ components:
           identifier: identifier
           name: name
           id: id
+          type: null
         exp: 0
         type: null
         iat: 6
@@ -12124,6 +14339,7 @@ components:
             identifier: identifier
             name: name
             id: id
+            type: null
           exp: 0
           type: null
           iat: 6
@@ -12133,6 +14349,7 @@ components:
             identifier: identifier
             name: name
             id: id
+            type: null
           exp: 0
           type: null
           iat: 6
@@ -12226,13 +14443,41 @@ components:
       type: object
     NatsUserJwtSettings:
       allOf:
-      - $ref: '#/components/schemas/UserPermissionLimits'
-      description: filter jwt.User to editable fields only
+      - $ref: '#/components/schemas/Permissions'
+      - $ref: '#/components/schemas/UserLimits'
+      description: |-
+        Set correct allowed values
+        extention of jwt.#UserPermissionsLimits
       example:
+        bearer_token: true
+        data: 2147483647
+        payload: 2147483647
+        subs: 2147483647
+        allowed_connection_types:
+        - allowed_connection_types
+        - allowed_connection_types
         tags:
         - tags
         - tags
       properties:
+        allowed_connection_types:
+          items:
+            type: string
+          type: array
+        bearer_token:
+          type: boolean
+        data:
+          maximum: 9223372036854775807
+          minimum: -1
+          type: integer
+        payload:
+          maximum: 9223372036854775807
+          minimum: -1
+          type: integer
+        subs:
+          maximum: 9223372036854775807
+          minimum: -1
+          type: integer
         tags:
           items:
             type: string
@@ -12248,13 +14493,13 @@ components:
         - start: start
           end: end
         times_location: times_location
-        data: 6
-        payload: 1
+        data: 2147483647
+        payload: 2147483647
         resp: null
         src:
         - src
         - src
-        subs: 5
+        subs: 2147483647
         allowed_connection_types:
         - allowed_connection_types
         - allowed_connection_types
@@ -12271,10 +14516,12 @@ components:
         bearer_token:
           type: boolean
         data:
-          format: int64
+          maximum: 9223372036854775807
+          minimum: -1
           type: integer
         payload:
-          format: int64
+          maximum: 9223372036854775807
+          minimum: -1
           type: integer
         pub:
           $ref: '#/components/schemas/NatsUserJwtSettingsPatch_pub'
@@ -12288,7 +14535,8 @@ components:
         sub:
           $ref: '#/components/schemas/NatsUserJwtSettingsPatch_pub'
         subs:
-          format: int64
+          maximum: 9223372036854775807
+          minimum: -1
           type: integer
         tags:
           items:
@@ -12314,12 +14562,13 @@ components:
           team:
             name: name
             id: id
-          jwt_expires_at_max: 0
+          jwt_expires_at_max: 6
           system:
             jetstream_enabled: true
             http_gateway_url: http_gateway_url
             is_tenant: true
             connection_type: null
+            managed_by: null
             name: name
             server_urls: server_urls
             user_jwt_expires_in_secs: 7
@@ -12330,6 +14579,13 @@ components:
             - jetstream_tiers
             - jetstream_tiers
           jwt_settings:
+            bearer_token: true
+            data: 2147483647
+            payload: 2147483647
+            subs: 2147483647
+            allowed_connection_types:
+            - allowed_connection_types
+            - allowed_connection_types
             tags:
             - tags
             - tags
@@ -12337,13 +14593,14 @@ components:
             nats:
               issuer_account: issuer_account
           name: name
-          jwt_expires_in_secs: 6
+          jwt_expires_in_secs: 1
           id: id
           account:
             account_public_key: account_public_key
             name: name
             user_jwt_expires_in_secs: 0
             id: id
+            is_platform_account: true
             is_scp_account: true
             is_system_account: true
         - sk_group_id: sk_group_id
@@ -12353,12 +14610,13 @@ components:
           team:
             name: name
             id: id
-          jwt_expires_at_max: 0
+          jwt_expires_at_max: 6
           system:
             jetstream_enabled: true
             http_gateway_url: http_gateway_url
             is_tenant: true
             connection_type: null
+            managed_by: null
             name: name
             server_urls: server_urls
             user_jwt_expires_in_secs: 7
@@ -12369,6 +14627,13 @@ components:
             - jetstream_tiers
             - jetstream_tiers
           jwt_settings:
+            bearer_token: true
+            data: 2147483647
+            payload: 2147483647
+            subs: 2147483647
+            allowed_connection_types:
+            - allowed_connection_types
+            - allowed_connection_types
             tags:
             - tags
             - tags
@@ -12376,13 +14641,14 @@ components:
             nats:
               issuer_account: issuer_account
           name: name
-          jwt_expires_in_secs: 6
+          jwt_expires_in_secs: 1
           id: id
           account:
             account_public_key: account_public_key
             name: name
             user_jwt_expires_in_secs: 0
             id: id
+            is_platform_account: true
             is_scp_account: true
             is_system_account: true
       properties:
@@ -12440,13 +14706,13 @@ components:
           - start: start
             end: end
           times_location: times_location
-          data: 6
-          payload: 1
+          data: 2147483647
+          payload: 2147483647
           resp: null
           src:
           - src
           - src
-          subs: 5
+          subs: 2147483647
           allowed_connection_types:
           - allowed_connection_types
           - allowed_connection_types
@@ -12474,12 +14740,13 @@ components:
         team:
           name: name
           id: id
-        jwt_expires_at_max: 0
+        jwt_expires_at_max: 6
         system:
           jetstream_enabled: true
           http_gateway_url: http_gateway_url
           is_tenant: true
           connection_type: null
+          managed_by: null
           name: name
           server_urls: server_urls
           user_jwt_expires_in_secs: 7
@@ -12490,6 +14757,13 @@ components:
           - jetstream_tiers
           - jetstream_tiers
         jwt_settings:
+          bearer_token: true
+          data: 2147483647
+          payload: 2147483647
+          subs: 2147483647
+          allowed_connection_types:
+          - allowed_connection_types
+          - allowed_connection_types
           tags:
           - tags
           - tags
@@ -12497,13 +14771,14 @@ components:
           nats:
             issuer_account: issuer_account
         name: name
-        jwt_expires_in_secs: 6
+        jwt_expires_in_secs: 1
         id: id
         account:
           account_public_key: account_public_key
           name: name
           user_jwt_expires_in_secs: 0
           id: id
+          is_platform_account: true
           is_scp_account: true
           is_system_account: true
       properties:
@@ -12584,6 +14859,306 @@ components:
       required:
       - bucket
       type: object
+    OidcProviderAddRequest:
+      example:
+        issuer_url: issuer_url
+        mapper: mapper
+        label: label
+        claims_source: claims_source
+        client_id: client_id
+        enabled: true
+        microsoft_subject_source: microsoft_subject_source
+        additional_id_token_audiences:
+        - additional_id_token_audiences
+        - additional_id_token_audiences
+        requested_claims: ""
+        provider: provider
+        domain: domain
+        scope:
+        - scope
+        - scope
+        claims: claims
+        auth_url: auth_url
+        client_secret: client_secret
+        token_url: token_url
+        microsoft_tenant: microsoft_tenant
+      properties:
+        additional_id_token_audiences:
+          items:
+            type: string
+          type: array
+        auth_url:
+          type: string
+        claims:
+          type: string
+        claims_source:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        domain:
+          type: string
+        enabled:
+          type: boolean
+        issuer_url:
+          type: string
+        label:
+          type: string
+        mapper:
+          type: string
+        microsoft_subject_source:
+          type: string
+        microsoft_tenant:
+          type: string
+        provider:
+          type: string
+        requested_claims: {}
+        scope:
+          items:
+            type: string
+          type: array
+        token_url:
+          type: string
+      required:
+      - domain
+      - enabled
+      type: object
+    OidcProviderDefaultsListResponse:
+      example:
+        items:
+        - provider: provider
+          claims:
+          - claims
+          - claims
+          scopes:
+          - scopes
+          - scopes
+        - provider: provider
+          claims:
+          - claims
+          - claims
+          scopes:
+          - scopes
+          - scopes
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/OidcProviderDefaultsResponse'
+          type: array
+      required:
+      - items
+      type: object
+    OidcProviderDefaultsResponse:
+      example:
+        provider: provider
+        claims:
+        - claims
+        - claims
+        scopes:
+        - scopes
+        - scopes
+      properties:
+        claims:
+          items:
+            type: string
+          type: array
+        provider:
+          type: string
+        scopes:
+          items:
+            type: string
+          type: array
+      required:
+      - claims
+      - provider
+      - scopes
+      type: object
+    OidcProviderListResponse:
+      example:
+        items:
+        - issuer_url: issuer_url
+          created: 2000-01-23T04:56:07.000+00:00
+          mapper: mapper
+          label: label
+          claims_source: claims_source
+          client_id: client_id
+          enabled: true
+          microsoft_subject_source: microsoft_subject_source
+          additional_id_token_audiences:
+          - additional_id_token_audiences
+          - additional_id_token_audiences
+          requested_claims: ""
+          provider: provider
+          domain: domain
+          scope:
+          - scope
+          - scope
+          claims: claims
+          auth_url: auth_url
+          id: id
+          token_url: token_url
+          microsoft_tenant: microsoft_tenant
+        - issuer_url: issuer_url
+          created: 2000-01-23T04:56:07.000+00:00
+          mapper: mapper
+          label: label
+          claims_source: claims_source
+          client_id: client_id
+          enabled: true
+          microsoft_subject_source: microsoft_subject_source
+          additional_id_token_audiences:
+          - additional_id_token_audiences
+          - additional_id_token_audiences
+          requested_claims: ""
+          provider: provider
+          domain: domain
+          scope:
+          - scope
+          - scope
+          claims: claims
+          auth_url: auth_url
+          id: id
+          token_url: token_url
+          microsoft_tenant: microsoft_tenant
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/OidcProviderViewResponse'
+          type: array
+      required:
+      - items
+      type: object
+    OidcProviderUpdateRequest:
+      example:
+        issuer_url: issuer_url
+        mapper: mapper
+        label: label
+        claims_source: claims_source
+        client_id: client_id
+        enabled: true
+        microsoft_subject_source: microsoft_subject_source
+        additional_id_token_audiences:
+        - additional_id_token_audiences
+        - additional_id_token_audiences
+        requested_claims: ""
+        provider: provider
+        scope:
+        - scope
+        - scope
+        claims: claims
+        auth_url: auth_url
+        client_secret: client_secret
+        token_url: token_url
+        microsoft_tenant: microsoft_tenant
+      properties:
+        additional_id_token_audiences:
+          items:
+            type: string
+          type: array
+        auth_url:
+          type: string
+        claims:
+          type: string
+        claims_source:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        enabled:
+          type: boolean
+        issuer_url:
+          type: string
+        label:
+          type: string
+        mapper:
+          type: string
+        microsoft_subject_source:
+          type: string
+        microsoft_tenant:
+          type: string
+        provider:
+          type: string
+        requested_claims: {}
+        scope:
+          items:
+            type: string
+          type: array
+        token_url:
+          type: string
+      type: object
+    OidcProviderViewResponse:
+      example:
+        issuer_url: issuer_url
+        created: 2000-01-23T04:56:07.000+00:00
+        mapper: mapper
+        label: label
+        claims_source: claims_source
+        client_id: client_id
+        enabled: true
+        microsoft_subject_source: microsoft_subject_source
+        additional_id_token_audiences:
+        - additional_id_token_audiences
+        - additional_id_token_audiences
+        requested_claims: ""
+        provider: provider
+        domain: domain
+        scope:
+        - scope
+        - scope
+        claims: claims
+        auth_url: auth_url
+        id: id
+        token_url: token_url
+        microsoft_tenant: microsoft_tenant
+      properties:
+        additional_id_token_audiences:
+          items:
+            type: string
+          type: array
+        auth_url:
+          type: string
+        claims:
+          type: string
+        claims_source:
+          type: string
+        client_id:
+          type: string
+        created:
+          format: date-time
+          type: string
+        domain:
+          type: string
+        enabled:
+          type: boolean
+        id:
+          type: string
+        issuer_url:
+          type: string
+        label:
+          type: string
+        mapper:
+          type: string
+        microsoft_subject_source:
+          type: string
+        microsoft_tenant:
+          type: string
+        provider:
+          type: string
+        requested_claims: {}
+        scope:
+          items:
+            type: string
+          type: array
+        token_url:
+          type: string
+      required:
+      - created
+      - domain
+      - enabled
+      - id
+      type: object
     Operator:
       allOf:
       - $ref: '#/components/schemas/GenericFields'
@@ -12651,6 +15226,35 @@ components:
       properties:
         nats:
           $ref: '#/components/schemas/Operator'
+      type: object
+    OperatorExport:
+      example:
+        seed: seed
+        jwt: jwt
+        name: name
+        signing_keys:
+        - seed: seed
+          id: id
+        - seed: seed
+          id: id
+        id: id
+      properties:
+        id:
+          type: string
+        jwt:
+          type: string
+        name:
+          type: string
+        seed:
+          type: string
+        signing_keys:
+          items:
+            $ref: '#/components/schemas/SigningKeyExport'
+          type: array
+      required:
+      - id
+      - jwt
+      - name
       type: object
     OperatorLimits:
       allOf:
@@ -12832,6 +15436,162 @@ components:
       required:
       - cluster
       type: object
+    PlatformComponent:
+      example:
+        id: id
+        type: null
+        config: null
+        enabled: true
+      properties:
+        config:
+          $ref: '#/components/schemas/PlatformComponentConfigs'
+        enabled:
+          type: boolean
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/PlatformComponentType'
+      required:
+      - enabled
+      - id
+      - type
+      type: object
+    PlatformComponentConfigs:
+      nullable: true
+      oneOf:
+      - $ref: '#/components/schemas/HttpGatewayPlatformComponentConfig'
+      - $ref: '#/components/schemas/AuthCalloutAuthenticatorComponentConfig'
+      - $ref: '#/components/schemas/WorkloadsPlatformComponentConfig'
+      - $ref: '#/components/schemas/ScraperComponentConfig'
+      type: object
+    PlatformComponentConnectConfig:
+      nullable: true
+      oneOf:
+      - $ref: '#/components/schemas/HttpGatewayPlatformComponentConfig'
+      - $ref: '#/components/schemas/AuthCalloutAuthenticatorComponentConfig'
+      type: object
+    PlatformComponentTokenViewResponse:
+      example:
+        last_access: 2000-01-23T04:56:07.000+00:00
+        created: 2000-01-23T04:56:07.000+00:00
+        id: id
+        token: token
+      properties:
+        created:
+          format: date-time
+          type: string
+        id:
+          type: string
+        last_access:
+          format: date-time
+          type: string
+        token:
+          type: string
+      required:
+      - created
+      - id
+      - token
+      type: object
+    PlatformComponentType:
+      enum:
+      - http_gateway
+      - connectors
+      - authenticators
+      - workloads
+      - scraper
+      - schema_registry
+      type: string
+    PlatformComponentsConfigSchema:
+      example:
+        data: data
+        name: name
+        type: 0
+        required: true
+      properties:
+        data:
+          type: string
+        name:
+          type: string
+        required:
+          type: boolean
+        type:
+          type: integer
+      required:
+      - name
+      - required
+      - type
+      type: object
+    PlatformComponentsConnectRequest:
+      example:
+        data: null
+        nkey_public: nkey_public
+      properties:
+        data:
+          $ref: '#/components/schemas/PlatformComponentConnectConfig'
+        nkey_public:
+          type: string
+      required:
+      - nkey_public
+      type: object
+    PlatformComponentsConnectViewResponse:
+      example:
+        server: server
+        jwt: jwt
+        config: null
+        account: account
+      properties:
+        account:
+          type: string
+        config:
+          $ref: '#/components/schemas/PlatformComponentConfigs'
+        jwt:
+          type: string
+        server:
+          type: string
+      required:
+      - account
+      - jwt
+      - server
+      type: object
+    PlatformComponentsUpdateRequest:
+      example:
+        type: null
+        config: null
+        enabled: true
+      properties:
+        config:
+          $ref: '#/components/schemas/PlatformComponentConfigs'
+        enabled:
+          type: boolean
+        type:
+          $ref: '#/components/schemas/PlatformComponentType'
+      required:
+      - enabled
+      - type
+      type: object
+    PlatformComponentsViewResponse:
+      example:
+        components:
+        - id: id
+          type: null
+          config: null
+          enabled: true
+        - id: id
+          type: null
+          config: null
+          enabled: true
+        system_id: system_id
+      properties:
+        components:
+          items:
+            $ref: '#/components/schemas/PlatformComponent'
+          type: array
+        system_id:
+          type: string
+      required:
+      - components
+      - system_id
+      type: object
     PolicyListResponse:
       example:
         items:
@@ -12879,8 +15639,8 @@ components:
       type: object
     PromSampleValue:
       example:
-        value: 5.962133916683182
-        timestamp: 1
+        value: 1.4658129805029452
+        timestamp: 6
       properties:
         timestamp:
           format: int64
@@ -12908,6 +15668,22 @@ components:
           type: string
       required:
       - dest
+      type: object
+    RemoveRequest:
+      properties:
+        format:
+          nullable: true
+          type: string
+        name:
+          description: Name of the schema (required).
+          type: string
+        revision:
+          description: |-
+            Revision of the schema (optional). If not set, the latest revision
+            of the schema will be removed.
+          type: integer
+        version:
+          type: integer
       type: object
     ReplayPolicy:
       enum:
@@ -13020,10 +15796,131 @@ components:
       enum:
       - s2
       type: string
+    SDKubeLimit:
+      properties:
+        five_node:
+          type: integer
+        three_node:
+          type: integer
+      required:
+      - five_node
+      - three_node
+      type: object
     SamplingRate:
       maximum: 100
       minimum: 0
       type: integer
+    Schema:
+      properties:
+        compat_policy:
+          type: string
+        definition:
+          description: The schema definition.
+          type: string
+        delete:
+          description: Deleted is a flag to indicate if the schema is deleted.
+          type: boolean
+        description:
+          description: Description of the schema.
+          type: string
+        format:
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: Metadata is a map of key-value pairs.
+          type: object
+        name:
+          description: Unique name of the schema.
+          type: string
+        revision:
+          description: Revision of the schema.
+          type: integer
+        time:
+          description: Timestamp when this schema was added.
+          format: date-time
+          type: string
+        version:
+          description: |-
+            TODO(jrm): We probably do not need the ID, as we can use subject + version as a compound unique identifier.
+            Unique identifier of the schema.
+            ID string `json:"id"`
+          type: integer
+      required:
+      - compat_policy
+      - definition
+      - description
+      - format
+      - metadata
+      - name
+      - revision
+      - time
+      - version
+      type: object
+    SchemaCompatPolicy:
+      type: string
+    SchemaFormat:
+      type: string
+    SchemaRegistryAddRequest:
+      $ref: '#/components/schemas/AddRequest'
+    SchemaRegistryAddResponse:
+      $ref: '#/components/schemas/AddResponse'
+    SchemaRegistryCompatPolicy:
+      default: backwards
+      enum:
+      - backwards
+      - none
+      - forward
+      - full
+      type: string
+    SchemaRegistryFormat:
+      default: jsonschema
+      enum:
+      - jsonschema
+      - protobuf
+      - avro
+      type: string
+    SchemaRegistryGetResponse:
+      $ref: '#/components/schemas/GetResponse'
+    SchemaRegistryListResponse:
+      $ref: '#/components/schemas/ListResponse'
+    SchemaRegistryPlatformComponentConfig:
+      properties:
+        account:
+          type: string
+        bucket:
+          type: string
+      required:
+      - account
+      - bucket
+      type: object
+    SchemaRegistryRemoveRequest:
+      $ref: '#/components/schemas/RemoveRequest'
+    SchemaRegistrySchema:
+      $ref: '#/components/schemas/Schema'
+    SchemaRegistryUpdateRequest:
+      $ref: '#/components/schemas/AddRequest'
+    SchemaRegistryUpdateResponse:
+      $ref: '#/components/schemas/UpdateResponse'
+    SchemaRegistryValidateRequest:
+      $ref: '#/components/schemas/ValidateRequest'
+    SchemaRegistryValidateResponse:
+      $ref: '#/components/schemas/ValidateResponse'
+    ScraperComponentConfig:
+      properties:
+        account:
+          type: string
+        interval:
+          default: 15
+          minimum: 0
+          type: integer
+        stream:
+          type: string
+      required:
+      - account
+      - interval
+      - stream
+      type: object
     SequenceInfo:
       description: SequenceInfo is the consumer and stream sequence that uniquely
         identify a message
@@ -13270,6 +16167,7 @@ components:
                 http_gateway_url: http_gateway_url
                 is_tenant: true
                 connection_type: null
+                managed_by: null
                 name: name
                 server_urls: server_urls
                 user_jwt_expires_in_secs: 7
@@ -13283,6 +16181,7 @@ components:
                 identifier: identifier
                 name: name
                 id: id
+                type: null
               role_id: role_id
               created: 2000-01-23T04:56:07.000+00:00
               scope: null
@@ -13300,6 +16199,7 @@ components:
                 name: name
                 user_jwt_expires_in_secs: 0
                 id: id
+                is_platform_account: true
                 is_scp_account: true
                 is_system_account: true
           id: id
@@ -13321,6 +16221,7 @@ components:
                 http_gateway_url: http_gateway_url
                 is_tenant: true
                 connection_type: null
+                managed_by: null
                 name: name
                 server_urls: server_urls
                 user_jwt_expires_in_secs: 7
@@ -13334,6 +16235,7 @@ components:
                 identifier: identifier
                 name: name
                 id: id
+                type: null
               role_id: role_id
               created: 2000-01-23T04:56:07.000+00:00
               scope: null
@@ -13351,6 +16253,7 @@ components:
                 name: name
                 user_jwt_expires_in_secs: 0
                 id: id
+                is_platform_account: true
                 is_scp_account: true
                 is_system_account: true
           id: id
@@ -13413,6 +16316,7 @@ components:
               http_gateway_url: http_gateway_url
               is_tenant: true
               connection_type: null
+              managed_by: null
               name: name
               server_urls: server_urls
               user_jwt_expires_in_secs: 7
@@ -13426,6 +16330,7 @@ components:
               identifier: identifier
               name: name
               id: id
+              type: null
             role_id: role_id
             created: 2000-01-23T04:56:07.000+00:00
             scope: null
@@ -13443,6 +16348,7 @@ components:
               name: name
               user_jwt_expires_in_secs: 0
               id: id
+              is_platform_account: true
               is_scp_account: true
               is_system_account: true
         id: id
@@ -13523,6 +16429,19 @@ components:
           minimum: 0
           type: integer
       type: object
+    SigningKeyExport:
+      example:
+        seed: seed
+        id: id
+      properties:
+        id:
+          type: string
+        seed:
+          type: string
+      required:
+      - id
+      - seed
+      type: object
     SigningKeyGroupCopyRequest:
       example:
         name: name
@@ -13564,6 +16483,25 @@ components:
       properties:
         seed:
           type: string
+      type: object
+    SigningKeyGroupExport:
+      example:
+        name: name
+        signing_keys:
+        - seed: seed
+          id: id
+        - seed: seed
+          id: id
+      properties:
+        name:
+          type: string
+        signing_keys:
+          items:
+            $ref: '#/components/schemas/SigningKeyExport'
+          type: array
+      required:
+      - name
+      - signing_keys
       type: object
     SigningKeyGroupListResponse:
       example:
@@ -13902,6 +16840,10 @@ components:
       - stream_name
       type: object
     StreamExportViewResponse:
+      description: |-
+        /
+        Stream export
+        /
       example:
         account_id: account_id
         stream_name: stream_name
@@ -13986,6 +16928,10 @@ components:
       - items
       type: object
     StreamImportViewResponse:
+      description: |-
+        /
+        Stream Import
+        /
       example:
         remote_account_nkey_public: remote_account_nkey_public
         account_id: account_id
@@ -14020,6 +16966,10 @@ components:
       - stream_name
       type: object
     StreamShareCreateRequest:
+      description: |-
+        /
+        Stream Share
+        /
       example:
         target_account_nkey_public: target_account_nkey_public
       properties:
@@ -14276,6 +17226,7 @@ components:
             name: name
             user_jwt_expires_in_secs: 0
             id: id
+            is_platform_account: true
             is_scp_account: true
             is_system_account: true
         - share_sk_public: share_sk_public
@@ -14306,6 +17257,7 @@ components:
             name: name
             user_jwt_expires_in_secs: 0
             id: id
+            is_platform_account: true
             is_scp_account: true
             is_system_account: true
       properties:
@@ -14395,6 +17347,10 @@ components:
           type: integer
       type: object
     SubjectExportViewResponse:
+      description: |-
+        /
+        Subject Exports
+        /
       example:
         share_sk_public: share_sk_public
         stream_export_id: stream_export_id
@@ -14424,6 +17380,7 @@ components:
           name: name
           user_jwt_expires_in_secs: 0
           id: id
+          is_platform_account: true
           is_scp_account: true
           is_system_account: true
       properties:
@@ -14539,6 +17496,10 @@ components:
           $ref: '#/components/schemas/ImportPatch'
       type: object
     SubjectImportViewResponse:
+      description: |-
+        /
+        Subject Imports
+        /
       example:
         remote_account_nkey_public: remote_account_nkey_public
         remote_subject: remote_subject
@@ -14617,6 +17578,10 @@ components:
       - items
       type: object
     SubjectShareViewResponse:
+      description: |-
+        /
+        Subject Shares
+        /
       example:
         subject_export_id: subject_export_id
         created: 2000-01-23T04:56:07.000+00:00
@@ -14725,6 +17690,7 @@ components:
       example:
         jetstream_enabled: true
         connection_type: null
+        managed_by: null
         name: name
         jetstream_domain: jetstream_domain
         url: url
@@ -14745,6 +17711,8 @@ components:
         jetstream_enabled:
           default: true
           type: boolean
+        managed_by:
+          $ref: '#/components/schemas/SystemManagedBy'
         name:
           type: string
         url:
@@ -14795,10 +17763,121 @@ components:
         tls_mode:
           $ref: '#/components/schemas/TLSMode'
       type: object
+    SystemExportResponse:
+      example:
+        system_account:
+          seed: seed
+          jwt: jwt
+          name: name
+          signing_key_groups:
+          - name: name
+            signing_keys:
+            - seed: seed
+              id: id
+            - seed: seed
+              id: id
+          - name: name
+            signing_keys:
+            - seed: seed
+              id: id
+            - seed: seed
+              id: id
+          id: id
+          users:
+          - seed: seed
+            jwt: jwt
+            name: name
+            id: id
+          - seed: seed
+            jwt: jwt
+            name: name
+            id: id
+        name: name
+        accounts:
+        - seed: seed
+          jwt: jwt
+          name: name
+          signing_key_groups:
+          - name: name
+            signing_keys:
+            - seed: seed
+              id: id
+            - seed: seed
+              id: id
+          - name: name
+            signing_keys:
+            - seed: seed
+              id: id
+            - seed: seed
+              id: id
+          id: id
+          users:
+          - seed: seed
+            jwt: jwt
+            name: name
+            id: id
+          - seed: seed
+            jwt: jwt
+            name: name
+            id: id
+        - seed: seed
+          jwt: jwt
+          name: name
+          signing_key_groups:
+          - name: name
+            signing_keys:
+            - seed: seed
+              id: id
+            - seed: seed
+              id: id
+          - name: name
+            signing_keys:
+            - seed: seed
+              id: id
+            - seed: seed
+              id: id
+          id: id
+          users:
+          - seed: seed
+            jwt: jwt
+            name: name
+            id: id
+          - seed: seed
+            jwt: jwt
+            name: name
+            id: id
+        operator:
+          seed: seed
+          jwt: jwt
+          name: name
+          signing_keys:
+          - seed: seed
+            id: id
+          - seed: seed
+            id: id
+          id: id
+      properties:
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountExportResponse'
+          type: array
+        name:
+          type: string
+        operator:
+          $ref: '#/components/schemas/OperatorExport'
+        system_account:
+          $ref: '#/components/schemas/AccountExportResponse'
+      required:
+      - accounts
+      - name
+      - operator
+      - system_account
+      type: object
     SystemImportRequest:
       example:
         jetstream_enabled: true
         system_jwt: system_jwt
+        managed_by: null
         operator_jwt: operator_jwt
         system_key: system_key
         jetstream_domain: jetstream_domain
@@ -14809,6 +17888,8 @@ components:
         jetstream_enabled:
           default: true
           type: boolean
+        managed_by:
+          $ref: '#/components/schemas/SystemManagedBy'
         operator_jwt:
           type: string
         operator_key:
@@ -14829,6 +17910,7 @@ components:
         http_gateway_url: http_gateway_url
         is_tenant: true
         connection_type: null
+        managed_by: null
         name: name
         server_urls: server_urls
         user_jwt_expires_in_secs: 7
@@ -14855,6 +17937,8 @@ components:
           items:
             type: string
           type: array
+        managed_by:
+          $ref: '#/components/schemas/SystemManagedBy'
         name:
           type: string
         server_urls:
@@ -14876,7 +17960,14 @@ components:
     SystemLimitsResponse:
       example:
         total:
-          num_accounts: 0
+          data:
+            bytes_recv: 0
+            bytes_sent: 6
+          workloads:
+            container: 5
+            function: 2
+          num_connectors: 5
+          num_accounts: 1
           resource_limits:
             tiered_limits:
               key:
@@ -14889,7 +17980,14 @@ components:
                 mem_storage: 7
                 consumer: 7
         available:
-          num_accounts: 0
+          data:
+            bytes_recv: 0
+            bytes_sent: 6
+          workloads:
+            container: 5
+            function: 2
+          num_connectors: 5
+          num_accounts: 1
           resource_limits:
             tiered_limits:
               key:
@@ -14902,7 +18000,14 @@ components:
                 mem_storage: 7
                 consumer: 7
         allocated:
-          num_accounts: 0
+          data:
+            bytes_recv: 0
+            bytes_sent: 6
+          workloads:
+            container: 5
+            function: 2
+          num_connectors: 5
+          num_accounts: 1
           resource_limits:
             tiered_limits:
               key:
@@ -14929,17 +18034,34 @@ components:
     SystemListResponse:
       example:
         items:
-        - jetstream_enabled: true
-          is_tenant: true
-          connection_type: null
+        - is_tenant: true
           system_account_jwt: system_account_jwt
-          created: 2000-01-23T04:56:07.000+00:00
-          http_gateway_config:
-            token_bucket: token_bucket
+          managed_by: null
+          has_managed_operator: true
+          has_managed_system_account: true
+          jetstream_tiers:
+          - jetstream_tiers
+          - jetstream_tiers
+          log_forwarding_opts:
+            subject_prefix: subject_prefix
+            account_id: account_id
+            enabled: true
+            levels:
+            - null
+            - null
+            audit_only: true
+          id: id
+          nats_alerting_config:
+            subject: subject
             account: account
-            url: url
+          state: null
+          jetstream_enabled: true
+          connection_type: null
+          limited: true
+          created: 2000-01-23T04:56:07.000+00:00
           operator_jwt: operator_jwt
-          user_jwt_expires_in_secs: 0
+          max_nodes: 0
+          user_jwt_expires_in_secs: 6
           operator_claims:
             nats:
               system_account: system_account
@@ -14955,11 +18077,6 @@ components:
           team:
             name: name
             id: id
-          has_managed_operator: true
-          has_managed_system_account: true
-          jetstream_tiers:
-          - jetstream_tiers
-          - jetstream_tiers
           direct_connection_opts:
             tls_client_key: tls_client_key
             tls_mode: null
@@ -14968,21 +18085,53 @@ components:
             tls_insecure_skip_verify: false
             tls_ca_certs: tls_ca_certs
           host_system_id: host_system_id
+          updates_available:
+            key:
+              current: current
+              latest_minor: latest_minor
+              latest: latest
+              latest_patch: latest_patch
+          platform_components:
+            components:
+            - id: id
+              type: null
+              config: null
+              enabled: true
+            - id: id
+              type: null
+              config: null
+              enabled: true
+            system_id: system_id
           name: name
-          id: id
-          state: null
           jetstream_domain: jetstream_domain
-        - jetstream_enabled: true
-          is_tenant: true
-          connection_type: null
+        - is_tenant: true
           system_account_jwt: system_account_jwt
-          created: 2000-01-23T04:56:07.000+00:00
-          http_gateway_config:
-            token_bucket: token_bucket
+          managed_by: null
+          has_managed_operator: true
+          has_managed_system_account: true
+          jetstream_tiers:
+          - jetstream_tiers
+          - jetstream_tiers
+          log_forwarding_opts:
+            subject_prefix: subject_prefix
+            account_id: account_id
+            enabled: true
+            levels:
+            - null
+            - null
+            audit_only: true
+          id: id
+          nats_alerting_config:
+            subject: subject
             account: account
-            url: url
+          state: null
+          jetstream_enabled: true
+          connection_type: null
+          limited: true
+          created: 2000-01-23T04:56:07.000+00:00
           operator_jwt: operator_jwt
-          user_jwt_expires_in_secs: 0
+          max_nodes: 0
+          user_jwt_expires_in_secs: 6
           operator_claims:
             nats:
               system_account: system_account
@@ -14998,11 +18147,6 @@ components:
           team:
             name: name
             id: id
-          has_managed_operator: true
-          has_managed_system_account: true
-          jetstream_tiers:
-          - jetstream_tiers
-          - jetstream_tiers
           direct_connection_opts:
             tls_client_key: tls_client_key
             tls_mode: null
@@ -15011,9 +18155,24 @@ components:
             tls_insecure_skip_verify: false
             tls_ca_certs: tls_ca_certs
           host_system_id: host_system_id
+          updates_available:
+            key:
+              current: current
+              latest_minor: latest_minor
+              latest: latest
+              latest_patch: latest_patch
+          platform_components:
+            components:
+            - id: id
+              type: null
+              config: null
+              enabled: true
+            - id: id
+              type: null
+              config: null
+              enabled: true
+            system_id: system_id
           name: name
-          id: id
-          state: null
           jetstream_domain: jetstream_domain
       properties:
         items:
@@ -15023,6 +18182,65 @@ components:
       required:
       - items
       type: object
+    SystemLogForwardingOpts:
+      example:
+        subject_prefix: subject_prefix
+        account_id: account_id
+        enabled: true
+        levels:
+        - null
+        - null
+        audit_only: true
+      properties:
+        account_id:
+          type: string
+        audit_only:
+          type: boolean
+        enabled:
+          type: boolean
+        levels:
+          items:
+            $ref: '#/components/schemas/SystemLogLevel'
+          type: array
+        subject_prefix:
+          type: string
+      required:
+      - account_id
+      - audit_only
+      - enabled
+      - levels
+      - subject_prefix
+      type: object
+    SystemLogForwardingOptsPatch:
+      properties:
+        account_id:
+          type: string
+        audit_only:
+          type: boolean
+        enabled:
+          type: boolean
+        levels:
+          items:
+            $ref: '#/components/schemas/SystemLogLevel'
+          type: array
+        subject_prefix:
+          type: string
+      type: object
+    SystemLogLevel:
+      enum:
+      - panic
+      - fatal
+      - error
+      - warn
+      - info
+      - debug
+      - trace
+      type: string
+    SystemManagedBy:
+      enum:
+      - byon
+      - sdkube
+      type: string
     SystemState:
       enum:
       - Provisioning
@@ -15033,9 +18251,10 @@ components:
       example:
         jetstream_enabled: true
         connection_type: null
-        http_gateway_config: null
+        log_forwarding_opts: null
         operator_jwt: operator_jwt
         name: name
+        nats_alerting_config: null
         jetstream_domain: jetstream_domain
         url: url
         direct_connection_opts: null
@@ -15044,15 +18263,17 @@ components:
           $ref: '#/components/schemas/SystemConnectionType'
         direct_connection_opts:
           $ref: '#/components/schemas/SystemUpdateRequest_direct_connection_opts'
-        http_gateway_config:
-          $ref: '#/components/schemas/SystemUpdateRequest_http_gateway_config'
         jetstream_domain:
           nullable: true
           type: string
         jetstream_enabled:
           type: boolean
+        log_forwarding_opts:
+          $ref: '#/components/schemas/SystemUpdateRequest_log_forwarding_opts'
         name:
           type: string
+        nats_alerting_config:
+          $ref: '#/components/schemas/SystemUpdateRequest_nats_alerting_config'
         operator_jwt:
           type: string
         url:
@@ -15073,17 +18294,34 @@ components:
       type: object
     SystemViewResponse:
       example:
-        jetstream_enabled: true
         is_tenant: true
-        connection_type: null
         system_account_jwt: system_account_jwt
-        created: 2000-01-23T04:56:07.000+00:00
-        http_gateway_config:
-          token_bucket: token_bucket
+        managed_by: null
+        has_managed_operator: true
+        has_managed_system_account: true
+        jetstream_tiers:
+        - jetstream_tiers
+        - jetstream_tiers
+        log_forwarding_opts:
+          subject_prefix: subject_prefix
+          account_id: account_id
+          enabled: true
+          levels:
+          - null
+          - null
+          audit_only: true
+        id: id
+        nats_alerting_config:
+          subject: subject
           account: account
-          url: url
+        state: null
+        jetstream_enabled: true
+        connection_type: null
+        limited: true
+        created: 2000-01-23T04:56:07.000+00:00
         operator_jwt: operator_jwt
-        user_jwt_expires_in_secs: 0
+        max_nodes: 0
+        user_jwt_expires_in_secs: 6
         operator_claims:
           nats:
             system_account: system_account
@@ -15099,11 +18337,6 @@ components:
         team:
           name: name
           id: id
-        has_managed_operator: true
-        has_managed_system_account: true
-        jetstream_tiers:
-        - jetstream_tiers
-        - jetstream_tiers
         direct_connection_opts:
           tls_client_key: tls_client_key
           tls_mode: null
@@ -15112,9 +18345,24 @@ components:
           tls_insecure_skip_verify: false
           tls_ca_certs: tls_ca_certs
         host_system_id: host_system_id
+        updates_available:
+          key:
+            current: current
+            latest_minor: latest_minor
+            latest: latest
+            latest_patch: latest_patch
+        platform_components:
+          components:
+          - id: id
+            type: null
+            config: null
+            enabled: true
+          - id: id
+            type: null
+            config: null
+            enabled: true
+          system_id: system_id
         name: name
-        id: id
-        state: null
         jetstream_domain: jetstream_domain
       properties:
         connection_type:
@@ -15130,8 +18378,6 @@ components:
           type: boolean
         host_system_id:
           type: string
-        http_gateway_config:
-          $ref: '#/components/schemas/HTTPGatewayConfig'
         id:
           type: string
         is_tenant:
@@ -15144,18 +18390,35 @@ components:
           items:
             type: string
           type: array
+        limited:
+          type: boolean
+        log_forwarding_opts:
+          $ref: '#/components/schemas/SystemLogForwardingOpts'
+        managed_by:
+          $ref: '#/components/schemas/SystemManagedBy'
+        max_nodes:
+          format: int32
+          type: integer
         name:
           type: string
+        nats_alerting_config:
+          $ref: '#/components/schemas/NatsAlertingConfig'
         operator_claims:
           $ref: '#/components/schemas/OperatorClaims'
         operator_jwt:
           type: string
+        platform_components:
+          $ref: '#/components/schemas/PlatformComponentsViewResponse'
         state:
           $ref: '#/components/schemas/SystemState'
         system_account_jwt:
           type: string
         team:
           $ref: '#/components/schemas/TeamInfo'
+        updates_available:
+          additionalProperties:
+            $ref: '#/components/schemas/Update'
+          type: object
         user_jwt_expires_in_secs:
           format: int64
           type: integer
@@ -15167,9 +18430,11 @@ components:
       - id
       - is_tenant
       - jetstream_enabled
+      - limited
       - name
       - state
       - team
+      - updates_available
       - user_jwt_expires_in_secs
       type: object
     TLSMode:
@@ -15234,6 +18499,7 @@ components:
             identifier: identifier
             name: name
             id: id
+            type: null
           role_id: role_id
           created: 2000-01-23T04:56:07.000+00:00
           pending_invitation: true
@@ -15246,6 +18512,7 @@ components:
             identifier: identifier
             name: name
             id: id
+            type: null
           role_id: role_id
           created: 2000-01-23T04:56:07.000+00:00
           pending_invitation: true
@@ -15274,6 +18541,7 @@ components:
           identifier: identifier
           name: name
           id: id
+          type: null
         role_id: role_id
         created: 2000-01-23T04:56:07.000+00:00
         pending_invitation: true
@@ -15330,12 +18598,15 @@ components:
       type: object
     TeamLimits:
       example:
+        num_sdkube: null
         num_systems: 0
         num_users: 6
         disable_prometheus_federation: true
       properties:
         disable_prometheus_federation:
           type: boolean
+        num_sdkube:
+          $ref: '#/components/schemas/TeamLimits_num_sdkube'
         num_systems:
           nullable: true
           type: integer
@@ -15344,20 +18615,24 @@ components:
           type: integer
       required:
       - disable_prometheus_federation
+      - num_sdkube
       - num_systems
       - num_users
       type: object
     TeamLimitsResponse:
       example:
         total:
+          num_sdkube: null
           num_systems: 0
           num_users: 6
           disable_prometheus_federation: true
         available:
+          num_sdkube: null
           num_systems: 0
           num_users: 6
           disable_prometheus_federation: true
         allocated:
+          num_sdkube: null
           num_systems: 0
           num_users: 6
           disable_prometheus_federation: true
@@ -15380,6 +18655,7 @@ components:
           name: name
           id: id
           limits:
+            num_sdkube: null
             num_systems: 0
             num_users: 6
             disable_prometheus_federation: true
@@ -15387,6 +18663,7 @@ components:
           name: name
           id: id
           limits:
+            num_sdkube: null
             num_systems: 0
             num_users: 6
             disable_prometheus_federation: true
@@ -15411,6 +18688,7 @@ components:
         name: name
         id: id
         limits:
+          num_sdkube: null
           num_systems: 0
           num_users: 6
           disable_prometheus_federation: true
@@ -15431,7 +18709,14 @@ components:
       type: object
     TenantLimits:
       example:
-        num_accounts: 0
+        data:
+          bytes_recv: 0
+          bytes_sent: 6
+        workloads:
+          container: 5
+          function: 2
+        num_connectors: 5
+        num_accounts: 1
         resource_limits:
           tiered_limits:
             key:
@@ -15444,14 +18729,23 @@ components:
               mem_storage: 7
               consumer: 7
       properties:
+        data:
+          $ref: '#/components/schemas/DataLimits'
         num_accounts:
+          nullable: true
+          type: integer
+        num_connectors:
           nullable: true
           type: integer
         resource_limits:
           $ref: '#/components/schemas/OperatorLimits'
+        workloads:
+          $ref: '#/components/schemas/WorkloadLimits'
       required:
       - num_accounts
+      - num_connectors
       - resource_limits
+      - workloads
       type: object
     TimeRange:
       description: TimeRange is used to represent a start and end time
@@ -15583,6 +18877,37 @@ components:
         placement:
           $ref: '#/components/schemas/Placement'
       type: object
+    Update:
+      example:
+        current: current
+        latest_minor: latest_minor
+        latest: latest
+        latest_patch: latest_patch
+      properties:
+        current:
+          type: string
+        latest:
+          type: string
+        latest_minor:
+          type: string
+        latest_patch:
+          type: string
+      required:
+      - current
+      - latest
+      - latest_minor
+      - latest_patch
+      type: object
+    UpdateResponse:
+      properties:
+        revision:
+          type: integer
+        version:
+          type: integer
+      required:
+      - revision
+      - version
+      type: object
     User:
       allOf:
       - $ref: '#/components/schemas/GenericFields'
@@ -15607,6 +18932,27 @@ components:
       properties:
         nats:
           $ref: '#/components/schemas/User'
+      type: object
+    UserExport:
+      example:
+        seed: seed
+        jwt: jwt
+        name: name
+        id: id
+      properties:
+        id:
+          type: string
+        jwt:
+          type: string
+        name:
+          type: string
+        seed:
+          type: string
+      required:
+      - id
+      - jwt
+      - name
+      - seed
       type: object
     UserLimits:
       description: Src is a comma separated list of CIDR specifications
@@ -15698,6 +19044,30 @@ components:
           nullable: true
           type: string
       type: object
+    ValidateRequest:
+      properties:
+        data:
+          description: Data to validate.
+          format: binary
+          type: string
+        name:
+          description: Name of the schema (optional). Must be set if subject is not.
+          type: string
+        revision:
+          description: |-
+            Revision of the schema (optional). If not set, the latest version
+            of the schema will be used.
+          type: integer
+        subject:
+          description: Subject of the schema. Must be set if name is not.
+          type: string
+        version:
+          type: integer
+      required:
+      - data
+      type: object
+    ValidateResponse:
+      type: object
     VersionResponse:
       example:
         date: date
@@ -15732,6 +19102,448 @@ components:
           type: integer
       required:
       - subject
+      type: object
+    WorkloadAuctionRequest:
+      properties:
+        agent_type:
+          type: string
+        tags:
+          $ref: '#/components/schemas/WorkloadTags'
+      required:
+      - agent_type
+      - tags
+      type: object
+    WorkloadAuctionResponse:
+      properties:
+        bidder_id:
+          type: string
+        start_request_schema:
+          items:
+            $ref: '#/components/schemas/WorkloadField'
+          type: array
+        supported_lifecycles:
+          items:
+            type: string
+          type: array
+        xkey:
+          type: string
+      required:
+      - bidder_id
+      - start_request_schema
+      - supported_lifecycles
+      - xkey
+      type: object
+    WorkloadField:
+      properties:
+        constraints:
+          items:
+            $ref: '#/components/schemas/WorkloadFieldConstraint'
+          type: array
+        default: {}
+        description:
+          type: string
+        fields:
+          items:
+            $ref: '#/components/schemas/WorkloadField'
+          type: array
+        kind:
+          $ref: '#/components/schemas/WorkloadFieldKind'
+        name:
+          type: string
+        optional:
+          type: boolean
+        type:
+          $ref: '#/components/schemas/WorkloadFieldType'
+      required:
+      - description
+      - kind
+      - name
+      - type
+      type: object
+    WorkloadFieldConstraint:
+      properties:
+        enum:
+          items:
+            type: string
+          type: array
+        preset:
+          type: string
+        range:
+          $ref: '#/components/schemas/WorkloadFieldContstraintRange'
+        regex:
+          type: string
+        unique_items:
+          type: boolean
+      type: object
+    WorkloadFieldContstraintRange:
+      properties:
+        gt:
+          format: double
+          type: number
+        gte:
+          format: double
+          type: number
+        lt:
+          format: double
+          type: number
+        lte:
+          format: double
+          type: number
+      type: object
+    WorkloadFieldKind:
+      enum:
+      - scalar
+      - map
+      - list
+      type: string
+    WorkloadFieldType:
+      enum:
+      - bool
+      - int
+      - object
+      - string
+      type: string
+    WorkloadLifecycle:
+      enum:
+      - function
+      - job
+      - service
+      type: string
+    WorkloadLimits:
+      example:
+        container: 5
+        function: 2
+      properties:
+        container:
+          type: integer
+        function:
+          type: integer
+      required:
+      - container
+      - function
+      type: object
+    WorkloadLimitsResponse:
+      example:
+        connectors:
+          current_count: 0
+          limit: 6
+        workloads:
+          container:
+            current_count: 0
+            limit: 6
+          function:
+            current_count: 0
+            limit: 6
+      properties:
+        connectors:
+          $ref: '#/components/schemas/WorkloadStateLimit'
+        workloads:
+          $ref: '#/components/schemas/WorkloadStateLimits'
+      required:
+      - connectors
+      - workloads
+      type: object
+    WorkloadMetricChartResponse:
+      properties:
+        WorkloadsDenoIsolateConnectedTriggersByNamespace:
+          description: JavaScript
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsDenoIsolateExecutionTimeByWorkload:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsDenoIsolateExecutionTimeByWorkloadHistogram:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsDenoIsolateInvocationCountByWorkload:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsDenoIsolateRunningWorkloadsByNamespace:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerBlockInputTotal:
+          description: Container
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerBlockOutputTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerCpuSecondsTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerCpuSystemSecondsTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerCreatedSeconds:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerExitCode:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerExitedSeconds:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerHealth:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerInfo:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerMemLimitBytes:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerMemUsageBytes:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerNetInputDroppedTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerNetInputErrorsTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerNetInputPacketsTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerNetInputTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerNetOutputDroppedTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerNetOutputErrorsTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerNetOutputPacketsTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerNetOutputTotal:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerPids:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerRootfsSizeBytes:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerRwSizeBytes:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerStartedSeconds:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+        WorkloadsPodmanContainerState:
+          items:
+            $ref: '#/components/schemas/ApexSeries'
+          type: array
+      type: object
+    WorkloadMetricChartTypes:
+      enum:
+      - WorkloadsDenoIsolateConnectedTriggersByNamespace
+      - WorkloadsDenoIsolateRunningWorkloadsByNamespace
+      - WorkloadsDenoIsolateInvocationCountByWorkload
+      - WorkloadsDenoIsolateExecutionTimeByWorkload
+      - WorkloadsDenoIsolateExecutionTimeByWorkloadHistogram
+      - WorkloadsPodmanContainerBlockInputTotal
+      - WorkloadsPodmanContainerBlockOutputTotal
+      - WorkloadsPodmanContainerCpuSecondsTotal
+      - WorkloadsPodmanContainerCpuSystemSecondsTotal
+      - WorkloadsPodmanContainerCreatedSeconds
+      - WorkloadsPodmanContainerExitCode
+      - WorkloadsPodmanContainerExitedSeconds
+      - WorkloadsPodmanContainerHealth
+      - WorkloadsPodmanContainerInfo
+      - WorkloadsPodmanContainerMemLimitBytes
+      - WorkloadsPodmanContainerMemUsageBytes
+      - WorkloadsPodmanContainerNetInputDroppedTotal
+      - WorkloadsPodmanContainerNetInputErrorsTotal
+      - WorkloadsPodmanContainerNetInputPacketsTotal
+      - WorkloadsPodmanContainerNetInputTotal
+      - WorkloadsPodmanContainerNetOutputDroppedTotal
+      - WorkloadsPodmanContainerNetOutputErrorsTotal
+      - WorkloadsPodmanContainerNetOutputPacketsTotal
+      - WorkloadsPodmanContainerNetOutputTotal
+      - WorkloadsPodmanContainerPids
+      - WorkloadsPodmanContainerRootfsSizeBytes
+      - WorkloadsPodmanContainerRwSizeBytes
+      - WorkloadsPodmanContainerStartedSeconds
+      - WorkloadsPodmanContainerState
+      type: string
+    WorkloadStartRequest:
+      properties:
+        auction:
+          $ref: '#/components/schemas/WorkloadAuctionRequest'
+        description:
+          type: string
+        name:
+          type: string
+        run_request:
+          type: string
+        workload_lifecycle:
+          type: string
+        workload_type:
+          type: string
+      required:
+      - auction
+      - description
+      - name
+      - run_request
+      - workload_lifecycle
+      - workload_type
+      type: object
+    WorkloadStartResponse:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      - name
+      type: object
+    WorkloadState:
+      enum:
+      - error
+      - running
+      - starting
+      - stopping
+      - stopped
+      - warm
+      type: string
+    WorkloadStateLimit:
+      example:
+        current_count: 0
+        limit: 6
+      properties:
+        current_count:
+          format: int64
+          type: integer
+        limit:
+          format: int64
+          type: integer
+      required:
+      - current_count
+      - limit
+      type: object
+    WorkloadStateLimits:
+      example:
+        container:
+          current_count: 0
+          limit: 6
+        function:
+          current_count: 0
+          limit: 6
+      properties:
+        container:
+          $ref: '#/components/schemas/WorkloadStateLimit'
+        function:
+          $ref: '#/components/schemas/WorkloadStateLimit'
+      required:
+      - container
+      - function
+      type: object
+    WorkloadStopResponse:
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+        stopped:
+          type: boolean
+      required:
+      - id
+      - message
+      - stopped
+      type: object
+    WorkloadSummary:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        runtime:
+          type: string
+        start_time:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        workload_lifecycle:
+          $ref: '#/components/schemas/WorkloadLifecycle'
+        workload_state:
+          $ref: '#/components/schemas/WorkloadState'
+        workload_type:
+          type: string
+      required:
+      - id
+      - name
+      - runtime
+      - start_time
+      - tags
+      - workload_lifecycle
+      - workload_state
+      - workload_type
+      type: object
+    WorkloadTags:
+      properties:
+        cloud:
+          items:
+            type: string
+          type: array
+        region:
+          items:
+            type: string
+          type: array
+      required:
+      - cloud
+      - region
+      type: object
+    WorkloadsListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/WorkloadSummary'
+          type: array
+      required:
+      - items
+      type: object
+    WorkloadsPlatformComponentConfig:
+      properties:
+        account:
+          type: string
+        nexus_name:
+          type: string
+      required:
+      - account
+      - nexus_name
       type: object
     jwtAccountClaims:
       $ref: '#/components/schemas/AccountClaims'
@@ -15802,6 +19614,156 @@ components:
       - $ref: '#/components/schemas/TLSPeerCert'
       nullable: true
       type: object
+    ConnectorConsumer_core:
+      properties:
+        queue:
+          type: string
+        subject:
+          type: string
+      required:
+      - subject
+      type: object
+    ConnectorConsumer_kv:
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+      required:
+      - bucket
+      type: object
+    ConnectorConsumer_stream:
+      properties:
+        subject:
+          type: string
+      required:
+      - subject
+      type: object
+    ConnectorConsumerPatch_core:
+      nullable: true
+      properties:
+        queue:
+          type: string
+        subject:
+          type: string
+      type: object
+    ConnectorConsumerPatch_kv:
+      nullable: true
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+      type: object
+    ConnectorConsumerPatch_stream:
+      nullable: true
+      properties:
+        subject:
+          type: string
+      type: object
+    ConnectorCreateRequest_deploy:
+      allOf:
+      - $ref: '#/components/schemas/ConnectorDeployRequest'
+      nullable: true
+      type: object
+    ConnectorProducer_kv:
+      properties:
+        bucket:
+          type: string
+        key:
+          type: string
+      required:
+      - bucket
+      - key
+      type: object
+    ConnectorStepsPatch_consumer:
+      allOf:
+      - $ref: '#/components/schemas/ConnectorConsumerPatch'
+      nullable: true
+      type: object
+    ConnectorStepsPatch_producer:
+      allOf:
+      - $ref: '#/components/schemas/ConnectorProducerPatch'
+      nullable: true
+      type: object
+    ConnectorStepsPatch_sink:
+      allOf:
+      - $ref: '#/components/schemas/ConnectorSinkPatch'
+      nullable: true
+      type: object
+    ConnectorStepsPatch_source:
+      allOf:
+      - $ref: '#/components/schemas/ConnectorSourcePatch'
+      nullable: true
+      type: object
+    ConnectorStepsPatch_transformer:
+      allOf:
+      - $ref: '#/components/schemas/ConnectorTransformerPatch'
+      nullable: true
+      type: object
+    ConnectorTransformer_composite:
+      properties:
+        sequential:
+          items:
+            $ref: '#/components/schemas/ConnectorTransformer'
+          type: array
+      required:
+      - sequential
+      type: object
+    ConnectorTransformer_mapping:
+      properties:
+        sourcecode:
+          type: string
+      required:
+      - sourcecode
+      type: object
+    ConnectorTransformer_service:
+      properties:
+        endpoint:
+          type: string
+        nats_config:
+          $ref: '#/components/schemas/ConnectorNatsConfig'
+        timeout:
+          type: string
+      required:
+      - endpoint
+      - nats_config
+      - timeout
+      type: object
+    ConnectorTransformerPatch_composite:
+      nullable: true
+      properties:
+        sequential:
+          items:
+            $ref: '#/components/schemas/ConnectorTransformer'
+          type: array
+      type: object
+    ConnectorTransformerPatch_mapping:
+      nullable: true
+      properties:
+        sourcecode:
+          type: string
+      type: object
+    ConnectorTransformerPatch_service:
+      nullable: true
+      properties:
+        endpoint:
+          type: string
+        nats_config:
+          $ref: '#/components/schemas/ConnectorNatsConfigPatch'
+        timeout:
+          type: string
+      type: object
+    ConnectorUpdateRequest_metrics:
+      allOf:
+      - $ref: '#/components/schemas/ConnectorMetricEndpointPatch'
+      nullable: true
+      type: object
+    ConnectorUpdateRequest_steps:
+      allOf:
+      - $ref: '#/components/schemas/ConnectorStepsPatch'
+      nullable: true
+      type: object
     Connz_connections_inner:
       allOf:
       - $ref: '#/components/schemas/ConnInfo'
@@ -15815,6 +19777,11 @@ components:
     ExportPatch_service_latency:
       allOf:
       - $ref: '#/components/schemas/ServiceLatencyPatch'
+      nullable: true
+      type: object
+    GetResponse_schema:
+      allOf:
+      - $ref: '#/components/schemas/Schema'
       nullable: true
       type: object
     JetStreamTieredLimitsPatch_value:
@@ -15906,9 +19873,19 @@ components:
       - $ref: '#/components/schemas/SystemDirectConnectionOptsPatch'
       nullable: true
       type: object
-    SystemUpdateRequest_http_gateway_config:
+    SystemUpdateRequest_log_forwarding_opts:
       allOf:
-      - $ref: '#/components/schemas/HTTPGatewayConfigPatch'
+      - $ref: '#/components/schemas/SystemLogForwardingOptsPatch'
+      nullable: true
+      type: object
+    SystemUpdateRequest_nats_alerting_config:
+      allOf:
+      - $ref: '#/components/schemas/NatsAlertingConfigPatch'
+      nullable: true
+      type: object
+    TeamLimits_num_sdkube:
+      allOf:
+      - $ref: '#/components/schemas/SDKubeLimit'
       nullable: true
       type: object
   securitySchemes:

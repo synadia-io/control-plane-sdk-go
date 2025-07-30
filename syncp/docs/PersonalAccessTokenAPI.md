@@ -1,12 +1,12 @@
 # \PersonalAccessTokenAPI
 
-All URIs are relative to *http://localhost/api/core/beta*
+All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeletePersonalAccessToken**](PersonalAccessTokenAPI.md#DeletePersonalAccessToken) | **Delete** /personal-access-tokens/{tokenId} | Delete Personal Access Token
-[**GetPersonalAccessToken**](PersonalAccessTokenAPI.md#GetPersonalAccessToken) | **Get** /personal-access-tokens/{tokenId} | Get Personal Access Token
-[**UpdatePersonalAccessToken**](PersonalAccessTokenAPI.md#UpdatePersonalAccessToken) | **Patch** /personal-access-tokens/{tokenId} | Update Personal Access Token
+[**DeletePersonalAccessToken**](PersonalAccessTokenAPI.md#DeletePersonalAccessToken) | **Delete** /core/beta/personal-access-tokens/{tokenId} | Delete Personal Access Token
+[**GetPersonalAccessToken**](PersonalAccessTokenAPI.md#GetPersonalAccessToken) | **Get** /core/beta/personal-access-tokens/{tokenId} | Get Personal Access Token
+[**UpdatePersonalAccessToken**](PersonalAccessTokenAPI.md#UpdatePersonalAccessToken) | **Patch** /core/beta/personal-access-tokens/{tokenId} | Update Personal Access Token
 
 
 
