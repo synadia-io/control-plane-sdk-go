@@ -27,6 +27,9 @@ const (
 	PLATFORMCOMPONENTTYPE_WORKLOADS       PlatformComponentType = "workloads"
 	PLATFORMCOMPONENTTYPE_SCRAPER         PlatformComponentType = "scraper"
 	PLATFORMCOMPONENTTYPE_SCHEMA_REGISTRY PlatformComponentType = "schema_registry"
+	PLATFORMCOMPONENTTYPE_SAFE            PlatformComponentType = "safe"
+	PLATFORMCOMPONENTTYPE_INSIGHTS        PlatformComponentType = "insights"
+	PLATFORMCOMPONENTTYPE_CATALOG         PlatformComponentType = "catalog"
 )
 
 // All allowed values of PlatformComponentType enum
@@ -37,6 +40,9 @@ var AllowedPlatformComponentTypeEnumValues = []PlatformComponentType{
 	"workloads",
 	"scraper",
 	"schema_registry",
+	"safe",
+	"insights",
+	"catalog",
 }
 
 func (v *PlatformComponentType) UnmarshalJSON(src []byte) error {

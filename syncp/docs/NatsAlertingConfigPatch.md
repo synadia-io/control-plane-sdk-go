@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Account** | Pointer to **string** |  | [optional] 
+**Receivers** | Pointer to Nullable[[][**interface{}**](interface{}.md)] |  | [optional] 
 **Subject** | Pointer to **string** |  | [optional] 
 
 ## Methods

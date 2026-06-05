@@ -155,12 +155,86 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SystemAPIService GetSystemAuditJobResult", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+		var jobId string
+
+		resp, httpRes, err := apiClient.SystemAPI.GetSystemAuditJobResult(context.Background(), systemId, jobId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService GetSystemAuditJobStatus", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+		var jobId string
+
+		resp, httpRes, err := apiClient.SystemAPI.GetSystemAuditJobStatus(context.Background(), systemId, jobId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SystemAPIService GetSystemExport", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
 		var systemId string
 
 		resp, httpRes, err := apiClient.SystemAPI.GetSystemExport(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService GetSystemHealthCheck", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.GetSystemHealthCheck(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService GetSystemHealthClusters", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.GetSystemHealthClusters(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService GetSystemHealthJetstream", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.GetSystemHealthJetstream(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService GetSystemHealthServers", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.GetSystemHealthServers(context.Background(), systemId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -322,6 +396,18 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SystemAPIService ListSystemAuditJobs", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.ListSystemAuditJobs(context.Background(), systemId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SystemAPIService ListSystemInfoAccounts", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 
@@ -377,6 +463,18 @@ func Test_syncp_SystemAPIService(t *testing.T) {
 		var alertRuleId string
 
 		resp, httpRes, err := apiClient.SystemAPI.RunSystemAlertRule(context.Background(), systemId, alertRuleId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
+	t.Run("Test SystemAPIService RunSystemAuditCheck", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var systemId string
+
+		resp, httpRes, err := apiClient.SystemAPI.RunSystemAuditCheck(context.Background(), systemId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

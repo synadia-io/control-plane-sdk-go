@@ -396,7 +396,7 @@ import (
 
 func main() {
     teamId := "teamId_example" // string | 
-    systemImportRequest := *openapiclient.NewSystemImportRequest("OperatorJwt_example", "OperatorKey_example", "SystemJwt_example", "SystemKey_example") // SystemImportRequest |  (optional)
+    systemImportRequest := *openapiclient.NewSystemImportRequest() // SystemImportRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

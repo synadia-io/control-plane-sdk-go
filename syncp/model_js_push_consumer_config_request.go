@@ -77,6 +77,9 @@ func (o JSPushConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if o.MemStorage != nil {
 		toSerialize["mem_storage"] = o.MemStorage
 	}
+	if len(o.Metadata) != 0 {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}

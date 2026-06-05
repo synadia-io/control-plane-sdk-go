@@ -15,17 +15,24 @@ var _ MappedNullable = &ConnectorCreateRequest{}
 
 // ConnectorCreateRequest struct for ConnectorCreateRequest
 type ConnectorCreateRequest struct {
-	Config      ConnectorConfig                   `json:"config"`
-	ConnectorId string                            `json:"connector_id"`
-	Deploy      *Nullable[ConnectorDeployRequest] `json:"deploy,omitempty"`
+	WorkloadStartRequest
+	CollectionId     string                 `json:"collection_id"`
+	ComponentId      string                 `json:"component_id"`
+	ComponentVersion string                 `json:"component_version"`
+	Template         map[string]interface{} `json:"template"`
 }
 
 func (o ConnectorCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["config"] = o.Config
-	toSerialize["connector_id"] = o.ConnectorId
-	if o.Deploy != nil && !o.Deploy.IsNull() {
-		toSerialize["deploy"] = o.Deploy.Val
-	}
+	toSerialize["collection_id"] = o.CollectionId
+	toSerialize["component_id"] = o.ComponentId
+	toSerialize["component_version"] = o.ComponentVersion
+	toSerialize["template"] = o.Template
+	toSerialize["auction"] = o.Auction
+	toSerialize["description"] = o.Description
+	toSerialize["name"] = o.Name
+	toSerialize["run_request"] = o.RunRequest
+	toSerialize["workload_lifecycle"] = o.WorkloadLifecycle
+	toSerialize["workload_type"] = o.WorkloadType
 	return toSerialize, nil
 }

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CompatPolicy** | **string** |  | 
+**CompatPolicy** | **string** | SchemaCompatPolicy represents the compatibility policy for schema evolution. Supported values are \&quot;none\&quot;, \&quot;backwards\&quot;, \&quot;forward\&quot;, and \&quot;full\&quot;. | 
 **Definition** | **string** | The schema definition. | 
 **Delete** | Pointer to **bool** | Deleted is a flag to indicate if the schema is deleted. | [optional] 
 **Description** | **string** | Description of the schema. | 
-**Format** | **string** |  | 
+**Format** | **string** | SchemaFormat represents the format of a schema definition. Supported values are \&quot;jsonschema\&quot;. | 
 **Metadata** | **map[string]string** | Metadata is a map of key-value pairs. | 
 **Name** | **string** | Unique name of the schema. | 
 **Revision** | **int64** | Revision of the schema. | 

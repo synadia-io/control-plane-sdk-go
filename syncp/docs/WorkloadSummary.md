@@ -4,8 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Description** | **string** |  | 
 **Id** | **string** |  | 
+**Metadata** | Pointer to **map[string]interface{}** |  | [optional] 
 **Name** | **string** |  | 
+**Namespace** | Pointer to **string** |  | [optional] 
+**Reference** | Pointer to **string** |  | [optional] 
+**RunRequest** | **string** |  | 
 **Runtime** | **string** |  | 
 **StartTime** | **string** |  | 
 **Tags** | **map[string]string** |  | 

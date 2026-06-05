@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountPublicKey** | **string** |  | 
-**Claims** | [**AccountClaims**](AccountClaims.md) |  | 
-**ClaimsInfo** | [**AccountClaimsInfo**](AccountClaimsInfo.md) |  | 
+**AccountPublicKey** | Pointer to **string** |  | [optional] 
+**AuthType** | [**AccountAuthType**](AccountAuthType.md) |  | 
+**Claims** | Pointer to [**AccountClaims**](AccountClaims.md) |  | [optional] 
+**ClaimsInfo** | Pointer to [**AccountClaimsInfo**](AccountClaimsInfo.md) |  | [optional] 
 **Connectors** | **bool** |  | 
 **ConnectorsLogStream** | Pointer to **string** |  | [optional] 
 **Created** | **time.Time** |  | 
@@ -14,14 +15,16 @@ Name | Type | Description | Notes
 **IsPlatformAccount** | **bool** |  | 
 **IsScpAccount** | **bool** |  | 
 **IsSystemAccount** | **bool** |  | 
-**Jwt** | **string** |  | 
-**JwtSettings** | [**AccountJWTSettings**](AccountJWTSettings.md) |  | 
+**Jwt** | Pointer to **string** |  | [optional] 
+**JwtSettings** | Pointer to [**AccountJWTSettings**](AccountJWTSettings.md) |  | [optional] 
 **JwtSyncError** | **string** |  | 
 **JwtSyncStatus** | [**JwtSyncStatus**](JwtSyncStatus.md) |  | 
 **Name** | **string** |  | 
 **NscManaged** | **bool** |  | 
 **System** | [**SystemInfo**](SystemInfo.md) |  | 
 **Team** | [**TeamInfo**](TeamInfo.md) |  | 
+**UserCred** | Pointer to **string** |  | [optional] 
+**UserJwt** | Pointer to **string** |  | [optional] 
 **UserJwtExpiresInSecs** | **int64** |  | 
 **Workloads** | **bool** |  | 
 **WorkloadsLogStream** | Pointer to **string** |  | [optional] 

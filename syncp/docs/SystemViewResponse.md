@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ConfigMode** | **bool** |  | 
 **ConnectionType** | [**SystemConnectionType**](SystemConnectionType.md) |  | [default to SYSTEMCONNECTIONTYPE_AGENT]
 **Created** | **time.Time** |  | 
 **DirectConnectionOpts** | Pointer to [**SystemDirectConnectionOpts**](SystemDirectConnectionOpts.md) |  | [optional] 

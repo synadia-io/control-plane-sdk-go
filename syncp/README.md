@@ -155,6 +155,9 @@ Class | Method | HTTP request | Description
 *KvBucketAPI* | [**ListKvConsumers**](docs/KvBucketAPI.md#listkvconsumers) | **Get** /core/beta/jetstream/kv-bucket/{streamId}/consumers | List Consumers
 *KvBucketAPI* | [**PurgeKvBucket**](docs/KvBucketAPI.md#purgekvbucket) | **Delete** /core/beta/jetstream/kv-bucket/{streamId}/purge | Purge KV Bucket
 *KvBucketAPI* | [**UpdateKvBucket**](docs/KvBucketAPI.md#updatekvbucket) | **Patch** /core/beta/jetstream/kv-bucket/{streamId} | Update KV Bucket
+*LicenseAPI* | [**DeleteLicense**](docs/LicenseAPI.md#deletelicense) | **Delete** /core/beta/license | Delete License
+*LicenseAPI* | [**GetLicenseStatus**](docs/LicenseAPI.md#getlicensestatus) | **Get** /core/beta/license | Get License Status
+*LicenseAPI* | [**UpdateLicense**](docs/LicenseAPI.md#updatelicense) | **Put** /core/beta/license | Update License
 *MirrorAPI* | [**CreateMirrorPullConsumer**](docs/MirrorAPI.md#createmirrorpullconsumer) | **Post** /core/beta/jetstream/mirror/{streamId}/consumers/pull | Create Pull Consumer
 *MirrorAPI* | [**CreateMirrorPushConsumer**](docs/MirrorAPI.md#createmirrorpushconsumer) | **Post** /core/beta/jetstream/mirror/{streamId}/consumers/push | Create Push consumer
 *MirrorAPI* | [**DeleteMirror**](docs/MirrorAPI.md#deletemirror) | **Delete** /core/beta/jetstream/mirror/{streamId} | Delete Mirror
@@ -255,7 +258,13 @@ Class | Method | HTTP request | Description
 *SystemAPI* | [**GetCurrentAgentToken**](docs/SystemAPI.md#getcurrentagenttoken) | **Get** /core/beta/systems/{systemId}/agent-tokens/current | Get Current Agent Token
 *SystemAPI* | [**GetSystem**](docs/SystemAPI.md#getsystem) | **Get** /core/beta/systems/{systemId} | Get System
 *SystemAPI* | [**GetSystemAlertRule**](docs/SystemAPI.md#getsystemalertrule) | **Get** /core/beta/systems/{systemId}/alert-rules/{alertRuleId} | Get System Alert Rule
+*SystemAPI* | [**GetSystemAuditJobResult**](docs/SystemAPI.md#getsystemauditjobresult) | **Get** /core/beta/systems/{systemId}/audit/jobs/{jobId}/result | Get Audit Job Result
+*SystemAPI* | [**GetSystemAuditJobStatus**](docs/SystemAPI.md#getsystemauditjobstatus) | **Get** /core/beta/systems/{systemId}/audit/jobs/{jobId} | Get Audit Job Status
 *SystemAPI* | [**GetSystemExport**](docs/SystemAPI.md#getsystemexport) | **Get** /core/beta/systems/{systemId}/export | Export System Seeds
+*SystemAPI* | [**GetSystemHealthCheck**](docs/SystemAPI.md#getsystemhealthcheck) | **Get** /core/beta/systems/{systemId}/health/check | Get System Health Check
+*SystemAPI* | [**GetSystemHealthClusters**](docs/SystemAPI.md#getsystemhealthclusters) | **Get** /core/beta/systems/{systemId}/health/clusters | Get Cluster Overview
+*SystemAPI* | [**GetSystemHealthJetstream**](docs/SystemAPI.md#getsystemhealthjetstream) | **Get** /core/beta/systems/{systemId}/health/jetstream | Get JetStream Health Report
+*SystemAPI* | [**GetSystemHealthServers**](docs/SystemAPI.md#getsystemhealthservers) | **Get** /core/beta/systems/{systemId}/health/servers | Get System Server List
 *SystemAPI* | [**GetSystemLimits**](docs/SystemAPI.md#getsystemlimits) | **Get** /core/beta/systems/{systemId}/limits | Get System Limits
 *SystemAPI* | [**GetSystemPrometheusMetrics**](docs/SystemAPI.md#getsystemprometheusmetrics) | **Get** /core/beta/systems/{systemId}/prometheus-metrics | Get Prometheus Metrics
 *SystemAPI* | [**ImportAccount**](docs/SystemAPI.md#importaccount) | **Post** /core/beta/systems/{systemId}/import-account | Import Account
@@ -269,11 +278,13 @@ Class | Method | HTTP request | Description
 *SystemAPI* | [**ListConnections**](docs/SystemAPI.md#listconnections) | **Get** /core/beta/systems/{systemId}/connections | List Connections
 *SystemAPI* | [**ListServers**](docs/SystemAPI.md#listservers) | **Get** /core/beta/systems/{systemId}/servers | List Servers
 *SystemAPI* | [**ListSystemAlertRules**](docs/SystemAPI.md#listsystemalertrules) | **Get** /core/beta/systems/{systemId}/alert-rules | List System Alert Rules
+*SystemAPI* | [**ListSystemAuditJobs**](docs/SystemAPI.md#listsystemauditjobs) | **Get** /core/beta/systems/{systemId}/audit/jobs | List Audit Jobs
 *SystemAPI* | [**ListSystemInfoAccounts**](docs/SystemAPI.md#listsysteminfoaccounts) | **Get** /core/beta/systems/{systemId}/info/accounts | List System Accounts Info
 *SystemAPI* | [**ListSystemInfoServers**](docs/SystemAPI.md#listsysteminfoservers) | **Get** /core/beta/systems/{systemId}/info/servers | List System Servers info
 *SystemAPI* | [**ListSystemTeamAppUsers**](docs/SystemAPI.md#listsystemteamappusers) | **Get** /core/beta/systems/{systemId}/app-users | List System Team App Users
 *SystemAPI* | [**RotateAgentToken**](docs/SystemAPI.md#rotateagenttoken) | **Post** /core/beta/systems/{systemId}/agent-tokens | Rotate Agent Token
 *SystemAPI* | [**RunSystemAlertRule**](docs/SystemAPI.md#runsystemalertrule) | **Get** /core/beta/systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
+*SystemAPI* | [**RunSystemAuditCheck**](docs/SystemAPI.md#runsystemauditcheck) | **Post** /core/beta/systems/{systemId}/audit/run | Run System Audit Check
 *SystemAPI* | [**SystemJWTSync**](docs/SystemAPI.md#systemjwtsync) | **Post** /core/beta/systems/{systemId}/jwt-sync | Re-sync JWTs of all accounts in this system
 *SystemAPI* | [**UnAssignSystemTeamAppUser**](docs/SystemAPI.md#unassignsystemteamappuser) | **Delete** /core/beta/systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
 *SystemAPI* | [**UnmanageSystem**](docs/SystemAPI.md#unmanagesystem) | **Delete** /core/beta/systems/{systemId}/unmanage | Unmanage System
@@ -304,12 +315,15 @@ Class | Method | HTTP request | Description
 *TeamServiceAccountTokensAPI* | [**GetTeamServiceAccountToken**](docs/TeamServiceAccountTokensAPI.md#getteamserviceaccounttoken) | **Get** /core/beta/service-account-tokens/team/{tokenId} | Get Team Service Account Token
 *TeamServiceAccountTokensAPI* | [**UpdateTeamServiceAccountToken**](docs/TeamServiceAccountTokensAPI.md#updateteamserviceaccounttoken) | **Patch** /core/beta/service-account-tokens/team/{tokenId} | Update Team Service Account Token
 *WorkloadsAPI* | [**GetWorkloadLimits**](docs/WorkloadsAPI.md#getworkloadlimits) | **Get** /workloads/alpha/{accountId}/limits | Get Workloads limits
+*WorkloadsAPI* | [**ListWorkloadTags**](docs/WorkloadsAPI.md#listworkloadtags) | **Get** /workloads/alpha/{accountId}/tags | List Workload tags
 
 
 ## Documentation For Models
 
  - [AcceptTermsResponse](docs/AcceptTermsResponse.md)
  - [Account](docs/Account.md)
+ - [AccountAssignment](docs/AccountAssignment.md)
+ - [AccountAuthType](docs/AccountAuthType.md)
  - [AccountChartType](docs/AccountChartType.md)
  - [AccountClaims](docs/AccountClaims.md)
  - [AccountClaimsInfo](docs/AccountClaimsInfo.md)
@@ -378,6 +392,15 @@ Class | Method | HTTP request | Description
  - [AppUserUpdateRequest](docs/AppUserUpdateRequest.md)
  - [AppUserUpdateResponse](docs/AppUserUpdateResponse.md)
  - [AppUserViewResponse](docs/AppUserViewResponse.md)
+ - [ArtifactListResponse](docs/ArtifactListResponse.md)
+ - [ArtifactSummary](docs/ArtifactSummary.md)
+ - [ArtifactVersion](docs/ArtifactVersion.md)
+ - [AuditCheckResult](docs/AuditCheckResult.md)
+ - [AuditHealthResponse](docs/AuditHealthResponse.md)
+ - [AuditJobListResponse](docs/AuditJobListResponse.md)
+ - [AuditJobRequest](docs/AuditJobRequest.md)
+ - [AuditJobResponse](docs/AuditJobResponse.md)
+ - [AuditSummary](docs/AuditSummary.md)
  - [AuthCalloutAddTargetAccountRequest](docs/AuthCalloutAddTargetAccountRequest.md)
  - [AuthCalloutAddUserRequest](docs/AuthCalloutAddUserRequest.md)
  - [AuthCalloutAuthenticatorComponentConfig](docs/AuthCalloutAuthenticatorComponentConfig.md)
@@ -401,69 +424,17 @@ Class | Method | HTTP request | Description
  - [BulkShareRequest](docs/BulkShareRequest.md)
  - [BulkShareTarget](docs/BulkShareTarget.md)
  - [BulkShareType](docs/BulkShareType.md)
+ - [CatalogPlatformComponentConfig](docs/CatalogPlatformComponentConfig.md)
+ - [ChecksSummary](docs/ChecksSummary.md)
  - [ClaimsData](docs/ClaimsData.md)
  - [ClusterChartType](docs/ClusterChartType.md)
  - [ClusterInfo](docs/ClusterInfo.md)
+ - [ClusterOverview](docs/ClusterOverview.md)
+ - [ClusterOverviewResponse](docs/ClusterOverviewResponse.md)
+ - [ClusterOverviewSummary](docs/ClusterOverviewSummary.md)
+ - [Collection](docs/Collection.md)
  - [ConnInfo](docs/ConnInfo.md)
- - [ConnectorComponentConstraint](docs/ConnectorComponentConstraint.md)
- - [ConnectorComponentField](docs/ConnectorComponentField.md)
- - [ConnectorComponentFieldKind](docs/ConnectorComponentFieldKind.md)
- - [ConnectorComponentFieldType](docs/ConnectorComponentFieldType.md)
- - [ConnectorComponentKind](docs/ConnectorComponentKind.md)
- - [ConnectorComponentRange](docs/ConnectorComponentRange.md)
- - [ConnectorComponentStatus](docs/ConnectorComponentStatus.md)
- - [ConnectorComponentSummary](docs/ConnectorComponentSummary.md)
- - [ConnectorComponentSummaryListResponse](docs/ConnectorComponentSummaryListResponse.md)
- - [ConnectorComponentViewResponse](docs/ConnectorComponentViewResponse.md)
- - [ConnectorConfig](docs/ConnectorConfig.md)
- - [ConnectorConsumer](docs/ConnectorConsumer.md)
- - [ConnectorConsumerCore](docs/ConnectorConsumerCore.md)
- - [ConnectorConsumerKv](docs/ConnectorConsumerKv.md)
- - [ConnectorConsumerPatch](docs/ConnectorConsumerPatch.md)
- - [ConnectorConsumerPatchCore](docs/ConnectorConsumerPatchCore.md)
- - [ConnectorConsumerPatchKv](docs/ConnectorConsumerPatchKv.md)
- - [ConnectorConsumerPatchStream](docs/ConnectorConsumerPatchStream.md)
- - [ConnectorConsumerStream](docs/ConnectorConsumerStream.md)
  - [ConnectorCreateRequest](docs/ConnectorCreateRequest.md)
- - [ConnectorDeployRequest](docs/ConnectorDeployRequest.md)
- - [ConnectorDeploymentViewResponse](docs/ConnectorDeploymentViewResponse.md)
- - [ConnectorExecutionLog](docs/ConnectorExecutionLog.md)
- - [ConnectorExecutionLogListResponse](docs/ConnectorExecutionLogListResponse.md)
- - [ConnectorInstanceEvent](docs/ConnectorInstanceEvent.md)
- - [ConnectorInstanceEventListResponse](docs/ConnectorInstanceEventListResponse.md)
- - [ConnectorInstanceEventType](docs/ConnectorInstanceEventType.md)
- - [ConnectorInstanceListResponse](docs/ConnectorInstanceListResponse.md)
- - [ConnectorInstanceViewResponse](docs/ConnectorInstanceViewResponse.md)
- - [ConnectorKind](docs/ConnectorKind.md)
- - [ConnectorListResponse](docs/ConnectorListResponse.md)
- - [ConnectorMetricChartResponse](docs/ConnectorMetricChartResponse.md)
- - [ConnectorMetricChartTypes](docs/ConnectorMetricChartTypes.md)
- - [ConnectorMetricEndpoint](docs/ConnectorMetricEndpoint.md)
- - [ConnectorMetricEndpointPatch](docs/ConnectorMetricEndpointPatch.md)
- - [ConnectorNatsConfig](docs/ConnectorNatsConfig.md)
- - [ConnectorNatsConfigPatch](docs/ConnectorNatsConfigPatch.md)
- - [ConnectorProducer](docs/ConnectorProducer.md)
- - [ConnectorProducerKv](docs/ConnectorProducerKv.md)
- - [ConnectorProducerPatch](docs/ConnectorProducerPatch.md)
- - [ConnectorSink](docs/ConnectorSink.md)
- - [ConnectorSinkPatch](docs/ConnectorSinkPatch.md)
- - [ConnectorSource](docs/ConnectorSource.md)
- - [ConnectorSourcePatch](docs/ConnectorSourcePatch.md)
- - [ConnectorSteps](docs/ConnectorSteps.md)
- - [ConnectorStepsPatch](docs/ConnectorStepsPatch.md)
- - [ConnectorSummary](docs/ConnectorSummary.md)
- - [ConnectorSummaryInstances](docs/ConnectorSummaryInstances.md)
- - [ConnectorTransformer](docs/ConnectorTransformer.md)
- - [ConnectorTransformerComposite](docs/ConnectorTransformerComposite.md)
- - [ConnectorTransformerKind](docs/ConnectorTransformerKind.md)
- - [ConnectorTransformerMapping](docs/ConnectorTransformerMapping.md)
- - [ConnectorTransformerPatch](docs/ConnectorTransformerPatch.md)
- - [ConnectorTransformerPatchComposite](docs/ConnectorTransformerPatchComposite.md)
- - [ConnectorTransformerPatchMapping](docs/ConnectorTransformerPatchMapping.md)
- - [ConnectorTransformerPatchService](docs/ConnectorTransformerPatchService.md)
- - [ConnectorTransformerService](docs/ConnectorTransformerService.md)
- - [ConnectorUpdateRequest](docs/ConnectorUpdateRequest.md)
- - [ConnectorViewResponse](docs/ConnectorViewResponse.md)
  - [ConnectorsPlatformComponentConfig](docs/ConnectorsPlatformComponentConfig.md)
  - [Connz](docs/Connz.md)
  - [ConsumerConfig](docs/ConsumerConfig.md)
@@ -472,19 +443,33 @@ Class | Method | HTTP request | Description
  - [DataStats](docs/DataStats.md)
  - [DeliverPolicy](docs/DeliverPolicy.md)
  - [DiscardPolicy](docs/DiscardPolicy.md)
+ - [EntitlementsView](docs/EntitlementsView.md)
  - [Export](docs/Export.md)
  - [ExportPatch](docs/ExportPatch.md)
  - [ExportType](docs/ExportType.md)
  - [ExternalAuthorization](docs/ExternalAuthorization.md)
  - [ExternalAuthorizationPatch](docs/ExternalAuthorizationPatch.md)
  - [ExternalStream](docs/ExternalStream.md)
+ - [GatewayConnection](docs/GatewayConnection.md)
  - [GatewayStat](docs/GatewayStat.md)
  - [GenericFields](docs/GenericFields.md)
  - [GetResponse](docs/GetResponse.md)
+ - [GroupMapping](docs/GroupMapping.md)
+ - [HealthCheckResponse](docs/HealthCheckResponse.md)
+ - [HealthError](docs/HealthError.md)
+ - [HealthSummary](docs/HealthSummary.md)
  - [HttpGatewayPlatformComponentConfig](docs/HttpGatewayPlatformComponentConfig.md)
  - [Import](docs/Import.md)
  - [ImportPatch](docs/ImportPatch.md)
  - [Info](docs/Info.md)
+ - [InsightsAccountStats](docs/InsightsAccountStats.md)
+ - [InsightsConn](docs/InsightsConn.md)
+ - [InsightsConsumer](docs/InsightsConsumer.md)
+ - [InsightsLeaf](docs/InsightsLeaf.md)
+ - [InsightsPlatformComponentConfig](docs/InsightsPlatformComponentConfig.md)
+ - [InsightsServer](docs/InsightsServer.md)
+ - [InsightsStream](docs/InsightsStream.md)
+ - [InsightsSub](docs/InsightsSub.md)
  - [InvitationDecisionRequest](docs/InvitationDecisionRequest.md)
  - [InvitationListResponse](docs/InvitationListResponse.md)
  - [JSApiError](docs/JSApiError.md)
@@ -521,17 +506,23 @@ Class | Method | HTTP request | Description
  - [JetStreamAccountStats](docs/JetStreamAccountStats.md)
  - [JetStreamConfig](docs/JetStreamConfig.md)
  - [JetStreamLimits](docs/JetStreamLimits.md)
+ - [JetStreamReportResponse](docs/JetStreamReportResponse.md)
+ - [JetStreamServerInfo](docs/JetStreamServerInfo.md)
  - [JetStreamStats](docs/JetStreamStats.md)
+ - [JetStreamSummary](docs/JetStreamSummary.md)
  - [JetStreamTier](docs/JetStreamTier.md)
  - [JetStreamVarz](docs/JetStreamVarz.md)
  - [JwtSyncStatus](docs/JwtSyncStatus.md)
  - [LeafInfo](docs/LeafInfo.md)
  - [Leafz](docs/Leafz.md)
+ - [LicenseStatusResponse](docs/LicenseStatusResponse.md)
+ - [LicenseUpdateRequest](docs/LicenseUpdateRequest.md)
  - [ListResponse](docs/ListResponse.md)
  - [LostStreamData](docs/LostStreamData.md)
  - [MetaClusterInfo](docs/MetaClusterInfo.md)
  - [NatsAlertingConfig](docs/NatsAlertingConfig.md)
  - [NatsAlertingConfigPatch](docs/NatsAlertingConfigPatch.md)
+ - [NatsAlertingConfigPatchReceiversInnerConfig](docs/NatsAlertingConfigPatchReceiversInnerConfig.md)
  - [NatsCluster](docs/NatsCluster.md)
  - [NatsClusterListResponse](docs/NatsClusterListResponse.md)
  - [NatsCreateUserJwtSettings](docs/NatsCreateUserJwtSettings.md)
@@ -557,6 +548,7 @@ Class | Method | HTTP request | Description
  - [NatsUserRevocationViewResponse](docs/NatsUserRevocationViewResponse.md)
  - [NatsUserUpdateRequest](docs/NatsUserUpdateRequest.md)
  - [NatsUserViewResponse](docs/NatsUserViewResponse.md)
+ - [Nexfile](docs/Nexfile.md)
  - [ObjectStoreConfig](docs/ObjectStoreConfig.md)
  - [OidcProviderAddRequest](docs/OidcProviderAddRequest.md)
  - [OidcProviderDefaultsListResponse](docs/OidcProviderDefaultsListResponse.md)
@@ -586,6 +578,9 @@ Class | Method | HTTP request | Description
  - [PlatformComponentsViewResponse](docs/PlatformComponentsViewResponse.md)
  - [PolicyListResponse](docs/PolicyListResponse.md)
  - [PromSampleValue](docs/PromSampleValue.md)
+ - [RaftMetaInfo](docs/RaftMetaInfo.md)
+ - [RaftReplica](docs/RaftReplica.md)
+ - [RaftSummary](docs/RaftSummary.md)
  - [RePublish](docs/RePublish.md)
  - [RemoveRequest](docs/RemoveRequest.md)
  - [ReplayPolicy](docs/ReplayPolicy.md)
@@ -597,15 +592,20 @@ Class | Method | HTTP request | Description
  - [RouteStat](docs/RouteStat.md)
  - [S2Compression](docs/S2Compression.md)
  - [SDKubeLimit](docs/SDKubeLimit.md)
+ - [SafeComponentConfig](docs/SafeComponentConfig.md)
  - [Schema](docs/Schema.md)
  - [SchemaRegistryCompatPolicy](docs/SchemaRegistryCompatPolicy.md)
  - [SchemaRegistryFormat](docs/SchemaRegistryFormat.md)
  - [SchemaRegistryPlatformComponentConfig](docs/SchemaRegistryPlatformComponentConfig.md)
  - [ScraperComponentConfig](docs/ScraperComponentConfig.md)
  - [SequenceInfo](docs/SequenceInfo.md)
+ - [ServerHealthInfo](docs/ServerHealthInfo.md)
  - [ServerInfo](docs/ServerInfo.md)
+ - [ServerListInfo](docs/ServerListInfo.md)
+ - [ServerListResponse](docs/ServerListResponse.md)
  - [ServerStats](docs/ServerStats.md)
  - [ServerStatsMsg](docs/ServerStatsMsg.md)
+ - [ServerSummary](docs/ServerSummary.md)
  - [ServiceAccountCreateRequest](docs/ServiceAccountCreateRequest.md)
  - [ServiceAccountListResponse](docs/ServiceAccountListResponse.md)
  - [ServiceAccountResourceScope](docs/ServiceAccountResourceScope.md)
@@ -628,6 +628,10 @@ Class | Method | HTTP request | Description
  - [SigningKeyScopeType](docs/SigningKeyScopeType.md)
  - [SigningKeyUpdateRequest](docs/SigningKeyUpdateRequest.md)
  - [SigningKeyViewResponse](docs/SigningKeyViewResponse.md)
+ - [SlackConfig](docs/SlackConfig.md)
+ - [SlackReceiverConfig](docs/SlackReceiverConfig.md)
+ - [SlowConsumerStats](docs/SlowConsumerStats.md)
+ - [StartRequestSchema](docs/StartRequestSchema.md)
  - [StorageType](docs/StorageType.md)
  - [StreamAlternate](docs/StreamAlternate.md)
  - [StreamExportCreateRequest](docs/StreamExportCreateRequest.md)
@@ -661,6 +665,7 @@ Class | Method | HTTP request | Description
  - [SubjectShareViewResponse](docs/SubjectShareViewResponse.md)
  - [SubjectTransformConfig](docs/SubjectTransformConfig.md)
  - [SystemAccountImportRequest](docs/SystemAccountImportRequest.md)
+ - [SystemAssignment](docs/SystemAssignment.md)
  - [SystemConnectionType](docs/SystemConnectionType.md)
  - [SystemConnectionsListResponse](docs/SystemConnectionsListResponse.md)
  - [SystemCreateRequest](docs/SystemCreateRequest.md)
@@ -686,6 +691,7 @@ Class | Method | HTTP request | Description
  - [TeamAppUserListResponse](docs/TeamAppUserListResponse.md)
  - [TeamAppUserResourceType](docs/TeamAppUserResourceType.md)
  - [TeamAppUserViewResponse](docs/TeamAppUserViewResponse.md)
+ - [TeamAssignment](docs/TeamAssignment.md)
  - [TeamCreateRequest](docs/TeamCreateRequest.md)
  - [TeamInfo](docs/TeamInfo.md)
  - [TeamLimits](docs/TeamLimits.md)
@@ -698,6 +704,7 @@ Class | Method | HTTP request | Description
  - [UpdatableKVBucketConfig](docs/UpdatableKVBucketConfig.md)
  - [UpdatableObjectBucketConfig](docs/UpdatableObjectBucketConfig.md)
  - [Update](docs/Update.md)
+ - [UpdateRequest](docs/UpdateRequest.md)
  - [UpdateResponse](docs/UpdateResponse.md)
  - [User](docs/User.md)
  - [UserClaims](docs/UserClaims.md)
@@ -718,8 +725,6 @@ Class | Method | HTTP request | Description
  - [WorkloadLifecycle](docs/WorkloadLifecycle.md)
  - [WorkloadLimits](docs/WorkloadLimits.md)
  - [WorkloadLimitsResponse](docs/WorkloadLimitsResponse.md)
- - [WorkloadMetricChartResponse](docs/WorkloadMetricChartResponse.md)
- - [WorkloadMetricChartTypes](docs/WorkloadMetricChartTypes.md)
  - [WorkloadStartRequest](docs/WorkloadStartRequest.md)
  - [WorkloadStartResponse](docs/WorkloadStartResponse.md)
  - [WorkloadState](docs/WorkloadState.md)
@@ -727,7 +732,7 @@ Class | Method | HTTP request | Description
  - [WorkloadStateLimits](docs/WorkloadStateLimits.md)
  - [WorkloadStopResponse](docs/WorkloadStopResponse.md)
  - [WorkloadSummary](docs/WorkloadSummary.md)
- - [WorkloadTags](docs/WorkloadTags.md)
+ - [WorkloadTagsResponse](docs/WorkloadTagsResponse.md)
  - [WorkloadsListResponse](docs/WorkloadsListResponse.md)
  - [WorkloadsPlatformComponentConfig](docs/WorkloadsPlatformComponentConfig.md)
 

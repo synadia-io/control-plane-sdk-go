@@ -19,6 +19,7 @@ var _ MappedNullable = &SystemViewResponse{}
 
 // SystemViewResponse struct for SystemViewResponse
 type SystemViewResponse struct {
+	ConfigMode              bool                            `json:"config_mode"`
 	ConnectionType          SystemConnectionType            `json:"connection_type"`
 	Created                 time.Time                       `json:"created"`
 	DirectConnectionOpts    *SystemDirectConnectionOpts     `json:"direct_connection_opts,omitempty"`
@@ -48,6 +49,7 @@ type SystemViewResponse struct {
 
 func (o SystemViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["config_mode"] = o.ConfigMode
 	toSerialize["connection_type"] = o.ConnectionType
 	toSerialize["created"] = o.Created
 	if o.DirectConnectionOpts != nil {

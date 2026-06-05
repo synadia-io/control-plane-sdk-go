@@ -15,12 +15,19 @@ var _ MappedNullable = &JSPushConsumerUpdateRequest{}
 
 // JSPushConsumerUpdateRequest struct for JSPushConsumerUpdateRequest
 type JSPushConsumerUpdateRequest struct {
-	AckWait       *int64  `json:"ack_wait,omitempty"`
-	Description   *string `json:"description,omitempty"`
-	HeadersOnly   *bool   `json:"headers_only,omitempty"`
-	MaxAckPending *int64  `json:"max_ack_pending,omitempty"`
-	MaxDeliver    *int64  `json:"max_deliver,omitempty"`
-	SampleFreq    *string `json:"sample_freq,omitempty"`
+	AckWait           *int64            `json:"ack_wait,omitempty"`
+	Backoff           []int64           `json:"backoff,omitempty"`
+	DeliverSubject    *string           `json:"deliver_subject,omitempty"`
+	Description       *string           `json:"description,omitempty"`
+	FilterSubjects    []string          `json:"filter_subjects,omitempty"`
+	HeadersOnly       *bool             `json:"headers_only,omitempty"`
+	InactiveThreshold *int64            `json:"inactive_threshold,omitempty"`
+	MaxAckPending     *int64            `json:"max_ack_pending,omitempty"`
+	MaxDeliver        *int64            `json:"max_deliver,omitempty"`
+	Metadata          map[string]string `json:"metadata,omitempty"`
+	NumReplicas       *int64            `json:"num_replicas,omitempty"`
+	RateLimitBps      *uint64           `json:"rate_limit_bps,omitempty"`
+	SampleFreq        *string           `json:"sample_freq,omitempty"`
 }
 
 func (o JSPushConsumerUpdateRequest) ToMap() (map[string]interface{}, error) {
@@ -28,17 +35,38 @@ func (o JSPushConsumerUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if o.AckWait != nil {
 		toSerialize["ack_wait"] = o.AckWait
 	}
+	if len(o.Backoff) != 0 {
+		toSerialize["backoff"] = o.Backoff
+	}
+	if o.DeliverSubject != nil {
+		toSerialize["deliver_subject"] = o.DeliverSubject
+	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+	if len(o.FilterSubjects) != 0 {
+		toSerialize["filter_subjects"] = o.FilterSubjects
+	}
 	if o.HeadersOnly != nil {
 		toSerialize["headers_only"] = o.HeadersOnly
+	}
+	if o.InactiveThreshold != nil {
+		toSerialize["inactive_threshold"] = o.InactiveThreshold
 	}
 	if o.MaxAckPending != nil {
 		toSerialize["max_ack_pending"] = o.MaxAckPending
 	}
 	if o.MaxDeliver != nil {
 		toSerialize["max_deliver"] = o.MaxDeliver
+	}
+	if len(o.Metadata) != 0 {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if o.NumReplicas != nil {
+		toSerialize["num_replicas"] = o.NumReplicas
+	}
+	if o.RateLimitBps != nil {
+		toSerialize["rate_limit_bps"] = o.RateLimitBps
 	}
 	if o.SampleFreq != nil {
 		toSerialize["sample_freq"] = o.SampleFreq

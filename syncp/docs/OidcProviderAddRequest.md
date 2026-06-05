@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **ClientSecret** | Pointer to **string** |  | [optional] 
 **Domain** | **string** |  | 
 **Enabled** | **bool** |  | 
+**GroupRoleMappings** | Pointer to [**map[string]GroupMapping**](GroupMapping.md) |  | [optional] 
 **IssuerUrl** | Pointer to **string** |  | [optional] 
 **Label** | Pointer to **string** |  | [optional] 
 **Mapper** | Pointer to **string** |  | [optional] 

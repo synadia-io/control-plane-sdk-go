@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Expires** | Pointer to **time.Time** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
+**NeverExpires** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 

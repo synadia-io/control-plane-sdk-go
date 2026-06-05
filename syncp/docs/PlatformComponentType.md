@@ -15,6 +15,12 @@
 
 * `SCHEMA_REGISTRY` (value: `"schema_registry"`)
 
+* `SAFE` (value: `"safe"`)
+
+* `INSIGHTS` (value: `"insights"`)
+
+* `CATALOG` (value: `"catalog"`)
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

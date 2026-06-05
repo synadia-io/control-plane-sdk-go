@@ -15,20 +15,36 @@ var _ MappedNullable = &WorkloadSummary{}
 
 // WorkloadSummary struct for WorkloadSummary
 type WorkloadSummary struct {
-	Id                string            `json:"id"`
-	Name              string            `json:"name"`
-	Runtime           string            `json:"runtime"`
-	StartTime         string            `json:"start_time"`
-	Tags              map[string]string `json:"tags"`
-	WorkloadLifecycle WorkloadLifecycle `json:"workload_lifecycle"`
-	WorkloadState     WorkloadState     `json:"workload_state"`
-	WorkloadType      string            `json:"workload_type"`
+	Description       string                  `json:"description"`
+	Id                string                  `json:"id"`
+	Metadata          *map[string]interface{} `json:"metadata,omitempty"`
+	Name              string                  `json:"name"`
+	Namespace         *string                 `json:"namespace,omitempty"`
+	Reference         *string                 `json:"reference,omitempty"`
+	RunRequest        string                  `json:"run_request"`
+	Runtime           string                  `json:"runtime"`
+	StartTime         string                  `json:"start_time"`
+	Tags              map[string]string       `json:"tags"`
+	WorkloadLifecycle WorkloadLifecycle       `json:"workload_lifecycle"`
+	WorkloadState     WorkloadState           `json:"workload_state"`
+	WorkloadType      string                  `json:"workload_type"`
 }
 
 func (o WorkloadSummary) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["description"] = o.Description
 	toSerialize["id"] = o.Id
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
 	toSerialize["name"] = o.Name
+	if o.Namespace != nil {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if o.Reference != nil {
+		toSerialize["reference"] = o.Reference
+	}
+	toSerialize["run_request"] = o.RunRequest
 	toSerialize["runtime"] = o.Runtime
 	toSerialize["start_time"] = o.StartTime
 	toSerialize["tags"] = o.Tags

@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | **string** |  | 
-**Subject** | **string** |  | 
+**Account** | Pointer to **string** |  | [optional] 
+**Receivers** | Pointer to [][**SlackReceiverConfig**](SlackReceiverConfig.md) |  | [optional] 
+**Subject** | Pointer to **string** |  | [optional] 
 
 ## Methods
 

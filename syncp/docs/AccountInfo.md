@@ -4,12 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountPublicKey** | **string** |  | 
+**AccountPublicKey** | Pointer to **string** |  | [optional] 
+**AuthType** | [**AccountAuthType**](AccountAuthType.md) |  | 
 **Id** | **string** |  | 
 **IsPlatformAccount** | **bool** |  | 
 **IsScpAccount** | **bool** |  | 
 **IsSystemAccount** | **bool** |  | 
 **Name** | **string** |  | 
+**UserCred** | Pointer to **string** |  | [optional] 
+**UserJwt** | Pointer to **string** |  | [optional] 
 **UserJwtExpiresInSecs** | **int64** |  | 
 
 ## Methods

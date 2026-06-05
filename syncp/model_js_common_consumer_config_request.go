@@ -19,24 +19,25 @@ var _ MappedNullable = &JSCommonConsumerConfigRequest{}
 
 // JSCommonConsumerConfigRequest struct for JSCommonConsumerConfigRequest
 type JSCommonConsumerConfigRequest struct {
-	AckPolicy         AckPolicy     `json:"ack_policy"`
-	AckWait           *int64        `json:"ack_wait,omitempty"`
-	Backoff           []int64       `json:"backoff,omitempty"`
-	DeliverPolicy     DeliverPolicy `json:"deliver_policy"`
-	Description       *string       `json:"description,omitempty"`
-	Direct            *bool         `json:"direct,omitempty"`
-	DurableName       *string       `json:"durable_name,omitempty"`
-	FilterSubjects    []string      `json:"filter_subjects,omitempty"`
-	InactiveThreshold *int64        `json:"inactive_threshold,omitempty"`
-	MaxAckPending     *int64        `json:"max_ack_pending,omitempty"`
-	MaxDeliver        *int64        `json:"max_deliver,omitempty"`
-	MemStorage        *bool         `json:"mem_storage,omitempty"`
-	Name              *string       `json:"name,omitempty"`
-	NumReplicas       int64         `json:"num_replicas"`
-	OptStartSeq       *uint64       `json:"opt_start_seq,omitempty"`
-	OptStartTime      *time.Time    `json:"opt_start_time,omitempty"`
-	ReplayPolicy      ReplayPolicy  `json:"replay_policy"`
-	SampleFreq        *string       `json:"sample_freq,omitempty"`
+	AckPolicy         AckPolicy         `json:"ack_policy"`
+	AckWait           *int64            `json:"ack_wait,omitempty"`
+	Backoff           []int64           `json:"backoff,omitempty"`
+	DeliverPolicy     DeliverPolicy     `json:"deliver_policy"`
+	Description       *string           `json:"description,omitempty"`
+	Direct            *bool             `json:"direct,omitempty"`
+	DurableName       *string           `json:"durable_name,omitempty"`
+	FilterSubjects    []string          `json:"filter_subjects,omitempty"`
+	InactiveThreshold *int64            `json:"inactive_threshold,omitempty"`
+	MaxAckPending     *int64            `json:"max_ack_pending,omitempty"`
+	MaxDeliver        *int64            `json:"max_deliver,omitempty"`
+	MemStorage        *bool             `json:"mem_storage,omitempty"`
+	Metadata          map[string]string `json:"metadata,omitempty"`
+	Name              *string           `json:"name,omitempty"`
+	NumReplicas       int64             `json:"num_replicas"`
+	OptStartSeq       *uint64           `json:"opt_start_seq,omitempty"`
+	OptStartTime      *time.Time        `json:"opt_start_time,omitempty"`
+	ReplayPolicy      ReplayPolicy      `json:"replay_policy"`
+	SampleFreq        *string           `json:"sample_freq,omitempty"`
 }
 
 func (o JSCommonConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
@@ -72,6 +73,9 @@ func (o JSCommonConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.MemStorage != nil {
 		toSerialize["mem_storage"] = o.MemStorage
+	}
+	if len(o.Metadata) != 0 {
+		toSerialize["metadata"] = o.Metadata
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name

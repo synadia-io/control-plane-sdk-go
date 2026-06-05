@@ -19,8 +19,9 @@ var _ MappedNullable = &AppUserAccessTokenUpdateRequest{}
 
 // AppUserAccessTokenUpdateRequest struct for AppUserAccessTokenUpdateRequest
 type AppUserAccessTokenUpdateRequest struct {
-	Expires *time.Time `json:"expires,omitempty"`
-	Name    *string    `json:"name,omitempty"`
+	Expires      *time.Time `json:"expires,omitempty"`
+	Name         *string    `json:"name,omitempty"`
+	NeverExpires *bool      `json:"never_expires,omitempty"`
 }
 
 func (o AppUserAccessTokenUpdateRequest) ToMap() (map[string]interface{}, error) {
@@ -30,6 +31,9 @@ func (o AppUserAccessTokenUpdateRequest) ToMap() (map[string]interface{}, error)
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
+	}
+	if o.NeverExpires != nil {
+		toSerialize["never_expires"] = o.NeverExpires
 	}
 	return toSerialize, nil
 }

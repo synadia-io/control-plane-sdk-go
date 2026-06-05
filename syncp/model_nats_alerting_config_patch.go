@@ -15,14 +15,18 @@ var _ MappedNullable = &NatsAlertingConfigPatch{}
 
 // NatsAlertingConfigPatch struct for NatsAlertingConfigPatch
 type NatsAlertingConfigPatch struct {
-	Account *string `json:"account,omitempty"`
-	Subject *string `json:"subject,omitempty"`
+	Account   *string       `json:"account,omitempty"`
+	Receivers []interface{} `json:"receivers,omitempty"`
+	Subject   *string       `json:"subject,omitempty"`
 }
 
 func (o NatsAlertingConfigPatch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Account != nil {
 		toSerialize["account"] = o.Account
+	}
+	if o.Receivers != nil {
+		toSerialize["receivers"] = o.Receivers
 	}
 	if o.Subject != nil {
 		toSerialize["subject"] = o.Subject

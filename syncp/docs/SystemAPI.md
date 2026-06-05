@@ -15,7 +15,13 @@ Method | HTTP request | Description
 [**GetCurrentAgentToken**](SystemAPI.md#GetCurrentAgentToken) | **Get** /core/beta/systems/{systemId}/agent-tokens/current | Get Current Agent Token
 [**GetSystem**](SystemAPI.md#GetSystem) | **Get** /core/beta/systems/{systemId} | Get System
 [**GetSystemAlertRule**](SystemAPI.md#GetSystemAlertRule) | **Get** /core/beta/systems/{systemId}/alert-rules/{alertRuleId} | Get System Alert Rule
+[**GetSystemAuditJobResult**](SystemAPI.md#GetSystemAuditJobResult) | **Get** /core/beta/systems/{systemId}/audit/jobs/{jobId}/result | Get Audit Job Result
+[**GetSystemAuditJobStatus**](SystemAPI.md#GetSystemAuditJobStatus) | **Get** /core/beta/systems/{systemId}/audit/jobs/{jobId} | Get Audit Job Status
 [**GetSystemExport**](SystemAPI.md#GetSystemExport) | **Get** /core/beta/systems/{systemId}/export | Export System Seeds
+[**GetSystemHealthCheck**](SystemAPI.md#GetSystemHealthCheck) | **Get** /core/beta/systems/{systemId}/health/check | Get System Health Check
+[**GetSystemHealthClusters**](SystemAPI.md#GetSystemHealthClusters) | **Get** /core/beta/systems/{systemId}/health/clusters | Get Cluster Overview
+[**GetSystemHealthJetstream**](SystemAPI.md#GetSystemHealthJetstream) | **Get** /core/beta/systems/{systemId}/health/jetstream | Get JetStream Health Report
+[**GetSystemHealthServers**](SystemAPI.md#GetSystemHealthServers) | **Get** /core/beta/systems/{systemId}/health/servers | Get System Server List
 [**GetSystemLimits**](SystemAPI.md#GetSystemLimits) | **Get** /core/beta/systems/{systemId}/limits | Get System Limits
 [**GetSystemPrometheusMetrics**](SystemAPI.md#GetSystemPrometheusMetrics) | **Get** /core/beta/systems/{systemId}/prometheus-metrics | Get Prometheus Metrics
 [**ImportAccount**](SystemAPI.md#ImportAccount) | **Post** /core/beta/systems/{systemId}/import-account | Import Account
@@ -29,11 +35,13 @@ Method | HTTP request | Description
 [**ListConnections**](SystemAPI.md#ListConnections) | **Get** /core/beta/systems/{systemId}/connections | List Connections
 [**ListServers**](SystemAPI.md#ListServers) | **Get** /core/beta/systems/{systemId}/servers | List Servers
 [**ListSystemAlertRules**](SystemAPI.md#ListSystemAlertRules) | **Get** /core/beta/systems/{systemId}/alert-rules | List System Alert Rules
+[**ListSystemAuditJobs**](SystemAPI.md#ListSystemAuditJobs) | **Get** /core/beta/systems/{systemId}/audit/jobs | List Audit Jobs
 [**ListSystemInfoAccounts**](SystemAPI.md#ListSystemInfoAccounts) | **Get** /core/beta/systems/{systemId}/info/accounts | List System Accounts Info
 [**ListSystemInfoServers**](SystemAPI.md#ListSystemInfoServers) | **Get** /core/beta/systems/{systemId}/info/servers | List System Servers info
 [**ListSystemTeamAppUsers**](SystemAPI.md#ListSystemTeamAppUsers) | **Get** /core/beta/systems/{systemId}/app-users | List System Team App Users
 [**RotateAgentToken**](SystemAPI.md#RotateAgentToken) | **Post** /core/beta/systems/{systemId}/agent-tokens | Rotate Agent Token
 [**RunSystemAlertRule**](SystemAPI.md#RunSystemAlertRule) | **Get** /core/beta/systems/{systemId}/alert-rules/{alertRuleId}/run | Run System Alert Rule
+[**RunSystemAuditCheck**](SystemAPI.md#RunSystemAuditCheck) | **Post** /core/beta/systems/{systemId}/audit/run | Run System Audit Check
 [**SystemJWTSync**](SystemAPI.md#SystemJWTSync) | **Post** /core/beta/systems/{systemId}/jwt-sync | Re-sync JWTs of all accounts in this system
 [**UnAssignSystemTeamAppUser**](SystemAPI.md#UnAssignSystemTeamAppUser) | **Delete** /core/beta/systems/{systemId}/app-users/{teamAppUserId} | Unassign Team App User from System
 [**UnmanageSystem**](SystemAPI.md#UnmanageSystem) | **Delete** /core/beta/systems/{systemId}/unmanage | Unmanage System
@@ -827,6 +835,152 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetSystemAuditJobResult
+
+> AuditHealthResponse GetSystemAuditJobResult(ctx, systemId, jobId).Execute()
+
+Get Audit Job Result
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+    jobId := "jobId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetSystemAuditJobResult(context.Background(), systemId, jobId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemAuditJobResult``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemAuditJobResult`: AuditHealthResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemAuditJobResult`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+**jobId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemAuditJobResultRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**AuditHealthResponse**](AuditHealthResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSystemAuditJobStatus
+
+> AuditJobResponse GetSystemAuditJobStatus(ctx, systemId, jobId).Execute()
+
+Get Audit Job Status
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+    jobId := "jobId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetSystemAuditJobStatus(context.Background(), systemId, jobId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemAuditJobStatus``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemAuditJobStatus`: AuditJobResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemAuditJobStatus`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+**jobId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemAuditJobStatusRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**AuditJobResponse**](AuditJobResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetSystemExport
 
 > SystemExportResponse GetSystemExport(ctx, systemId).Execute()
@@ -882,6 +1036,286 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SystemExportResponse**](SystemExportResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSystemHealthCheck
+
+> HealthCheckResponse GetSystemHealthCheck(ctx, systemId).Execute()
+
+Get System Health Check
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetSystemHealthCheck(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemHealthCheck``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemHealthCheck`: HealthCheckResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemHealthCheck`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemHealthCheckRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**HealthCheckResponse**](HealthCheckResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSystemHealthClusters
+
+> ClusterOverviewResponse GetSystemHealthClusters(ctx, systemId).Execute()
+
+Get Cluster Overview
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetSystemHealthClusters(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemHealthClusters``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemHealthClusters`: ClusterOverviewResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemHealthClusters`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemHealthClustersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ClusterOverviewResponse**](ClusterOverviewResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSystemHealthJetstream
+
+> JetStreamReportResponse GetSystemHealthJetstream(ctx, systemId).Execute()
+
+Get JetStream Health Report
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetSystemHealthJetstream(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemHealthJetstream``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemHealthJetstream`: JetStreamReportResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemHealthJetstream`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemHealthJetstreamRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**JetStreamReportResponse**](JetStreamReportResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSystemHealthServers
+
+> ServerListResponse GetSystemHealthServers(ctx, systemId).Execute()
+
+Get System Server List
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.GetSystemHealthServers(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemHealthServers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemHealthServers`: ServerListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemHealthServers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemHealthServersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ServerListResponse**](ServerListResponse.md)
 
 ### Authorization
 
@@ -1823,6 +2257,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListSystemAuditJobs
+
+> AuditJobListResponse ListSystemAuditJobs(ctx, systemId).Execute()
+
+List Audit Jobs
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.ListSystemAuditJobs(context.Background(), systemId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListSystemAuditJobs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListSystemAuditJobs`: AuditJobListResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListSystemAuditJobs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListSystemAuditJobsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AuditJobListResponse**](AuditJobListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListSystemInfoAccounts
 
 > AccountInfoListResponse ListSystemInfoAccounts(ctx, systemId).Execute()
@@ -2171,6 +2675,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RunSystemAuditCheck
+
+> AuditJobResponse RunSystemAuditCheck(ctx, systemId).AuditJobRequest(auditJobRequest).Execute()
+
+Run System Audit Check
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    systemId := "systemId_example" // string | 
+    auditJobRequest := *openapiclient.NewAuditJobRequest(false, false, false, false) // AuditJobRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemAPI.RunSystemAuditCheck(context.Background(), systemId).AuditJobRequest(auditJobRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.RunSystemAuditCheck``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `RunSystemAuditCheck`: AuditJobResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemAPI.RunSystemAuditCheck`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**systemId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRunSystemAuditCheckRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **auditJobRequest** | [**AuditJobRequest**](AuditJobRequest.md) |  | 
+
+### Return type
+
+[**AuditJobResponse**](AuditJobResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

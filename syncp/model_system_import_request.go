@@ -18,10 +18,14 @@ type SystemImportRequest struct {
 	JetstreamDomain  *string          `json:"jetstream_domain,omitempty"`
 	JetstreamEnabled *bool            `json:"jetstream_enabled,omitempty"`
 	ManagedBy        *SystemManagedBy `json:"managed_by,omitempty"`
-	OperatorJwt      string           `json:"operator_jwt"`
-	OperatorKey      string           `json:"operator_key"`
-	SystemJwt        string           `json:"system_jwt"`
-	SystemKey        string           `json:"system_key"`
+	Name             *string          `json:"name,omitempty"`
+	OperatorJwt      *string          `json:"operator_jwt,omitempty"`
+	OperatorKey      *string          `json:"operator_key,omitempty"`
+	SysAuthType      *AccountAuthType `json:"sys_auth_type,omitempty"`
+	SysCred          *string          `json:"sys_cred,omitempty"`
+	SysSecret        *string          `json:"sys_secret,omitempty"`
+	SystemJwt        *string          `json:"system_jwt,omitempty"`
+	SystemKey        *string          `json:"system_key,omitempty"`
 }
 
 func (o SystemImportRequest) ToMap() (map[string]interface{}, error) {
@@ -35,9 +39,29 @@ func (o SystemImportRequest) ToMap() (map[string]interface{}, error) {
 	if o.ManagedBy != nil {
 		toSerialize["managed_by"] = o.ManagedBy
 	}
-	toSerialize["operator_jwt"] = o.OperatorJwt
-	toSerialize["operator_key"] = o.OperatorKey
-	toSerialize["system_jwt"] = o.SystemJwt
-	toSerialize["system_key"] = o.SystemKey
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.OperatorJwt != nil {
+		toSerialize["operator_jwt"] = o.OperatorJwt
+	}
+	if o.OperatorKey != nil {
+		toSerialize["operator_key"] = o.OperatorKey
+	}
+	if o.SysAuthType != nil {
+		toSerialize["sys_auth_type"] = o.SysAuthType
+	}
+	if o.SysCred != nil {
+		toSerialize["sys_cred"] = o.SysCred
+	}
+	if o.SysSecret != nil {
+		toSerialize["sys_secret"] = o.SysSecret
+	}
+	if o.SystemJwt != nil {
+		toSerialize["system_jwt"] = o.SystemJwt
+	}
+	if o.SystemKey != nil {
+		toSerialize["system_key"] = o.SystemKey
+	}
 	return toSerialize, nil
 }

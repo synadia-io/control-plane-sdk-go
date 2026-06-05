@@ -19,6 +19,7 @@ var _ MappedNullable = &Schema{}
 
 // Schema struct for Schema
 type Schema struct {
+	// SchemaCompatPolicy represents the compatibility policy for schema evolution. Supported values are \"none\", \"backwards\", \"forward\", and \"full\".
 	CompatPolicy string `json:"compat_policy"`
 	// The schema definition.
 	Definition string `json:"definition"`
@@ -26,7 +27,8 @@ type Schema struct {
 	Delete *bool `json:"delete,omitempty"`
 	// Description of the schema.
 	Description string `json:"description"`
-	Format      string `json:"format"`
+	// SchemaFormat represents the format of a schema definition. Supported values are \"jsonschema\".
+	Format string `json:"format"`
 	// Metadata is a map of key-value pairs.
 	Metadata map[string]string `json:"metadata"`
 	// Unique name of the schema.

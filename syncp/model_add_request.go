@@ -15,16 +15,18 @@ var _ MappedNullable = &AddRequest{}
 
 // AddRequest struct for AddRequest
 type AddRequest struct {
+	// SchemaCompatPolicy represents the compatibility policy for schema evolution. Supported values are \"none\", \"backwards\", \"forward\", and \"full\".
 	CompatPolicy *string `json:"compat_policy,omitempty"`
 	// TODO(jrm): we should validate the passed schema The schema definition (required).
 	Definition string `json:"definition"`
 	// Description of the schema (optional).
 	Description *string `json:"description,omitempty"`
-	Format      string  `json:"format"`
+	// SchemaFormat represents the format of a schema definition. Supported values are \"jsonschema\".
+	Format string `json:"format"`
 	// Metadata is a map of key-value pairs (optional).
 	Metadata map[string]string `json:"metadata,omitempty"`
-	// Unique name of the schema (required).
-	Name string `json:"name"`
+	// Unique name of the schema (set from subject, not from JSON payload).
+	Name *string `json:"name,omitempty"`
 }
 
 func (o AddRequest) ToMap() (map[string]interface{}, error) {
@@ -40,6 +42,8 @@ func (o AddRequest) ToMap() (map[string]interface{}, error) {
 	if len(o.Metadata) != 0 {
 		toSerialize["metadata"] = o.Metadata
 	}
-	toSerialize["name"] = o.Name
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
 	return toSerialize, nil
 }

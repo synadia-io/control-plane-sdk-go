@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Format** | Pointer to Nullable[**string**] |  | [optional] 
-**Name** | Pointer to **string** | Name of the schema (required). | [optional] 
-**Revision** | Pointer to **int64** | Revision of the schema (optional). If not set, the latest revision of the schema will be removed. | [optional] 
-**Version** | Pointer to **int64** |  | [optional] 
+**Format** | Pointer to **string** | Format is optional and can be in payload | [optional] 
+**Name** | Pointer to **string** | Name of the schema (set from subject, not from JSON payload). | [optional] 
+**Revision** | Pointer to **int64** | Revision of the schema (set from subject, not from JSON payload). | [optional] 
+**Version** | Pointer to **int64** | Version of the schema (set from subject, not from JSON payload). | [optional] 
 
 ## Methods
 

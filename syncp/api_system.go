@@ -187,6 +187,38 @@ type SystemAPI interface {
 	GetSystemAlertRuleExecute(r ApiGetSystemAlertRuleRequest) (*AlertRuleViewResponse, *http.Response, error)
 
 	/*
+		GetSystemAuditJobResult Get Audit Job Result
+
+		Returns the analyzed audit results for a completed job
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@param jobId
+		@return ApiGetSystemAuditJobResultRequest
+	*/
+	GetSystemAuditJobResult(ctx context.Context, systemId string, jobId string) ApiGetSystemAuditJobResultRequest
+
+	// GetSystemAuditJobResultExecute executes the request
+	//  @return AuditHealthResponse
+	GetSystemAuditJobResultExecute(r ApiGetSystemAuditJobResultRequest) (*AuditHealthResponse, *http.Response, error)
+
+	/*
+		GetSystemAuditJobStatus Get Audit Job Status
+
+		Returns the current status of an asynchronous audit job
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@param jobId
+		@return ApiGetSystemAuditJobStatusRequest
+	*/
+	GetSystemAuditJobStatus(ctx context.Context, systemId string, jobId string) ApiGetSystemAuditJobStatusRequest
+
+	// GetSystemAuditJobStatusExecute executes the request
+	//  @return AuditJobResponse
+	GetSystemAuditJobStatusExecute(r ApiGetSystemAuditJobStatusRequest) (*AuditJobResponse, *http.Response, error)
+
+	/*
 		GetSystemExport Export System Seeds
 
 		Export System Seeds
@@ -200,6 +232,66 @@ type SystemAPI interface {
 	// GetSystemExportExecute executes the request
 	//  @return SystemExportResponse
 	GetSystemExportExecute(r ApiGetSystemExportRequest) (*SystemExportResponse, *http.Response, error)
+
+	/*
+		GetSystemHealthCheck Get System Health Check
+
+		Returns overall health status of all servers in the system, similar to 'nats server report health'
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiGetSystemHealthCheckRequest
+	*/
+	GetSystemHealthCheck(ctx context.Context, systemId string) ApiGetSystemHealthCheckRequest
+
+	// GetSystemHealthCheckExecute executes the request
+	//  @return HealthCheckResponse
+	GetSystemHealthCheckExecute(r ApiGetSystemHealthCheckRequest) (*HealthCheckResponse, *http.Response, error)
+
+	/*
+		GetSystemHealthClusters Get Cluster Overview
+
+		Returns cluster-level aggregated metrics and status information
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiGetSystemHealthClustersRequest
+	*/
+	GetSystemHealthClusters(ctx context.Context, systemId string) ApiGetSystemHealthClustersRequest
+
+	// GetSystemHealthClustersExecute executes the request
+	//  @return ClusterOverviewResponse
+	GetSystemHealthClustersExecute(r ApiGetSystemHealthClustersRequest) (*ClusterOverviewResponse, *http.Response, error)
+
+	/*
+		GetSystemHealthJetstream Get JetStream Health Report
+
+		Returns JetStream health and usage statistics across all servers, similar to 'nats server report jetstream'
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiGetSystemHealthJetstreamRequest
+	*/
+	GetSystemHealthJetstream(ctx context.Context, systemId string) ApiGetSystemHealthJetstreamRequest
+
+	// GetSystemHealthJetstreamExecute executes the request
+	//  @return JetStreamReportResponse
+	GetSystemHealthJetstreamExecute(r ApiGetSystemHealthJetstreamRequest) (*JetStreamReportResponse, *http.Response, error)
+
+	/*
+		GetSystemHealthServers Get System Server List
+
+		Returns a list of all NATS servers in the system with their current status, similar to 'nats server ls'
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiGetSystemHealthServersRequest
+	*/
+	GetSystemHealthServers(ctx context.Context, systemId string) ApiGetSystemHealthServersRequest
+
+	// GetSystemHealthServersExecute executes the request
+	//  @return ServerListResponse
+	GetSystemHealthServersExecute(r ApiGetSystemHealthServersRequest) (*ServerListResponse, *http.Response, error)
 
 	/*
 		GetSystemLimits Get System Limits
@@ -396,6 +488,21 @@ type SystemAPI interface {
 	ListSystemAlertRulesExecute(r ApiListSystemAlertRulesRequest) (*AlertRuleListResponse, *http.Response, error)
 
 	/*
+		ListSystemAuditJobs List Audit Jobs
+
+		Returns a list of recent audit jobs for the system, ordered by creation time (most recent first)
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiListSystemAuditJobsRequest
+	*/
+	ListSystemAuditJobs(ctx context.Context, systemId string) ApiListSystemAuditJobsRequest
+
+	// ListSystemAuditJobsExecute executes the request
+	//  @return AuditJobListResponse
+	ListSystemAuditJobsExecute(r ApiListSystemAuditJobsRequest) (*AuditJobListResponse, *http.Response, error)
+
+	/*
 		ListSystemInfoAccounts List System Accounts Info
 
 		List info for Accounts within a System. Allows a user with access to a single account in a system to list info for all accounts in that system
@@ -470,6 +577,21 @@ type SystemAPI interface {
 	// RunSystemAlertRuleExecute executes the request
 	//  @return AlertViewResponse
 	RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequest) (*AlertViewResponse, *http.Response, error)
+
+	/*
+		RunSystemAuditCheck Run System Audit Check
+
+		Starts an asynchronous system audit check and returns job tracking information
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param systemId
+		@return ApiRunSystemAuditCheckRequest
+	*/
+	RunSystemAuditCheck(ctx context.Context, systemId string) ApiRunSystemAuditCheckRequest
+
+	// RunSystemAuditCheckExecute executes the request
+	//  @return AuditJobResponse
+	RunSystemAuditCheckExecute(r ApiRunSystemAuditCheckRequest) (*AuditJobResponse, *http.Response, error)
 
 	/*
 		SystemJWTSync Re-sync JWTs of all accounts in this system
@@ -1733,6 +1855,226 @@ func (a *SystemAPIService) GetSystemAlertRuleExecute(r ApiGetSystemAlertRuleRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetSystemAuditJobResultRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+	jobId      string
+}
+
+func (r ApiGetSystemAuditJobResultRequest) Execute() (*AuditHealthResponse, *http.Response, error) {
+	return r.ApiService.GetSystemAuditJobResultExecute(r)
+}
+
+/*
+GetSystemAuditJobResult Get Audit Job Result
+
+Returns the analyzed audit results for a completed job
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@param jobId
+	@return ApiGetSystemAuditJobResultRequest
+*/
+func (a *SystemAPIService) GetSystemAuditJobResult(ctx context.Context, systemId string, jobId string) ApiGetSystemAuditJobResultRequest {
+	return ApiGetSystemAuditJobResultRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+		jobId:      jobId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AuditHealthResponse
+func (a *SystemAPIService) GetSystemAuditJobResultExecute(r ApiGetSystemAuditJobResultRequest) (*AuditHealthResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuditHealthResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemAuditJobResult")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/audit/jobs/{jobId}/result"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"jobId"+"}", url.PathEscape(parameterValueToString(r.jobId, "jobId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSystemAuditJobStatusRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+	jobId      string
+}
+
+func (r ApiGetSystemAuditJobStatusRequest) Execute() (*AuditJobResponse, *http.Response, error) {
+	return r.ApiService.GetSystemAuditJobStatusExecute(r)
+}
+
+/*
+GetSystemAuditJobStatus Get Audit Job Status
+
+Returns the current status of an asynchronous audit job
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@param jobId
+	@return ApiGetSystemAuditJobStatusRequest
+*/
+func (a *SystemAPIService) GetSystemAuditJobStatus(ctx context.Context, systemId string, jobId string) ApiGetSystemAuditJobStatusRequest {
+	return ApiGetSystemAuditJobStatusRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+		jobId:      jobId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AuditJobResponse
+func (a *SystemAPIService) GetSystemAuditJobStatusExecute(r ApiGetSystemAuditJobStatusRequest) (*AuditJobResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuditJobResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemAuditJobStatus")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/audit/jobs/{jobId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"jobId"+"}", url.PathEscape(parameterValueToString(r.jobId, "jobId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetSystemExportRequest struct {
 	ctx        context.Context
 	ApiService SystemAPI
@@ -1777,6 +2119,430 @@ func (a *SystemAPIService) GetSystemExportExecute(r ApiGetSystemExportRequest) (
 	}
 
 	localVarPath := localBasePath + "/core/beta/systems/{systemId}/export"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSystemHealthCheckRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiGetSystemHealthCheckRequest) Execute() (*HealthCheckResponse, *http.Response, error) {
+	return r.ApiService.GetSystemHealthCheckExecute(r)
+}
+
+/*
+GetSystemHealthCheck Get System Health Check
+
+Returns overall health status of all servers in the system, similar to 'nats server report health'
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiGetSystemHealthCheckRequest
+*/
+func (a *SystemAPIService) GetSystemHealthCheck(ctx context.Context, systemId string) ApiGetSystemHealthCheckRequest {
+	return ApiGetSystemHealthCheckRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return HealthCheckResponse
+func (a *SystemAPIService) GetSystemHealthCheckExecute(r ApiGetSystemHealthCheckRequest) (*HealthCheckResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *HealthCheckResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemHealthCheck")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/health/check"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSystemHealthClustersRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiGetSystemHealthClustersRequest) Execute() (*ClusterOverviewResponse, *http.Response, error) {
+	return r.ApiService.GetSystemHealthClustersExecute(r)
+}
+
+/*
+GetSystemHealthClusters Get Cluster Overview
+
+Returns cluster-level aggregated metrics and status information
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiGetSystemHealthClustersRequest
+*/
+func (a *SystemAPIService) GetSystemHealthClusters(ctx context.Context, systemId string) ApiGetSystemHealthClustersRequest {
+	return ApiGetSystemHealthClustersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ClusterOverviewResponse
+func (a *SystemAPIService) GetSystemHealthClustersExecute(r ApiGetSystemHealthClustersRequest) (*ClusterOverviewResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ClusterOverviewResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemHealthClusters")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/health/clusters"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSystemHealthJetstreamRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiGetSystemHealthJetstreamRequest) Execute() (*JetStreamReportResponse, *http.Response, error) {
+	return r.ApiService.GetSystemHealthJetstreamExecute(r)
+}
+
+/*
+GetSystemHealthJetstream Get JetStream Health Report
+
+Returns JetStream health and usage statistics across all servers, similar to 'nats server report jetstream'
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiGetSystemHealthJetstreamRequest
+*/
+func (a *SystemAPIService) GetSystemHealthJetstream(ctx context.Context, systemId string) ApiGetSystemHealthJetstreamRequest {
+	return ApiGetSystemHealthJetstreamRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return JetStreamReportResponse
+func (a *SystemAPIService) GetSystemHealthJetstreamExecute(r ApiGetSystemHealthJetstreamRequest) (*JetStreamReportResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *JetStreamReportResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemHealthJetstream")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/health/jetstream"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSystemHealthServersRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiGetSystemHealthServersRequest) Execute() (*ServerListResponse, *http.Response, error) {
+	return r.ApiService.GetSystemHealthServersExecute(r)
+}
+
+/*
+GetSystemHealthServers Get System Server List
+
+Returns a list of all NATS servers in the system with their current status, similar to 'nats server ls'
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiGetSystemHealthServersRequest
+*/
+func (a *SystemAPIService) GetSystemHealthServers(ctx context.Context, systemId string) ApiGetSystemHealthServersRequest {
+	return ApiGetSystemHealthServersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ServerListResponse
+func (a *SystemAPIService) GetSystemHealthServersExecute(r ApiGetSystemHealthServersRequest) (*ServerListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServerListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemHealthServers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/health/servers"
 	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3283,6 +4049,112 @@ func (a *SystemAPIService) ListSystemAlertRulesExecute(r ApiListSystemAlertRules
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListSystemAuditJobsRequest struct {
+	ctx        context.Context
+	ApiService SystemAPI
+	systemId   string
+}
+
+func (r ApiListSystemAuditJobsRequest) Execute() (*AuditJobListResponse, *http.Response, error) {
+	return r.ApiService.ListSystemAuditJobsExecute(r)
+}
+
+/*
+ListSystemAuditJobs List Audit Jobs
+
+Returns a list of recent audit jobs for the system, ordered by creation time (most recent first)
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiListSystemAuditJobsRequest
+*/
+func (a *SystemAPIService) ListSystemAuditJobs(ctx context.Context, systemId string) ApiListSystemAuditJobsRequest {
+	return ApiListSystemAuditJobsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AuditJobListResponse
+func (a *SystemAPIService) ListSystemAuditJobsExecute(r ApiListSystemAuditJobsRequest) (*AuditJobListResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuditJobListResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListSystemAuditJobs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/audit/jobs"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListSystemInfoAccountsRequest struct {
 	ctx        context.Context
 	ApiService SystemAPI
@@ -3786,6 +4658,120 @@ func (a *SystemAPIService) RunSystemAlertRuleExecute(r ApiRunSystemAlertRuleRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiRunSystemAuditCheckRequest struct {
+	ctx             context.Context
+	ApiService      SystemAPI
+	systemId        string
+	auditJobRequest *AuditJobRequest
+}
+
+func (r ApiRunSystemAuditCheckRequest) AuditJobRequest(auditJobRequest AuditJobRequest) ApiRunSystemAuditCheckRequest {
+	r.auditJobRequest = &auditJobRequest
+	return r
+}
+
+func (r ApiRunSystemAuditCheckRequest) Execute() (*AuditJobResponse, *http.Response, error) {
+	return r.ApiService.RunSystemAuditCheckExecute(r)
+}
+
+/*
+RunSystemAuditCheck Run System Audit Check
+
+Starts an asynchronous system audit check and returns job tracking information
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param systemId
+	@return ApiRunSystemAuditCheckRequest
+*/
+func (a *SystemAPIService) RunSystemAuditCheck(ctx context.Context, systemId string) ApiRunSystemAuditCheckRequest {
+	return ApiRunSystemAuditCheckRequest{
+		ApiService: a,
+		ctx:        ctx,
+		systemId:   systemId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AuditJobResponse
+func (a *SystemAPIService) RunSystemAuditCheckExecute(r ApiRunSystemAuditCheckRequest) (*AuditJobResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuditJobResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.RunSystemAuditCheck")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/systems/{systemId}/audit/run"
+	localVarPath = strings.Replace(localVarPath, "{"+"systemId"+"}", url.PathEscape(parameterValueToString(r.systemId, "systemId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.auditJobRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

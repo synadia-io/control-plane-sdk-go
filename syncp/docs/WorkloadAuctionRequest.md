@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AgentType** | **string** |  | 
-**Tags** | [**WorkloadTags**](WorkloadTags.md) |  | 
+**Tags** | **map[string]string** |  | 
 
 ## Methods
 

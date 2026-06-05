@@ -15,11 +15,19 @@ var _ MappedNullable = &JSPullConsumerUpdateRequest{}
 
 // JSPullConsumerUpdateRequest struct for JSPullConsumerUpdateRequest
 type JSPullConsumerUpdateRequest struct {
-	AckWait       *int64  `json:"ack_wait,omitempty"`
-	Description   *string `json:"description,omitempty"`
-	MaxAckPending *int64  `json:"max_ack_pending,omitempty"`
-	MaxDeliver    *int64  `json:"max_deliver,omitempty"`
-	SampleFreq    *string `json:"sample_freq,omitempty"`
+	AckWait           *int64            `json:"ack_wait,omitempty"`
+	Backoff           []int64           `json:"backoff,omitempty"`
+	Description       *string           `json:"description,omitempty"`
+	FilterSubjects    []string          `json:"filter_subjects,omitempty"`
+	InactiveThreshold *int64            `json:"inactive_threshold,omitempty"`
+	MaxAckPending     *int64            `json:"max_ack_pending,omitempty"`
+	MaxBatch          *int64            `json:"max_batch,omitempty"`
+	MaxBytes          *int64            `json:"max_bytes,omitempty"`
+	MaxDeliver        *int64            `json:"max_deliver,omitempty"`
+	MaxExpires        *int64            `json:"max_expires,omitempty"`
+	Metadata          map[string]string `json:"metadata,omitempty"`
+	NumReplicas       *int64            `json:"num_replicas,omitempty"`
+	SampleFreq        *string           `json:"sample_freq,omitempty"`
 }
 
 func (o JSPullConsumerUpdateRequest) ToMap() (map[string]interface{}, error) {
@@ -27,14 +35,38 @@ func (o JSPullConsumerUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if o.AckWait != nil {
 		toSerialize["ack_wait"] = o.AckWait
 	}
+	if len(o.Backoff) != 0 {
+		toSerialize["backoff"] = o.Backoff
+	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if len(o.FilterSubjects) != 0 {
+		toSerialize["filter_subjects"] = o.FilterSubjects
+	}
+	if o.InactiveThreshold != nil {
+		toSerialize["inactive_threshold"] = o.InactiveThreshold
 	}
 	if o.MaxAckPending != nil {
 		toSerialize["max_ack_pending"] = o.MaxAckPending
 	}
+	if o.MaxBatch != nil {
+		toSerialize["max_batch"] = o.MaxBatch
+	}
+	if o.MaxBytes != nil {
+		toSerialize["max_bytes"] = o.MaxBytes
+	}
 	if o.MaxDeliver != nil {
 		toSerialize["max_deliver"] = o.MaxDeliver
+	}
+	if o.MaxExpires != nil {
+		toSerialize["max_expires"] = o.MaxExpires
+	}
+	if len(o.Metadata) != 0 {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if o.NumReplicas != nil {
+		toSerialize["num_replicas"] = o.NumReplicas
 	}
 	if o.SampleFreq != nil {
 		toSerialize["sample_freq"] = o.SampleFreq

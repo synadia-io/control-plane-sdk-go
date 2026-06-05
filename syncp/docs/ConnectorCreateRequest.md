@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Config** | [**ConnectorConfig**](ConnectorConfig.md) |  | 
-**ConnectorId** | **string** |  | 
-**Deploy** | Pointer to Nullable[[**ConnectorDeployRequest**](ConnectorDeployRequest.md)] |  | [optional] 
+ | [**WorkloadStartRequest**](WorkloadStartRequest.md) |   | Embedded Struct
+**CollectionId** | **string** |  | 
+**ComponentId** | **string** |  | 
+**ComponentVersion** | **string** |  | 
+**Template** | **map[string]interface{}** |  | 
 
 ## Methods
 

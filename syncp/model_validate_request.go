@@ -21,29 +21,15 @@ var _ MappedNullable = &ValidateRequest{}
 type ValidateRequest struct {
 	// Data to validate.
 	Data *os.File `json:"data"`
-	// Name of the schema (optional). Must be set if subject is not.
-	Name *string `json:"name,omitempty"`
-	// Revision of the schema (optional). If not set, the latest version of the schema will be used.
-	Revision *int64 `json:"revision,omitempty"`
-	// Subject of the schema. Must be set if name is not.
+	// Subject of the schema (optional).
 	Subject *string `json:"subject,omitempty"`
-	Version *int64  `json:"version,omitempty"`
 }
 
 func (o ValidateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Revision != nil {
-		toSerialize["revision"] = o.Revision
-	}
 	if o.Subject != nil {
 		toSerialize["subject"] = o.Subject
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
 	}
 	return toSerialize, nil
 }

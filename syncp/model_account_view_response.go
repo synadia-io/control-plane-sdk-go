@@ -19,34 +19,44 @@ var _ MappedNullable = &AccountViewResponse{}
 
 // AccountViewResponse struct for AccountViewResponse
 type AccountViewResponse struct {
-	AccountPublicKey     string             `json:"account_public_key"`
-	Claims               AccountClaims      `json:"claims"`
-	ClaimsInfo           AccountClaimsInfo  `json:"claims_info"`
-	Connectors           bool               `json:"connectors"`
-	ConnectorsLogStream  *string            `json:"connectors_log_stream,omitempty"`
-	Created              time.Time          `json:"created"`
-	Id                   string             `json:"id"`
-	IsPlatformAccount    bool               `json:"is_platform_account"`
-	IsScpAccount         bool               `json:"is_scp_account"`
-	IsSystemAccount      bool               `json:"is_system_account"`
-	Jwt                  string             `json:"jwt"`
-	JwtSettings          AccountJWTSettings `json:"jwt_settings"`
-	JwtSyncError         string             `json:"jwt_sync_error"`
-	JwtSyncStatus        JwtSyncStatus      `json:"jwt_sync_status"`
-	Name                 string             `json:"name"`
-	NscManaged           bool               `json:"nsc_managed"`
-	System               SystemInfo         `json:"system"`
-	Team                 TeamInfo           `json:"team"`
-	UserJwtExpiresInSecs int64              `json:"user_jwt_expires_in_secs"`
-	Workloads            bool               `json:"workloads"`
-	WorkloadsLogStream   *string            `json:"workloads_log_stream,omitempty"`
+	AccountPublicKey     *string             `json:"account_public_key,omitempty"`
+	AuthType             AccountAuthType     `json:"auth_type"`
+	Claims               *AccountClaims      `json:"claims,omitempty"`
+	ClaimsInfo           *AccountClaimsInfo  `json:"claims_info,omitempty"`
+	Connectors           bool                `json:"connectors"`
+	ConnectorsLogStream  *string             `json:"connectors_log_stream,omitempty"`
+	Created              time.Time           `json:"created"`
+	Id                   string              `json:"id"`
+	IsPlatformAccount    bool                `json:"is_platform_account"`
+	IsScpAccount         bool                `json:"is_scp_account"`
+	IsSystemAccount      bool                `json:"is_system_account"`
+	Jwt                  *string             `json:"jwt,omitempty"`
+	JwtSettings          *AccountJWTSettings `json:"jwt_settings,omitempty"`
+	JwtSyncError         string              `json:"jwt_sync_error"`
+	JwtSyncStatus        JwtSyncStatus       `json:"jwt_sync_status"`
+	Name                 string              `json:"name"`
+	NscManaged           bool                `json:"nsc_managed"`
+	System               SystemInfo          `json:"system"`
+	Team                 TeamInfo            `json:"team"`
+	UserCred             *string             `json:"user_cred,omitempty"`
+	UserJwt              *string             `json:"user_jwt,omitempty"`
+	UserJwtExpiresInSecs int64               `json:"user_jwt_expires_in_secs"`
+	Workloads            bool                `json:"workloads"`
+	WorkloadsLogStream   *string             `json:"workloads_log_stream,omitempty"`
 }
 
 func (o AccountViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["account_public_key"] = o.AccountPublicKey
-	toSerialize["claims"] = o.Claims
-	toSerialize["claims_info"] = o.ClaimsInfo
+	if o.AccountPublicKey != nil {
+		toSerialize["account_public_key"] = o.AccountPublicKey
+	}
+	toSerialize["auth_type"] = o.AuthType
+	if o.Claims != nil {
+		toSerialize["claims"] = o.Claims
+	}
+	if o.ClaimsInfo != nil {
+		toSerialize["claims_info"] = o.ClaimsInfo
+	}
 	toSerialize["connectors"] = o.Connectors
 	if o.ConnectorsLogStream != nil {
 		toSerialize["connectors_log_stream"] = o.ConnectorsLogStream
@@ -56,14 +66,24 @@ func (o AccountViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["is_platform_account"] = o.IsPlatformAccount
 	toSerialize["is_scp_account"] = o.IsScpAccount
 	toSerialize["is_system_account"] = o.IsSystemAccount
-	toSerialize["jwt"] = o.Jwt
-	toSerialize["jwt_settings"] = o.JwtSettings
+	if o.Jwt != nil {
+		toSerialize["jwt"] = o.Jwt
+	}
+	if o.JwtSettings != nil {
+		toSerialize["jwt_settings"] = o.JwtSettings
+	}
 	toSerialize["jwt_sync_error"] = o.JwtSyncError
 	toSerialize["jwt_sync_status"] = o.JwtSyncStatus
 	toSerialize["name"] = o.Name
 	toSerialize["nsc_managed"] = o.NscManaged
 	toSerialize["system"] = o.System
 	toSerialize["team"] = o.Team
+	if o.UserCred != nil {
+		toSerialize["user_cred"] = o.UserCred
+	}
+	if o.UserJwt != nil {
+		toSerialize["user_jwt"] = o.UserJwt
+	}
 	toSerialize["user_jwt_expires_in_secs"] = o.UserJwtExpiresInSecs
 	toSerialize["workloads"] = o.Workloads
 	if o.WorkloadsLogStream != nil {

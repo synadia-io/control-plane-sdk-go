@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | **string** |  | 
+**Account** | **string** |  | [default to ""]
 **TokenBucket** | **string** |  | 
 **Url** | **string** |  | 
 **Bucket** | **string** |  | 
 **NexusName** | **string** |  | 
 **Interval** | **int64** |  | [default to 15]
 **Stream** | **string** |  | 
+**CatalogId** | **string** |  | 
 
 ## Methods
 

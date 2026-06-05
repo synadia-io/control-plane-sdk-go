@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **ClientId** | Pointer to **string** |  | [optional] 
 **ClientSecret** | Pointer to **string** |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
+**GroupRoleMappings** | Pointer to [**map[string]GroupMapping**](GroupMapping.md) |  | [optional] 
 **IssuerUrl** | Pointer to **string** |  | [optional] 
 **Label** | Pointer to **string** |  | [optional] 
 **Mapper** | Pointer to **string** |  | [optional] 

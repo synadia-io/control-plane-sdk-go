@@ -15,13 +15,29 @@ var _ MappedNullable = &DataLimits{}
 
 // DataLimits struct for DataLimits
 type DataLimits struct {
-	BytesRecv int64 `json:"bytes_recv"`
-	BytesSent int64 `json:"bytes_sent"`
+	ClientReceived  int64 `json:"client_received"`
+	ClientSent      int64 `json:"client_sent"`
+	GatewayReceived int64 `json:"gateway_received"`
+	GatewaySent     int64 `json:"gateway_sent"`
+	LeafReceived    int64 `json:"leaf_received"`
+	LeafSent        int64 `json:"leaf_sent"`
+	RouteReceived   int64 `json:"route_received"`
+	RouteSent       int64 `json:"route_sent"`
+	TotalReceived   int64 `json:"total_received"`
+	TotalSent       int64 `json:"total_sent"`
 }
 
 func (o DataLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["bytes_recv"] = o.BytesRecv
-	toSerialize["bytes_sent"] = o.BytesSent
+	toSerialize["client_received"] = o.ClientReceived
+	toSerialize["client_sent"] = o.ClientSent
+	toSerialize["gateway_received"] = o.GatewayReceived
+	toSerialize["gateway_sent"] = o.GatewaySent
+	toSerialize["leaf_received"] = o.LeafReceived
+	toSerialize["leaf_sent"] = o.LeafSent
+	toSerialize["route_received"] = o.RouteReceived
+	toSerialize["route_sent"] = o.RouteSent
+	toSerialize["total_received"] = o.TotalReceived
+	toSerialize["total_sent"] = o.TotalSent
 	return toSerialize, nil
 }
