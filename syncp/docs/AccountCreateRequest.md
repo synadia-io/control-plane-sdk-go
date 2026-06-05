@@ -4,11 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AuthType** | Pointer to [**AccountAuthType**](AccountAuthType.md) |  | [optional] 
 **Connectors** | Pointer to **bool** |  | [optional] 
 **ConnectorsLogStream** | Pointer to **string** |  | [optional] 
 **JwtSettings** | Pointer to [**AccountJWTSettings**](AccountJWTSettings.md) |  | [optional] 
 **Name** | **string** |  | 
+**UserCred** | Pointer to **string** |  | [optional] 
 **UserJwtExpiresInSecs** | Pointer to **int64** |  | [optional] 
+**UserSecret** | Pointer to **string** |  | [optional] 
 **Workloads** | Pointer to **bool** |  | [optional] 
 **WorkloadsLogStream** | Pointer to **string** |  | [optional] 
 

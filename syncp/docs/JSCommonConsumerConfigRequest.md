@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **MaxAckPending** | Pointer to **int64** |  | [optional] 
 **MaxDeliver** | Pointer to **int64** |  | [optional] 
 **MemStorage** | Pointer to **bool** |  | [optional] 
+**Metadata** | Pointer to **map[string]string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **NumReplicas** | **int64** |  | 
 **OptStartSeq** | Pointer to **uint64** |  | [optional] 

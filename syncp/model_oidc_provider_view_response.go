@@ -19,24 +19,25 @@ var _ MappedNullable = &OidcProviderViewResponse{}
 
 // OidcProviderViewResponse struct for OidcProviderViewResponse
 type OidcProviderViewResponse struct {
-	AdditionalIdTokenAudiences []string               `json:"additional_id_token_audiences,omitempty"`
-	AuthUrl                    *string                `json:"auth_url,omitempty"`
-	Claims                     *string                `json:"claims,omitempty"`
-	ClaimsSource               *string                `json:"claims_source,omitempty"`
-	ClientId                   *string                `json:"client_id,omitempty"`
-	Created                    time.Time              `json:"created"`
-	Domain                     string                 `json:"domain"`
-	Enabled                    bool                   `json:"enabled"`
-	Id                         string                 `json:"id"`
-	IssuerUrl                  *string                `json:"issuer_url,omitempty"`
-	Label                      *string                `json:"label,omitempty"`
-	Mapper                     *string                `json:"mapper,omitempty"`
-	MicrosoftSubjectSource     *string                `json:"microsoft_subject_source,omitempty"`
-	MicrosoftTenant            *string                `json:"microsoft_tenant,omitempty"`
-	Provider                   *string                `json:"provider,omitempty"`
-	RequestedClaims            *Nullable[interface{}] `json:"requested_claims,omitempty"`
-	Scope                      []string               `json:"scope,omitempty"`
-	TokenUrl                   *string                `json:"token_url,omitempty"`
+	AdditionalIdTokenAudiences []string                `json:"additional_id_token_audiences,omitempty"`
+	AuthUrl                    *string                 `json:"auth_url,omitempty"`
+	Claims                     *string                 `json:"claims,omitempty"`
+	ClaimsSource               *string                 `json:"claims_source,omitempty"`
+	ClientId                   *string                 `json:"client_id,omitempty"`
+	Created                    time.Time               `json:"created"`
+	Domain                     string                  `json:"domain"`
+	Enabled                    bool                    `json:"enabled"`
+	GroupRoleMappings          map[string]GroupMapping `json:"group_role_mappings,omitempty"`
+	Id                         string                  `json:"id"`
+	IssuerUrl                  *string                 `json:"issuer_url,omitempty"`
+	Label                      *string                 `json:"label,omitempty"`
+	Mapper                     *string                 `json:"mapper,omitempty"`
+	MicrosoftSubjectSource     *string                 `json:"microsoft_subject_source,omitempty"`
+	MicrosoftTenant            *string                 `json:"microsoft_tenant,omitempty"`
+	Provider                   *string                 `json:"provider,omitempty"`
+	RequestedClaims            *Nullable[interface{}]  `json:"requested_claims,omitempty"`
+	Scope                      []string                `json:"scope,omitempty"`
+	TokenUrl                   *string                 `json:"token_url,omitempty"`
 }
 
 func (o OidcProviderViewResponse) ToMap() (map[string]interface{}, error) {
@@ -59,6 +60,9 @@ func (o OidcProviderViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["created"] = o.Created
 	toSerialize["domain"] = o.Domain
 	toSerialize["enabled"] = o.Enabled
+	if len(o.GroupRoleMappings) != 0 {
+		toSerialize["group_role_mappings"] = o.GroupRoleMappings
+	}
 	toSerialize["id"] = o.Id
 	if o.IssuerUrl != nil {
 		toSerialize["issuer_url"] = o.IssuerUrl

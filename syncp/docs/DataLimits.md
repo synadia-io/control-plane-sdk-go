@@ -4,8 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BytesRecv** | **int64** |  | 
-**BytesSent** | **int64** |  | 
+**ClientReceived** | **int64** |  | 
+**ClientSent** | **int64** |  | 
+**GatewayReceived** | **int64** |  | 
+**GatewaySent** | **int64** |  | 
+**LeafReceived** | **int64** |  | 
+**LeafSent** | **int64** |  | 
+**RouteReceived** | **int64** |  | 
+**RouteSent** | **int64** |  | 
+**TotalReceived** | **int64** |  | 
+**TotalSent** | **int64** |  | 
 
 ## Methods
 

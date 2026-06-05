@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BidderId** | **string** |  | 
-**StartRequestSchema** | [][**WorkloadField**](WorkloadField.md) |  | 
+**StartRequestSchema** | **string** |  | 
 **SupportedLifecycles** | []**string** |  | 
 **Xkey** | **string** |  | 
 

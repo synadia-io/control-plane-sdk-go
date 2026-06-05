@@ -15,10 +15,10 @@ var _ MappedNullable = &WorkloadAuctionResponse{}
 
 // WorkloadAuctionResponse struct for WorkloadAuctionResponse
 type WorkloadAuctionResponse struct {
-	BidderId            string          `json:"bidder_id"`
-	StartRequestSchema  []WorkloadField `json:"start_request_schema"`
-	SupportedLifecycles []string        `json:"supported_lifecycles"`
-	Xkey                string          `json:"xkey"`
+	BidderId            string   `json:"bidder_id"`
+	StartRequestSchema  string   `json:"start_request_schema"`
+	SupportedLifecycles []string `json:"supported_lifecycles"`
+	Xkey                string   `json:"xkey"`
 }
 
 func (o WorkloadAuctionResponse) ToMap() (map[string]interface{}, error) {

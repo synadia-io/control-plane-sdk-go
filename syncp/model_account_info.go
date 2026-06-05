@@ -15,23 +15,35 @@ var _ MappedNullable = &AccountInfo{}
 
 // AccountInfo struct for AccountInfo
 type AccountInfo struct {
-	AccountPublicKey     string `json:"account_public_key"`
-	Id                   string `json:"id"`
-	IsPlatformAccount    bool   `json:"is_platform_account"`
-	IsScpAccount         bool   `json:"is_scp_account"`
-	IsSystemAccount      bool   `json:"is_system_account"`
-	Name                 string `json:"name"`
-	UserJwtExpiresInSecs int64  `json:"user_jwt_expires_in_secs"`
+	AccountPublicKey     *string         `json:"account_public_key,omitempty"`
+	AuthType             AccountAuthType `json:"auth_type"`
+	Id                   string          `json:"id"`
+	IsPlatformAccount    bool            `json:"is_platform_account"`
+	IsScpAccount         bool            `json:"is_scp_account"`
+	IsSystemAccount      bool            `json:"is_system_account"`
+	Name                 string          `json:"name"`
+	UserCred             *string         `json:"user_cred,omitempty"`
+	UserJwt              *string         `json:"user_jwt,omitempty"`
+	UserJwtExpiresInSecs int64           `json:"user_jwt_expires_in_secs"`
 }
 
 func (o AccountInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["account_public_key"] = o.AccountPublicKey
+	if o.AccountPublicKey != nil {
+		toSerialize["account_public_key"] = o.AccountPublicKey
+	}
+	toSerialize["auth_type"] = o.AuthType
 	toSerialize["id"] = o.Id
 	toSerialize["is_platform_account"] = o.IsPlatformAccount
 	toSerialize["is_scp_account"] = o.IsScpAccount
 	toSerialize["is_system_account"] = o.IsSystemAccount
 	toSerialize["name"] = o.Name
+	if o.UserCred != nil {
+		toSerialize["user_cred"] = o.UserCred
+	}
+	if o.UserJwt != nil {
+		toSerialize["user_jwt"] = o.UserJwt
+	}
 	toSerialize["user_jwt_expires_in_secs"] = o.UserJwtExpiresInSecs
 	return toSerialize, nil
 }

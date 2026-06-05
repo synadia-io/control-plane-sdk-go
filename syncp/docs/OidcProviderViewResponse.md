@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Created** | **time.Time** |  | 
 **Domain** | **string** |  | 
 **Enabled** | **bool** |  | 
+**GroupRoleMappings** | Pointer to [**map[string]GroupMapping**](GroupMapping.md) |  | [optional] 
 **Id** | **string** |  | 
 **IssuerUrl** | Pointer to **string** |  | [optional] 
 **Label** | Pointer to **string** |  | [optional] 

@@ -13,6 +13,8 @@
 
 * `SCHEMA_REGISTRY` (value: `"SchemaRegistry"`)
 
+* `INSIGHTS` (value: `"Insights"`)
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

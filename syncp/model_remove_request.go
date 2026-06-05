@@ -15,18 +15,20 @@ var _ MappedNullable = &RemoveRequest{}
 
 // RemoveRequest struct for RemoveRequest
 type RemoveRequest struct {
-	Format *Nullable[string] `json:"format,omitempty"`
-	// Name of the schema (required).
+	// Format is optional and can be in payload
+	Format *string `json:"format,omitempty"`
+	// Name of the schema (set from subject, not from JSON payload).
 	Name *string `json:"name,omitempty"`
-	// Revision of the schema (optional). If not set, the latest revision of the schema will be removed.
+	// Revision of the schema (set from subject, not from JSON payload).
 	Revision *int64 `json:"revision,omitempty"`
-	Version  *int64 `json:"version,omitempty"`
+	// Version of the schema (set from subject, not from JSON payload).
+	Version *int64 `json:"version,omitempty"`
 }
 
 func (o RemoveRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Format != nil && !o.Format.IsNull() {
-		toSerialize["format"] = o.Format.Val
+	if o.Format != nil {
+		toSerialize["format"] = o.Format
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name

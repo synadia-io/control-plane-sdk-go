@@ -13,6 +13,7 @@ package syncp
 // PlatformComponentConfigs - struct for PlatformComponentConfigs
 type PlatformComponentConfigs struct {
 	AuthCalloutAuthenticatorComponentConfig *AuthCalloutAuthenticatorComponentConfig `json:",omitempty"`
+	CatalogPlatformComponentConfig          *CatalogPlatformComponentConfig          `json:",omitempty"`
 	HttpGatewayPlatformComponentConfig      *HttpGatewayPlatformComponentConfig      `json:",omitempty"`
 	ScraperComponentConfig                  *ScraperComponentConfig                  `json:",omitempty"`
 	WorkloadsPlatformComponentConfig        *WorkloadsPlatformComponentConfig        `json:",omitempty"`

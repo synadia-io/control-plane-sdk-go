@@ -15,22 +15,23 @@ var _ MappedNullable = &OidcProviderUpdateRequest{}
 
 // OidcProviderUpdateRequest struct for OidcProviderUpdateRequest
 type OidcProviderUpdateRequest struct {
-	AdditionalIdTokenAudiences []string               `json:"additional_id_token_audiences,omitempty"`
-	AuthUrl                    *string                `json:"auth_url,omitempty"`
-	Claims                     *string                `json:"claims,omitempty"`
-	ClaimsSource               *string                `json:"claims_source,omitempty"`
-	ClientId                   *string                `json:"client_id,omitempty"`
-	ClientSecret               *string                `json:"client_secret,omitempty"`
-	Enabled                    *bool                  `json:"enabled,omitempty"`
-	IssuerUrl                  *string                `json:"issuer_url,omitempty"`
-	Label                      *string                `json:"label,omitempty"`
-	Mapper                     *string                `json:"mapper,omitempty"`
-	MicrosoftSubjectSource     *string                `json:"microsoft_subject_source,omitempty"`
-	MicrosoftTenant            *string                `json:"microsoft_tenant,omitempty"`
-	Provider                   *string                `json:"provider,omitempty"`
-	RequestedClaims            *Nullable[interface{}] `json:"requested_claims,omitempty"`
-	Scope                      []string               `json:"scope,omitempty"`
-	TokenUrl                   *string                `json:"token_url,omitempty"`
+	AdditionalIdTokenAudiences []string                `json:"additional_id_token_audiences,omitempty"`
+	AuthUrl                    *string                 `json:"auth_url,omitempty"`
+	Claims                     *string                 `json:"claims,omitempty"`
+	ClaimsSource               *string                 `json:"claims_source,omitempty"`
+	ClientId                   *string                 `json:"client_id,omitempty"`
+	ClientSecret               *string                 `json:"client_secret,omitempty"`
+	Enabled                    *bool                   `json:"enabled,omitempty"`
+	GroupRoleMappings          map[string]GroupMapping `json:"group_role_mappings,omitempty"`
+	IssuerUrl                  *string                 `json:"issuer_url,omitempty"`
+	Label                      *string                 `json:"label,omitempty"`
+	Mapper                     *string                 `json:"mapper,omitempty"`
+	MicrosoftSubjectSource     *string                 `json:"microsoft_subject_source,omitempty"`
+	MicrosoftTenant            *string                 `json:"microsoft_tenant,omitempty"`
+	Provider                   *string                 `json:"provider,omitempty"`
+	RequestedClaims            *Nullable[interface{}]  `json:"requested_claims,omitempty"`
+	Scope                      []string                `json:"scope,omitempty"`
+	TokenUrl                   *string                 `json:"token_url,omitempty"`
 }
 
 func (o OidcProviderUpdateRequest) ToMap() (map[string]interface{}, error) {
@@ -55,6 +56,9 @@ func (o OidcProviderUpdateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
+	}
+	if len(o.GroupRoleMappings) != 0 {
+		toSerialize["group_role_mappings"] = o.GroupRoleMappings
 	}
 	if o.IssuerUrl != nil {
 		toSerialize["issuer_url"] = o.IssuerUrl

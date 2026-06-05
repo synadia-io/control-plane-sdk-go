@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ConfigMode** | **bool** |  | 
 **ConnectionType** | [**SystemConnectionType**](SystemConnectionType.md) |  | [default to SYSTEMCONNECTIONTYPE_AGENT]
 **HttpGatewayUrl** | Pointer to **string** |  | [optional] 
 **Id** | **string** |  | 

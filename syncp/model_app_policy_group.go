@@ -26,6 +26,7 @@ const (
 	APPPOLICYGROUP_CONNECTORS      AppPolicyGroup = "Connectors"
 	APPPOLICYGROUP_WORKLOADS       AppPolicyGroup = "Workloads"
 	APPPOLICYGROUP_SCHEMA_REGISTRY AppPolicyGroup = "SchemaRegistry"
+	APPPOLICYGROUP_INSIGHTS        AppPolicyGroup = "Insights"
 )
 
 // All allowed values of AppPolicyGroup enum
@@ -35,6 +36,7 @@ var AllowedAppPolicyGroupEnumValues = []AppPolicyGroup{
 	"Connectors",
 	"Workloads",
 	"SchemaRegistry",
+	"Insights",
 }
 
 func (v *AppPolicyGroup) UnmarshalJSON(src []byte) error {

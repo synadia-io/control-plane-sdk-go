@@ -72,6 +72,8 @@ type APIClient struct {
 
 	KvBucketAPI KvBucketAPI
 
+	LicenseAPI LicenseAPI
+
 	MirrorAPI MirrorAPI
 
 	NatsUserAPI NatsUserAPI
@@ -143,6 +145,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ComponentVersionsAPI = (*ComponentVersionsAPIService)(&c.common)
 	c.IssuanceAPI = (*IssuanceAPIService)(&c.common)
 	c.KvBucketAPI = (*KvBucketAPIService)(&c.common)
+	c.LicenseAPI = (*LicenseAPIService)(&c.common)
 	c.MirrorAPI = (*MirrorAPIService)(&c.common)
 	c.NatsUserAPI = (*NatsUserAPIService)(&c.common)
 	c.ObjectBucketAPI = (*ObjectBucketAPIService)(&c.common)

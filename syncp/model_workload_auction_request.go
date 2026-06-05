@@ -15,8 +15,8 @@ var _ MappedNullable = &WorkloadAuctionRequest{}
 
 // WorkloadAuctionRequest struct for WorkloadAuctionRequest
 type WorkloadAuctionRequest struct {
-	AgentType string       `json:"agent_type"`
-	Tags      WorkloadTags `json:"tags"`
+	AgentType string            `json:"agent_type"`
+	Tags      map[string]string `json:"tags"`
 }
 
 func (o WorkloadAuctionRequest) ToMap() (map[string]interface{}, error) {

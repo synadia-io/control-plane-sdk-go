@@ -5,10 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AckWait** | Pointer to **int64** |  | [optional] 
+**Backoff** | Pointer to []**int64** |  | [optional] 
+**DeliverSubject** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
+**FilterSubjects** | Pointer to []**string** |  | [optional] 
 **HeadersOnly** | Pointer to **bool** |  | [optional] 
+**InactiveThreshold** | Pointer to **int64** |  | [optional] 
 **MaxAckPending** | Pointer to **int64** |  | [optional] 
 **MaxDeliver** | Pointer to **int64** |  | [optional] 
+**Metadata** | Pointer to **map[string]string** |  | [optional] 
+**NumReplicas** | Pointer to **int64** |  | [optional] 
+**RateLimitBps** | Pointer to **uint64** |  | [optional] 
 **SampleFreq** | Pointer to **string** |  | [optional] 
 
 ## Methods

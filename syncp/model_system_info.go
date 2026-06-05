@@ -15,6 +15,7 @@ var _ MappedNullable = &SystemInfo{}
 
 // SystemInfo struct for SystemInfo
 type SystemInfo struct {
+	ConfigMode           bool                 `json:"config_mode"`
 	ConnectionType       SystemConnectionType `json:"connection_type"`
 	HttpGatewayUrl       *string              `json:"http_gateway_url,omitempty"`
 	Id                   string               `json:"id"`
@@ -31,6 +32,7 @@ type SystemInfo struct {
 
 func (o SystemInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["config_mode"] = o.ConfigMode
 	toSerialize["connection_type"] = o.ConnectionType
 	if o.HttpGatewayUrl != nil {
 		toSerialize["http_gateway_url"] = o.HttpGatewayUrl
