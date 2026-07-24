@@ -24,10 +24,28 @@ func (o JSMirrorConfigRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["mirror"] = o.Mirror
 	toSerialize["mirror_direct"] = o.MirrorDirect
+	if o.AllowAtomic != nil {
+		toSerialize["allow_atomic"] = o.AllowAtomic
+	}
+	if o.AllowBatched != nil {
+		toSerialize["allow_batched"] = o.AllowBatched
+	}
 	toSerialize["allow_direct"] = o.AllowDirect
+	if o.AllowMsgCounter != nil {
+		toSerialize["allow_msg_counter"] = o.AllowMsgCounter
+	}
+	if o.AllowMsgSchedules != nil {
+		toSerialize["allow_msg_schedules"] = o.AllowMsgSchedules
+	}
+	if o.AllowMsgTtl != nil {
+		toSerialize["allow_msg_ttl"] = o.AllowMsgTtl
+	}
 	toSerialize["allow_rollup_hdrs"] = o.AllowRollupHdrs
 	if o.Compression != nil {
 		toSerialize["compression"] = o.Compression
+	}
+	if o.ConsumerLimits != nil {
+		toSerialize["consumer_limits"] = o.ConsumerLimits
 	}
 	toSerialize["deny_delete"] = o.DenyDelete
 	toSerialize["deny_purge"] = o.DenyPurge
@@ -60,6 +78,9 @@ func (o JSMirrorConfigRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["no_ack"] = o.NoAck
 	}
 	toSerialize["num_replicas"] = o.NumReplicas
+	if o.PersistMode != nil {
+		toSerialize["persist_mode"] = o.PersistMode
+	}
 	if o.Placement != nil {
 		toSerialize["placement"] = o.Placement
 	}
@@ -72,6 +93,9 @@ func (o JSMirrorConfigRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["storage"] = o.Storage
+	if o.SubjectDeleteMarkerTtl != nil {
+		toSerialize["subject_delete_marker_ttl"] = o.SubjectDeleteMarkerTtl
+	}
 	if o.SubjectTransform != nil {
 		toSerialize["subject_transform"] = o.SubjectTransform
 	}

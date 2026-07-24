@@ -1,15 +1,15 @@
-# AckPolicy
+# PriorityPolicy
 
 ## Enum
 
 
 * `NONE` (value: `"none"`)
 
-* `ALL` (value: `"all"`)
+* `OVERFLOW` (value: `"overflow"`)
 
-* `EXPLICIT` (value: `"explicit"`)
+* `PINNED_CLIENT` (value: `"pinned_client"`)
 
-* `FLOW_CONTROL` (value: `"flow_control"`)
+* `PRIORITIZED` (value: `"prioritized"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

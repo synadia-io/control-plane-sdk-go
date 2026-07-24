@@ -9,6 +9,9 @@ Name | Type | Description | Notes
 **MaxBytes** | Pointer to **int64** |  | [optional] 
 **MaxExpires** | Pointer to **int64** |  | [optional] 
 **MaxWaiting** | Pointer to **int64** | Pull based options. | [optional] 
+**PriorityGroups** | Pointer to []**string** |  | [optional] 
+**PriorityPolicy** | Pointer to [**PriorityPolicy**](PriorityPolicy.md) |  | [optional] 
+**PriorityTimeout** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 

@@ -20,6 +20,7 @@ type PeerInfo struct {
 	Lag     *uint64 `json:"lag,omitempty"`
 	Name    string  `json:"name"`
 	Offline *bool   `json:"offline,omitempty"`
+	Peer    string  `json:"peer"`
 }
 
 func (o PeerInfo) ToMap() (map[string]interface{}, error) {
@@ -33,5 +34,6 @@ func (o PeerInfo) ToMap() (map[string]interface{}, error) {
 	if o.Offline != nil {
 		toSerialize["offline"] = o.Offline
 	}
+	toSerialize["peer"] = o.Peer
 	return toSerialize, nil
 }

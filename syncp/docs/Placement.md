@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Cluster** | **string** |  | 
+**Cluster** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to []**string** |  | [optional] 
 
 ## Methods

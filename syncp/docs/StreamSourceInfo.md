@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **FilterSubject** | Pointer to **string** |  | [optional] 
 **Lag** | **uint64** |  | 
 **Name** | **string** |  | 
-**SubjectTransformDest** | Pointer to **string** |  | [optional] 
 **SubjectTransforms** | Pointer to [][**SubjectTransformConfig**](SubjectTransformConfig.md) |  | [optional] 
 
 ## Methods

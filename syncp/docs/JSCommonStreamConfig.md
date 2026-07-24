@@ -4,9 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AllowAtomic** | Pointer to **bool** |  | [optional] 
+**AllowBatched** | Pointer to **bool** |  | [optional] 
 **AllowDirect** | **bool** |  | 
+**AllowMsgCounter** | Pointer to **bool** |  | [optional] 
+**AllowMsgSchedules** | Pointer to **bool** |  | [optional] 
+**AllowMsgTtl** | Pointer to **bool** |  | [optional] 
 **AllowRollupHdrs** | **bool** |  | 
-**Compression** | Pointer to [**S2Compression**](S2Compression.md) |  | [optional] 
+**Compression** | Pointer to [**Compression**](Compression.md) |  | [optional] 
+**ConsumerLimits** | Pointer to [**JSStreamConsumerLimits**](JSStreamConsumerLimits.md) |  | [optional] 
 **DenyDelete** | **bool** |  | 
 **DenyPurge** | **bool** |  | 
 **Description** | Pointer to **string** |  | [optional] 
@@ -24,12 +30,14 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **NoAck** | Pointer to **bool** |  | [optional] 
 **NumReplicas** | **int64** |  | 
+**PersistMode** | Pointer to [**JSPersistMode**](JSPersistMode.md) |  | [optional] 
 **Placement** | Pointer to [**Placement**](Placement.md) |  | [optional] 
 **Republish** | Pointer to [**RePublish**](RePublish.md) |  | [optional] 
 **Retention** | [**RetentionPolicy**](RetentionPolicy.md) |  | 
 **Sealed** | **bool** |  | 
 **Sources** | Pointer to [][**StreamSource**](StreamSource.md) |  | [optional] 
 **Storage** | [**StorageType**](StorageType.md) |  | 
+**SubjectDeleteMarkerTtl** | Pointer to **int64** |  | [optional] 
 **SubjectTransform** | Pointer to [**SubjectTransformConfig**](SubjectTransformConfig.md) |  | [optional] 
 **TemplateOwner** | Pointer to **string** |  | [optional] 
 

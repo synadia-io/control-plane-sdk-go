@@ -10,6 +10,10 @@ API version: beta
 
 package syncp
 
+import (
+	"time"
+)
+
 // checks if the ConsumerConfig type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ConsumerConfig{}
 
@@ -44,9 +48,14 @@ type ConsumerConfig struct {
 	NumReplicas  int64             `json:"num_replicas"`
 	OptStartSeq  *uint64           `json:"opt_start_seq,omitempty"`
 	OptStartTime *Nullable[string] `json:"opt_start_time,omitempty"`
-	RateLimitBps *uint64           `json:"rate_limit_bps,omitempty"`
-	ReplayPolicy ReplayPolicy      `json:"replay_policy"`
-	SampleFreq   *string           `json:"sample_freq,omitempty"`
+	// PauseUntil suspends the consumer until the deadline.
+	PauseUntil      *time.Time      `json:"pause_until,omitempty"`
+	PriorityGroups  []string        `json:"priority_groups,omitempty"`
+	PriorityPolicy  *PriorityPolicy `json:"priority_policy,omitempty"`
+	PriorityTimeout *int64          `json:"priority_timeout,omitempty"`
+	RateLimitBps    *uint64         `json:"rate_limit_bps,omitempty"`
+	ReplayPolicy    ReplayPolicy    `json:"replay_policy"`
+	SampleFreq      *string         `json:"sample_freq,omitempty"`
 }
 
 func (o ConsumerConfig) ToMap() (map[string]interface{}, error) {
@@ -125,6 +134,18 @@ func (o ConsumerConfig) ToMap() (map[string]interface{}, error) {
 	}
 	if o.OptStartTime != nil && !o.OptStartTime.IsNull() {
 		toSerialize["opt_start_time"] = o.OptStartTime.Val
+	}
+	if o.PauseUntil != nil {
+		toSerialize["pause_until"] = o.PauseUntil
+	}
+	if len(o.PriorityGroups) != 0 {
+		toSerialize["priority_groups"] = o.PriorityGroups
+	}
+	if o.PriorityPolicy != nil {
+		toSerialize["priority_policy"] = o.PriorityPolicy
+	}
+	if o.PriorityTimeout != nil {
+		toSerialize["priority_timeout"] = o.PriorityTimeout
 	}
 	if o.RateLimitBps != nil {
 		toSerialize["rate_limit_bps"] = o.RateLimitBps

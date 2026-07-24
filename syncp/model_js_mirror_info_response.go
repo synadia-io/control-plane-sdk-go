@@ -37,9 +37,14 @@ func (o JSMirrorInfoResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["cluster"] = o.Cluster
 	}
 	toSerialize["created"] = o.Created
+	if o.Domain != nil {
+		toSerialize["domain"] = o.Domain
+	}
+	toSerialize["name"] = o.Name
 	if len(o.Sources) != 0 {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["state"] = o.State
+	toSerialize["ts"] = o.Ts
 	return toSerialize, nil
 }

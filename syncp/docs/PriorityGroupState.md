@@ -1,13 +1,12 @@
-# JetStreamAPIStats
+# PriorityGroupState
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Errors** | **uint64** |  | 
-**Inflight** | Pointer to **uint64** |  | [optional] 
-**Level** | **int64** |  | 
-**Total** | **uint64** |  | 
+**Group** | **string** |  | 
+**PinnedClientId** | Pointer to **string** |  | [optional] 
+**PinnedTs** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 

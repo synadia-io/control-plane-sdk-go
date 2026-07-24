@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **NumPending** | **uint64** |  | 
 **NumRedelivered** | **int64** |  | 
 **NumWaiting** | **int64** |  | 
+**PauseRemaining** | Pointer to **int64** |  | [optional] 
+**Paused** | Pointer to **bool** |  | [optional] 
+**PriorityGroups** | Pointer to [][**PriorityGroupState**](PriorityGroupState.md) |  | [optional] 
 **PushBound** | Pointer to **bool** |  | [optional] 
 **StreamName** | **string** |  | 
 **Ts** | **time.Time** |  | 

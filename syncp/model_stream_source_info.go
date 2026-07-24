@@ -15,14 +15,13 @@ var _ MappedNullable = &StreamSourceInfo{}
 
 // StreamSourceInfo StreamSourceInfo shows information about an upstream stream source.
 type StreamSourceInfo struct {
-	Active               int64                     `json:"active"`
-	Error                *Nullable[JSApiError]     `json:"error,omitempty"`
-	External             *Nullable[ExternalStream] `json:"external,omitempty"`
-	FilterSubject        *string                   `json:"filter_subject,omitempty"`
-	Lag                  uint64                    `json:"lag"`
-	Name                 string                    `json:"name"`
-	SubjectTransformDest *string                   `json:"subject_transform_dest,omitempty"`
-	SubjectTransforms    []SubjectTransformConfig  `json:"subject_transforms,omitempty"`
+	Active            int64                     `json:"active"`
+	Error             *Nullable[JSApiError]     `json:"error,omitempty"`
+	External          *Nullable[ExternalStream] `json:"external,omitempty"`
+	FilterSubject     *string                   `json:"filter_subject,omitempty"`
+	Lag               uint64                    `json:"lag"`
+	Name              string                    `json:"name"`
+	SubjectTransforms []SubjectTransformConfig  `json:"subject_transforms,omitempty"`
 }
 
 func (o StreamSourceInfo) ToMap() (map[string]interface{}, error) {
@@ -39,9 +38,6 @@ func (o StreamSourceInfo) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["lag"] = o.Lag
 	toSerialize["name"] = o.Name
-	if o.SubjectTransformDest != nil {
-		toSerialize["subject_transform_dest"] = o.SubjectTransformDest
-	}
 	if len(o.SubjectTransforms) != 0 {
 		toSerialize["subject_transforms"] = o.SubjectTransforms
 	}

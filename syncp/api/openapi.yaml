@@ -9598,6 +9598,7 @@ components:
       - none
       - all
       - explicit
+      - flow_control
       type: string
     Activation:
       allOf:
@@ -11782,19 +11783,32 @@ components:
         that make up the stream or consumer.
       example:
         leader: leader
+        system_account: true
         replicas:
         - null
         - null
+        raft_group: raft_group
         name: name
+        traffic_account: traffic_account
+        leader_since: leader_since
       properties:
         leader:
           type: string
+        leader_since:
+          nullable: true
+          type: string
         name:
+          type: string
+        raft_group:
           type: string
         replicas:
           items:
             $ref: '#/components/schemas/ClusterInfo_replicas_inner'
           type: array
+        system_account:
+          type: boolean
+        traffic_account:
+          type: string
       type: object
     ClusterOverview:
       example:
@@ -11990,7 +12004,10 @@ components:
       - version
       type: object
     Compression:
-      $ref: '#/components/schemas/S2Compression'
+      enum:
+      - none
+      - s2
+      type: string
     ConnInfo:
       description: ConnInfo has detailed information on a per connection basis.
       properties:
@@ -12234,6 +12251,19 @@ components:
         opt_start_time:
           nullable: true
           type: string
+        pause_until:
+          description: PauseUntil suspends the consumer until the deadline.
+          format: date-time
+          type: string
+        priority_groups:
+          items:
+            type: string
+          type: array
+        priority_policy:
+          $ref: '#/components/schemas/PriorityPolicy'
+        priority_timeout:
+          format: int64
+          type: integer
         rate_limit_bps:
           maximum: 18446744073709551615
           minimum: 0
@@ -12274,6 +12304,15 @@ components:
           type: integer
         num_waiting:
           type: integer
+        pause_remaining:
+          format: int64
+          type: integer
+        paused:
+          type: boolean
+        priority_groups:
+          items:
+            $ref: '#/components/schemas/PriorityGroupState'
+          type: array
         push_bound:
           type: boolean
         stream_name:
@@ -13605,6 +13644,8 @@ components:
     JSAcctStats:
       $ref: '#/components/schemas/JetStreamAccountStats'
     JSApiError:
+      description: JSApiError retains the existing schema name; the upstream Go type
+        is now ApiError.
       properties:
         code:
           type: integer
@@ -13665,6 +13706,9 @@ components:
         opt_start_time:
           format: date-time
           type: string
+        pause_until:
+          format: date-time
+          type: string
         replay_policy:
           $ref: '#/components/schemas/ReplayPolicy'
         sample_freq:
@@ -13677,12 +13721,24 @@ components:
       type: object
     JSCommonStreamConfig:
       properties:
+        allow_atomic:
+          type: boolean
+        allow_batched:
+          type: boolean
         allow_direct:
+          type: boolean
+        allow_msg_counter:
+          type: boolean
+        allow_msg_schedules:
+          type: boolean
+        allow_msg_ttl:
           type: boolean
         allow_rollup_hdrs:
           type: boolean
         compression:
-          $ref: '#/components/schemas/S2Compression'
+          $ref: '#/components/schemas/Compression'
+        consumer_limits:
+          $ref: '#/components/schemas/JSStreamConsumerLimits'
         deny_delete:
           type: boolean
         deny_purge:
@@ -13727,6 +13783,8 @@ components:
           type: boolean
         num_replicas:
           type: integer
+        persist_mode:
+          $ref: '#/components/schemas/JSPersistMode'
         placement:
           $ref: '#/components/schemas/Placement'
         republish:
@@ -13741,6 +13799,9 @@ components:
           type: array
         storage:
           $ref: '#/components/schemas/StorageType'
+        subject_delete_marker_ttl:
+          format: int64
+          type: integer
         subject_transform:
           $ref: '#/components/schemas/SubjectTransformConfig'
         template_owner:
@@ -13773,15 +13834,24 @@ components:
         created:
           format: date-time
           type: string
+        domain:
+          type: string
+        name:
+          type: string
         sources:
           items:
             $ref: '#/components/schemas/StreamSourceInfo'
           type: array
         state:
           $ref: '#/components/schemas/StreamState'
+        ts:
+          format: date-time
+          type: string
       required:
       - created
+      - name
       - state
+      - ts
       type: object
     JSConsumerInfoListResponse:
       example:
@@ -13820,11 +13890,14 @@ components:
       type: string
     JSKVBucketConfig:
       example:
+        metadata:
+          key: metadata
         mirror:
           opt_start_time: opt_start_time
           external: null
           opt_start_seq: 2147483647
           name: name
+          consumer: null
           filter_subject: filter_subject
           subject_transforms:
           - src: src
@@ -13836,6 +13909,7 @@ components:
           external: null
           opt_start_seq: 2147483647
           name: name
+          consumer: null
           filter_subject: filter_subject
           subject_transforms:
           - src: src
@@ -13846,24 +13920,26 @@ components:
           external: null
           opt_start_seq: 2147483647
           name: name
+          consumer: null
           filter_subject: filter_subject
           subject_transforms:
           - src: src
             dest: dest
           - src: src
             dest: dest
-        max_value_size: 5
+        max_value_size: 2
         description: description
         history: 153
         max_bytes: 5
         storage: null
         bucket: bucket
-        max_age: 1
+        max_age: 5
         republish:
           src: src
           headers_only: true
           dest: dest
-        num_replicas: 7
+        num_replicas: 9
+        limit_marker_ttl: 1
         placement:
           cluster: cluster
           tags:
@@ -13883,6 +13959,9 @@ components:
           maximum: 255
           minimum: 0
           type: integer
+        limit_marker_ttl:
+          format: int64
+          type: integer
         max_age:
           format: int64
           type: integer
@@ -13892,6 +13971,10 @@ components:
         max_value_size:
           format: int32
           type: integer
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
         mirror:
           $ref: '#/components/schemas/StreamSource'
         num_replicas:
@@ -13919,11 +14002,14 @@ components:
           bytes: 2147483647
           id: id
           config:
+            metadata:
+              key: metadata
             mirror:
               opt_start_time: opt_start_time
               external: null
               opt_start_seq: 2147483647
               name: name
+              consumer: null
               filter_subject: filter_subject
               subject_transforms:
               - src: src
@@ -13935,6 +14021,7 @@ components:
               external: null
               opt_start_seq: 2147483647
               name: name
+              consumer: null
               filter_subject: filter_subject
               subject_transforms:
               - src: src
@@ -13945,24 +14032,26 @@ components:
               external: null
               opt_start_seq: 2147483647
               name: name
+              consumer: null
               filter_subject: filter_subject
               subject_transforms:
               - src: src
                 dest: dest
               - src: src
                 dest: dest
-            max_value_size: 5
+            max_value_size: 2
             description: description
             history: 153
             max_bytes: 5
             storage: null
             bucket: bucket
-            max_age: 1
+            max_age: 5
             republish:
               src: src
               headers_only: true
               dest: dest
-            num_replicas: 7
+            num_replicas: 9
+            limit_marker_ttl: 1
             placement:
               cluster: cluster
               tags:
@@ -13974,11 +14063,14 @@ components:
           bytes: 2147483647
           id: id
           config:
+            metadata:
+              key: metadata
             mirror:
               opt_start_time: opt_start_time
               external: null
               opt_start_seq: 2147483647
               name: name
+              consumer: null
               filter_subject: filter_subject
               subject_transforms:
               - src: src
@@ -13990,6 +14082,7 @@ components:
               external: null
               opt_start_seq: 2147483647
               name: name
+              consumer: null
               filter_subject: filter_subject
               subject_transforms:
               - src: src
@@ -14000,24 +14093,26 @@ components:
               external: null
               opt_start_seq: 2147483647
               name: name
+              consumer: null
               filter_subject: filter_subject
               subject_transforms:
               - src: src
                 dest: dest
               - src: src
                 dest: dest
-            max_value_size: 5
+            max_value_size: 2
             description: description
             history: 153
             max_bytes: 5
             storage: null
             bucket: bucket
-            max_age: 1
+            max_age: 5
             republish:
               src: src
               headers_only: true
               dest: dest
-            num_replicas: 7
+            num_replicas: 9
+            limit_marker_ttl: 1
             placement:
               cluster: cluster
               tags:
@@ -14035,27 +14130,26 @@ components:
     JSKVBucketUpdateRequest:
       example:
         config:
-          max_age: 6
+          metadata:
+            key: metadata
           mirror:
             opt_start_time: opt_start_time
             external: null
             opt_start_seq: 2147483647
             name: name
+            consumer: null
             filter_subject: filter_subject
             subject_transforms:
             - src: src
               dest: dest
             - src: src
               dest: dest
-          republish:
-            src: src
-            headers_only: true
-            dest: dest
           sources:
           - opt_start_time: opt_start_time
             external: null
             opt_start_seq: 2147483647
             name: name
+            consumer: null
             filter_subject: filter_subject
             subject_transforms:
             - src: src
@@ -14066,17 +14160,24 @@ components:
             external: null
             opt_start_seq: 2147483647
             name: name
+            consumer: null
             filter_subject: filter_subject
             subject_transforms:
             - src: src
               dest: dest
             - src: src
               dest: dest
-          num_replicas: 5
           max_value_size: 5
           description: description
           history: 20
-          max_bytes: 1
+          max_bytes: 5
+          max_age: 1
+          republish:
+            src: src
+            headers_only: true
+            dest: dest
+          num_replicas: 2
+          limit_marker_ttl: 6
           placement:
             cluster: cluster
             tags:
@@ -14096,11 +14197,14 @@ components:
         bytes: 2147483647
         id: id
         config:
+          metadata:
+            key: metadata
           mirror:
             opt_start_time: opt_start_time
             external: null
             opt_start_seq: 2147483647
             name: name
+            consumer: null
             filter_subject: filter_subject
             subject_transforms:
             - src: src
@@ -14112,6 +14216,7 @@ components:
             external: null
             opt_start_seq: 2147483647
             name: name
+            consumer: null
             filter_subject: filter_subject
             subject_transforms:
             - src: src
@@ -14122,24 +14227,26 @@ components:
             external: null
             opt_start_seq: 2147483647
             name: name
+            consumer: null
             filter_subject: filter_subject
             subject_transforms:
             - src: src
               dest: dest
             - src: src
               dest: dest
-          max_value_size: 5
+          max_value_size: 2
           description: description
           history: 153
           max_bytes: 5
           storage: null
           bucket: bucket
-          max_age: 1
+          max_age: 5
           republish:
             src: src
             headers_only: true
             dest: dest
-          num_replicas: 7
+          num_replicas: 9
+          limit_marker_ttl: 1
           placement:
             cluster: cluster
             tags:
@@ -14180,6 +14287,7 @@ components:
           external: null
           opt_start_seq: 2147483647
           name: name
+          consumer: null
           filter_subject: filter_subject
           subject_transforms:
           - src: src
@@ -14204,7 +14312,6 @@ components:
             lag: 2147483647
             name: name
             active: 0
-            subject_transform_dest: subject_transform_dest
             error: null
             filter_subject: filter_subject
             subject_transforms:
@@ -14219,6 +14326,7 @@ components:
               external: null
               opt_start_seq: 2147483647
               name: name
+              consumer: null
               filter_subject: filter_subject
               subject_transforms:
               - src: src
@@ -14232,7 +14340,6 @@ components:
             lag: 2147483647
             name: name
             active: 0
-            subject_transform_dest: subject_transform_dest
             error: null
             filter_subject: filter_subject
             subject_transforms:
@@ -14247,6 +14354,7 @@ components:
               external: null
               opt_start_seq: 2147483647
               name: name
+              consumer: null
               filter_subject: filter_subject
               subject_transforms:
               - src: src
@@ -14276,7 +14384,6 @@ components:
           lag: 2147483647
           name: name
           active: 0
-          subject_transform_dest: subject_transform_dest
           error: null
           filter_subject: filter_subject
           subject_transforms:
@@ -14291,6 +14398,7 @@ components:
             external: null
             opt_start_seq: 2147483647
             name: name
+            consumer: null
             filter_subject: filter_subject
             subject_transforms:
             - src: src
@@ -14389,6 +14497,11 @@ components:
       - id
       - stream_name
       type: object
+    JSPersistMode:
+      enum:
+      - default
+      - async
+      type: string
     JSPlacementOptionsResponse:
       example:
         num_replicas:
@@ -14423,6 +14536,11 @@ components:
       - $ref: '#/components/schemas/JSCommonConsumerConfigRequest'
       example:
         max_waiting: 2
+        priority_timeout: 7
+        priority_groups:
+        - priority_groups
+        - priority_groups
+        priority_policy: null
         max_expires: 5
         max_bytes: 5
         max_batch: 1
@@ -14437,29 +14555,56 @@ components:
         max_waiting:
           description: Pull based options.
           type: integer
+        priority_groups:
+          items:
+            type: string
+          type: array
+        priority_policy:
+          $ref: '#/components/schemas/PriorityPolicy'
+        priority_timeout:
+          format: int64
+          type: integer
       type: object
     JSPullConsumerInfoResponse:
       example:
         cluster:
           leader: leader
+          system_account: true
           replicas:
           - null
           - null
+          raft_group: raft_group
           name: name
-        num_redelivered: 3
-        stream_name: stream_name
+          traffic_account: traffic_account
+          leader_since: leader_since
+        num_redelivered: 2
+        paused: true
         created: 2000-01-23T04:56:07.000+00:00
         num_pending: 2147483647
-        num_waiting: 2
-        name: name
+        num_waiting: 4
+        pause_remaining: 7
         delivered:
           consumer_seq: 2147483647
           last_active: last_active
           stream_seq: 2147483647
+        num_ack_pending: 9
+        priority_groups:
+        - pinned_client_id: pinned_client_id
+          pinned_ts: 2000-01-23T04:56:07.000+00:00
+          group: group
+        - pinned_client_id: pinned_client_id
+          pinned_ts: 2000-01-23T04:56:07.000+00:00
+          group: group
+        stream_name: stream_name
+        name: name
         id: id
-        num_ack_pending: 7
         config:
           max_waiting: 2
+          priority_timeout: 7
+          priority_groups:
+          - priority_groups
+          - priority_groups
+          priority_policy: null
           max_expires: 5
           max_bytes: 5
           max_batch: 1
@@ -14467,6 +14612,7 @@ components:
           consumer_seq: 2147483647
           last_active: last_active
           stream_seq: 2147483647
+        ts: 2000-01-23T04:56:07.000+00:00
       properties:
         ack_floor:
           $ref: '#/components/schemas/SequenceInfo'
@@ -14493,7 +14639,19 @@ components:
           type: integer
         num_waiting:
           type: integer
+        pause_remaining:
+          format: int64
+          type: integer
+        paused:
+          type: boolean
+        priority_groups:
+          items:
+            $ref: '#/components/schemas/PriorityGroupState'
+          type: array
         stream_name:
+          type: string
+        ts:
+          format: date-time
           type: string
       required:
       - ack_floor
@@ -14506,6 +14664,7 @@ components:
       - num_redelivered
       - num_waiting
       - stream_name
+      - ts
       type: object
     JSPullConsumerUpdateRequest:
       example:
@@ -14514,6 +14673,7 @@ components:
         backoff:
         - 6
         - 6
+        priority_policy: null
         ack_wait: 0
         description: description
         max_deliver: 7
@@ -14524,6 +14684,10 @@ components:
         - filter_subjects
         max_ack_pending: 5
         sample_freq: sample_freq
+        priority_timeout: 2
+        priority_groups:
+        - priority_groups
+        - priority_groups
         num_replicas: 3
         max_expires: 9
         inactive_threshold: 1
@@ -14562,6 +14726,15 @@ components:
           type: object
         num_replicas:
           type: integer
+        priority_groups:
+          items:
+            type: string
+          type: array
+        priority_policy:
+          $ref: '#/components/schemas/PriorityPolicy'
+        priority_timeout:
+          format: int64
+          type: integer
         sample_freq:
           type: string
       type: object
@@ -14597,22 +14770,28 @@ components:
       example:
         cluster:
           leader: leader
+          system_account: true
           replicas:
           - null
           - null
+          raft_group: raft_group
           name: name
+          traffic_account: traffic_account
+          leader_since: leader_since
         num_redelivered: 5
-        push_bound: true
-        stream_name: stream_name
+        paused: true
         created: 2000-01-23T04:56:07.000+00:00
         num_pending: 2147483647
-        name: name
+        pause_remaining: 2
         delivered:
           consumer_seq: 2147483647
           last_active: last_active
           stream_seq: 2147483647
-        id: id
         num_ack_pending: 1
+        push_bound: true
+        stream_name: stream_name
+        name: name
+        id: id
         config:
           deliver_group: deliver_group
           deliver_subject: deliver_subject
@@ -14624,6 +14803,7 @@ components:
           consumer_seq: 2147483647
           last_active: last_active
           stream_seq: 2147483647
+        ts: 2000-01-23T04:56:07.000+00:00
       properties:
         ack_floor:
           $ref: '#/components/schemas/SequenceInfo'
@@ -14648,9 +14828,17 @@ components:
           type: integer
         num_redelivered:
           type: integer
+        pause_remaining:
+          format: int64
+          type: integer
+        paused:
+          type: boolean
         push_bound:
           type: boolean
         stream_name:
+          type: string
+        ts:
+          format: date-time
           type: string
       required:
       - ack_floor
@@ -14662,6 +14850,7 @@ components:
       - num_pending
       - num_redelivered
       - stream_name
+      - ts
       type: object
     JSPushConsumerUpdateRequest:
       example:
@@ -14739,6 +14928,14 @@ components:
       type: object
     JSStreamConfigResponse:
       $ref: '#/components/schemas/JSStreamConfigRequest'
+    JSStreamConsumerLimits:
+      properties:
+        inactive_threshold:
+          format: int64
+          type: integer
+        max_ack_pending:
+          type: integer
+      type: object
     JSStreamInfoListResponse:
       example:
         items:
@@ -14794,6 +14991,7 @@ components:
     JetStreamAPIStats:
       example:
         total: 2147483647
+        level: 6
         errors: 2147483647
         inflight: 2147483647
       properties:
@@ -14805,12 +15003,15 @@ components:
           maximum: 18446744073709551615
           minimum: 0
           type: integer
+        level:
+          type: integer
         total:
           maximum: 18446744073709551615
           minimum: 0
           type: integer
       required:
       - errors
+      - level
       - total
       type: object
     JetStreamAccountLimits:
@@ -14861,7 +15062,9 @@ components:
         tiers:
           key:
             memory: 2147483647
-            streams: 4
+            reserved_storage: 2147483647
+            streams: 1
+            reserved_memory: 2147483647
             consumers: 0
             storage: 2147483647
             limits:
@@ -14876,7 +15079,9 @@ components:
         domain: domain
         JetStreamTier:
           memory: 2147483647
-          streams: 4
+          reserved_storage: 2147483647
+          streams: 1
+          reserved_memory: 2147483647
           consumers: 0
           storage: 2147483647
           limits:
@@ -14890,6 +15095,7 @@ components:
             max_memory: 5
         api:
           total: 2147483647
+          level: 6
           errors: 2147483647
           inflight: 2147483647
       properties:
@@ -15182,7 +15388,9 @@ components:
     JetStreamTier:
       example:
         memory: 2147483647
-        streams: 4
+        reserved_storage: 2147483647
+        streams: 1
+        reserved_memory: 2147483647
         consumers: 0
         storage: 2147483647
         limits:
@@ -15203,6 +15411,14 @@ components:
           maximum: 18446744073709551615
           minimum: 0
           type: integer
+        reserved_memory:
+          maximum: 18446744073709551615
+          minimum: 0
+          type: integer
+        reserved_storage:
+          maximum: 18446744073709551615
+          minimum: 0
+          type: integer
         storage:
           maximum: 18446744073709551615
           minimum: 0
@@ -15213,6 +15429,8 @@ components:
       - consumers
       - limits
       - memory
+      - reserved_memory
+      - reserved_storage
       - storage
       - streams
       type: object
@@ -16504,9 +16722,7 @@ components:
         bucket:
           type: string
         compression:
-          description: |-
-            Enable underlying stream compression.
-            NOTE: Compression is supported for nats-server 2.10.0+
+          description: Enable underlying stream compression.
           type: boolean
         description:
           type: string
@@ -16519,9 +16735,7 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: |-
-            Bucket-specific metadata
-            NOTE: Metadata requires nats-server v2.10.0+
+          description: Bucket-specific metadata
           type: object
         num_replicas:
           type: integer
@@ -17298,10 +17512,13 @@ components:
           type: string
         offline:
           type: boolean
+        peer:
+          type: string
       required:
       - active
       - current
       - name
+      - peer
       type: object
     Permission:
       description: Permission defines allow/deny subjects
@@ -17366,6 +17583,7 @@ components:
       type: object
     Placement:
       description: Placement describes stream placement requirements for a stream
+        or leader.
       example:
         cluster: cluster
         tags:
@@ -17378,8 +17596,6 @@ components:
           items:
             type: string
           type: array
-      required:
-      - cluster
       type: object
     PlatformComponent:
       example:
@@ -17586,6 +17802,32 @@ components:
       required:
       - items
       type: object
+    PriorityGroupState:
+      description: PriorityGroupState is the state of a consumer priority group.
+      example:
+        pinned_client_id: pinned_client_id
+        pinned_ts: 2000-01-23T04:56:07.000+00:00
+        group: group
+      properties:
+        group:
+          type: string
+        pinned_client_id:
+          type: string
+        pinned_ts:
+          format: date-time
+          type: string
+      required:
+      - group
+      type: object
+    PriorityPolicy:
+      description: PriorityPolicy determines how messages are selected from priority
+        groups.
+      enum:
+      - none
+      - overflow
+      - pinned_client
+      - prioritized
+      type: string
     PromSampleValue:
       example:
         value: 1.4658129805029452
@@ -17831,10 +18073,6 @@ components:
       - rid
       - sent
       type: object
-    S2Compression:
-      enum:
-      - s2
-      type: string
     SDKubeLimit:
       properties:
         five_node:
@@ -18240,15 +18478,23 @@ components:
         system_id: system_id
         clusters:
         - leader: leader
+          system_account: true
           replicas:
           - null
           - null
+          raft_group: raft_group
           name: name
+          traffic_account: traffic_account
+          leader_since: leader_since
         - leader: leader
+          system_account: true
           replicas:
           - null
           - null
+          raft_group: raft_group
           name: name
+          traffic_account: traffic_account
+          leader_since: leader_since
         timestamp: timestamp
       properties:
         checks:
@@ -19132,6 +19378,17 @@ components:
       - cluster
       - name
       type: object
+    StreamConsumerSource:
+      description: StreamConsumerSource configures the consumer used by a sourced
+        stream.
+      properties:
+        deliver_subject:
+          type: string
+        name:
+          type: string
+      required:
+      - deliver_subject
+      type: object
     StreamExportCreateRequest:
       example:
         stream_name: stream_name
@@ -19384,6 +19641,7 @@ components:
         external: null
         opt_start_seq: 2147483647
         name: name
+        consumer: null
         filter_subject: filter_subject
         subject_transforms:
         - src: src
@@ -19391,6 +19649,8 @@ components:
         - src: src
           dest: dest
       properties:
+        consumer:
+          $ref: '#/components/schemas/StreamSource_consumer'
         external:
           $ref: '#/components/schemas/StreamSource_external'
         filter_subject:
@@ -19418,7 +19678,6 @@ components:
         lag: 2147483647
         name: name
         active: 0
-        subject_transform_dest: subject_transform_dest
         error: null
         filter_subject: filter_subject
         subject_transforms:
@@ -19441,8 +19700,6 @@ components:
           minimum: 0
           type: integer
         name:
-          type: string
-        subject_transform_dest:
           type: string
         subject_transforms:
           items:
@@ -21269,27 +21526,26 @@ components:
       type: object
     UpdatableKVBucketConfig:
       example:
-        max_age: 6
+        metadata:
+          key: metadata
         mirror:
           opt_start_time: opt_start_time
           external: null
           opt_start_seq: 2147483647
           name: name
+          consumer: null
           filter_subject: filter_subject
           subject_transforms:
           - src: src
             dest: dest
           - src: src
             dest: dest
-        republish:
-          src: src
-          headers_only: true
-          dest: dest
         sources:
         - opt_start_time: opt_start_time
           external: null
           opt_start_seq: 2147483647
           name: name
+          consumer: null
           filter_subject: filter_subject
           subject_transforms:
           - src: src
@@ -21300,17 +21556,24 @@ components:
           external: null
           opt_start_seq: 2147483647
           name: name
+          consumer: null
           filter_subject: filter_subject
           subject_transforms:
           - src: src
             dest: dest
           - src: src
             dest: dest
-        num_replicas: 5
         max_value_size: 5
         description: description
         history: 20
-        max_bytes: 1
+        max_bytes: 5
+        max_age: 1
+        republish:
+          src: src
+          headers_only: true
+          dest: dest
+        num_replicas: 2
+        limit_marker_ttl: 6
         placement:
           cluster: cluster
           tags:
@@ -21326,6 +21589,9 @@ components:
           maximum: 255
           minimum: 0
           type: integer
+        limit_marker_ttl:
+          format: int64
+          type: integer
         max_age:
           format: int64
           type: integer
@@ -21335,6 +21601,10 @@ components:
         max_value_size:
           format: int32
           type: integer
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
         mirror:
           $ref: '#/components/schemas/StreamSource'
         num_replicas:
@@ -21365,9 +21635,7 @@ components:
         compression: true
       properties:
         compression:
-          description: |-
-            Enable underlying stream compression.
-            NOTE: Compression is supported for nats-server 2.10.0+
+          description: Enable underlying stream compression.
           type: boolean
         description:
           type: string
@@ -21380,9 +21648,7 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: |-
-            Bucket-specific metadata
-            NOTE: Metadata requires nats-server v2.10.0+
+          description: Bucket-specific metadata
           type: object
         num_replicas:
           type: integer
@@ -22111,6 +22377,11 @@ components:
       oneOf:
       - type: string
       - $ref: '#/components/schemas/SigningKeyScope'
+    StreamSource_consumer:
+      allOf:
+      - $ref: '#/components/schemas/StreamConsumerSource'
+      nullable: true
+      type: object
     StreamSource_external:
       allOf:
       - $ref: '#/components/schemas/ExternalStream'

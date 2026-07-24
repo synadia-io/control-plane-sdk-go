@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Consumers** | **int64** |  | 
 **Limits** | [**JetStreamAccountLimits**](JetStreamAccountLimits.md) |  | 
 **Memory** | **uint64** |  | 
+**ReservedMemory** | **uint64** |  | 
+**ReservedStorage** | **uint64** |  | 
 **Storage** | **uint64** |  | 
 **Streams** | **int64** |  | 
 
