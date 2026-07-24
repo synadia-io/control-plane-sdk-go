@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Lag** | Pointer to **uint64** |  | [optional] 
 **Name** | **string** |  | 
 **Offline** | Pointer to **bool** |  | [optional] 
+**Peer** | **string** |  | 
 
 ## Methods
 

@@ -161,6 +161,7 @@ docs/ClusterOverviewResponse.md
 docs/ClusterOverviewSummary.md
 docs/Collection.md
 docs/ComponentVersionsAPI.md
+docs/Compression.md
 docs/ConnInfo.md
 docs/ConnectorCreateRequest.md
 docs/ConnectorsPlatformComponentConfig.md
@@ -219,6 +220,7 @@ docs/JSObjectBucketConfig.md
 docs/JSObjectBucketListResponse.md
 docs/JSObjectBucketUpdateRequest.md
 docs/JSObjectBucketViewResponse.md
+docs/JSPersistMode.md
 docs/JSPlacementOptionsResponse.md
 docs/JSPullConsumerConfigRequest.md
 docs/JSPullConsumerInfoResponse.md
@@ -227,6 +229,7 @@ docs/JSPushConsumerConfigRequest.md
 docs/JSPushConsumerInfoResponse.md
 docs/JSPushConsumerUpdateRequest.md
 docs/JSStreamConfigRequest.md
+docs/JSStreamConsumerLimits.md
 docs/JSStreamInfoListResponse.md
 docs/JSStreamInfoResponse.md
 docs/JSType.md
@@ -314,6 +317,8 @@ docs/PlatformComponentsConnectViewResponse.md
 docs/PlatformComponentsUpdateRequest.md
 docs/PlatformComponentsViewResponse.md
 docs/PolicyListResponse.md
+docs/PriorityGroupState.md
+docs/PriorityPolicy.md
 docs/PromSampleValue.md
 docs/PullConsumerAPI.md
 docs/PushConsumerAPI.md
@@ -329,7 +334,6 @@ docs/ResponseType.md
 docs/RetentionPolicy.md
 docs/RoleListResponse.md
 docs/RouteStat.md
-docs/S2Compression.md
 docs/SDKubeLimit.md
 docs/SafeComponentConfig.md
 docs/Schema.md
@@ -377,6 +381,7 @@ docs/StartRequestSchema.md
 docs/StorageType.md
 docs/StreamAPI.md
 docs/StreamAlternate.md
+docs/StreamConsumerSource.md
 docs/StreamExportAPI.md
 docs/StreamExportCreateRequest.md
 docs/StreamExportListResponse.md
@@ -603,6 +608,7 @@ model_cluster_overview.go
 model_cluster_overview_response.go
 model_cluster_overview_summary.go
 model_collection.go
+model_compression.go
 model_conn_info.go
 model_connector_create_request.go
 model_connectors_platform_component_config.go
@@ -667,6 +673,7 @@ model_js_object_bucket_config.go
 model_js_object_bucket_list_response.go
 model_js_object_bucket_update_request.go
 model_js_object_bucket_view_response.go
+model_js_persist_mode.go
 model_js_placement_options_response.go
 model_js_pull_consumer_config_request.go
 model_js_pull_consumer_info_response.go
@@ -675,6 +682,7 @@ model_js_push_consumer_config_request.go
 model_js_push_consumer_info_response.go
 model_js_push_consumer_update_request.go
 model_js_stream_config_request.go
+model_js_stream_consumer_limits.go
 model_js_stream_info_list_response.go
 model_js_stream_info_response.go
 model_js_type.go
@@ -747,6 +755,8 @@ model_platform_components_connect_view_response.go
 model_platform_components_update_request.go
 model_platform_components_view_response.go
 model_policy_list_response.go
+model_priority_group_state.go
+model_priority_policy.go
 model_prom_sample_value.go
 model_raft_meta_info.go
 model_raft_replica.go
@@ -760,7 +770,6 @@ model_response_type.go
 model_retention_policy.go
 model_role_list_response.go
 model_route_stat.go
-model_s2_compression.go
 model_safe_component_config.go
 model_schema.go
 model_schema_registry_compat_policy.go
@@ -805,6 +814,7 @@ model_slow_consumer_stats.go
 model_start_request_schema.go
 model_storage_type.go
 model_stream_alternate.go
+model_stream_consumer_source.go
 model_stream_export_create_request.go
 model_stream_export_list_response.go
 model_stream_export_shared_list_response.go

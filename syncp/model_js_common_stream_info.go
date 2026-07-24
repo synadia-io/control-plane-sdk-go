@@ -22,8 +22,11 @@ type JSCommonStreamInfo struct {
 	Alternates []StreamAlternate  `json:"alternates,omitempty"`
 	Cluster    *ClusterInfo       `json:"cluster,omitempty"`
 	Created    time.Time          `json:"created"`
+	Domain     *string            `json:"domain,omitempty"`
+	Name       string             `json:"name"`
 	Sources    []StreamSourceInfo `json:"sources,omitempty"`
 	State      StreamState        `json:"state"`
+	Ts         time.Time          `json:"ts"`
 }
 
 func (o JSCommonStreamInfo) ToMap() (map[string]interface{}, error) {
@@ -35,9 +38,14 @@ func (o JSCommonStreamInfo) ToMap() (map[string]interface{}, error) {
 		toSerialize["cluster"] = o.Cluster
 	}
 	toSerialize["created"] = o.Created
+	if o.Domain != nil {
+		toSerialize["domain"] = o.Domain
+	}
+	toSerialize["name"] = o.Name
 	if len(o.Sources) != 0 {
 		toSerialize["sources"] = o.Sources
 	}
 	toSerialize["state"] = o.State
+	toSerialize["ts"] = o.Ts
 	return toSerialize, nil
 }

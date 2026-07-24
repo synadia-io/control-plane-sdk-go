@@ -21,9 +21,10 @@ type AckPolicy string
 
 // List of AckPolicy
 const (
-	ACKPOLICY_NONE     AckPolicy = "none"
-	ACKPOLICY_ALL      AckPolicy = "all"
-	ACKPOLICY_EXPLICIT AckPolicy = "explicit"
+	ACKPOLICY_NONE         AckPolicy = "none"
+	ACKPOLICY_ALL          AckPolicy = "all"
+	ACKPOLICY_EXPLICIT     AckPolicy = "explicit"
+	ACKPOLICY_FLOW_CONTROL AckPolicy = "flow_control"
 )
 
 // All allowed values of AckPolicy enum
@@ -31,6 +32,7 @@ var AllowedAckPolicyEnumValues = []AckPolicy{
 	"none",
 	"all",
 	"explicit",
+	"flow_control",
 }
 
 func (v *AckPolicy) UnmarshalJSON(src []byte) error {

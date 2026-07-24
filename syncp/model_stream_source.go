@@ -15,16 +15,20 @@ var _ MappedNullable = &StreamSource{}
 
 // StreamSource StreamSource dictates how streams can source from other streams.
 type StreamSource struct {
-	External          *Nullable[ExternalStream] `json:"external,omitempty"`
-	FilterSubject     *string                   `json:"filter_subject,omitempty"`
-	Name              string                    `json:"name"`
-	OptStartSeq       *uint64                   `json:"opt_start_seq,omitempty"`
-	OptStartTime      *Nullable[string]         `json:"opt_start_time,omitempty"`
-	SubjectTransforms []SubjectTransformConfig  `json:"subject_transforms,omitempty"`
+	Consumer          *Nullable[StreamConsumerSource] `json:"consumer,omitempty"`
+	External          *Nullable[ExternalStream]       `json:"external,omitempty"`
+	FilterSubject     *string                         `json:"filter_subject,omitempty"`
+	Name              string                          `json:"name"`
+	OptStartSeq       *uint64                         `json:"opt_start_seq,omitempty"`
+	OptStartTime      *Nullable[string]               `json:"opt_start_time,omitempty"`
+	SubjectTransforms []SubjectTransformConfig        `json:"subject_transforms,omitempty"`
 }
 
 func (o StreamSource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Consumer != nil && !o.Consumer.IsNull() {
+		toSerialize["consumer"] = o.Consumer.Val
+	}
 	if o.External != nil && !o.External.IsNull() {
 		toSerialize["external"] = o.External.Val
 	}

@@ -30,7 +30,11 @@ type JSPullConsumerInfoResponse struct {
 	NumPending     uint64                       `json:"num_pending"`
 	NumRedelivered int64                        `json:"num_redelivered"`
 	NumWaiting     int64                        `json:"num_waiting"`
+	PauseRemaining *int64                       `json:"pause_remaining,omitempty"`
+	Paused         *bool                        `json:"paused,omitempty"`
+	PriorityGroups []PriorityGroupState         `json:"priority_groups,omitempty"`
 	StreamName     string                       `json:"stream_name"`
+	Ts             time.Time                    `json:"ts"`
 }
 
 func (o JSPullConsumerInfoResponse) ToMap() (map[string]interface{}, error) {
@@ -50,6 +54,16 @@ func (o JSPullConsumerInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["num_pending"] = o.NumPending
 	toSerialize["num_redelivered"] = o.NumRedelivered
 	toSerialize["num_waiting"] = o.NumWaiting
+	if o.PauseRemaining != nil {
+		toSerialize["pause_remaining"] = o.PauseRemaining
+	}
+	if o.Paused != nil {
+		toSerialize["paused"] = o.Paused
+	}
+	if len(o.PriorityGroups) != 0 {
+		toSerialize["priority_groups"] = o.PriorityGroups
+	}
 	toSerialize["stream_name"] = o.StreamName
+	toSerialize["ts"] = o.Ts
 	return toSerialize, nil
 }

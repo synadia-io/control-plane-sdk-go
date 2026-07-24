@@ -17,6 +17,7 @@ var _ MappedNullable = &JetStreamAPIStats{}
 type JetStreamAPIStats struct {
 	Errors   uint64  `json:"errors"`
 	Inflight *uint64 `json:"inflight,omitempty"`
+	Level    int64   `json:"level"`
 	Total    uint64  `json:"total"`
 }
 
@@ -26,6 +27,7 @@ func (o JetStreamAPIStats) ToMap() (map[string]interface{}, error) {
 	if o.Inflight != nil {
 		toSerialize["inflight"] = o.Inflight
 	}
+	toSerialize["level"] = o.Level
 	toSerialize["total"] = o.Total
 	return toSerialize, nil
 }

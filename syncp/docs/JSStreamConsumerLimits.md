@@ -1,13 +1,11 @@
-# JetStreamAPIStats
+# JSStreamConsumerLimits
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Errors** | **uint64** |  | 
-**Inflight** | Pointer to **uint64** |  | [optional] 
-**Level** | **int64** |  | 
-**Total** | **uint64** |  | 
+**InactiveThreshold** | Pointer to **int64** |  | [optional] 
+**MaxAckPending** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 

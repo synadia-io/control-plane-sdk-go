@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **NumReplicas** | **int64** |  | 
 **OptStartSeq** | Pointer to **uint64** |  | [optional] 
 **OptStartTime** | Pointer to **time.Time** |  | [optional] 
+**PauseUntil** | Pointer to **time.Time** |  | [optional] 
 **ReplayPolicy** | [**ReplayPolicy**](ReplayPolicy.md) |  | 
 **SampleFreq** | Pointer to **string** |  | [optional] 
 

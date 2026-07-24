@@ -36,6 +36,7 @@ type JSCommonConsumerConfigRequest struct {
 	NumReplicas       int64             `json:"num_replicas"`
 	OptStartSeq       *uint64           `json:"opt_start_seq,omitempty"`
 	OptStartTime      *time.Time        `json:"opt_start_time,omitempty"`
+	PauseUntil        *time.Time        `json:"pause_until,omitempty"`
 	ReplayPolicy      ReplayPolicy      `json:"replay_policy"`
 	SampleFreq        *string           `json:"sample_freq,omitempty"`
 }
@@ -86,6 +87,9 @@ func (o JSCommonConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.OptStartTime != nil {
 		toSerialize["opt_start_time"] = o.OptStartTime
+	}
+	if o.PauseUntil != nil {
+		toSerialize["pause_until"] = o.PauseUntil
 	}
 	toSerialize["replay_policy"] = o.ReplayPolicy
 	if o.SampleFreq != nil {

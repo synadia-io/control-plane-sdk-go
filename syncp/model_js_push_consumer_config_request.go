@@ -90,6 +90,9 @@ func (o JSPushConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	if o.OptStartTime != nil {
 		toSerialize["opt_start_time"] = o.OptStartTime
 	}
+	if o.PauseUntil != nil {
+		toSerialize["pause_until"] = o.PauseUntil
+	}
 	toSerialize["replay_policy"] = o.ReplayPolicy
 	if o.SampleFreq != nil {
 		toSerialize["sample_freq"] = o.SampleFreq

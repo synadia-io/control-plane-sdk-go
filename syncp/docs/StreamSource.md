@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Consumer** | Pointer to Nullable[[**StreamConsumerSource**](StreamConsumerSource.md)] |  | [optional] 
 **External** | Pointer to Nullable[[**ExternalStream**](ExternalStream.md)] |  | [optional] 
 **FilterSubject** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 

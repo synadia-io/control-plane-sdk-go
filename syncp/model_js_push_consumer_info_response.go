@@ -29,8 +29,11 @@ type JSPushConsumerInfoResponse struct {
 	NumAckPending  int64                        `json:"num_ack_pending"`
 	NumPending     uint64                       `json:"num_pending"`
 	NumRedelivered int64                        `json:"num_redelivered"`
+	PauseRemaining *int64                       `json:"pause_remaining,omitempty"`
+	Paused         *bool                        `json:"paused,omitempty"`
 	PushBound      *bool                        `json:"push_bound,omitempty"`
 	StreamName     string                       `json:"stream_name"`
+	Ts             time.Time                    `json:"ts"`
 }
 
 func (o JSPushConsumerInfoResponse) ToMap() (map[string]interface{}, error) {
@@ -49,9 +52,16 @@ func (o JSPushConsumerInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["num_ack_pending"] = o.NumAckPending
 	toSerialize["num_pending"] = o.NumPending
 	toSerialize["num_redelivered"] = o.NumRedelivered
+	if o.PauseRemaining != nil {
+		toSerialize["pause_remaining"] = o.PauseRemaining
+	}
+	if o.Paused != nil {
+		toSerialize["paused"] = o.Paused
+	}
 	if o.PushBound != nil {
 		toSerialize["push_bound"] = o.PushBound
 	}
 	toSerialize["stream_name"] = o.StreamName
+	toSerialize["ts"] = o.Ts
 	return toSerialize, nil
 }

@@ -20,7 +20,10 @@ type JSPullConsumerConfigRequest struct {
 	MaxBytes   *int64 `json:"max_bytes,omitempty"`
 	MaxExpires *int64 `json:"max_expires,omitempty"`
 	// Pull based options.
-	MaxWaiting *int64 `json:"max_waiting,omitempty"`
+	MaxWaiting      *int64          `json:"max_waiting,omitempty"`
+	PriorityGroups  []string        `json:"priority_groups,omitempty"`
+	PriorityPolicy  *PriorityPolicy `json:"priority_policy,omitempty"`
+	PriorityTimeout *int64          `json:"priority_timeout,omitempty"`
 }
 
 func (o JSPullConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
@@ -36,6 +39,15 @@ func (o JSPullConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.MaxWaiting != nil {
 		toSerialize["max_waiting"] = o.MaxWaiting
+	}
+	if len(o.PriorityGroups) != 0 {
+		toSerialize["priority_groups"] = o.PriorityGroups
+	}
+	if o.PriorityPolicy != nil {
+		toSerialize["priority_policy"] = o.PriorityPolicy
+	}
+	if o.PriorityTimeout != nil {
+		toSerialize["priority_timeout"] = o.PriorityTimeout
 	}
 	toSerialize["ack_policy"] = o.AckPolicy
 	if o.AckWait != nil {
@@ -81,6 +93,9 @@ func (o JSPullConsumerConfigRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.OptStartTime != nil {
 		toSerialize["opt_start_time"] = o.OptStartTime
+	}
+	if o.PauseUntil != nil {
+		toSerialize["pause_until"] = o.PauseUntil
 	}
 	toSerialize["replay_policy"] = o.ReplayPolicy
 	if o.SampleFreq != nil {

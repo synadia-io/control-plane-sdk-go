@@ -16,6 +16,9 @@ Name | Type | Description | Notes
 **MaxExpires** | Pointer to **int64** |  | [optional] 
 **Metadata** | Pointer to **map[string]string** |  | [optional] 
 **NumReplicas** | Pointer to **int64** |  | [optional] 
+**PriorityGroups** | Pointer to []**string** |  | [optional] 
+**PriorityPolicy** | Pointer to [**PriorityPolicy**](PriorityPolicy.md) |  | [optional] 
+**PriorityTimeout** | Pointer to **int64** |  | [optional] 
 **SampleFreq** | Pointer to **string** |  | [optional] 
 
 ## Methods

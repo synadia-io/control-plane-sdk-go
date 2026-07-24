@@ -31,6 +31,10 @@ Name | Type | Description | Notes
 **NumReplicas** | **int64** |  | 
 **OptStartSeq** | Pointer to **uint64** |  | [optional] 
 **OptStartTime** | Pointer to Nullable[**string**] |  | [optional] 
+**PauseUntil** | Pointer to **time.Time** | PauseUntil suspends the consumer until the deadline. | [optional] 
+**PriorityGroups** | Pointer to []**string** |  | [optional] 
+**PriorityPolicy** | Pointer to [**PriorityPolicy**](PriorityPolicy.md) |  | [optional] 
+**PriorityTimeout** | Pointer to **int64** |  | [optional] 
 **RateLimitBps** | Pointer to **uint64** |  | [optional] 
 **ReplayPolicy** | [**ReplayPolicy**](ReplayPolicy.md) |  | 
 **SampleFreq** | Pointer to **string** |  | [optional] 

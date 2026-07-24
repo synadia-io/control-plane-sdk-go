@@ -15,11 +15,13 @@ var _ MappedNullable = &JetStreamTier{}
 
 // JetStreamTier struct for JetStreamTier
 type JetStreamTier struct {
-	Consumers int64                  `json:"consumers"`
-	Limits    JetStreamAccountLimits `json:"limits"`
-	Memory    uint64                 `json:"memory"`
-	Storage   uint64                 `json:"storage"`
-	Streams   int64                  `json:"streams"`
+	Consumers       int64                  `json:"consumers"`
+	Limits          JetStreamAccountLimits `json:"limits"`
+	Memory          uint64                 `json:"memory"`
+	ReservedMemory  uint64                 `json:"reserved_memory"`
+	ReservedStorage uint64                 `json:"reserved_storage"`
+	Storage         uint64                 `json:"storage"`
+	Streams         int64                  `json:"streams"`
 }
 
 func (o JetStreamTier) ToMap() (map[string]interface{}, error) {
@@ -27,6 +29,8 @@ func (o JetStreamTier) ToMap() (map[string]interface{}, error) {
 	toSerialize["consumers"] = o.Consumers
 	toSerialize["limits"] = o.Limits
 	toSerialize["memory"] = o.Memory
+	toSerialize["reserved_memory"] = o.ReservedMemory
+	toSerialize["reserved_storage"] = o.ReservedStorage
 	toSerialize["storage"] = o.Storage
 	toSerialize["streams"] = o.Streams
 	return toSerialize, nil

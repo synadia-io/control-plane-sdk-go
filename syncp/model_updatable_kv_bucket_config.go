@@ -15,17 +15,19 @@ var _ MappedNullable = &UpdatableKVBucketConfig{}
 
 // UpdatableKVBucketConfig struct for UpdatableKVBucketConfig
 type UpdatableKVBucketConfig struct {
-	Compression  *bool          `json:"compression,omitempty"`
-	Description  *string        `json:"description,omitempty"`
-	History      *int64         `json:"history,omitempty"`
-	MaxAge       *int64         `json:"max_age,omitempty"`
-	MaxBytes     *int64         `json:"max_bytes,omitempty"`
-	MaxValueSize *int64         `json:"max_value_size,omitempty"`
-	Mirror       *StreamSource  `json:"mirror,omitempty"`
-	NumReplicas  *int64         `json:"num_replicas,omitempty"`
-	Placement    *Placement     `json:"placement,omitempty"`
-	Republish    *RePublish     `json:"republish,omitempty"`
-	Sources      []StreamSource `json:"sources,omitempty"`
+	Compression    *bool             `json:"compression,omitempty"`
+	Description    *string           `json:"description,omitempty"`
+	History        *int64            `json:"history,omitempty"`
+	LimitMarkerTtl *int64            `json:"limit_marker_ttl,omitempty"`
+	MaxAge         *int64            `json:"max_age,omitempty"`
+	MaxBytes       *int64            `json:"max_bytes,omitempty"`
+	MaxValueSize   *int64            `json:"max_value_size,omitempty"`
+	Metadata       map[string]string `json:"metadata,omitempty"`
+	Mirror         *StreamSource     `json:"mirror,omitempty"`
+	NumReplicas    *int64            `json:"num_replicas,omitempty"`
+	Placement      *Placement        `json:"placement,omitempty"`
+	Republish      *RePublish        `json:"republish,omitempty"`
+	Sources        []StreamSource    `json:"sources,omitempty"`
 }
 
 func (o UpdatableKVBucketConfig) ToMap() (map[string]interface{}, error) {
@@ -39,6 +41,9 @@ func (o UpdatableKVBucketConfig) ToMap() (map[string]interface{}, error) {
 	if o.History != nil {
 		toSerialize["history"] = o.History
 	}
+	if o.LimitMarkerTtl != nil {
+		toSerialize["limit_marker_ttl"] = o.LimitMarkerTtl
+	}
 	if o.MaxAge != nil {
 		toSerialize["max_age"] = o.MaxAge
 	}
@@ -47,6 +52,9 @@ func (o UpdatableKVBucketConfig) ToMap() (map[string]interface{}, error) {
 	}
 	if o.MaxValueSize != nil {
 		toSerialize["max_value_size"] = o.MaxValueSize
+	}
+	if len(o.Metadata) != 0 {
+		toSerialize["metadata"] = o.Metadata
 	}
 	if o.Mirror != nil {
 		toSerialize["mirror"] = o.Mirror

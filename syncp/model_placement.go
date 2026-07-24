@@ -13,15 +13,17 @@ package syncp
 // checks if the Placement type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Placement{}
 
-// Placement Placement describes stream placement requirements for a stream
+// Placement Placement describes stream placement requirements for a stream or leader.
 type Placement struct {
-	Cluster string   `json:"cluster"`
+	Cluster *string  `json:"cluster,omitempty"`
 	Tags    []string `json:"tags,omitempty"`
 }
 
 func (o Placement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["cluster"] = o.Cluster
+	if o.Cluster != nil {
+		toSerialize["cluster"] = o.Cluster
+	}
 	if len(o.Tags) != 0 {
 		toSerialize["tags"] = o.Tags
 	}

@@ -36,6 +36,15 @@ func (o JSConsumerInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["num_pending"] = o.NumPending
 	toSerialize["num_redelivered"] = o.NumRedelivered
 	toSerialize["num_waiting"] = o.NumWaiting
+	if o.PauseRemaining != nil {
+		toSerialize["pause_remaining"] = o.PauseRemaining
+	}
+	if o.Paused != nil {
+		toSerialize["paused"] = o.Paused
+	}
+	if len(o.PriorityGroups) != 0 {
+		toSerialize["priority_groups"] = o.PriorityGroups
+	}
 	if o.PushBound != nil {
 		toSerialize["push_bound"] = o.PushBound
 	}

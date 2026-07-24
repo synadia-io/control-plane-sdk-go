@@ -13,7 +13,7 @@ package syncp
 // checks if the JSApiError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &JSApiError{}
 
-// JSApiError struct for JSApiError
+// JSApiError JSApiError retains the existing schema name; the upstream Go type is now ApiError.
 type JSApiError struct {
 	Code        int64   `json:"code"`
 	Description *string `json:"description,omitempty"`

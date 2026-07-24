@@ -16,12 +16,12 @@ var _ MappedNullable = &ObjectStoreConfig{}
 // ObjectStoreConfig ObjectStoreConfig is the config for the object store.
 type ObjectStoreConfig struct {
 	Bucket string `json:"bucket"`
-	// Enable underlying stream compression. NOTE: Compression is supported for nats-server 2.10.0+
+	// Enable underlying stream compression.
 	Compression *bool   `json:"compression,omitempty"`
 	Description *string `json:"description,omitempty"`
 	MaxAge      *int64  `json:"max_age,omitempty"`
 	MaxBytes    *int64  `json:"max_bytes,omitempty"`
-	// Bucket-specific metadata NOTE: Metadata requires nats-server v2.10.0+
+	// Bucket-specific metadata
 	Metadata    map[string]string `json:"metadata,omitempty"`
 	NumReplicas *int64            `json:"num_replicas,omitempty"`
 	Placement   *Placement        `json:"placement,omitempty"`

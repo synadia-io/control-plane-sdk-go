@@ -27,6 +27,9 @@ type JSPullConsumerUpdateRequest struct {
 	MaxExpires        *int64            `json:"max_expires,omitempty"`
 	Metadata          map[string]string `json:"metadata,omitempty"`
 	NumReplicas       *int64            `json:"num_replicas,omitempty"`
+	PriorityGroups    []string          `json:"priority_groups,omitempty"`
+	PriorityPolicy    *PriorityPolicy   `json:"priority_policy,omitempty"`
+	PriorityTimeout   *int64            `json:"priority_timeout,omitempty"`
 	SampleFreq        *string           `json:"sample_freq,omitempty"`
 }
 
@@ -67,6 +70,15 @@ func (o JSPullConsumerUpdateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.NumReplicas != nil {
 		toSerialize["num_replicas"] = o.NumReplicas
+	}
+	if len(o.PriorityGroups) != 0 {
+		toSerialize["priority_groups"] = o.PriorityGroups
+	}
+	if o.PriorityPolicy != nil {
+		toSerialize["priority_policy"] = o.PriorityPolicy
+	}
+	if o.PriorityTimeout != nil {
+		toSerialize["priority_timeout"] = o.PriorityTimeout
 	}
 	if o.SampleFreq != nil {
 		toSerialize["sample_freq"] = o.SampleFreq

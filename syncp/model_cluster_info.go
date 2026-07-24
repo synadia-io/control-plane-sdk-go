@@ -15,9 +15,13 @@ var _ MappedNullable = &ClusterInfo{}
 
 // ClusterInfo ClusterInfo shows information about the underlying set of servers that make up the stream or consumer.
 type ClusterInfo struct {
-	Leader   *string    `json:"leader,omitempty"`
-	Name     *string    `json:"name,omitempty"`
-	Replicas []PeerInfo `json:"replicas,omitempty"`
+	Leader         *string           `json:"leader,omitempty"`
+	LeaderSince    *Nullable[string] `json:"leader_since,omitempty"`
+	Name           *string           `json:"name,omitempty"`
+	RaftGroup      *string           `json:"raft_group,omitempty"`
+	Replicas       []PeerInfo        `json:"replicas,omitempty"`
+	SystemAccount  *bool             `json:"system_account,omitempty"`
+	TrafficAccount *string           `json:"traffic_account,omitempty"`
 }
 
 func (o ClusterInfo) ToMap() (map[string]interface{}, error) {
@@ -25,11 +29,23 @@ func (o ClusterInfo) ToMap() (map[string]interface{}, error) {
 	if o.Leader != nil {
 		toSerialize["leader"] = o.Leader
 	}
+	if o.LeaderSince != nil && !o.LeaderSince.IsNull() {
+		toSerialize["leader_since"] = o.LeaderSince.Val
+	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
+	if o.RaftGroup != nil {
+		toSerialize["raft_group"] = o.RaftGroup
+	}
 	if len(o.Replicas) != 0 {
 		toSerialize["replicas"] = o.Replicas
+	}
+	if o.SystemAccount != nil {
+		toSerialize["system_account"] = o.SystemAccount
+	}
+	if o.TrafficAccount != nil {
+		toSerialize["traffic_account"] = o.TrafficAccount
 	}
 	return toSerialize, nil
 }
