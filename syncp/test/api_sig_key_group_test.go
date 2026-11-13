@@ -58,6 +58,18 @@ func Test_syncp_SigKeyGroupAPIService(t *testing.T) {
 		assert.Equal(t, 200, httpRes.StatusCode)
 	})
 
+	t.Run("Test SigKeyGroupAPIService IssueNatsUserCredential", func(t *testing.T) {
+		t.Skip("skip test") // remove to run test
+
+		var groupId string
+
+		resp, httpRes, err := apiClient.SigKeyGroupAPI.IssueNatsUserCredential(context.Background(), groupId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+	})
+
 	t.Run("Test SigKeyGroupAPIService ListAccountSKGroupUsers", func(t *testing.T) {
 		t.Skip("skip test") // remove to run test
 

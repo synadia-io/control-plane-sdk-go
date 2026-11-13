@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## DeleteNatsUser
 
-> DeleteNatsUser(ctx, userId).Execute()
+> DeleteNatsUser(ctx, userId).RevokeSharedNkey(revokeSharedNkey).Execute()
 
 Delete NATS User
 
@@ -189,10 +189,11 @@ import (
 
 func main() {
     userId := "userId_example" // string | 
+    revokeSharedNkey := true // bool |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.NatsUserAPI.DeleteNatsUser(context.Background(), userId).Execute()
+    r, err := apiClient.NatsUserAPI.DeleteNatsUser(context.Background(), userId).RevokeSharedNkey(revokeSharedNkey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `NatsUserAPI.DeleteNatsUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -216,6 +217,7 @@ Other parameters are passed through a pointer to a apiDeleteNatsUserRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **revokeSharedNkey** | **bool** |  | 
 
 ### Return type
 

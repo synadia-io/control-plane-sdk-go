@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Iss** | **string** | issuer account public nkey | 
 **Name** | **string** |  | 
 **Nats** | [**User**](User.md) |  | 
+**SigningKeyGroup** | **string** |  | 
 **Status** | [**NatsUserIssuanceStatus**](NatsUserIssuanceStatus.md) |  | 
 **Sub** | **string** | nats user public nkey | 
 

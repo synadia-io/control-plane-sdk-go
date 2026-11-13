@@ -55,7 +55,7 @@ type NatsUserAPI interface {
 	/*
 		DeleteNatsUser Delete NATS User
 
-		Deletes a NATS user from an account
+		Deletes a NATS user from an account. This revokes the user's NKey in the account, which also cuts off the other users in the account with that NKey. If there are such users, the request fails with 409 unless revoke_shared_nkey is true.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId
@@ -453,9 +453,15 @@ func (a *NatsUserAPIService) CopyNatsUserExecute(r ApiCopyNatsUserRequest) (*Nat
 }
 
 type ApiDeleteNatsUserRequest struct {
-	ctx        context.Context
-	ApiService NatsUserAPI
-	userId     string
+	ctx              context.Context
+	ApiService       NatsUserAPI
+	userId           string
+	revokeSharedNkey *bool
+}
+
+func (r ApiDeleteNatsUserRequest) RevokeSharedNkey(revokeSharedNkey bool) ApiDeleteNatsUserRequest {
+	r.revokeSharedNkey = &revokeSharedNkey
+	return r
 }
 
 func (r ApiDeleteNatsUserRequest) Execute() (*http.Response, error) {
@@ -465,7 +471,7 @@ func (r ApiDeleteNatsUserRequest) Execute() (*http.Response, error) {
 /*
 DeleteNatsUser Delete NATS User
 
-Deletes a NATS user from an account
+Deletes a NATS user from an account. This revokes the user's NKey in the account, which also cuts off the other users in the account with that NKey. If there are such users, the request fails with 409 unless revoke_shared_nkey is true.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId
@@ -499,6 +505,9 @@ func (a *NatsUserAPIService) DeleteNatsUserExecute(r ApiDeleteNatsUserRequest) (
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.revokeSharedNkey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "revoke_shared_nkey", r.revokeSharedNkey, "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
