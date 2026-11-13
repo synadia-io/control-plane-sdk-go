@@ -220,6 +220,7 @@ Class | Method | HTTP request | Description
 *SigKeyGroupAPI* | [**CopyAccountSkGroup**](docs/SigKeyGroupAPI.md#copyaccountskgroup) | **Post** /core/beta/account-sk-groups/{groupId}/copy | Copy Account SK Group
 *SigKeyGroupAPI* | [**DeleteAccountSkGroup**](docs/SigKeyGroupAPI.md#deleteaccountskgroup) | **Delete** /core/beta/account-sk-groups/{groupId} | Delete Account Signing Key Group
 *SigKeyGroupAPI* | [**GetAccountSkGroup**](docs/SigKeyGroupAPI.md#getaccountskgroup) | **Get** /core/beta/account-sk-groups/{groupId} | Get Account Signing Key Group
+*SigKeyGroupAPI* | [**IssueNatsUserCredential**](docs/SigKeyGroupAPI.md#issuenatsusercredential) | **Post** /core/beta/account-sk-groups/{groupId}/issue-credential | Issue a NATS user credential 
 *SigKeyGroupAPI* | [**ListAccountSKGroupUsers**](docs/SigKeyGroupAPI.md#listaccountskgroupusers) | **Get** /core/beta/account-sk-groups/{groupId}/nats-users | List NATS Users
 *SigKeyGroupAPI* | [**ListAccountSkGroupKeys**](docs/SigKeyGroupAPI.md#listaccountskgroupkeys) | **Get** /core/beta/account-sk-groups/{groupId}/account-sks | List Signing Keys
 *SigKeyGroupAPI* | [**RotateAccountSk**](docs/SigKeyGroupAPI.md#rotateaccountsk) | **Post** /core/beta/account-sk-groups/{groupId}/rotate-sk | Roate Active Signing Key
@@ -549,6 +550,9 @@ Class | Method | HTTP request | Description
  - [NatsUserListResponse](docs/NatsUserListResponse.md)
  - [NatsUserRevocationRequest](docs/NatsUserRevocationRequest.md)
  - [NatsUserRevocationViewResponse](docs/NatsUserRevocationViewResponse.md)
+ - [NatsUserSharedNkeyUser](docs/NatsUserSharedNkeyUser.md)
+ - [NatsUserSignReply](docs/NatsUserSignReply.md)
+ - [NatsUserSignRequest](docs/NatsUserSignRequest.md)
  - [NatsUserUpdateRequest](docs/NatsUserUpdateRequest.md)
  - [NatsUserViewResponse](docs/NatsUserViewResponse.md)
  - [Nexfile](docs/Nexfile.md)

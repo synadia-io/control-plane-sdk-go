@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CopyAccountSkGroup**](SigKeyGroupAPI.md#CopyAccountSkGroup) | **Post** /core/beta/account-sk-groups/{groupId}/copy | Copy Account SK Group
 [**DeleteAccountSkGroup**](SigKeyGroupAPI.md#DeleteAccountSkGroup) | **Delete** /core/beta/account-sk-groups/{groupId} | Delete Account Signing Key Group
 [**GetAccountSkGroup**](SigKeyGroupAPI.md#GetAccountSkGroup) | **Get** /core/beta/account-sk-groups/{groupId} | Get Account Signing Key Group
+[**IssueNatsUserCredential**](SigKeyGroupAPI.md#IssueNatsUserCredential) | **Post** /core/beta/account-sk-groups/{groupId}/issue-credential | Issue a NATS user credential 
 [**ListAccountSKGroupUsers**](SigKeyGroupAPI.md#ListAccountSKGroupUsers) | **Get** /core/beta/account-sk-groups/{groupId}/nats-users | List NATS Users
 [**ListAccountSkGroupKeys**](SigKeyGroupAPI.md#ListAccountSkGroupKeys) | **Get** /core/beta/account-sk-groups/{groupId}/account-sks | List Signing Keys
 [**RotateAccountSk**](SigKeyGroupAPI.md#RotateAccountSk) | **Post** /core/beta/account-sk-groups/{groupId}/rotate-sk | Roate Active Signing Key
@@ -217,6 +218,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## IssueNatsUserCredential
+
+> NatsUserSignReply IssueNatsUserCredential(ctx, groupId).NatsUserSignRequest(natsUserSignRequest).Execute()
+
+Issue a NATS user credential 
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/synadia-io/control-plane-sdk-go/syncp"
+)
+
+func main() {
+    groupId := "groupId_example" // string | 
+    natsUserSignRequest := *openapiclient.NewNatsUserSignRequest(int64(123), "Name_example", "Nkey_example") // NatsUserSignRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SigKeyGroupAPI.IssueNatsUserCredential(context.Background(), groupId).NatsUserSignRequest(natsUserSignRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SigKeyGroupAPI.IssueNatsUserCredential``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `IssueNatsUserCredential`: NatsUserSignReply
+    fmt.Fprintf(os.Stdout, "Response from `SigKeyGroupAPI.IssueNatsUserCredential`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**groupId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiIssueNatsUserCredentialRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **natsUserSignRequest** | [**NatsUserSignRequest**](NatsUserSignRequest.md) |  | 
+
+### Return type
+
+[**NatsUserSignReply**](NatsUserSignReply.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth), [sessionAuth](../README.md#sessionAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

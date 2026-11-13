@@ -489,7 +489,7 @@ Name | Type | Description  | Notes
 
 ## CreateOrUpdateNatsUserRevocation
 
-> NatsUserRevocationViewResponse CreateOrUpdateNatsUserRevocation(ctx, accountId, userNkeyPublic).NatsUserRevocationRequest(natsUserRevocationRequest).Execute()
+> NatsUserRevocationViewResponse CreateOrUpdateNatsUserRevocation(ctx, accountId, userNkeyPublic).RevokeSharedNkey(revokeSharedNkey).NatsUserRevocationRequest(natsUserRevocationRequest).Execute()
 
 Create or Update Revocation for a NATS User NKey
 
@@ -510,11 +510,12 @@ import (
 func main() {
     accountId := "accountId_example" // string | 
     userNkeyPublic := "userNkeyPublic_example" // string | 
+    revokeSharedNkey := true // bool |  (optional)
     natsUserRevocationRequest := *openapiclient.NewNatsUserRevocationRequest(int64(123)) // NatsUserRevocationRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountAPI.CreateOrUpdateNatsUserRevocation(context.Background(), accountId, userNkeyPublic).NatsUserRevocationRequest(natsUserRevocationRequest).Execute()
+    resp, r, err := apiClient.AccountAPI.CreateOrUpdateNatsUserRevocation(context.Background(), accountId, userNkeyPublic).RevokeSharedNkey(revokeSharedNkey).NatsUserRevocationRequest(natsUserRevocationRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.CreateOrUpdateNatsUserRevocation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -542,6 +543,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **revokeSharedNkey** | **bool** |  | 
  **natsUserRevocationRequest** | [**NatsUserRevocationRequest**](NatsUserRevocationRequest.md) |  | 
 
 ### Return type
@@ -1135,7 +1137,7 @@ Name | Type | Description  | Notes
 
 ## DeleteNatsUserRevocation
 
-> DeleteNatsUserRevocation(ctx, accountId, userNkeyPublic).Execute()
+> DeleteNatsUserRevocation(ctx, accountId, userNkeyPublic).RevokeSharedNkey(revokeSharedNkey).Execute()
 
 Delete a for a NATS User NKey
 
@@ -1156,10 +1158,11 @@ import (
 func main() {
     accountId := "accountId_example" // string | 
     userNkeyPublic := "userNkeyPublic_example" // string | 
+    revokeSharedNkey := true // bool |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AccountAPI.DeleteNatsUserRevocation(context.Background(), accountId, userNkeyPublic).Execute()
+    r, err := apiClient.AccountAPI.DeleteNatsUserRevocation(context.Background(), accountId, userNkeyPublic).RevokeSharedNkey(revokeSharedNkey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountAPI.DeleteNatsUserRevocation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1185,6 +1188,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **revokeSharedNkey** | **bool** |  | 
 
 ### Return type
 

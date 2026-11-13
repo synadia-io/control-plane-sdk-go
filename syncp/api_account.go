@@ -115,7 +115,7 @@ type AccountAPI interface {
 	/*
 		CreateOrUpdateNatsUserRevocation Create or Update Revocation for a NATS User NKey
 
-		Creates or Updates a Revocation for the given NATS User NKey. All users issued prior to 'before' will be revoked. If 'before' is set to 0, the current timestamp will be used.
+		Creates or Updates a Revocation for the given NATS User NKey. All users issued prior to 'before' will be revoked. If 'before' is set to 0, the current timestamp will be used. The revocation applies to every NATS user in the account with the NKey. If there is more than one such user, the request fails with 409 unless revoke_shared_nkey is true.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param accountId
@@ -250,7 +250,7 @@ type AccountAPI interface {
 	/*
 		DeleteNatsUserRevocation Delete a for a NATS User NKey
 
-		Deletes a Revocation for the given NATS User NKey
+		Deletes a Revocation for the given NATS User NKey. This applies to every NATS user in the account with the NKey. If there is more than one such user, the request fails with 409 unless revoke_shared_nkey is true.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param accountId
@@ -1403,7 +1403,13 @@ type ApiCreateOrUpdateNatsUserRevocationRequest struct {
 	ApiService                AccountAPI
 	accountId                 string
 	userNkeyPublic            string
+	revokeSharedNkey          *bool
 	natsUserRevocationRequest *NatsUserRevocationRequest
+}
+
+func (r ApiCreateOrUpdateNatsUserRevocationRequest) RevokeSharedNkey(revokeSharedNkey bool) ApiCreateOrUpdateNatsUserRevocationRequest {
+	r.revokeSharedNkey = &revokeSharedNkey
+	return r
 }
 
 func (r ApiCreateOrUpdateNatsUserRevocationRequest) NatsUserRevocationRequest(natsUserRevocationRequest NatsUserRevocationRequest) ApiCreateOrUpdateNatsUserRevocationRequest {
@@ -1418,7 +1424,7 @@ func (r ApiCreateOrUpdateNatsUserRevocationRequest) Execute() (*NatsUserRevocati
 /*
 CreateOrUpdateNatsUserRevocation Create or Update Revocation for a NATS User NKey
 
-Creates or Updates a Revocation for the given NATS User NKey. All users issued prior to 'before' will be revoked. If 'before' is set to 0, the current timestamp will be used.
+Creates or Updates a Revocation for the given NATS User NKey. All users issued prior to 'before' will be revoked. If 'before' is set to 0, the current timestamp will be used. The revocation applies to every NATS user in the account with the NKey. If there is more than one such user, the request fails with 409 unless revoke_shared_nkey is true.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param accountId
@@ -1458,6 +1464,9 @@ func (a *AccountAPIService) CreateOrUpdateNatsUserRevocationExecute(r ApiCreateO
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.revokeSharedNkey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "revoke_shared_nkey", r.revokeSharedNkey, "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -2391,10 +2400,16 @@ func (a *AccountAPIService) DeleteAlertRuleExecute(r ApiDeleteAlertRuleRequest) 
 }
 
 type ApiDeleteNatsUserRevocationRequest struct {
-	ctx            context.Context
-	ApiService     AccountAPI
-	accountId      string
-	userNkeyPublic string
+	ctx              context.Context
+	ApiService       AccountAPI
+	accountId        string
+	userNkeyPublic   string
+	revokeSharedNkey *bool
+}
+
+func (r ApiDeleteNatsUserRevocationRequest) RevokeSharedNkey(revokeSharedNkey bool) ApiDeleteNatsUserRevocationRequest {
+	r.revokeSharedNkey = &revokeSharedNkey
+	return r
 }
 
 func (r ApiDeleteNatsUserRevocationRequest) Execute() (*http.Response, error) {
@@ -2404,7 +2419,7 @@ func (r ApiDeleteNatsUserRevocationRequest) Execute() (*http.Response, error) {
 /*
 DeleteNatsUserRevocation Delete a for a NATS User NKey
 
-Deletes a Revocation for the given NATS User NKey
+Deletes a Revocation for the given NATS User NKey. This applies to every NATS user in the account with the NKey. If there is more than one such user, the request fails with 409 unless revoke_shared_nkey is true.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param accountId
@@ -2441,6 +2456,9 @@ func (a *AccountAPIService) DeleteNatsUserRevocationExecute(r ApiDeleteNatsUserR
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.revokeSharedNkey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "revoke_shared_nkey", r.revokeSharedNkey, "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

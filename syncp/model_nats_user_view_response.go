@@ -19,19 +19,24 @@ var _ MappedNullable = &NatsUserViewResponse{}
 
 // NatsUserViewResponse struct for NatsUserViewResponse
 type NatsUserViewResponse struct {
-	Account          AccountInfo         `json:"account"`
-	Claims           UserClaims          `json:"claims"`
-	Created          time.Time           `json:"created"`
-	Id               string              `json:"id"`
-	Jwt              string              `json:"jwt"`
-	JwtExpiresAtMax  int64               `json:"jwt_expires_at_max"`
-	JwtExpiresInSecs int64               `json:"jwt_expires_in_secs"`
-	JwtSettings      NatsUserJwtSettings `json:"jwt_settings"`
-	Name             string              `json:"name"`
-	SkGroupId        *string             `json:"sk_group_id,omitempty"`
-	System           SystemInfo          `json:"system"`
-	Team             TeamInfo            `json:"team"`
-	UserPublicKey    string              `json:"user_public_key"`
+	Account          AccountInfo `json:"account"`
+	Claims           UserClaims  `json:"claims"`
+	Created          time.Time   `json:"created"`
+	Id               string      `json:"id"`
+	Jwt              string      `json:"jwt"`
+	JwtExpiresAtMax  int64       `json:"jwt_expires_at_max"`
+	JwtExpiresInSecs int64       `json:"jwt_expires_in_secs"`
+	// True when an account revocation covers the last JWT that the server signed for the user.
+	JwtRevoked  *bool               `json:"jwt_revoked,omitempty"`
+	JwtSettings NatsUserJwtSettings `json:"jwt_settings"`
+	MissingSeed bool                `json:"missing_seed"`
+	Name        string              `json:"name"`
+	// Other users in the account with the same NKey.
+	SharedNkeyUsers []NatsUserSharedNkeyUser `json:"shared_nkey_users,omitempty"`
+	SkGroupId       *string                  `json:"sk_group_id,omitempty"`
+	System          SystemInfo               `json:"system"`
+	Team            TeamInfo                 `json:"team"`
+	UserPublicKey   string                   `json:"user_public_key"`
 }
 
 func (o NatsUserViewResponse) ToMap() (map[string]interface{}, error) {
@@ -43,8 +48,15 @@ func (o NatsUserViewResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["jwt"] = o.Jwt
 	toSerialize["jwt_expires_at_max"] = o.JwtExpiresAtMax
 	toSerialize["jwt_expires_in_secs"] = o.JwtExpiresInSecs
+	if o.JwtRevoked != nil {
+		toSerialize["jwt_revoked"] = o.JwtRevoked
+	}
 	toSerialize["jwt_settings"] = o.JwtSettings
+	toSerialize["missing_seed"] = o.MissingSeed
 	toSerialize["name"] = o.Name
+	if len(o.SharedNkeyUsers) != 0 {
+		toSerialize["shared_nkey_users"] = o.SharedNkeyUsers
+	}
 	if o.SkGroupId != nil {
 		toSerialize["sk_group_id"] = o.SkGroupId
 	}

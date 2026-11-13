@@ -17,6 +17,7 @@ var _ MappedNullable = &SystemUserImportRequest{}
 type SystemUserImportRequest struct {
 	Credential *string `json:"credential,omitempty"`
 	Jwt        *string `json:"jwt,omitempty"`
+	Nkey       *string `json:"nkey,omitempty"`
 	Seed       *string `json:"seed,omitempty"`
 }
 
@@ -27,6 +28,9 @@ func (o SystemUserImportRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Jwt != nil {
 		toSerialize["jwt"] = o.Jwt
+	}
+	if o.Nkey != nil {
+		toSerialize["nkey"] = o.Nkey
 	}
 	if o.Seed != nil {
 		toSerialize["seed"] = o.Seed
