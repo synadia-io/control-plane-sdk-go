@@ -241,6 +241,44 @@ paths:
       - sig-key-group
       x-doc-tags:
       - Signing Key Groups
+  /core/beta/account-sk-groups/{groupId}/issue-credential:
+    post:
+      description: Generates a JWT for the provided NKEY and signs with the current
+        group's key
+      operationId: issueNatsUserCredential
+      parameters:
+      - explode: false
+        in: path
+        name: groupId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NatsUserSignRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NatsUserSignReply'
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      summary: 'Issue a NATS user credential '
+      tags:
+      - sig-key-group
+      x-doc-tags:
+      - NATS Users
   /core/beta/account-sk-groups/{groupId}/nats-users:
     get:
       description: Returns a list of NATS users for the given signing key group
@@ -1452,7 +1490,9 @@ paths:
       - Accounts
   /core/beta/accounts/{accountId}/nats-user-revocations/{userNkeyPublic}:
     delete:
-      description: Deletes a Revocation for the given NATS User NKey
+      description: "Deletes a Revocation for the given NATS User NKey. This applies\
+        \ to every NATS user in the account with the NKey. If there is more than one\
+        \ such user, the request fails with 409 unless revoke_shared_nkey is true."
       operationId: deleteNatsUserRevocation
       parameters:
       - explode: false
@@ -1469,6 +1509,13 @@ paths:
         schema:
           type: string
         style: simple
+      - explode: true
+        in: query
+        name: revoke_shared_nkey
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "204":
           description: No Content
@@ -1526,7 +1573,9 @@ paths:
     put:
       description: "Creates or Updates a Revocation for the given NATS User NKey.\
         \ All users issued prior to 'before' will be revoked. If 'before' is set to\
-        \ 0, the current timestamp will be used."
+        \ 0, the current timestamp will be used. The revocation applies to every NATS\
+        \ user in the account with the NKey. If there is more than one such user,\
+        \ the request fails with 409 unless revoke_shared_nkey is true."
       operationId: createOrUpdateNatsUserRevocation
       parameters:
       - explode: false
@@ -1543,6 +1592,13 @@ paths:
         schema:
           type: string
         style: simple
+      - explode: true
+        in: query
+        name: revoke_shared_nkey
+        required: false
+        schema:
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -4058,7 +4114,10 @@ paths:
       - NATS User Issuances
   /core/beta/nats-users/{userId}:
     delete:
-      description: Deletes a NATS user from an account
+      description: "Deletes a NATS user from an account. This revokes the user's NKey\
+        \ in the account, which also cuts off the other users in the account with\
+        \ that NKey. If there are such users, the request fails with 409 unless revoke_shared_nkey\
+        \ is true."
       operationId: deleteNatsUser
       parameters:
       - explode: false
@@ -4068,6 +4127,13 @@ paths:
         schema:
           type: string
         style: simple
+      - explode: true
+        in: query
+        name: revoke_shared_nkey
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "204":
           description: No Content
@@ -16101,6 +16167,7 @@ components:
         created: 2000-01-23T04:56:07.000+00:00
         iss: iss
         name: name
+        signing_key_group: signing_key_group
         id: id
         iat_min: 5
         status: null
@@ -16130,6 +16197,8 @@ components:
           type: string
         name:
           type: string
+        signing_key_group:
+          type: string
         status:
           $ref: '#/components/schemas/NatsUserIssuanceStatus'
         sub:
@@ -16143,6 +16212,7 @@ components:
       - id
       - iss
       - name
+      - signing_key_group
       - status
       - sub
       type: object
@@ -16175,17 +16245,18 @@ components:
       type: string
     NatsUserIssuanceViewResponse:
       example:
-        exp_max: 1
         nats:
           issuer_account: issuer_account
         sub: sub
         iat_max: 5
         created: 2000-01-23T04:56:07.000+00:00
-        checksum: checksum
         iss: iss
+        signing_key_group: signing_key_group
+        iat_min: 5
+        exp_max: 1
+        checksum: checksum
         name: name
         id: id
-        iat_min: 5
         events:
         - app_user:
             identifier: identifier
@@ -16244,6 +16315,8 @@ components:
           type: string
         nats:
           $ref: '#/components/schemas/User'
+        signing_key_group:
+          type: string
         status:
           $ref: '#/components/schemas/NatsUserIssuanceStatus'
         sub:
@@ -16259,6 +16332,7 @@ components:
       - iss
       - name
       - nats
+      - signing_key_group
       - status
       - sub
       type: object
@@ -16272,6 +16346,7 @@ components:
           created: 2000-01-23T04:56:07.000+00:00
           iss: iss
           name: name
+          signing_key_group: signing_key_group
           id: id
           iat_min: 5
           status: null
@@ -16282,6 +16357,7 @@ components:
           created: 2000-01-23T04:56:07.000+00:00
           iss: iss
           name: name
+          signing_key_group: signing_key_group
           id: id
           iat_min: 5
           status: null
@@ -16409,6 +16485,7 @@ components:
         items:
         - sk_group_id: sk_group_id
           user_public_key: user_public_key
+          missing_seed: true
           created: 2000-01-23T04:56:07.000+00:00
           jwt: jwt
           team:
@@ -16431,6 +16508,15 @@ components:
             id: id
             state: null
             jetstream_domain: jetstream_domain
+          shared_nkey_users:
+          - sk_group_id: sk_group_id
+            name: name
+            sk_group_name: sk_group_name
+            id: id
+          - sk_group_id: sk_group_id
+            name: name
+            sk_group_name: sk_group_name
+            id: id
           jwt_settings:
             bearer_token: true
             data: 2147483647
@@ -16448,6 +16534,7 @@ components:
           name: name
           jwt_expires_in_secs: 1
           id: id
+          jwt_revoked: true
           account:
             user_jwt: user_jwt
             auth_type: null
@@ -16461,6 +16548,7 @@ components:
             is_system_account: true
         - sk_group_id: sk_group_id
           user_public_key: user_public_key
+          missing_seed: true
           created: 2000-01-23T04:56:07.000+00:00
           jwt: jwt
           team:
@@ -16483,6 +16571,15 @@ components:
             id: id
             state: null
             jetstream_domain: jetstream_domain
+          shared_nkey_users:
+          - sk_group_id: sk_group_id
+            name: name
+            sk_group_name: sk_group_name
+            id: id
+          - sk_group_id: sk_group_id
+            name: name
+            sk_group_name: sk_group_name
+            id: id
           jwt_settings:
             bearer_token: true
             data: 2147483647
@@ -16500,6 +16597,7 @@ components:
           name: name
           jwt_expires_in_secs: 1
           id: id
+          jwt_revoked: true
           account:
             user_jwt: user_jwt
             auth_type: null
@@ -16555,6 +16653,59 @@ components:
       - created
       - user_nkey_public
       type: object
+    NatsUserSharedNkeyUser:
+      example:
+        sk_group_id: sk_group_id
+        name: name
+        sk_group_name: sk_group_name
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sk_group_id:
+          type: string
+        sk_group_name:
+          type: string
+      required:
+      - id
+      - name
+      type: object
+    NatsUserSignReply:
+      example:
+        jwt: jwt
+      properties:
+        jwt:
+          type: string
+      required:
+      - jwt
+      type: object
+    NatsUserSignRequest:
+      example:
+        nkey: nkey
+        name: name
+        jwt_expires_in_secs: 0
+        tags:
+        - tags
+        - tags
+      properties:
+        jwt_expires_in_secs:
+          format: int64
+          type: integer
+        name:
+          type: string
+        nkey:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+      required:
+      - jwt_expires_in_secs
+      - name
+      - nkey
+      type: object
     NatsUserUpdateRequest:
       example:
         jwt_settings:
@@ -16595,6 +16746,7 @@ components:
       example:
         sk_group_id: sk_group_id
         user_public_key: user_public_key
+        missing_seed: true
         created: 2000-01-23T04:56:07.000+00:00
         jwt: jwt
         team:
@@ -16617,6 +16769,15 @@ components:
           id: id
           state: null
           jetstream_domain: jetstream_domain
+        shared_nkey_users:
+        - sk_group_id: sk_group_id
+          name: name
+          sk_group_name: sk_group_name
+          id: id
+        - sk_group_id: sk_group_id
+          name: name
+          sk_group_name: sk_group_name
+          id: id
         jwt_settings:
           bearer_token: true
           data: 2147483647
@@ -16634,6 +16795,7 @@ components:
         name: name
         jwt_expires_in_secs: 1
         id: id
+        jwt_revoked: true
         account:
           user_jwt: user_jwt
           auth_type: null
@@ -16663,10 +16825,21 @@ components:
         jwt_expires_in_secs:
           format: int64
           type: integer
+        jwt_revoked:
+          description: True when an account revocation covers the last JWT that the
+            server signed for the user.
+          type: boolean
         jwt_settings:
           $ref: '#/components/schemas/NatsUserJwtSettings'
+        missing_seed:
+          type: boolean
         name:
           type: string
+        shared_nkey_users:
+          description: Other users in the account with the same NKey.
+          items:
+            $ref: '#/components/schemas/NatsUserSharedNkeyUser'
+          type: array
         sk_group_id:
           type: string
         system:
@@ -16684,6 +16857,7 @@ components:
       - jwt_expires_at_max
       - jwt_expires_in_secs
       - jwt_settings
+      - missing_seed
       - name
       - system
       - team
@@ -20994,6 +21168,7 @@ components:
       type: object
     SystemUserImportRequest:
       example:
+        nkey: nkey
         credential: credential
         seed: seed
         jwt: jwt
@@ -21001,6 +21176,8 @@ components:
         credential:
           type: string
         jwt:
+          type: string
+        nkey:
           type: string
         seed:
           type: string

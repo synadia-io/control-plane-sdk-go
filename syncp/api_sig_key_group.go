@@ -66,6 +66,21 @@ type SigKeyGroupAPI interface {
 	GetAccountSkGroupExecute(r ApiGetAccountSkGroupRequest) (*SigningKeyGroupViewResponse, *http.Response, error)
 
 	/*
+		IssueNatsUserCredential Issue a NATS user credential
+
+		Generates a JWT for the provided NKEY and signs with the current group's key
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId
+		@return ApiIssueNatsUserCredentialRequest
+	*/
+	IssueNatsUserCredential(ctx context.Context, groupId string) ApiIssueNatsUserCredentialRequest
+
+	// IssueNatsUserCredentialExecute executes the request
+	//  @return NatsUserSignReply
+	IssueNatsUserCredentialExecute(r ApiIssueNatsUserCredentialRequest) (*NatsUserSignReply, *http.Response, error)
+
+	/*
 		ListAccountSKGroupUsers List NATS Users
 
 		Returns a list of NATS users for the given signing key group
@@ -403,6 +418,120 @@ func (a *SigKeyGroupAPIService) GetAccountSkGroupExecute(r ApiGetAccountSkGroupR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			code:  localVarHTTPResponse.StatusCode,
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiIssueNatsUserCredentialRequest struct {
+	ctx                 context.Context
+	ApiService          SigKeyGroupAPI
+	groupId             string
+	natsUserSignRequest *NatsUserSignRequest
+}
+
+func (r ApiIssueNatsUserCredentialRequest) NatsUserSignRequest(natsUserSignRequest NatsUserSignRequest) ApiIssueNatsUserCredentialRequest {
+	r.natsUserSignRequest = &natsUserSignRequest
+	return r
+}
+
+func (r ApiIssueNatsUserCredentialRequest) Execute() (*NatsUserSignReply, *http.Response, error) {
+	return r.ApiService.IssueNatsUserCredentialExecute(r)
+}
+
+/*
+IssueNatsUserCredential Issue a NATS user credential
+
+Generates a JWT for the provided NKEY and signs with the current group's key
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId
+	@return ApiIssueNatsUserCredentialRequest
+*/
+func (a *SigKeyGroupAPIService) IssueNatsUserCredential(ctx context.Context, groupId string) ApiIssueNatsUserCredentialRequest {
+	return ApiIssueNatsUserCredentialRequest{
+		ApiService: a,
+		ctx:        ctx,
+		groupId:    groupId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return NatsUserSignReply
+func (a *SigKeyGroupAPIService) IssueNatsUserCredentialExecute(r ApiIssueNatsUserCredentialRequest) (*NatsUserSignReply, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NatsUserSignReply
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SigKeyGroupAPIService.IssueNatsUserCredential")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/core/beta/account-sk-groups/{groupId}/issue-credential"
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.natsUserSignRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -30,9 +30,10 @@ type NatsUserIssuanceInfo struct {
 	IatMin int64  `json:"iat_min"`
 	Id     string `json:"id"`
 	// issuer account public nkey
-	Iss    string                 `json:"iss"`
-	Name   string                 `json:"name"`
-	Status NatsUserIssuanceStatus `json:"status"`
+	Iss             string                 `json:"iss"`
+	Name            string                 `json:"name"`
+	SigningKeyGroup string                 `json:"signing_key_group"`
+	Status          NatsUserIssuanceStatus `json:"status"`
 	// nats user public nkey
 	Sub string `json:"sub"`
 }
@@ -49,6 +50,7 @@ func (o NatsUserIssuanceInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["iss"] = o.Iss
 	toSerialize["name"] = o.Name
+	toSerialize["signing_key_group"] = o.SigningKeyGroup
 	toSerialize["status"] = o.Status
 	toSerialize["sub"] = o.Sub
 	return toSerialize, nil

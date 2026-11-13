@@ -282,6 +282,9 @@ docs/NatsUserJwtSettingsPatch.md
 docs/NatsUserListResponse.md
 docs/NatsUserRevocationRequest.md
 docs/NatsUserRevocationViewResponse.md
+docs/NatsUserSharedNkeyUser.md
+docs/NatsUserSignReply.md
+docs/NatsUserSignRequest.md
 docs/NatsUserUpdateRequest.md
 docs/NatsUserViewResponse.md
 docs/Nexfile.md
@@ -724,6 +727,9 @@ model_nats_user_jwt_settings_patch.go
 model_nats_user_list_response.go
 model_nats_user_revocation_request.go
 model_nats_user_revocation_view_response.go
+model_nats_user_shared_nkey_user.go
+model_nats_user_sign_reply.go
+model_nats_user_sign_request.go
 model_nats_user_update_request.go
 model_nats_user_view_response.go
 model_nexfile.go
